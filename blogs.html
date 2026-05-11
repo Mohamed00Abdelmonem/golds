@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Blogs — GoldTech</title>
+  <script>tailwind.config = { theme: { extend: { colors: { gold: { DEFAULT: '#f5b041' } }, fontFamily: { display:['Poppins','Inter','system-ui','sans-serif'] } } } }</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="antialiased">
+  <div id="app-root"></div>
+  <script src="assets/js/components.js"></script>
+  <script>
+    Components.renderShell({title:'Blogs'});
+    Components.init();
+
+    const blogs = [
+      {
+        id: 1,
+        title: '7 Smart Habits That Make Your Workouts Actually Stick',
+        category: 'Training',
+        author: 'Coach Mia',
+        date: 'May 2026',
+        readTime: '6 min read',
+        image: 'https://images.unsplash.com/photo-1517836357463-d25ddfcbf042?q=80&w=1200&auto=format&fit=crop',
+        excerpt: 'Consistency beats intensity. Use these practical gym habits to improve momentum, recovery, and long-term progress.'
+      },
+      {
+        id: 2,
+        title: 'The Best Nutrition Timing for Muscle Gain (Without Overthinking)',
+        category: 'Nutrition',
+        author: 'Dr. Elina Park',
+        date: 'May 2026',
+        readTime: '8 min read',
+        image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=1200&auto=format&fit=crop',
+        excerpt: 'A clear plan for protein, carbs, and hydration around your training window so your body can recover and build faster.'
+      },
+      {
+        id: 3,
+        title: 'How to Avoid Plateaus: Progressive Overload Made Simple',
+        category: 'Strength',
+        author: 'James Carter',
+        date: 'May 2026',
+        readTime: '5 min read',
+        image: 'https://images.unsplash.com/photo-1534258936925-c58bed479fcb?q=80&w=1200&auto=format&fit=crop',
+        excerpt: 'If your numbers stopped moving, this guide shows exactly which variables to adjust each week to restart progress.'
+      },
+      {
+        id: 4,
+        title: 'Cardio for Lifters: Keep Your Heart Strong Without Losing Gains',
+        category: 'Conditioning',
+        author: 'Nora Hayes',
+        date: 'Apr 2026',
+        readTime: '7 min read',
+        image: 'https://images.unsplash.com/photo-1549060279-7e168fcee0c2?q=80&w=1200&auto=format&fit=crop',
+        excerpt: 'A balanced cardio approach for gym members who want better endurance while preserving strength and muscle.'
+      }
+    ];
+
+    document.getElementById('page-content').innerHTML = `
+      <section class="space-y-6">
+        <div class="glass rounded-3xl p-7 md:p-9">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <div class="text-gold text-xs font-bold uppercase tracking-wider">Knowledge Hub</div>
+              <h1 class="mt-2 text-3xl md:text-4xl font-black">GoldTech Blogs</h1>
+              <p class="mt-2 text-stone-300">Training science, nutrition tips, recovery methods, and practical gym guides.</p>
+            </div>
+            <a href="community.html" class="bg-white/5 border border-white/10 text-white px-4 py-2 rounded-xl hover:bg-white/10 fast-trans">Back to Community</a>
+          </div>
+          <div class="mt-5 flex flex-wrap gap-2 text-xs">
+            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-stone-300">Training</span>
+            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-stone-300">Nutrition</span>
+            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-stone-300">Strength</span>
+            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-stone-300">Recovery</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+          ${blogs.map((blog) => `
+            <article class="glass rounded-2xl overflow-hidden hover-lift fast-trans">
+              <img src="${blog.image}" alt="${blog.title}" class="w-full h-52 object-cover" />
+              <div class="p-5">
+                <div class="flex items-center justify-between gap-3 mb-3">
+                  <span class="text-[11px] uppercase tracking-wider text-gold font-bold">${blog.category}</span>
+                  <span class="text-[11px] text-stone-400">${blog.readTime}</span>
+                </div>
+                <h2 class="text-lg font-black leading-snug">${blog.title}</h2>
+                <p class="mt-2 text-sm text-stone-300">${blog.excerpt}</p>
+                <div class="mt-4 text-xs text-stone-400">By ${blog.author} • ${blog.date}</div>
+                <div class="mt-4">
+                  <a href="blog-details.html?id=${blog.id}" class="inline-flex items-center gap-2 text-sm font-semibold text-gold hover:text-amber-300 fast-trans">
+                    Read article
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M13 5l7 7-7 7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </a>
+                </div>
+              </div>
+            </article>
+          `).join('')}
+        </div>
+      </section>
+    `;
+  </script>
+</body>
+</html>
