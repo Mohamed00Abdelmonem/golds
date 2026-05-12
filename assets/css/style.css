@@ -67,13 +67,9 @@ body[data-theme="light"] .border-white\/8,
 body[data-theme="light"] .border-white\/10{border-color:rgba(15,23,42,0.08) !important}
 body[data-theme="light"] .shell-overlay{background:radial-gradient(circle at top right,rgba(245,176,65,0.14),transparent 35%),radial-gradient(circle at bottom left,rgba(15,23,42,0.04),transparent 40%)}
 body[data-theme="light"] .nav-link-active{background:rgba(245,176,65,0.14);border-color:rgba(245,176,65,0.28);color:#0f172a;box-shadow:0 12px 30px rgba(15,23,42,0.08)}
-body[data-theme="light"] #mobileNav{background:rgba(255,255,255,0.78)}
 body[data-theme="light"] .sidebar-brand-icon{background:linear-gradient(180deg,rgba(255,255,255,0.9),rgba(229,231,235,0.9))}
 body[data-theme="light"] .sidebar-toggle svg{color:#0f172a}
 body[data-theme="light"] .focus-visible-ring:focus-visible{box-shadow:0 0 0 3px rgba(245,176,65,0.28)}
-
-/* mobile safe nav */
-#mobileNav{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 
 /* Achievement popup */
 #achieves .glass{min-width:220px}
@@ -84,4 +80,293 @@ body[data-theme="light"] .focus-visible-ring:focus-visible{box-shadow:0 0 0 3px 
 
 @media (prefers-reduced-motion: reduce){
   body,.fast-trans,.reveal{transition:none !important;animation:none !important}
+}
+
+/* ========================================
+   MOBILE RESPONSIVE OPTIMIZATIONS
+   ======================================== */
+
+/* Mobile-first: Base spacing adjustments for small screens */
+@media (max-width: 640px) {
+  /* Ensure viewport and safe areas */
+  html {
+    font-size: 16px;
+  }
+  
+  body {
+    font-size: 14px;
+  }
+  
+  /* Improve main content padding on very small screens */
+  main {
+    padding: 0.75rem !important;
+  }
+  
+  /* Adjust container max-widths for mobile */
+  .max-w-7xl {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  .px-5 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .px-8 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Touch-friendly minimum button/link sizes (44x44px Apple guideline) */
+  button, a, input[type="button"], input[type="submit"], [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Improve form inputs on mobile */
+  input, textarea, select {
+    min-height: 44px;
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 0.75rem;
+  }
+  
+  /* Responsive heading sizes */
+  h1 {
+    font-size: 1.75rem !important;
+    line-height: 1.1;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+    line-height: 1.15;
+  }
+  
+  h3 {
+    font-size: 1.125rem !important;
+  }
+  
+  /* Prevent text overflow on mobile */
+  p, span, div {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* Images: responsive and prevent overflow */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* Improve grid layouts on mobile - stack instead of grid */
+  .grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .grid.grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .grid.grid-cols-3 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .grid.grid-cols-4 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .grid.grid-cols-12 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Gap adjustments for mobile */
+  .gap-6 {
+    gap: 1rem !important;
+  }
+  
+  .gap-8 {
+    gap: 1.25rem !important;
+  }
+  
+  .gap-10 {
+    gap: 1.5rem !important;
+  }
+  
+  /* Padding adjustments */
+  .p-8 {
+    padding: 1.5rem !important;
+  }
+  
+  .p-6 {
+    padding: 1rem !important;
+  }
+  
+  /* Margin adjustments */
+  .mb-6 {
+    margin-bottom: 1rem !important;
+  }
+  
+  .mt-6 {
+    margin-top: 1rem !important;
+  }
+  
+  .mt-8 {
+    margin-top: 1.25rem !important;
+  }
+  
+  /* Sidebar hidden on mobile (already in place) */
+  .app-sidebar {
+    display: none;
+  }
+  
+  .flex-col.md\\:flex-row {
+    flex-direction: column;
+  }
+  
+  /* Bottom mobile nav improvements */
+    bottom: 1rem;
+  }
+  
+  /* Hero section scaling */
+  .hero-grid {
+    min-height: calc(100vh - 8rem) !important;
+  }
+  
+  /* Section padding for mobile */
+  section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  
+  /* Flex wrapping on mobile */
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
+  
+  .flex.items-center.gap-2 {
+    flex-wrap: wrap;
+  }
+  
+  /* Text alignment and overflow */
+  .text-center {
+    word-break: break-word;
+  }
+  
+  /* Scrollable elements get proper handling */
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Better spacing for glass components on mobile */
+  .glass {
+    padding: 1rem;
+  }
+  
+  .glass.p-4 {
+    padding: 1rem;
+  }
+  
+  .glass.p-5 {
+    padding: 1rem;
+  }
+  
+  /* Link/button text stays readable */
+  a, button {
+    text-decoration: none;
+    line-height: 1.4;
+  }
+}
+
+/* Tablet optimization (641px to 768px) */
+@media (min-width: 641px) and (max-width: 768px) {
+  h1 {
+    font-size: 2rem !important;
+  }
+  
+  h2 {
+    font-size: 1.75rem !important;
+  }
+  
+  main {
+    padding: 1.5rem !important;
+  }
+}
+
+/* Improved mobile header */
+@media (max-width: 768px) {
+  header {
+    padding: 1rem 0.75rem !important;
+    flex-wrap: wrap;
+  }
+  
+  header nav {
+    display: none;
+  }
+  
+  header .hidden.sm\\:inline-flex {
+    display: none;
+  }
+  
+  /* Mobile button improvements */
+  .bg-gold {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Landscape mobile optimization */
+@media (max-height: 500px) and (orientation: landscape) {
+  main {
+    padding: 0.5rem !important;
+  }
+  
+  section {
+    padding: 1.5rem 0;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
+  
+  h2 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Better touch target spacing */
+@media (hover: none) {
+  /* Mobile devices without hover */
+  button, a, [role="button"] {
+    padding: 0.75rem 1rem;
+    min-height: 44px;
+  }
+  
+  .hover-lift:active {
+    transform: scale(0.98);
+  }
+  
+  .fast-trans {
+    transition: all 100ms ease;
+  }
+}
+
+/* Improved focus states for mobile */
+@media (max-width: 768px) {
+  .focus-visible-ring:focus {
+    box-shadow: 0 0 0 3px rgba(245,176,65,0.28) !important;
+  }
+}
+
+/* Large screen optimizations (1024px+) */
+@media (min-width: 1024px) {
+  .grid.grid-cols-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+  }
+  
+  .lg\\:col-span-6 {
+    grid-column: span 6;
+  }
 }
