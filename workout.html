@@ -12,6 +12,7 @@
     </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="assets/js/i18n.js" defer></script>
 
   <style>
     :root{--gold:#f5b041; --safe-pad: clamp(0.75rem, 4vw, 2rem); --card-pad: clamp(0.75rem, 3vw, 1.5rem); --gap: clamp(0.5rem, 2vw, 1rem)}
@@ -35,6 +36,11 @@
     .tutorial-video-frame{height:360px}
     .complete-checkbox:checked{background-color:#f5b041 !important; border-color:#f5b041 !important}
     .complete-checkbox:checked::after{background-color:#070708 !important}
+    
+    /* Tab styling */
+    .tab-btn{background:transparent; color:#a1a1a1; border:1px solid transparent; transition:all 180ms cubic-bezier(0.2,0.9,0.2,1)}
+    .tab-btn:hover{color:#d4d4d4}
+    .tab-btn.active-tab{background:rgba(255,255,255,0.1); color:#f5b041; border:1px solid rgba(245,176,65,0.2); box-shadow:0 0 12px rgba(245,176,65,0.15)}
     
     /* Prevent horizontal overflow */
     main, section, article, div { max-width:100vw; overflow-x:hidden }
@@ -130,14 +136,16 @@
     <header class="sticky top-0 z-30 glass rounded-0 md:rounded-2xl mb-0 md:mb-6 flex items-center justify-between fast-trans overflow-x-hidden">
       <div class="flex items-center gap-2 md:gap-4 flex-1">
         <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-white/6 transition-colors" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+        <button id="languageToggle" class="md:hidden p-2 rounded-lg hover:bg-white/6 transition-colors" aria-label="Toggle language"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 8h14M5 8a9 9 0 0 0 0 8M5 8a9 9 0 0 1 14 0M19 16h0M12 12h0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-lang-text class="text-stone-400 text-xs mt-1">العربية</span></button>
         <div class="hidden md:flex items-center gap-4 flex-1 min-w-0"><h1 class="text-white font-extrabold truncate">Push Pull Legs — Program</h1><div class="text-stone-400 text-sm hidden lg:block">Follow and track today's session</div></div>
         <div class="md:hidden flex-1 text-center">
           <h1 class="text-white font-bold text-sm">Workout</h1>
         </div>
       </div>
       <div class="flex items-center gap-4">
-        <div class="relative hidden sm:flex items-center"><label for="search" class="sr-only">Search workouts</label><input id="search" class="glass rounded-xl px-3 py-2 pl-10 pr-3 bg-transparent text-white placeholder:opacity-60 fast-trans" style="width:clamp(150px,25vw,400px)" placeholder="Search exercises, machines, coaches" /></div>
-        <div class="flex items-center gap-3"><div class="text-right"><div class="text-white font-semibold">Alex Morgan</div><div class="text-stone-400 text-xs">Member • Gold Elite</div></div><button id="profileBtn" class="rounded-full bg-gradient-to-br from-[#151515] to-[#0f0f0f] p-1"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=64&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="avatar" class="w-10 h-10 rounded-full object-cover border border-white/6"/></button></div>
+        <button id="languageToggle" class="hidden md:flex p-2 rounded-lg hover:bg-white/6 transition-colors items-center gap-2" aria-label="Toggle language"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 8h14M5 8a9 9 0 0 0 0 8M5 8a9 9 0 0 1 14 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-lang-text class="text-stone-400 text-sm">العربية</span></button>
+        <div class="relative hidden sm:flex items-center"><label for="search" class="sr-only">Search workouts</label><input id="search" class="glass rounded-xl px-3 py-2 pl-10 pr-3 bg-transparent text-white placeholder:opacity-60 fast-trans" style="width:clamp(150px,25vw,400px)" data-i18n="header.search" placeholder="Search exercises, machines, coaches" /></div>
+        <div class="flex items-center gap-3"><div class="text-right"><div class="text-white font-semibold">علي محمد</div><div class="text-stone-400 text-xs">عضو • Gold Elite</div></div><button id="profileBtn" class="rounded-full bg-gradient-to-br from-[#151515] to-[#0f0f0f] p-1"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=64&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="avatar" class="w-10 h-10 rounded-full object-cover border border-white/6"/></button></div>
       </div>
     </header>
 
@@ -409,13 +417,7 @@
       </div>
     </template>
 
-    <!-- Mobile floating action bar -->
-    <nav id="mobileNav" class="fixed left-1/2 -translate-x-1/2 md:hidden glass rounded-full flex items-center justify-between shadow-glass-strong safe-bottom" style="width:clamp(180px,calc(100% - 1rem),500px); padding:clamp(0.375rem,1vw,0.5rem); gap:0; bottom:clamp(0.5rem,1vw,0.75rem)">
-      <button class="flex flex-col items-center text-stone-400 flex-1" style="gap:clamp(0.125rem,0.5vw,0.25rem); padding:clamp(0.375rem,1vw,0.5rem) clamp(0.25rem,0.5vw,0.375rem); min-height:3rem"><svg class="text-gold" viewBox="0 0 24 24" fill="none" style="width:clamp(1rem,3vw,1.25rem); height:clamp(1rem,3vw,1.25rem)"><path d="M3 13h8V3H3v10zM13 21h8V11h-8v10z" stroke="currentColor" stroke-width="1.2"/></svg><div class="text-white font-semibold" style="font-size:clamp(0.5rem,1vw,0.65rem)">Home</div></button>
-      <button class="flex flex-col items-center text-stone-400 flex-1" style="gap:clamp(0.125rem,0.5vw,0.25rem); padding:clamp(0.375rem,1vw,0.5rem) clamp(0.25rem,0.5vw,0.375rem); min-height:3rem"><svg viewBox="0 0 24 24" fill="none" style="width:clamp(1rem,3vw,1.25rem); height:clamp(1rem,3vw,1.25rem)"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><div style="font-size:clamp(0.5rem,1vw,0.65rem)">Workouts</div></button>
-      <button class="flex flex-col items-center text-stone-400 flex-1" style="gap:clamp(0.125rem,0.5vw,0.25rem); padding:clamp(0.375rem,1vw,0.5rem) clamp(0.25rem,0.5vw,0.375rem); min-height:3rem"><svg viewBox="0 0 24 24" fill="none" style="width:clamp(1rem,3vw,1.25rem); height:clamp(1rem,3vw,1.25rem)"><path d="M12 2v10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><div style="font-size:clamp(0.5rem,1vw,0.65rem)">Scan</div></button>
-      <button class="flex flex-col items-center text-stone-400 flex-1" style="gap:clamp(0.125rem,0.5vw,0.25rem); padding:clamp(0.375rem,1vw,0.5rem) clamp(0.25rem,0.5vw,0.375rem); min-height:3rem"><svg viewBox="0 0 24 24" fill="none" style="width:clamp(1rem,3vw,1.25rem); height:clamp(1rem,3vw,1.25rem)"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10z" stroke="currentColor" stroke-width="1.2"/></svg><div style="font-size:clamp(0.5rem,1vw,0.65rem)">Profile</div></button>
-    </nav>
+  
 
   </main>
 </div>
@@ -432,19 +434,177 @@
 
 <!-- JS: tabs, accordion, tracker, timer, achievements -->
 <script>
-  // Tabs
-  document.querySelectorAll('.tab-btn').forEach(btn=>{ btn.addEventListener('click', ()=>{ document.querySelectorAll('.tab-btn').forEach(b=>{ b.classList.remove('bg-white/6','text-black','glow-amber','active-tab'); b.classList.add('text-stone-400'); }); btn.classList.add('bg-white/6','text-black','glow-amber','active-tab'); btn.classList.remove('text-stone-400'); }); });
+  // Exercise data organized by category
+  const exerciseData = {
+    'Push Day': [
+      { name: 'Barbell Bench Press', target: 'Chest', sets: 4, reps: '6-8', rest: '90s', weight: 80, image: 'assets/img/img1.png', instructions: 'Lie flat on bench, grip slightly wider than shoulder. Lower bar to chest under control, pause briefly, and press up explosively.', mistakes: ['Flared elbows', 'Bouncing off chest'], safety: ['Use spotter for heavy sets', 'Control tempo'], machine: 'M-231' },
+      { name: 'Incline Dumbbell Press', target: 'Upper Chest', sets: 4, reps: '8-10', rest: '90s', weight: 35, image: 'assets/img/img1.png', instructions: 'Set bench to 45° angle, press dumbbells upward and inward in controlled motion.', mistakes: ['Dropping dumbbells', 'Uneven press'], safety: ['Secure dumbbells grip', 'No swinging'], machine: 'N/A' },
+      { name: 'Tricep Dips', target: 'Triceps', sets: 3, reps: '8-12', rest: '60s', weight: 'Bodyweight', image: 'assets/img/img1.png', instructions: 'Use parallel bars, lower body until elbows are 90°, then press back up explosively.', mistakes: ['Excessive forward lean', 'Incomplete range'], safety: ['Use dip belt for weight', 'Maintain upright posture'], machine: 'M-245' },
+      { name: 'Lateral Raises', target: 'Shoulders', sets: 3, reps: '12-15', rest: '45s', weight: 15, image: 'assets/img/sholder.png', instructions: 'Stand with dumbbells at sides, raise arms to shoulder height with slight bend.', mistakes: ['Jerky movements', 'Too heavy weight'], safety: ['Controlled tempo', 'No momentum'], machine: 'N/A' }
+    ],
+    'Pull Day': [
+      { name: 'Bent-over Barbell Row', target: 'Back', sets: 4, reps: '6-8', rest: '90s', weight: 100, image: 'assets/img/image2.png', instructions: 'Hinge at hips, keep a flat back, pull bar towards lower ribs with explosive force.', mistakes: ['Rounded back', 'Bar path deviation'], safety: ['Warm up thoroughly', 'Use lifting belt'], machine: 'M-312' },
+      { name: 'Pull-ups', target: 'Lats', sets: 4, reps: '8-12', rest: '90s', weight: 'Bodyweight', image: 'assets/img/image2.png', instructions: 'Grip bar shoulder-width apart, pull body up until chest touches bar, control descent.', mistakes: ['Partial range', 'Kipping'], safety: ['Assisted if needed', 'Controlled negatives'], machine: 'M-156' },
+      { name: 'Face Pulls', target: 'Rear Delts', sets: 3, reps: '12-15', rest: '60s', weight: 30, image: 'assets/img/sholder.png', instructions: 'Use rope attachment, pull towards face while elbows high, squeeze rear delts.', mistakes: ['Too heavy', 'Low elbow position'], safety: ['Shoulder friendly', 'Light weight'], machine: 'M-289' },
+      { name: 'Barbell Curl', target: 'Biceps', sets: 3, reps: '8-10', rest: '60s', weight: 50, image: 'assets/img/image2.png', instructions: 'Stand with bar at thighs, curl upward keeping elbows locked at sides.', mistakes: ['Swinging bar', 'Moving elbows'], safety: ['No momentum', 'Controlled tempo'], machine: 'N/A' }
+    ],
+    'Leg Day': [
+      { name: 'Barbell Back Squat', target: 'Quads & Glutes', sets: 4, reps: '6-8', rest: '120s', weight: 140, image: 'assets/img/img1.png', instructions: 'Bar across upper back, squat until thighs parallel, drive through heels to stand.', mistakes: ['Forward knee cave', 'Excessive lean'], safety: ['Use rack', 'Spotter recommended', 'Tight core'], machine: 'M-401' },
+      { name: 'Romanian Deadlift', target: 'Hamstrings', sets: 4, reps: '6-8', rest: '90s', weight: 120, image: 'assets/img/image2.png', instructions: 'Keep legs nearly straight, hinge at hips, lower bar to shins, squeeze glutes to return.', mistakes: ['Rounding back', 'Bent knees'], safety: ['Maintain neutral spine', 'Light weight for form'], machine: 'M-445' },
+      { name: 'Leg Press', target: 'Quads', sets: 3, reps: '8-12', rest: '60s', weight: 300, image: 'assets/img/img1.png', instructions: 'Feet shoulder-width on platform, lower weight under control, press through heels.', mistakes: ['Knees caving', 'Shallow depth'], safety: ['Full range of motion', 'Controlled descent'], machine: 'M-234' },
+      { name: 'Leg Curl', target: 'Hamstrings', sets: 3, reps: '10-12', rest: '45s', weight: 80, image: 'assets/img/img1.png', instructions: 'Lie face down, curl weight towards glutes with controlled motion.', mistakes: ['Hip lift', 'Jerky movement'], safety: ['No swinging', 'Steady tempo'], machine: 'M-289' }
+    ],
+    'Upper Body': [
+      { name: 'Barbell Bench Press', target: 'Chest', sets: 4, reps: '6-8', rest: '90s', weight: 80, image: 'assets/img/img1.png', instructions: 'Lie flat on bench, grip slightly wider than shoulder. Lower bar to chest under control, pause briefly, and press up explosively.', mistakes: ['Flared elbows', 'Bouncing off chest'], safety: ['Use spotter for heavy sets', 'Control tempo'], machine: 'M-231' },
+      { name: 'Bent-over Barbell Row', target: 'Back', sets: 4, reps: '6-8', rest: '90s', weight: 100, image: 'assets/img/image2.png', instructions: 'Hinge at hips, keep a flat back, pull bar towards lower ribs with explosive force.', mistakes: ['Rounded back', 'Bar path deviation'], safety: ['Warm up thoroughly', 'Use lifting belt'], machine: 'M-312' },
+      { name: 'Standing Overhead Press', target: 'Shoulders', sets: 4, reps: '6', rest: '120s', weight: 54, image: 'assets/img/sholder.png', instructions: 'Engage core, drive bar overhead in a straight path, lower with control.', mistakes: ['Excessive arching', 'Forward bar path'], safety: ['Brace core', 'Light weight for form'], machine: 'N/A' },
+      { name: 'Pull-ups', target: 'Lats', sets: 3, reps: '8-10', rest: '90s', weight: 'Bodyweight', image: 'assets/img/image2.png', instructions: 'Grip bar shoulder-width apart, pull body up until chest touches bar, control descent.', mistakes: ['Partial range', 'Kipping'], safety: ['Assisted if needed', 'Controlled negatives'], machine: 'M-156' }
+    ],
+    'Lower Body': [
+      { name: 'Barbell Back Squat', target: 'Quads & Glutes', sets: 4, reps: '6-8', rest: '120s', weight: 140, image: 'assets/img/img1.png', instructions: 'Bar across upper back, squat until thighs parallel, drive through heels to stand.', mistakes: ['Forward knee cave', 'Excessive lean'], safety: ['Use rack', 'Spotter recommended', 'Tight core'], machine: 'M-401' },
+      { name: 'Romanian Deadlift', target: 'Hamstrings', sets: 4, reps: '6-8', rest: '90s', weight: 120, image: 'assets/img/image2.png', instructions: 'Keep legs nearly straight, hinge at hips, lower bar to shins, squeeze glutes to return.', mistakes: ['Rounding back', 'Bent knees'], safety: ['Maintain neutral spine', 'Light weight for form'], machine: 'M-445' },
+      { name: 'Leg Press', target: 'Quads', sets: 3, reps: '8-12', rest: '60s', weight: 300, image: 'assets/img/img1.png', instructions: 'Feet shoulder-width on platform, lower weight under control, press through heels.', mistakes: ['Knees caving', 'Shallow depth'], safety: ['Full range of motion', 'Controlled descent'], machine: 'M-234' },
+      { name: 'Leg Curl', target: 'Hamstrings', sets: 3, reps: '10-12', rest: '45s', weight: 80, image: 'assets/img/img1.png', instructions: 'Lie face down, curl weight towards glutes with controlled motion.', mistakes: ['Hip lift', 'Jerky movement'], safety: ['No swinging', 'Steady tempo'], machine: 'M-289' }
+    ],
+    'Full Body': [
+      { name: 'Barbell Back Squat', target: 'Quads & Glutes', sets: 3, reps: '8', rest: '120s', weight: 120, image: 'assets/img/img1.png', instructions: 'Bar across upper back, squat until thighs parallel, drive through heels to stand.', mistakes: ['Forward knee cave', 'Excessive lean'], safety: ['Use rack', 'Spotter recommended', 'Tight core'], machine: 'M-401' },
+      { name: 'Barbell Bench Press', target: 'Chest', sets: 3, reps: '8', rest: '90s', weight: 70, image: 'assets/img/img1.png', instructions: 'Lie flat on bench, grip slightly wider than shoulder. Lower bar to chest under control, pause briefly, and press up explosively.', mistakes: ['Flared elbows', 'Bouncing off chest'], safety: ['Use spotter for heavy sets', 'Control tempo'], machine: 'M-231' },
+      { name: 'Bent-over Barbell Row', target: 'Back', sets: 3, reps: '8', rest: '90s', weight: 90, image: 'assets/img/image2.png', instructions: 'Hinge at hips, keep a flat back, pull bar towards lower ribs with explosive force.', mistakes: ['Rounded back', 'Bar path deviation'], safety: ['Warm up thoroughly', 'Use lifting belt'], machine: 'M-312' },
+      { name: 'Standing Overhead Press', target: 'Shoulders', sets: 3, reps: '8', rest: '90s', weight: 48, image: 'assets/img/sholder.png', instructions: 'Engage core, drive bar overhead in a straight path, lower with control.', mistakes: ['Excessive arching', 'Forward bar path'], safety: ['Brace core', 'Light weight for form'], machine: 'N/A' }
+    ]
+  };
 
-  // Accordion expand/collapse
-  document.querySelectorAll('.expand-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const card = btn.closest('.exercise-card');
-      const details = card.querySelector('.details');
-      const isOpen = details.classList.contains('accordion-open');
-      if(isOpen){ details.classList.remove('accordion-open'); details.classList.add('accordion-enter'); details.style.maxHeight = '0px'; }
-      else { details.classList.add('accordion-open'); details.classList.remove('accordion-enter'); details.style.maxHeight = details.scrollHeight + 'px'; }
+  // Render exercises for selected category
+  function renderExercises(category) {
+    const exerciseList = document.getElementById('exerciseList');
+    const exercises = exerciseData[category] || [];
+    
+    exerciseList.innerHTML = exercises.map((ex, idx) => `
+      <article class="exercise-card glass hover-lift fast-trans" style="border-radius:clamp(0.5rem,2vw,1rem); padding:var(--card-pad)">
+        <div class="flex flex-col md:flex-row md:items-start" style="gap:var(--gap)">
+          <img src="${ex.image}" alt="${ex.name}" class="object-cover border border-white/6 flex-shrink-0" style="width:clamp(3rem,12vw,5rem); height:clamp(3rem,12vw,5rem); border-radius:clamp(0.375rem,1.5vw,0.5rem)" />
+          <div class="flex-1 min-w-0">
+            <div class="flex flex-col justify-between">
+              <div class="min-w-0">
+                <div class="text-white font-semibold truncate">${ex.name}</div>
+                <div class="text-stone-400 mt-0.5 line-clamp-1" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Target: ${ex.target} • Sets: ${ex.sets} • Reps: ${ex.reps}</div>
+              </div>
+              
+              <div class="mt-2 md:mt-3 flex flex-col md:flex-row md:items-center md:justify-between" style="gap:clamp(0.375rem,1vw,0.75rem)">
+                <div class="flex items-center" style="gap:clamp(0.5rem,1.5vw,0.75rem)">
+                  <div class="text-stone-400" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Rest ${ex.rest}</div>
+                  <div class="text-white font-bold">${ex.weight}${typeof ex.weight === 'string' ? '' : ' kg'}</div>
+                </div>
+                
+                <div class="flex items-center" style="gap:clamp(0.375rem,1vw,0.5rem)">
+                  <button class="expand-btn glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Details</button>
+                  <label class="relative inline-flex items-center cursor-pointer" style="min-height:2.25rem; min-width:2.25rem">
+                    <input type="checkbox" class="sr-only complete-checkbox" />
+                    <div class="bg-white/6 rounded-full peer-checked:bg-gold fast-trans" style="width:clamp(1.75rem,5vw,2.5rem); height:clamp(1rem,2.5vw,1.5rem)"></div>
+                    <span class="absolute bg-white rounded-full transform peer-checked:translate-x-3 md:peer-checked:translate-x-4 fast-trans" style="width:clamp(0.875rem,2vw,1.25rem); height:clamp(0.875rem,2vw,1.25rem); left:clamp(0.125rem,0.5vw,0.25rem); top:clamp(0.125rem,0.5vw,0.25rem)"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="details accordion-enter fast-trans" style="margin-top:clamp(0.5rem,1.5vw,0.75rem)">
+              <div class="text-stone-400">Instructions: ${ex.instructions}</div>
+              <div class="grid grid-cols-1 md:grid-cols-2" style="margin-top:clamp(0.5rem,1vw,0.75rem); gap:var(--gap)">
+                <div class="glass rounded-lg" style="padding:clamp(0.5rem,1.5vw,0.75rem)"><div class="text-stone-400">Common mistakes</div><ul class="text-stone-400" style="margin-top:clamp(0.25rem,0.75vw,0.5rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">${ex.mistakes.map(m => `<li>${m}</li>`).join('')}</ul></div>
+                <div class="glass rounded-lg" style="padding:clamp(0.5rem,1.5vw,0.75rem)"><div class="text-stone-400">Safety tips</div><ul class="text-stone-400" style="margin-top:clamp(0.25rem,0.75vw,0.5rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">${ex.safety.map(s => `<li>${s}</li>`).join('')}</ul></div>
+              </div>
+              <div class="flex flex-wrap items-center" style="margin-top:clamp(0.5rem,1vw,0.75rem); gap:clamp(0.25rem,1vw,0.5rem)">
+                <button class="glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)" data-action="qr">Scan QR</button>
+                <button class="glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)" data-action="watch">Watch Tutorial</button>
+                <div class="text-stone-400 ml-auto" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Machine: ${ex.machine}</div>
+              </div>
+            </div>
+
+            <form class="grid grid-cols-1 sm:grid-cols-3 items-center" style="margin-top:clamp(0.5rem,1.5vw,0.75rem); gap:var(--gap)">
+              <label class="text-stone-400 block">
+                <input type="number" class="glass w-full bg-transparent text-white rounded-lg" style="margin-top:clamp(0.25rem,0.75vw,0.5rem)" value="${typeof ex.weight === 'string' ? 0 : ex.weight}" placeholder="Weight (kg)" />
+              </label>
+              <label class="text-stone-400 block">
+                <input type="number" class="glass w-full bg-transparent text-white rounded-lg" style="margin-top:clamp(0.25rem,0.75vw,0.5rem)" value="${ex.reps.split('-')[0]}" placeholder="Reps" />
+              </label>
+              <label class="text-stone-400 block">
+                <input type="text" class="glass w-full bg-transparent text-white rounded-lg" style="margin-top:clamp(0.25rem,0.75vw,0.5rem)" placeholder="Notes" />
+              </label>
+            </form>
+          </div>
+        </div>
+      </article>
+    `).join('');
+
+    // Re-attach event listeners for new elements
+    attachExerciseListeners();
+    updateCounts();
+  }
+
+  // Attach listeners to exercise elements
+  function attachExerciseListeners() {
+    document.querySelectorAll('.expand-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.exercise-card');
+        const details = card.querySelector('.details');
+        const isOpen = details.classList.contains('accordion-open');
+        if(isOpen) {
+          details.classList.remove('accordion-open');
+          details.classList.add('accordion-enter');
+          details.style.maxHeight = '0px';
+        } else {
+          details.classList.add('accordion-open');
+          details.classList.remove('accordion-enter');
+          details.style.maxHeight = details.scrollHeight + 'px';
+        }
+      });
+    });
+
+    document.querySelectorAll('.complete-checkbox').forEach(cb => {
+      cb.addEventListener('change', (e) => {
+        const checked = e.target.checked;
+        const card = e.target.closest('.exercise-card');
+        const title = card.querySelector('.text-white.font-semibold').textContent;
+        updateCounts();
+        if(checked) showAchievement('+50 XP', 'Exercise completed: ' + title);
+      });
+    });
+
+    document.querySelectorAll('[data-action="qr"]').forEach(b => {
+      b.addEventListener('click', () => {
+        b.textContent = 'Scanning...';
+        setTimeout(() => {
+          b.textContent = 'Scanned';
+          showAchievement('Machine Linked', 'QR scan successful');
+        }, 900);
+      });
+    });
+
+    document.querySelectorAll('[data-action="watch"]').forEach(b => {
+      b.addEventListener('click', () => {
+        document.getElementById('tutorialModal').classList.remove('hidden');
+        document.getElementById('tutorialModal').classList.add('flex');
+      });
+    });
+  }
+
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('bg-white/6', 'text-black', 'glow-amber', 'active-tab');
+        b.classList.add('text-stone-400');
+      });
+      btn.classList.add('bg-white/6', 'text-black', 'glow-amber', 'active-tab');
+      btn.classList.remove('text-stone-400');
+      
+      const category = btn.textContent.trim();
+      renderExercises(category);
     });
   });
+
+  // Initial render
+  renderExercises('Push Day');
 
   // Completion checkboxes and achievement popup
   function showAchievement(text, sub){
@@ -456,10 +616,6 @@
     el.animate([{ transform: 'translateY(-10px)', opacity:0 }, { transform: 'translateY(0)', opacity:1}], { duration:240, easing:'ease-out' });
     setTimeout(()=>{ el.animate([{ transform: 'translateY(0)', opacity:1 }, { transform: 'translateY(-8px)', opacity:0}], { duration:380, easing:'ease-in' }); setTimeout(()=>el.remove(),420); },2200);
   }
-
-  document.querySelectorAll('.complete-checkbox').forEach(cb=>{
-    cb.addEventListener('change', (e)=>{ const checked = e.target.checked; const card = e.target.closest('.exercise-card'); const title = card.querySelector('.text-white.font-semibold').textContent; updateCounts(); if(checked) showAchievement('+50 XP', 'Exercise completed: '+title); });
-  });
 
   // Tracker progress ring and counts
   function updateCounts(){
@@ -473,7 +629,6 @@
     const dash = (pct/100)*100;
     arc.setAttribute('stroke-dasharray', dash + ' 100');
   }
-  updateCounts();
 
   // Timer
   let timer = null; let seconds = 0; const timerToggle = document.getElementById('timerToggle');
@@ -483,9 +638,7 @@
     else { timer = setInterval(()=>{ seconds++; document.querySelector('header .text-stone-400:last-child').textContent = formatTime(seconds); },1000); timerToggle.textContent = 'Pause Timer'; }
   });
 
-  // Scan simulation and tutorial modal
-  document.querySelectorAll('[data-action="qr"]').forEach(b=>b.addEventListener('click', ()=>{ b.textContent='Scanning...'; setTimeout(()=>{ b.textContent='Scanned'; showAchievement('Machine Linked','QR scan successful'); },900); }));
-  document.querySelectorAll('[data-action="watch"]').forEach(b=>b.addEventListener('click', ()=>{ document.getElementById('tutorialModal').classList.remove('hidden'); document.getElementById('tutorialModal').classList.add('flex'); }));
+  // Tutorial modal
   document.getElementById('closeTutorial').addEventListener('click', ()=>{ document.getElementById('tutorialModal').classList.add('hidden'); document.getElementById('tutorialModal').classList.remove('flex'); });
 
   // Mobile menu toggle
