@@ -7,508 +7,306 @@
   <script>tailwind.config = { theme: { extend: { colors: { gold: { DEFAULT: '#f5b041' } }, fontFamily: { display:['Poppins','Inter','system-ui','sans-serif'] } } } }</script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
   <style>
-    .story-ring {
-      position: relative;
-      width: 100px;
-      height: 100px;
-      flex-shrink: 0;
-    }
-    .story-ring::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      padding: 3px;
-      background: linear-gradient(135deg, #f5b041, #ffd700, #f5b041);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-    }
-    .story-ring.viewed::before {
-      opacity: 0.3;
-    }
-    .story-avatar {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      border: 3px solid #070708;
-      object-fit: cover;
-      cursor: pointer;
-      transition: transform 200ms ease;
-    }
-    .story-ring:hover .story-avatar {
-      transform: scale(1.05);
-    }
-    .post-card {
-      animation: slideUp 400ms ease-out;
-    }
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    .like-heart {
-      animation: heartBeat 600ms ease-in-out;
-    }
-    @keyframes heartBeat {
-      0% { transform: scale(0.8); }
-      25% { transform: scale(1.1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
-    .modal-open {
-      overflow: hidden;
-    }
-    .story-modal-content {
-      animation: modalFade 300ms ease-out;
-    }
-    @keyframes modalFade {
-      from {
-        opacity: 0;
-        transform: scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-    .create-post-input {
-      resize: none;
-      min-height: 50px;
-    }
-    .comment-item {
-      animation: slideDown 200ms ease-out;
-    }
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+    .story-ring { position: relative; width: 100px; height: 100px; flex-shrink: 0; }
+    .story-ring::before { content: ''; position: absolute; inset: 0; border-radius: 50%; padding: 3px; background: linear-gradient(135deg, #f5b041, #ffd700, #f5b041); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+    .story-ring.viewed::before { opacity: 0.3; }
+    .story-avatar { width: 100%; height: 100%; border-radius: 50%; border: 3px solid #070708; object-fit: cover; cursor: pointer; transition: transform 200ms ease; }
+    .story-ring:hover .story-avatar { transform: scale(1.05); }
+    .post-card { animation: slideUp 400ms ease-out; }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .like-heart { animation: heartBeat 600ms ease-in-out; }
+    @keyframes heartBeat { 0% { transform: scale(0.8); } 25% { transform: scale(1.1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+    .modal-open { overflow: hidden; }
+    .story-modal-content { animation: modalFade 300ms ease-out; }
+    @keyframes modalFade { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    .create-post-input { resize: none; min-height: 50px; }
+    .comment-item { animation: slideDown 200ms ease-out; }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body class="antialiased">
-  <div id="app-root"></div>
-  <script src="assets/js/components.js"></script>
-  <script>
-    Components.renderShell({ title: 'Community' });
-    Components.init();
+  <div id="shell-root" class="app-shell min-h-screen flex">
+    <div class="shell-overlay"></div>
+    <aside class="app-sidebar hidden md:flex flex-col w-72 p-5 gap-6 glass rounded-2xl sticky top-6 m-6 h-[calc(100vh-48px)] overflow-hidden">
+      <a href="landing.html" class="flex items-center gap-3 sidebar-brand">
+        <div class="sidebar-brand-icon rounded-xl p-2 bg-gradient-to-br from-[#1b1b1d] to-[#111112]"><img src="assets/golds-logo.png" alt="Golds logo" class="w-9 h-9 object-contain"/></div>
+        <div class="sidebar-brand-text"><div class="text-white font-semibold text-lg">GoldTech</div><div class="sidebar-meta text-stone-400 text-xs uppercase tracking-widest">Smart Fitness OS</div></div>
+      </a>
+      <nav aria-label="Primary" class="flex-1 overflow-y-auto pr-1">
+        <ul class="space-y-1 text-sm">
+          <li><a href="landing.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Home</span></a></li>
+          <li><a href="dashboard.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Dashboard</span></a></li>
+          <li><a href="programs.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Programs</span></a></li>
+          <li><a href="workout.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Workouts</span></a></li>
+          <li><a href="coaches.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Coaches</span></a></li>
+          <li><a href="community.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Community</span></a></li>
+          <li><a href="blogs.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Blogs</span></a></li>
+          <li><a href="crowd.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Crowd</span></a></li>
+          <li><a href="inbody.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">InBody</span></a></li>
+          <li><a href="machines.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Machines</span></a></li>
+          <li><a href="nutrition.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Nutrition</span></a></li>
+          <li><a href="achievements.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Achievements</span></a></li>
+          <li><a href="store.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Store</span></a></li>
+          <li><a href="membership.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Membership</span></a></li>
+          <li><a href="notifications.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Notifications</span></a></li>
+          <li><a href="settings.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Settings</span></a></li>
+          <li><a href="support.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Support</span></a></li>
+          <li><a href="profile.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Profile</span></a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer pt-3 border-t border-white/6 text-sm"><div class="text-stone-400">Active Membership</div><div class="mt-2 flex items-center justify-between"><div><div class="text-white font-semibold">Gold Elite</div><div class="text-stone-400 text-xs">Valid until May 2027</div></div><div class="bg-gradient-to-br from-[#2a2a2a]/80 to-[#161616]/60 p-2 rounded-lg text-gold">&#9679;</div></div></div>
+    </aside>
+    <main class="flex-1 p-5 md:p-8 overflow-y-auto safe-bottom">
+      <header class="sticky top-6 z-30 glass rounded-2xl p-3 md:p-4 mb-6 flex items-center justify-between fast-trans backdrop-blur-xl">
+        <div class="flex items-center gap-3 md:gap-4"><button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16" stroke-width="1.6" stroke-linecap="round"/></svg></button><button id="sidebarToggle" class="hidden md:inline-flex sidebar-toggle p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle sidebar" aria-pressed="false"><svg class="w-5 h-5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="hidden md:flex items-center gap-4"><h1 class="text-white font-extrabold text-lg">Community</h1><div class="text-stone-400 text-sm">Premium smart gym platform</div></div></div>
+        <div class="flex items-center gap-3"><button id="themeToggle" class="hidden sm:inline-flex p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle theme" aria-pressed="false"><span data-theme-icon="dark" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-theme-icon="light" class="hidden" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="relative hidden sm:flex items-center"><label for="search" class="sr-only">Search</label><input id="search" class="glass rounded-xl px-3 py-2 pl-10 pr-3 w-64 bg-transparent text-white placeholder:opacity-60 fast-trans focus-visible-ring" placeholder="Search"/><svg class="absolute left-3 w-4 h-4 text-stone-400" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.2"/></svg></div><a href="profile.html" class="flex items-center gap-3 rounded-2xl bg-white/3 px-3 py-2 hover:bg-white/6 fast-trans"><div class="text-right hidden sm:block"><div class="text-white font-semibold">Alex Morgan</div><div class="text-stone-400 text-xs">Gold Elite</div></div><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=64&auto=format&fit=crop&s=placeholder" alt="avatar" class="w-10 h-10 rounded-full object-cover border border-white/6"/></a></div>
+      </header>
 
-    // Sample data
-    const mockStories = [
-      { id: 1, name: 'Coach Mia', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=120&auto=format&fit=crop', viewed: false },
-      { id: 2, name: 'Riley', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=120&auto=format&fit=crop', viewed: true },
-      { id: 3, name: 'James', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=120&auto=format&fit=crop', viewed: false },
-      { id: 4, name: 'Sarah', avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=120&auto=format&fit=crop', viewed: true },
-      { id: 5, name: 'Alex', avatar: 'https://images.unsplash.com/photo-1534528741775-53a8c1f11rb?q=80&w=120&auto=format&fit=crop', viewed: false }
-    ];
-
-    const mockPosts = [
-      {
-        id: 1,
-        author: 'Coach Mia',
-        avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=120&auto=format&fit=crop',
-        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=600&auto=format&fit=crop',
-        caption: 'Just crushed a amazing chest and tricep workout! 💪',
-        timestamp: '2 hours ago',
-        likes: 142,
-        comments: 8,
-        shares: 5,
-        liked: false
-      },
-      {
-        id: 2,
-        author: 'Riley',
-        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=120&auto=format&fit=crop',
-        image: 'https://images.unsplash.com/photo-1517836357463-d25ddfcbf042?q=80&w=600&auto=format&fit=crop',
-        caption: 'New personal record on deadlifts! 🎉',
-        timestamp: '4 hours ago',
-        likes: 287,
-        comments: 15,
-        shares: 12,
-        liked: false
-      },
-      {
-        id: 3,
-        author: 'James',
-        avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=120&auto=format&fit=crop',
-        image: 'https://images.unsplash.com/photo-1549576228-19786c8a0b4f?q=80&w=600&auto=format&fit=crop',
-        caption: 'Morning gym session feels different 🔥',
-        timestamp: '6 hours ago',
-        likes: 195,
-        comments: 12,
-        shares: 8,
-        liked: false
-      }
-    ];
-
-    let currentPost = null;
-
-    // Render page content
-    const html = `
       <div class="max-w-2xl mx-auto space-y-6">
-      
-
-        <!-- Create Post Section -->
         <div class="glass rounded-2xl p-6">
           <div class="flex items-center gap-4">
             <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=64&auto=format&fit=crop" alt="Your avatar" class="w-12 h-12 rounded-full object-cover">
-            <div class="flex-1">
-              <textarea id="postInput" class="glass w-full rounded-2xl px-4 py-3 text-white placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-gold/50 create-post-input" placeholder="What's on your mind? Share your fitness journey..."></textarea>
-            </div>
+            <div class="flex-1"><textarea id="postInput" class="glass w-full rounded-2xl px-4 py-3 text-white placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-gold/50 create-post-input" placeholder="What's on your mind? Share your fitness journey..."></textarea></div>
           </div>
           <div class="mt-4 flex items-center justify-between">
             <div class="flex gap-2">
-              <button id="imgBtn" class="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-stone-400 hover:bg-white/5 hover:text-stone-200 transition fast-trans text-sm">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                Photo
-              </button>
-              <button id="emojiBtn" class="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-stone-400 hover:bg-white/5 hover:text-stone-200 transition fast-trans text-sm">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><circle cx="9" cy="9" r="1.5" fill="#070708"/><circle cx="15" cy="9" r="1.5" fill="#070708"/><path d="M9 15c1 1 2 1 3 1s2 0 3-1" stroke="#070708" stroke-width="1.5" stroke-linecap="round"/></svg>
-                Emoji
-              </button>
+              <button id="imgBtn" class="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-stone-400 hover:bg-white/5 hover:text-stone-200 transition fast-trans text-sm"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Photo</button>
+              <button id="emojiBtn" class="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-stone-400 hover:bg-white/5 hover:text-stone-200 transition fast-trans text-sm"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><circle cx="9" cy="9" r="1.5" fill="#070708"/><circle cx="15" cy="9" r="1.5" fill="#070708"/><path d="M9 15c1 1 2 1 3 1s2 0 3-1" stroke="#070708" stroke-width="1.5" stroke-linecap="round"/></svg>Emoji</button>
             </div>
-            <button id="postBtn" class="px-6 py-2 rounded-xl bg-gradient-to-r from-gold to-amber-200 text-black font-semibold text-sm hover:shadow-[0_0_20px_rgba(245,176,65,0.4)] transition fast-trans">
-              Post
-            </button>
+            <button id="postBtn" class="px-6 py-2 rounded-xl bg-gradient-to-r from-gold to-amber-200 text-black font-semibold text-sm hover:shadow-[0_0_20px_rgba(245,176,65,0.4)] transition fast-trans">Post</button>
           </div>
         </div>
 
-        <!-- Stories Section -->
         <div class="glass rounded-2xl p-6">
           <div class="text-stone-400 text-xs uppercase tracking-widest mb-4">Stories</div>
           <div class="flex gap-3 overflow-x-auto pb-2">
-            <div class="story-ring">
-              <button id="addStoryBtn" class="story-avatar w-full h-full bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center border-2 border-dashed border-gold/30 hover:border-gold/60 transition fast-trans" title="Add your story">
-                <svg class="w-6 h-6 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              </button>
-            </div>
-            ${mockStories.map(story => `
-              <div class="story-ring ${story.viewed ? 'viewed' : ''}">
-                <img src="${story.avatar}" alt="${story.name}" class="story-avatar" data-story-id="${story.id}">
-              </div>
-            `).join('')}
+            <div class="story-ring"><button id="addStoryBtn" class="story-avatar w-full h-full bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center border-2 border-dashed border-gold/30 hover:border-gold/60 transition fast-trans" title="Add your story"><svg class="w-6 h-6 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div>
+            <div class="story-ring"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=120&auto=format&fit=crop" alt="Coach Mia" class="story-avatar" data-story-id="1" data-story-name="Coach Mia" data-story-avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=120&auto=format&fit=crop"></div>
+            <div class="story-ring viewed"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=120&auto=format&fit=crop" alt="Riley" class="story-avatar" data-story-id="2" data-story-name="Riley" data-story-avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=120&auto=format&fit=crop"></div>
+            <div class="story-ring"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=120&auto=format&fit=crop" alt="James" class="story-avatar" data-story-id="3" data-story-name="James" data-story-avatar="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=120&auto=format&fit=crop"></div>
+            <div class="story-ring viewed"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=120&auto=format&fit=crop" alt="Sarah" class="story-avatar" data-story-id="4" data-story-name="Sarah" data-story-avatar="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=120&auto=format&fit=crop"></div>
+            <div class="story-ring"><img src="https://images.unsplash.com/photo-1534528741775-53a8c1f11rb?q=80&w=120&auto=format&fit=crop" alt="Alex" class="story-avatar" data-story-id="5" data-story-name="Alex" data-story-avatar="https://images.unsplash.com/photo-1534528741775-53a8c1f11rb?q=80&w=120&auto=format&fit=crop"></div>
           </div>
         </div>
 
-        <!-- Feed Section -->
         <div id="feedContainer" class="space-y-4">
-          ${mockPosts.map(post => `
-            <div class="glass rounded-2xl overflow-hidden post-card" data-post-id="${post.id}">
-              <!-- Post Header -->
-              <div class="p-4 flex items-center justify-between border-b border-white/6">
-                <div class="flex items-center gap-3">
-                  <img src="${post.avatar}" alt="${post.author}" class="w-10 h-10 rounded-full object-cover">
-                  <div>
-                    <div class="text-white font-semibold text-sm">${post.author}</div>
-                    <div class="text-stone-400 text-xs">${post.timestamp}</div>
-                  </div>
-                </div>
-                <button class="p-1 rounded-lg text-stone-400 hover:bg-white/5 transition fast-trans" title="More options">
-                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/></svg>
-                </button>
-              </div>
+          <article class="glass rounded-2xl overflow-hidden post-card" data-post-id="1" data-author="Coach Mia" data-avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=120&auto=format&fit=crop" data-liked="false">
+            <div class="p-4 flex items-center justify-between border-b border-white/6"><div class="flex items-center gap-3"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=120&auto=format&fit=crop" alt="Coach Mia" class="w-10 h-10 rounded-full object-cover"><div><div class="text-white font-semibold text-sm">Coach Mia</div><div class="text-stone-400 text-xs">2 hours ago</div></div></div><button class="p-1 rounded-lg text-stone-400 hover:bg-white/5 transition fast-trans" title="More options"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/></svg></button></div>
+            <div class="bg-black/40 relative group overflow-hidden aspect-square"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=600&auto=format&fit=crop" alt="Post" class="w-full h-full object-cover group-hover:scale-105 transition fast-trans"><div class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-black/20 transition fast-trans flex items-center justify-center"><button class="double-tap-btn px-4 py-2 rounded-full bg-white/10 backdrop-blur text-white font-semibold text-sm border border-white/20"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div></div>
+            <div class="p-4 space-y-3"><div class="flex items-center justify-between"><div class="flex gap-3"><button class="like-btn group flex items-center gap-1 text-stone-400 hover:text-gold transition fast-trans"><svg class="w-5 h-5 group-hover:fill-current" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="like-count text-xs">142</span></button><button class="comment-btn group flex items-center gap-1 text-stone-400 hover:text-gold transition fast-trans"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="comment-count text-xs">8</span></button><button class="share-btn group flex items-center gap-1 text-stone-400 hover:text-gold transition fast-trans"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13M22 2l-7 20-5-9-9-5 20-7z"/></svg><span class="text-xs">5</span></button></div><button class="save-btn text-stone-400 hover:text-gold transition fast-trans"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/></svg></button></div><div class="text-xs text-stone-400"><strong class="text-white" data-likes-total>142</strong> likes</div><div class="text-sm text-white"><span class="font-semibold">Coach Mia</span><span class="text-stone-300"> Just crushed an amazing chest and tricep workout!</span></div><button class="view-comments-btn text-xs text-stone-400 hover:text-stone-300 transition">View all <span data-comments-total>8</span> comments</button><div class="flex gap-2 pt-2 border-t border-white/6"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=32&auto=format&fit=crop" alt="Your avatar" class="w-6 h-6 rounded-full object-cover"><input type="text" placeholder="Add a comment..." class="flex-1 bg-transparent text-xs text-white placeholder:text-stone-500 focus:outline-none"></div><div class="post-comments-source hidden"><div class="comment-source" data-author="Coach Mia" data-avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=32&auto=format&fit=crop" data-body="Amazing workout! Keep it up."></div><div class="comment-source" data-author="Riley" data-avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=32&auto=format&fit=crop" data-body="Love this energy!"></div></div></div>
+          </article>
 
-              <!-- Post Image -->
-              <div class="bg-black/40 relative group overflow-hidden aspect-square">
-                <img src="${post.image}" alt="Post" class="w-full h-full object-cover group-hover:scale-105 transition fast-trans">
-                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-black/20 transition fast-trans flex items-center justify-center">
-                  <button class="double-tap-btn px-4 py-2 rounded-full bg-white/10 backdrop-blur text-white font-semibold text-sm border border-white/20" data-post-id="${post.id}">
-                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                  </button>
-                </div>
-              </div>
+          <article class="glass rounded-2xl overflow-hidden post-card" data-post-id="2" data-author="Riley" data-avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=120&auto=format&fit=crop" data-liked="false">
+            <div class="p-4 flex items-center justify-between border-b border-white/6"><div class="flex items-center gap-3"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=120&auto=format&fit=crop" alt="Riley" class="w-10 h-10 rounded-full object-cover"><div><div class="text-white font-semibold text-sm">Riley</div><div class="text-stone-400 text-xs">4 hours ago</div></div></div><button class="p-1 rounded-lg text-stone-400 hover:bg-white/5 transition fast-trans" title="More options"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/></svg></button></div>
+            <div class="bg-black/40 relative group overflow-hidden aspect-square"><img src="https://images.unsplash.com/photo-1517836357463-d25ddfcbf042?q=80&w=600&auto=format&fit=crop" alt="Post" class="w-full h-full object-cover group-hover:scale-105 transition fast-trans"><div class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-black/20 transition fast-trans flex items-center justify-center"><button class="double-tap-btn px-4 py-2 rounded-full bg-white/10 backdrop-blur text-white font-semibold text-sm border border-white/20"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div></div>
+            <div class="p-4 space-y-3"><div class="flex items-center justify-between"><div class="flex gap-3"><button class="like-btn group flex items-center gap-1 text-stone-400 hover:text-gold transition fast-trans"><svg class="w-5 h-5 group-hover:fill-current" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="like-count text-xs">287</span></button><button class="comment-btn group flex items-center gap-1 text-stone-400 hover:text-gold transition fast-trans"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="comment-count text-xs">15</span></button><button class="share-btn group flex items-center gap-1 text-stone-400 hover:text-gold transition fast-trans"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13M22 2l-7 20-5-9-9-5 20-7z"/></svg><span class="text-xs">12</span></button></div><button class="save-btn text-stone-400 hover:text-gold transition fast-trans"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/></svg></button></div><div class="text-xs text-stone-400"><strong class="text-white" data-likes-total>287</strong> likes</div><div class="text-sm text-white"><span class="font-semibold">Riley</span><span class="text-stone-300"> New personal record on deadlifts!</span></div><button class="view-comments-btn text-xs text-stone-400 hover:text-stone-300 transition">View all <span data-comments-total>15</span> comments</button><div class="flex gap-2 pt-2 border-t border-white/6"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=32&auto=format&fit=crop" alt="Your avatar" class="w-6 h-6 rounded-full object-cover"><input type="text" placeholder="Add a comment..." class="flex-1 bg-transparent text-xs text-white placeholder:text-stone-500 focus:outline-none"></div><div class="post-comments-source hidden"><div class="comment-source" data-author="Coach Mia" data-avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=32&auto=format&fit=crop" data-body="Big lift day. Proud of you."></div><div class="comment-source" data-author="Alex" data-avatar="https://images.unsplash.com/photo-1534528741775-53a8c1f11rb?q=80&w=32&auto=format&fit=crop" data-body="That is huge progress."></div></div></div>
+          </article>
 
-              <!-- Post Actions -->
-              <div class="p-4 space-y-3">
-                <div class="flex items-center justify-between">
-                  <div class="flex gap-3">
-                    <button class="like-btn group flex items-center gap-1 text-stone-400 hover:text-gold transition fast-trans" data-post-id="${post.id}">
-                      <svg class="w-5 h-5 group-hover:fill-current" viewBox="0 0 24 24" fill="${post.liked ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="1.5">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                      </svg>
-                      <span class="like-count text-xs">${post.likes}</span>
-                    </button>
-                    <button class="comment-btn group flex items-center gap-1 text-stone-400 hover:text-gold transition fast-trans" data-post-id="${post.id}">
-                      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                      <span class="text-xs">${post.comments}</span>
-                    </button>
-                    <button class="share-btn group flex items-center gap-1 text-stone-400 hover:text-gold transition fast-trans" data-post-id="${post.id}">
-                      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13M22 2l-7 20-5-9-9-5 20-7z"/></svg>
-                      <span class="text-xs">${post.shares}</span>
-                    </button>
-                  </div>
-                  <button class="save-btn text-stone-400 hover:text-gold transition fast-trans" data-post-id="${post.id}">
-                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/></svg>
-                  </button>
-                </div>
-
-                <!-- Likes Info -->
-                <div class="text-xs text-stone-400">
-                  <strong class="text-white">${post.likes}</strong> likes
-                </div>
-
-                <!-- Caption -->
-                <div class="text-sm text-white">
-                  <span class="font-semibold">${post.author}</span>
-                  <span class="text-stone-300"> ${post.caption}</span>
-                </div>
-
-                <!-- Comments Preview -->
-                <button class="text-xs text-stone-400 hover:text-stone-300 transition" data-post-id="${post.id}">
-                  View all ${post.comments} comments
-                </button>
-
-                <!-- Comment Input -->
-                <div class="flex gap-2 pt-2 border-t border-white/6">
-                  <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=32&auto=format&fit=crop" alt="Your avatar" class="w-6 h-6 rounded-full object-cover">
-                  <input type="text" placeholder="Add a comment..." class="flex-1 bg-transparent text-xs text-white placeholder:text-stone-500 focus:outline-none" data-post-id="${post.id}">
-                </div>
-              </div>
-            </div>
-          `).join('')}
+          <article class="glass rounded-2xl overflow-hidden post-card" data-post-id="3" data-author="James" data-avatar="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=120&auto=format&fit=crop" data-liked="false">
+            <div class="p-4 flex items-center justify-between border-b border-white/6"><div class="flex items-center gap-3"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=120&auto=format&fit=crop" alt="James" class="w-10 h-10 rounded-full object-cover"><div><div class="text-white font-semibold text-sm">James</div><div class="text-stone-400 text-xs">6 hours ago</div></div></div><button class="p-1 rounded-lg text-stone-400 hover:bg-white/5 transition fast-trans" title="More options"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/></svg></button></div>
+            <div class="bg-black/40 relative group overflow-hidden aspect-square"><img src="https://images.unsplash.com/photo-1549576228-19786c8a0b4f?q=80&w=600&auto=format&fit=crop" alt="Post" class="w-full h-full object-cover group-hover:scale-105 transition fast-trans"><div class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-black/20 transition fast-trans flex items-center justify-center"><button class="double-tap-btn px-4 py-2 rounded-full bg-white/10 backdrop-blur text-white font-semibold text-sm border border-white/20"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div></div>
+            <div class="p-4 space-y-3"><div class="flex items-center justify-between"><div class="flex gap-3"><button class="like-btn group flex items-center gap-1 text-stone-400 hover:text-gold transition fast-trans"><svg class="w-5 h-5 group-hover:fill-current" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="like-count text-xs">195</span></button><button class="comment-btn group flex items-center gap-1 text-stone-400 hover:text-gold transition fast-trans"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="comment-count text-xs">12</span></button><button class="share-btn group flex items-center gap-1 text-stone-400 hover:text-gold transition fast-trans"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13M22 2l-7 20-5-9-9-5 20-7z"/></svg><span class="text-xs">8</span></button></div><button class="save-btn text-stone-400 hover:text-gold transition fast-trans"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/></svg></button></div><div class="text-xs text-stone-400"><strong class="text-white" data-likes-total>195</strong> likes</div><div class="text-sm text-white"><span class="font-semibold">James</span><span class="text-stone-300"> Morning gym session feels different.</span></div><button class="view-comments-btn text-xs text-stone-400 hover:text-stone-300 transition">View all <span data-comments-total>12</span> comments</button><div class="flex gap-2 pt-2 border-t border-white/6"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=32&auto=format&fit=crop" alt="Your avatar" class="w-6 h-6 rounded-full object-cover"><input type="text" placeholder="Add a comment..." class="flex-1 bg-transparent text-xs text-white placeholder:text-stone-500 focus:outline-none"></div><div class="post-comments-source hidden"><div class="comment-source" data-author="Sarah" data-avatar="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=32&auto=format&fit=crop" data-body="The morning discipline is real."></div><div class="comment-source" data-author="Coach Mia" data-avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=32&auto=format&fit=crop" data-body="Keep stacking those sessions."></div></div></div>
+          </article>
         </div>
       </div>
 
-      <!-- Story Modal -->
       <div id="storyModal" class="hidden fixed inset-0 bg-black/95 backdrop-blur-sm z-50 flex items-center justify-center">
         <div class="story-modal-content w-full h-full md:w-96 md:h-screen md:rounded-2xl md:overflow-hidden relative bg-black flex flex-col">
-          <!-- Close Button -->
-          <button id="closeStoryBtn" class="absolute top-4 left-4 md:hidden z-10 p-2 rounded-lg bg-white/10 text-white hover:bg-white/20 transition fast-trans">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-          
-          <!-- Story Content -->
-          <div class="flex-1 bg-black flex items-center justify-center overflow-hidden">
-            <img id="storyImage" src="" alt="Story" class="w-full h-full object-cover">
-          </div>
-
-          <!-- Story Info -->
-          <div class="p-4 bg-gradient-to-t from-black via-black/50 to-transparent">
-            <div class="flex items-center gap-3 mb-3">
-              <img id="storyUserAvatar" src="" alt="" class="w-10 h-10 rounded-full object-cover">
-              <div>
-                <div id="storyUserName" class="text-white font-semibold text-sm"></div>
-                <div class="text-stone-400 text-xs">1h ago</div>
-              </div>
-            </div>
-            <input type="text" placeholder="Reply..." class="w-full bg-white/10 rounded-full px-4 py-2 text-xs text-white placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-gold/50">
-          </div>
-
-          <!-- Navigation -->
-          <button id="prevStoryBtn" class="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-lg text-white hover:bg-white/10 transition fast-trans">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 19l-7-7 7-7"/></svg>
-          </button>
-          <button id="nextStoryBtn" class="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-lg text-white hover:bg-white/10 transition fast-trans">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
-          </button>
+          <button id="closeStoryBtn" class="absolute top-4 left-4 md:hidden z-10 p-2 rounded-lg bg-white/10 text-white hover:bg-white/20 transition fast-trans"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+          <div class="flex-1 bg-black flex items-center justify-center overflow-hidden"><img id="storyImage" src="" alt="Story" class="w-full h-full object-cover"></div>
+          <div class="p-4 bg-gradient-to-t from-black via-black/50 to-transparent"><div class="flex items-center gap-3 mb-3"><img id="storyUserAvatar" src="" alt="" class="w-10 h-10 rounded-full object-cover"><div><div id="storyUserName" class="text-white font-semibold text-sm"></div><div class="text-stone-400 text-xs">1h ago</div></div></div><input type="text" placeholder="Reply..." class="w-full bg-white/10 rounded-full px-4 py-2 text-xs text-white placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-gold/50"></div>
+          <button id="prevStoryBtn" class="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-lg text-white hover:bg-white/10 transition fast-trans"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 19l-7-7 7-7"/></svg></button>
+          <button id="nextStoryBtn" class="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-lg text-white hover:bg-white/10 transition fast-trans"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></button>
         </div>
       </div>
 
-      <!-- Post Modal for Comments -->
       <div id="commentModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-40 flex items-center justify-center p-4">
         <div class="glass rounded-2xl max-w-md w-full max-h-[80vh] overflow-hidden flex flex-col">
-          <!-- Close -->
-          <div class="flex items-center justify-between p-4 border-b border-white/6">
-            <h3 class="text-white font-semibold">Comments</h3>
-            <button id="closeCommentBtn" class="text-stone-400 hover:text-white transition">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          </div>
-          
-          <!-- Comments List -->
-          <div id="commentsList" class="flex-1 overflow-y-auto space-y-3 p-4">
-            <!-- Comments will be populated here -->
-          </div>
-
-          <!-- Comment Input -->
-          <div class="p-4 border-t border-white/6">
-            <div class="flex gap-2">
-              <input type="text" id="commentInput" placeholder="Add a comment..." class="flex-1 bg-white/5 rounded-xl px-3 py-2 text-xs text-white placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-gold/50 border border-white/10">
-              <button id="submitCommentBtn" class="px-3 py-2 rounded-xl bg-gold/20 text-gold hover:bg-gold/30 transition font-semibold text-xs">
-                Post
-              </button>
-            </div>
-          </div>
+          <div class="flex items-center justify-between p-4 border-b border-white/6"><h3 class="text-white font-semibold">Comments</h3><button id="closeCommentBtn" class="text-stone-400 hover:text-white transition"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+          <div id="commentsList" class="flex-1 overflow-y-auto space-y-3 p-4"></div>
+          <div class="p-4 border-t border-white/6"><div class="flex gap-2"><input type="text" id="commentInput" placeholder="Add a comment..." class="flex-1 bg-white/5 rounded-xl px-3 py-2 text-xs text-white placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-gold/50 border border-white/10"><button id="submitCommentBtn" class="px-3 py-2 rounded-xl bg-gold/20 text-gold hover:bg-gold/30 transition font-semibold text-xs">Post</button></div></div>
         </div>
       </div>
-    `;
 
-    document.getElementById('page-content').innerHTML = html;
+      <template id="commentTemplate">
+        <div class="comment-item flex gap-3">
+          <img data-comment-avatar src="" alt="" class="w-6 h-6 rounded-full object-cover flex-shrink-0">
+          <div class="flex-1"><div data-comment-author class="text-xs font-semibold text-white"></div><div data-comment-body class="text-xs text-stone-300 mt-1"></div></div>
+        </div>
+      </template>
 
-    // Event Listeners
+      <template id="postTemplate">
+        <article class="glass rounded-2xl overflow-hidden post-card" data-author="Alex Morgan" data-avatar="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop" data-liked="false">
+          <div class="p-4 flex items-center justify-between border-b border-white/6"><div class="flex items-center gap-3"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop" alt="Alex Morgan" class="w-10 h-10 rounded-full object-cover"><div><div class="text-white font-semibold text-sm">Alex Morgan</div><div class="text-stone-400 text-xs">now</div></div></div><button class="p-1 rounded-lg text-stone-400 hover:bg-white/5 transition fast-trans" title="More options"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/></svg></button></div>
+          <div class="bg-black/40 relative group overflow-hidden aspect-square"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=600&auto=format&fit=crop" alt="Post" class="w-full h-full object-cover group-hover:scale-105 transition fast-trans"><div class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-black/20 transition fast-trans flex items-center justify-center"><button class="double-tap-btn px-4 py-2 rounded-full bg-white/10 backdrop-blur text-white font-semibold text-sm border border-white/20"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div></div>
+          <div class="p-4 space-y-3"><div class="flex items-center justify-between"><div class="flex gap-3"><button class="like-btn group flex items-center gap-1 text-stone-400 hover:text-gold transition fast-trans"><svg class="w-5 h-5 group-hover:fill-current" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="like-count text-xs">0</span></button><button class="comment-btn group flex items-center gap-1 text-stone-400 hover:text-gold transition fast-trans"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="comment-count text-xs">0</span></button><button class="share-btn group flex items-center gap-1 text-stone-400 hover:text-gold transition fast-trans"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13M22 2l-7 20-5-9-9-5 20-7z"/></svg><span class="text-xs">0</span></button></div><button class="save-btn text-stone-400 hover:text-gold transition fast-trans"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/></svg></button></div><div class="text-xs text-stone-400"><strong class="text-white" data-likes-total>0</strong> likes</div><div class="text-sm text-white"><span class="font-semibold">Alex Morgan</span><span class="text-stone-300" data-post-caption></span></div><button class="view-comments-btn text-xs text-stone-400 hover:text-stone-300 transition">View all <span data-comments-total>0</span> comments</button><div class="flex gap-2 pt-2 border-t border-white/6"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=32&auto=format&fit=crop" alt="Your avatar" class="w-6 h-6 rounded-full object-cover"><input type="text" placeholder="Add a comment..." class="flex-1 bg-transparent text-xs text-white placeholder:text-stone-500 focus:outline-none"></div><div class="post-comments-source hidden"></div></div>
+        </article>
+      </template>
+
+      <nav id="mobileNav" class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] md:hidden glass rounded-full p-2 flex items-center justify-between px-4 shadow-glass-strong safe-bottom">
+        <a href="dashboard.html" data-mobile-nav-link class="flex flex-col items-center gap-1 text-stone-400"><span class="w-2 h-2 rounded-full bg-white/30"></span><div class="text-xs">Home</div></a>
+        <a href="programs.html" data-mobile-nav-link class="flex flex-col items-center gap-1 text-stone-400"><span class="w-2 h-2 rounded-full bg-white/30"></span><div class="text-xs">Programs</div></a>
+        <a href="workout.html" data-mobile-nav-link class="flex flex-col items-center gap-1 text-stone-400"><span class="w-2 h-2 rounded-full bg-white/30"></span><div class="text-xs">Scan</div></a>
+        <a href="profile.html" data-mobile-nav-link class="flex flex-col items-center gap-1 text-stone-400"><span class="w-2 h-2 rounded-full bg-white/30"></span><div class="text-xs">Profile</div></a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="assets/js/components.js"></script>
+  <script>
+    Components.init();
+
+    const storyItems = Array.from(document.querySelectorAll('[data-story-id]'));
+    const storyModal = document.getElementById('storyModal');
+    const commentsList = document.getElementById('commentsList');
+    const commentTemplate = document.getElementById('commentTemplate');
+    const postTemplate = document.getElementById('postTemplate');
     let currentStoryIndex = 0;
+    let currentPost = null;
+    let nextPostId = 4;
 
-    // Story Click
-    document.querySelectorAll('[data-story-id]').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        currentStoryIndex = mockStories.findIndex(s => s.id == e.target.dataset.storyId);
+    function renderComment(container, author, avatar, body) {
+      const node = commentTemplate.content.firstElementChild.cloneNode(true);
+      const avatarNode = node.querySelector('[data-comment-avatar]');
+      avatarNode.src = avatar;
+      avatarNode.alt = author;
+      node.querySelector('[data-comment-author]').textContent = author;
+      node.querySelector('[data-comment-body]').textContent = body;
+      container.appendChild(node);
+    }
+
+    function updateLikeState(card, liked, delta) {
+      const button = card.querySelector('.like-btn');
+      const icon = button.querySelector('svg');
+      const count = button.querySelector('.like-count');
+      const total = card.querySelector('[data-likes-total]');
+      const nextCount = Number(count.textContent || '0') + delta;
+      count.textContent = String(nextCount);
+      total.textContent = String(nextCount);
+      button.classList.toggle('text-gold', liked);
+      icon.setAttribute('fill', liked ? 'currentColor' : 'none');
+      card.dataset.liked = liked ? 'true' : 'false';
+      if (liked) {
+        button.classList.add('like-heart');
+        setTimeout(() => button.classList.remove('like-heart'), 600);
+      }
+    }
+
+    function openComments(card) {
+      currentPost = card;
+      commentsList.replaceChildren();
+      card.querySelectorAll('.comment-source').forEach((source) => {
+        renderComment(commentsList, source.dataset.author || 'Member', source.dataset.avatar || '', source.dataset.body || '');
+      });
+      document.getElementById('commentModal').classList.remove('hidden');
+    }
+
+    function bindPostEvents(scope = document) {
+      scope.querySelectorAll('.like-btn:not([data-bound])').forEach((button) => {
+        button.dataset.bound = '1';
+        button.addEventListener('click', () => {
+          const card = button.closest('[data-post-id]');
+          const liked = card.dataset.liked === 'true';
+          updateLikeState(card, !liked, liked ? -1 : 1);
+        });
+      });
+
+      scope.querySelectorAll('.comment-btn:not([data-bound]), .view-comments-btn:not([data-bound])').forEach((button) => {
+        button.dataset.bound = '1';
+        button.addEventListener('click', () => openComments(button.closest('[data-post-id]')));
+      });
+
+      scope.querySelectorAll('.share-btn:not([data-bound])').forEach((button) => {
+        button.dataset.bound = '1';
+        button.addEventListener('click', () => window.alert('Share functionality would redirect to share options.'));
+      });
+
+      scope.querySelectorAll('.double-tap-btn:not([data-bound])').forEach((button) => {
+        button.dataset.bound = '1';
+        button.addEventListener('click', () => {
+          const card = button.closest('[data-post-id]');
+          if (card.dataset.liked !== 'true') updateLikeState(card, true, 1);
+        });
+      });
+    }
+
+    function showStory(index) {
+      const story = storyItems[index];
+      if (!story) return;
+      document.getElementById('storyImage').src = story.dataset.storyAvatar;
+      document.getElementById('storyUserAvatar').src = story.dataset.storyAvatar;
+      document.getElementById('storyUserAvatar').alt = story.dataset.storyName;
+      document.getElementById('storyUserName').textContent = story.dataset.storyName;
+      storyModal.classList.remove('hidden');
+      document.body.classList.add('modal-open');
+    }
+
+    storyItems.forEach((story, index) => {
+      story.addEventListener('click', () => {
+        currentStoryIndex = index;
         showStory(currentStoryIndex);
       });
     });
 
-    function showStory(index) {
-      const story = mockStories[index];
-      document.getElementById('storyImage').src = story.avatar;
-      document.getElementById('storyUserName').textContent = story.name;
-      document.getElementById('storyUserAvatar').src = story.avatar;
-      document.getElementById('storyModal').classList.remove('hidden');
-      document.body.classList.add('modal-open');
-    }
-
     document.getElementById('closeStoryBtn').addEventListener('click', () => {
-      document.getElementById('storyModal').classList.add('hidden');
+      storyModal.classList.add('hidden');
       document.body.classList.remove('modal-open');
     });
-
     document.getElementById('nextStoryBtn').addEventListener('click', () => {
-      currentStoryIndex = (currentStoryIndex + 1) % mockStories.length;
+      currentStoryIndex = (currentStoryIndex + 1) % storyItems.length;
       showStory(currentStoryIndex);
     });
-
     document.getElementById('prevStoryBtn').addEventListener('click', () => {
-      currentStoryIndex = (currentStoryIndex - 1 + mockStories.length) % mockStories.length;
+      currentStoryIndex = (currentStoryIndex - 1 + storyItems.length) % storyItems.length;
       showStory(currentStoryIndex);
     });
-
-    // Close modal on background click
-    document.getElementById('storyModal').addEventListener('click', (e) => {
-      if (e.target.id === 'storyModal') {
-        document.getElementById('storyModal').classList.add('hidden');
+    storyModal.addEventListener('click', (event) => {
+      if (event.target === storyModal) {
+        storyModal.classList.add('hidden');
         document.body.classList.remove('modal-open');
       }
     });
 
-    // Post Creation
     document.getElementById('postBtn').addEventListener('click', () => {
       const textarea = document.getElementById('postInput');
       const content = textarea.value.trim();
-      if (content) {
-        const newPost = {
-          id: mockPosts.length + 1,
-          author: 'Alex Morgan',
-          avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop',
-          image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=600&auto=format&fit=crop',
-          caption: content,
-          timestamp: 'now',
-          likes: 0,
-          comments: 0,
-          shares: 0,
-          liked: false
-        };
-        mockPosts.unshift(newPost);
-        textarea.value = '';
-        location.reload(); // Reload to show new post
-      }
+      if (!content) return;
+      const card = postTemplate.content.firstElementChild.cloneNode(true);
+      card.dataset.postId = String(nextPostId++);
+      card.querySelector('[data-post-caption]').textContent = ' ' + content;
+      document.getElementById('feedContainer').prepend(card);
+      bindPostEvents(card);
+      textarea.value = '';
     });
 
-    // Like Button
-    document.querySelectorAll('.like-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const postId = parseInt(e.currentTarget.dataset.postId);
-        const post = mockPosts.find(p => p.id === postId);
-        if (post) {
-          post.liked = !post.liked;
-          post.likes += post.liked ? 1 : -1;
-          e.currentTarget.querySelector('.like-count').textContent = post.likes;
-          e.currentTarget.classList.toggle('text-gold');
-          if (post.liked) {
-            e.currentTarget.classList.add('like-heart');
-            setTimeout(() => e.currentTarget.classList.remove('like-heart'), 600);
-          }
-        }
-      });
-    });
-
-    // Comment Button
-    document.querySelectorAll('.comment-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const postId = parseInt(e.currentTarget.dataset.postId);
-        currentPost = mockPosts.find(p => p.id === postId);
-        document.getElementById('commentModal').classList.remove('hidden');
-        document.getElementById('commentsList').innerHTML = `
-          <div class="comment-item flex gap-3">
-            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=32&auto=format&fit=crop" alt="Coach Mia" class="w-6 h-6 rounded-full object-cover flex-shrink-0">
-            <div class="flex-1">
-              <div class="text-xs font-semibold text-white">Coach Mia</div>
-              <div class="text-xs text-stone-300 mt-1">Amazing workout! Keep it up 💪</div>
-            </div>
-          </div>
-          <div class="comment-item flex gap-3">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=32&auto=format&fit=crop" alt="Riley" class="w-6 h-6 rounded-full object-cover flex-shrink-0">
-            <div class="flex-1">
-              <div class="text-xs font-semibold text-white">Riley</div>
-              <div class="text-xs text-stone-300 mt-1">Love this energy! 🔥</div>
-            </div>
-          </div>
-        `;
-      });
-    });
-
-    // Submit Comment
     document.getElementById('submitCommentBtn').addEventListener('click', () => {
       const input = document.getElementById('commentInput');
-      const comment = input.value.trim();
-      if (comment && currentPost) {
-        const newComment = `
-          <div class="comment-item flex gap-3">
-            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=32&auto=format&fit=crop" alt="You" class="w-6 h-6 rounded-full object-cover flex-shrink-0">
-            <div class="flex-1">
-              <div class="text-xs font-semibold text-white">You</div>
-              <div class="text-xs text-stone-300 mt-1">${comment}</div>
-            </div>
-          </div>
-        `;
-        document.getElementById('commentsList').insertAdjacentHTML('beforeend', newComment);
-        currentPost.comments++;
-        input.value = '';
-      }
+      const text = input.value.trim();
+      if (!text || !currentPost) return;
+      renderComment(commentsList, 'You', 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=32&auto=format&fit=crop', text);
+      const source = document.createElement('div');
+      source.className = 'comment-source';
+      source.dataset.author = 'You';
+      source.dataset.avatar = 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=32&auto=format&fit=crop';
+      source.dataset.body = text;
+      currentPost.querySelector('.post-comments-source').appendChild(source);
+      currentPost.querySelectorAll('.comment-count, [data-comments-total]').forEach((node) => {
+        node.textContent = String(Number(node.textContent || '0') + 1);
+      });
+      input.value = '';
     });
 
-    // Close Comment Modal
     document.getElementById('closeCommentBtn').addEventListener('click', () => {
       document.getElementById('commentModal').classList.add('hidden');
     });
 
-    // Share Button
-    document.querySelectorAll('.share-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        alert('Share functionality would redirect to share options');
-      });
-    });
-
-    // Double tap to like
-    let lastTap = 0;
-    document.querySelectorAll('.double-tap-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const currentTime = new Date().getTime();
-        const tapLength = currentTime - lastTap;
-        if (tapLength < 300) {
-          const postId = parseInt(e.currentTarget.dataset.postId);
-          const likeBtn = document.querySelector(`[data-post-id="${postId}"].like-btn`);
-          if (likeBtn) {
-            likeBtn.click();
-          }
-        }
-        lastTap = currentTime;
-      });
-    });
-
-    // Add Story Button
     document.getElementById('addStoryBtn').addEventListener('click', () => {
-      alert('Click to add your story! (Photo upload not available in this demo)');
+      window.alert('Click to add your story! (Photo upload not available in this demo)');
     });
+
+    bindPostEvents();
   </script>
 </body>
 </html>

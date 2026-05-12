@@ -27,6 +27,9 @@
     .accordion-open{max-height:800px}
     .check-anim{transition:transform 160ms,opacity 160ms}
     .glow-amber{box-shadow:0 6px 30px rgba(245,176,65,0.12)}
+    .hydration-bar{width:40%}
+    .achievement-toast{min-width:220px}
+    .tutorial-video-frame{height:360px}
   </style>
 </head>
 <body class="antialiased text-sm">
@@ -228,7 +231,7 @@
               <div class="text-stone-400 text-xs">Calories</div>
               <div class="text-white font-bold text-lg">120 kcal</div>
               <div class="mt-3 text-stone-400 text-xs">Hydration</div>
-              <div class="h-2 bg-white/6 rounded-full overflow-hidden mt-2"><div id="hydrationBar" class="h-full bg-gradient-to-r from-[#6fdc8d] to-[#2fd6a1] rounded-full" style="width:40%"></div></div>
+              <div class="h-2 bg-white/6 rounded-full overflow-hidden mt-2"><div id="hydrationBar" class="hydration-bar h-full bg-gradient-to-r from-[#6fdc8d] to-[#2fd6a1] rounded-full"></div></div>
             </div>
           </div>
           <div class="mt-4 grid grid-cols-2 gap-2">
@@ -268,6 +271,17 @@
 
     <!-- Achievement popup container -->
     <div id="achieves" class="fixed top-8 right-8 flex flex-col gap-3 z-50 pointer-events-none"></div>
+    <template id="achievementTemplate">
+      <div class="achievement-toast glass rounded-xl p-3 pointer-events-auto fast-trans transform-gpu">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0f] flex items-center justify-center border border-white/5 text-gold font-bold">*</div>
+          <div>
+            <div class="text-white font-semibold" data-achievement-title></div>
+            <div class="text-stone-400 text-sm" data-achievement-subtitle></div>
+          </div>
+        </div>
+      </div>
+    </template>
 
     <!-- Mobile floating action bar -->
     <nav id="mobileNav" class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] md:hidden glass rounded-full p-2 flex items-center justify-between px-4 shadow-glass-strong safe-bottom">
@@ -286,7 +300,7 @@
     <button id="closeTutorial" class="absolute right-4 top-4 p-2 rounded-md bg-white/4">✕</button>
     <div class="text-white font-bold text-xl" id="tutorialTitle">Exercise Tutorial</div>
     <div class="text-stone-400 text-sm mt-1">Video and pointers</div>
-    <div class="mt-4 bg-black rounded-lg overflow-hidden" style="height:360px;"><video controls class="w-full h-full bg-black object-cover"><source src="" /></video></div>
+    <div class="tutorial-video-frame mt-4 bg-black rounded-lg overflow-hidden"><video controls class="w-full h-full bg-black object-cover"><source src="" /></video></div>
   </div>
 </div>
 
@@ -309,10 +323,9 @@
   // Completion checkboxes and achievement popup
   function showAchievement(text, sub){
     const container = document.getElementById('achieves');
-    const el = document.createElement('div');
-    el.className = 'glass rounded-xl p-3 pointer-events-auto fast-trans transform-gpu';
-    el.style.minWidth = '220px';
-    el.innerHTML = `<div class="flex items-center gap-3"><div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0f] flex items-center justify-center border border-white/5 text-gold font-bold">★</div><div><div class="text-white font-semibold">${text}</div><div class="text-stone-400 text-sm">${sub}</div></div></div>`;
+    const el = document.getElementById('achievementTemplate').content.firstElementChild.cloneNode(true);
+    el.querySelector('[data-achievement-title]').textContent = text;
+    el.querySelector('[data-achievement-subtitle]').textContent = sub;
     container.appendChild(el);
     el.animate([{ transform: 'translateY(-10px)', opacity:0 }, { transform: 'translateY(0)', opacity:1}], { duration:240, easing:'ease-out' });
     setTimeout(()=>{ el.animate([{ transform: 'translateY(0)', opacity:1 }, { transform: 'translateY(-8px)', opacity:0}], { duration:380, easing:'ease-in' }); setTimeout(()=>el.remove(),420); },2200);
