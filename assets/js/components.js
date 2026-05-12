@@ -106,8 +106,19 @@ const Components = (function () {
       document.getElementById('sidebarToggle')?.setAttribute('aria-pressed', String(collapsed));
     });
 
-    document.getElementById('mobileMenuBtn')?.addEventListener('click', () => {
+    document.getElementById('mobileMenuBtn')?.addEventListener('click', (e) => {
+      e.stopPropagation();
       sidebar?.classList.toggle('hidden');
+      document.querySelector('.shell-overlay')?.classList.toggle('opacity-100', !sidebar?.classList.contains('hidden'));
+      document.querySelector('.shell-overlay')?.classList.toggle('pointer-events-auto', !sidebar?.classList.contains('hidden'));
+    });
+
+    // Close sidebar when clicking outside
+    document.getElementById('shell-root')?.addEventListener('click', (e) => {
+      if (window.innerWidth < 768 && sidebar && !sidebar.classList.contains('hidden') && !e.target.closest('aside.app-sidebar') && !e.target.closest('#mobileMenuBtn')) {
+        sidebar.classList.add('hidden');
+        document.querySelector('.shell-overlay')?.classList.remove('opacity-100', 'pointer-events-auto');
+      }
     });
 
     document.addEventListener('click', (event) => {

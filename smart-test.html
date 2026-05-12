@@ -1,0 +1,863 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smart Test — Fitness Assessment</title>
+  <script>tailwind.config = { theme: { extend: { colors: { gold: { DEFAULT: '#f5b041' } }, fontFamily: { display:['Poppins','Inter','system-ui','sans-serif'] } } } }</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body{font-family:Poppins,system-ui;background:linear-gradient(180deg,#060607,#0d0d0e);color:#fff}
+    .glass{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.015));border:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(8px)}
+    .fast-trans{transition:all 180ms}
+    .metric-card{background:linear-gradient(135deg,rgba(245,176,65,0.1),rgba(255,255,255,0.05));border:1px solid rgba(245,176,65,0.2)}
+    .result-section{animation:slideUp 600ms ease}
+    @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    input[type="number"],input[type="text"],select{background:rgba(255,255,255,0.04) !important}
+    input[type="number"]:focus,input[type="text"]:focus,select:focus{background:rgba(255,255,255,0.08) !important;border-color:rgba(245,176,65,0.5) !important}
+  </style>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="antialiased">
+  <div id="shell-root" class="app-shell min-h-screen flex">
+    <div class="shell-overlay"></div>
+    <aside class="app-sidebar hidden md:flex flex-col w-72 p-5 gap-6 glass rounded-2xl sticky top-6 m-6 h-[calc(100vh-48px)] overflow-hidden">
+      <a href="landing.html" class="flex items-center gap-3 sidebar-brand">
+        <div class="sidebar-brand-icon rounded-xl p-2 bg-gradient-to-br from-[#1b1b1d] to-[#111112]"><img src="assets/golds-logo.png" alt="Golds logo" class="w-9 h-9 object-contain"/></div>
+        <div class="sidebar-brand-text"><div class="text-white font-semibold text-lg">GoldTech</div><div class="sidebar-meta text-stone-400 text-xs uppercase tracking-widest">Smart Fitness OS</div></div>
+      </a>
+      <nav aria-label="Primary" class="flex-1 overflow-y-auto pr-1">
+        <ul class="space-y-1 text-sm">
+              <li><a href="landing.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Home</span></a></li>
+              <li><a href="dashboard.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Dashboard</span></a></li>
+              <li><a href="programs.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Programs</span></a></li>
+              <li><a href="workout.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Workouts</span></a></li>
+              <li><a href="coaches.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Coaches</span></a></li>
+              <li><a href="community.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Community</span></a></li>
+              <li><a href="blogs.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Blogs</span></a></li>
+              <li><a href="crowd.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Crowd</span></a></li>
+              <li><a href="inbody.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">InBody</span></a></li>
+              <li><a href="machines.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Machines</span></a></li>
+              <li><a href="nutrition.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Nutrition</span></a></li>
+              <li><a href="achievements.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Achievements</span></a></li>
+              <li><a href="store.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Store</span></a></li>
+              <li><a href="membership.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Membership</span></a></li>
+              <li><a href="notifications.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Notifications</span></a></li>
+              <li><a href="settings.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Settings</span></a></li>
+              <li><a href="support.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Support</span></a></li>
+              <li><a href="profile.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Profile</span></a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer pt-3 border-t border-white/6 text-sm"><div class="text-stone-400">Active Membership</div><div class="mt-2 flex items-center justify-between"><div><div class="text-white font-semibold">Gold Elite</div><div class="text-stone-400 text-xs">Valid until May 2027</div></div><div class="bg-gradient-to-br from-[#2a2a2a]/80 to-[#161616]/60 p-2 rounded-lg text-gold">&#9679;</div></div></div>
+    </aside>
+    <main class="flex-1 p-5 md:p-8 overflow-y-auto safe-bottom">
+      <header class="sticky top-6 z-30 glass rounded-2xl p-3 md:p-4 mb-6 flex items-center justify-between fast-trans backdrop-blur-xl">
+        <div class="flex items-center gap-3 md:gap-4"><button id="mobileMenuBtn" class="md:hidden p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16" stroke-width="1.6" stroke-linecap="round"/></svg></button><button id="sidebarToggle" class="hidden md:inline-flex sidebar-toggle p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle sidebar" aria-pressed="false"><svg class="w-5 h-5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="hidden md:flex items-center gap-4"><h1 class="text-white font-extrabold text-lg">Smart Test</h1><div class="text-stone-400 text-sm">AI-Powered Fitness Assessment</div></div></div>
+        <div class="flex items-center gap-2 sm:gap-3"><button id="themeToggle" class="hidden sm:inline-flex p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle theme" aria-pressed="false"><span data-theme-icon="dark" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-theme-icon="light" class="hidden" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><a href="profile.html" class="flex items-center gap-2 sm:gap-3 rounded-2xl bg-white/3 px-2 sm:px-3 py-2 min-h-[44px] hover:bg-white/6 fast-trans"><div class="text-right hidden sm:block"><div class="text-white font-semibold text-sm">Alex Morgan</div><div class="text-stone-400 text-xs">Gold Elite</div></div><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=64&auto=format&fit=crop&s=placeholder" alt="avatar" class="w-10 h-10 rounded-full object-cover border border-white/6"/></a></div>
+      </header>
+      <div id="page-main">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Form Section -->
+          <div class="lg:col-span-5 space-y-6">
+            <div class="glass rounded-2xl p-6 border border-white/10">
+              <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <span class="text-gold text-3xl">📊</span>
+                Your Body Data
+              </h2>
+              
+              <div class="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3 text-stone-300 text-xs">
+                <strong>💡 For best results:</strong> Add your waist measurement (required for accurate body fat estimation). Height/weight in cm/kg. All measurements in centimeters.
+              </div>
+              
+              <form id="smartTestForm" class="space-y-5">
+                <!-- Basic Info -->
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="text-stone-400 text-sm font-medium block mb-2">Age</label>
+                    <input type="number" id="age" min="15" max="100" required placeholder="25" class="w-full px-4 py-2 min-h-[44px] rounded-lg glass border border-white/10 text-white focus:outline-none"/>
+                  </div>
+                  <div>
+                    <label class="text-stone-400 text-sm font-medium block mb-2">Gender</label>
+                    <select id="gender" required class="w-full px-4 py-2 min-h-[44px] rounded-lg glass border border-white/10 text-white focus:outline-none">
+                      <option value="">Select</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Height & Weight -->
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="text-stone-400 text-sm font-medium block mb-2">Height (cm)</label>
+                    <input type="number" id="height" min="140" max="220" required placeholder="175" class="w-full px-4 py-2 min-h-[44px] rounded-lg glass border border-white/10 text-white focus:outline-none"/>
+                  </div>
+                  <div>
+                    <label class="text-stone-400 text-sm font-medium block mb-2">Weight (kg)</label>
+                    <input type="number" id="weight" min="40" max="200" step="0.1" required placeholder="75" class="w-full px-4 py-2 min-h-[44px] rounded-lg glass border border-white/10 text-white focus:outline-none"/>
+                  </div>
+                </div>
+
+                <!-- Measurements -->
+                <div class="space-y-4 p-4 bg-white/3 rounded-lg border border-white/5">
+                  <div class="text-gold text-sm font-semibold">Body Measurements (cm)</div>
+                  <div class="grid grid-cols-2 gap-4">
+                    <div>
+                      <label class="text-stone-400 text-sm font-medium block mb-2">Waist</label>
+                      <input type="number" id="waist" min="40" max="150" step="0.5" placeholder="80" class="w-full px-4 py-2 min-h-[44px] rounded-lg glass border border-white/10 text-white focus:outline-none"/>
+                    </div>
+                    <div>
+                      <label class="text-stone-400 text-sm font-medium block mb-2">Chest</label>
+                      <input type="number" id="chest" min="60" max="150" step="0.5" placeholder="100" class="w-full px-4 py-2 min-h-[44px] rounded-lg glass border border-white/10 text-white focus:outline-none"/>
+                    </div>
+                    <div>
+                      <label class="text-stone-400 text-sm font-medium block mb-2">Arm</label>
+                      <input type="number" id="arm" min="20" max="60" step="0.5" placeholder="32" class="w-full px-4 py-2 min-h-[44px] rounded-lg glass border border-white/10 text-white focus:outline-none"/>
+                    </div>
+                    <div>
+                      <label class="text-stone-400 text-sm font-medium block mb-2">Thigh</label>
+                      <input type="number" id="thigh" min="40" max="100" step="0.5" placeholder="55" class="w-full px-4 py-2 min-h-[44px] rounded-lg glass border border-white/10 text-white focus:outline-none"/>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Activity & Goal -->
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="text-stone-400 text-sm font-medium block mb-2">Activity Level</label>
+                    <select id="activity" required class="w-full px-4 py-2 min-h-[44px] rounded-lg glass border border-white/10 text-white focus:outline-none">
+                      <option value="">Select</option>
+                      <option value="sedentary">Sedentary</option>
+                      <option value="light">Light (1-3 days)</option>
+                      <option value="moderate">Moderate (3-5 days)</option>
+                      <option value="very_active">Very Active (6-7 days)</option>
+                      <option value="extremely_active">Extremely Active</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="text-stone-400 text-sm font-medium block mb-2">Goal</label>
+                    <select id="goal" required class="w-full px-4 py-2 min-h-[44px] rounded-lg glass border border-white/10 text-white focus:outline-none">
+                      <option value="">Select</option>
+                      <option value="fat_loss">Fat Loss</option>
+                      <option value="muscle_gain">Muscle Gain</option>
+                      <option value="maintenance">Maintenance</option>
+                      <option value="performance">Athletic Performance</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Training Days -->
+                <div>
+                  <label class="text-stone-400 text-sm font-medium block mb-2">Training Days Per Week</label>
+                  <select id="days" required class="w-full px-4 py-2 min-h-[44px] rounded-lg glass border border-white/10 text-white focus:outline-none">
+                    <option value="">Select</option>
+                    <option value="3">3 Days</option>
+                    <option value="4">4 Days</option>
+                    <option value="5">5 Days</option>
+                    <option value="6">6 Days</option>
+                  </select>
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-gold to-amber-400 hover:from-amber-400 hover:to-amber-500 text-black px-6 py-3 sm:py-4 min-h-[48px] rounded-lg font-bold text-base transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-gold/40 flex items-center justify-center gap-2">
+                  <span>🚀 Generate Assessment</span>
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Results Section -->
+          <div class="lg:col-span-7">
+            <div id="resultsContainer" class="hidden space-y-6">
+              <!-- Body Metrics -->
+              <div class="glass rounded-2xl p-6 border border-white/10 result-section">
+                <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <span class="text-2xl">📏</span> Body Metrics
+                </h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  <div class="metric-card rounded-lg p-4 text-center border">
+                    <div class="text-stone-400 text-sm">BMI</div>
+                    <div class="text-2xl font-bold text-gold mt-2" id="bmiValue">--</div>
+                    <div class="text-stone-500 text-xs mt-1" id="bmiStatus">--</div>
+                  </div>
+                  <div class="metric-card rounded-lg p-4 text-center border">
+                    <div class="text-stone-400 text-sm">Body Fat %</div>
+                    <div class="text-2xl font-bold text-gold mt-2" id="bodyFatValue">--</div>
+                    <div class="text-stone-500 text-xs mt-1" id="bodyFatStatus">--</div>
+                  </div>
+                  <div class="metric-card rounded-lg p-4 text-center border">
+                    <div class="text-stone-400 text-sm">Lean Mass</div>
+                    <div class="text-2xl font-bold text-gold mt-2" id="leanMassValue">--</div>
+                    <div class="text-stone-500 text-xs mt-1">kg</div>
+                  </div>
+                  <div class="metric-card rounded-lg p-4 text-center border">
+                    <div class="text-stone-400 text-sm">Body Type</div>
+                    <div class="text-lg font-bold text-gold mt-2" id="bodyTypeValue">--</div>
+                    <div class="text-stone-500 text-xs mt-1" id="bodyTypeDesc">--</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Calorie Needs -->
+              <div class="glass rounded-2xl p-6 border border-white/10 result-section">
+                <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <span class="text-2xl">🔥</span> Daily Calorie Needs
+                </h3>
+                <div class="space-y-4">
+                  <div class="p-4 bg-white/3 rounded-lg border border-gold/20">
+                    <div class="text-stone-400 text-sm">Maintenance Calories (TDEE)</div>
+                    <div class="text-3xl font-bold text-gold mt-2" id="tdeeValue">--</div>
+                    <div class="text-stone-500 text-xs mt-1">To maintain current weight</div>
+                  </div>
+                  <div class="grid grid-cols-2 gap-3">
+                    <div class="p-3 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                      <div class="text-stone-400 text-xs">Fat Loss Goal</div>
+                      <div class="text-xl font-bold text-blue-400 mt-1" id="fatLossCalValue">--</div>
+                      <div class="text-stone-500 text-xs mt-1">-500 cal/day</div>
+                    </div>
+                    <div class="p-3 bg-red-500/10 rounded-lg border border-red-500/20">
+                      <div class="text-stone-400 text-xs">Muscle Gain Goal</div>
+                      <div class="text-xl font-bold text-red-400 mt-1" id="muscleGainCalValue">--</div>
+                      <div class="text-stone-500 text-xs mt-1">+500 cal/day</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Macronutrients -->
+              <div class="glass rounded-2xl p-6 border border-white/10 result-section">
+                <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <span class="text-2xl">🥗</span> Recommended Macros
+                </h3>
+                <div id="macroResults" class="space-y-4"></div>
+              </div>
+
+              <!-- Workout Split -->
+              <div class="glass rounded-2xl p-6 border border-white/10 result-section">
+                <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <span class="text-2xl">💪</span> Best Workout Split
+                </h3>
+                <div class="p-4 bg-white/3 rounded-lg border border-white/5 text-stone-300 text-sm leading-relaxed" id="splitResult">--</div>
+              </div>
+
+              <!-- Cardio & Timeline -->
+              <div class="glass rounded-2xl p-6 border border-white/10 result-section">
+                <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <span class="text-2xl">🏃</span> Recommended Training
+                </h3>
+                <div class="space-y-3">
+                  <div class="p-3 bg-white/3 rounded-lg border border-white/5">
+                    <div class="text-gold text-sm font-semibold">Cardio</div>
+                    <div class="text-stone-300 text-sm mt-2" id="cardioResult">--</div>
+                  </div>
+                  <div class="p-3 bg-white/3 rounded-lg border border-white/5">
+                    <div class="text-gold text-sm font-semibold">Est. Timeline to Goal</div>
+                    <div class="text-stone-300 text-sm mt-2" id="timelineResult">--</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Personalized Advice -->
+              <div class="glass rounded-2xl p-6 border border-white/10 result-section">
+                <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <span class="text-2xl">⭐</span> Personalized Advice
+                </h3>
+                <div class="space-y-3 text-stone-300 text-sm leading-relaxed" id="adviceResult">--</div>
+              </div>
+
+              <!-- Strengths & Weaknesses -->
+              <div class="glass rounded-2xl p-6 border border-white/10 result-section">
+                <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <span class="text-2xl">🎯</span> Analysis
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="p-4 bg-green-500/10 rounded-lg border border-green-500/20">
+                    <div class="text-green-400 font-semibold mb-2">Strengths</div>
+                    <ul class="text-stone-300 text-sm space-y-1" id="strengthsList">
+                      <li>--</li>
+                    </ul>
+                  </div>
+                  <div class="p-4 bg-orange-500/10 rounded-lg border border-orange-500/20">
+                    <div class="text-orange-400 font-semibold mb-2">Areas to Improve</div>
+                    <ul class="text-stone-300 text-sm space-y-1" id="improvementsList">
+                      <li>--</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Plan -->
+              <div class="glass rounded-2xl p-6 border border-white/10 result-section bg-gradient-to-r from-gold/10 to-amber-500/10 border-gold/30">
+                <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <span class="text-2xl">📋</span> Your Action Plan
+                </h3>
+                <div class="space-y-2 text-stone-300 text-sm" id="actionPlanResult">--</div>
+              </div>
+
+              <button onclick="resetForm()" class="w-full bg-white/10 hover:bg-white/15 text-white px-6 py-3 rounded-lg font-semibold transition-all">
+                Start New Assessment
+              </button>
+            </div>
+
+            <div id="emptyState" class="glass rounded-2xl p-12 text-center border border-white/10">
+              <div class="text-6xl mb-4">🔍</div>
+              <h3 class="text-xl font-bold text-white mb-2">Fill in your body data</h3>
+              <p class="text-stone-400 text-sm">Complete the form to get your personalized fitness assessment</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="assets/js/components.js"></script>
+  <script>
+    Components.init();
+    
+    const form = document.getElementById('smartTestForm');
+    const resultsContainer = document.getElementById('resultsContainer');
+    const emptyState = document.getElementById('emptyState');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      calculateAssessment();
+    });
+
+    function calculateAssessment() {
+      const age = parseInt(document.getElementById('age').value);
+      const height = parseInt(document.getElementById('height').value);
+      const weight = parseFloat(document.getElementById('weight').value);
+      const gender = document.getElementById('gender').value;
+      const activity = document.getElementById('activity').value;
+      const goal = document.getElementById('goal').value;
+      const days = parseInt(document.getElementById('days').value);
+      const waist = parseFloat(document.getElementById('waist').value) || 0;
+      const chest = parseFloat(document.getElementById('chest').value) || 0;
+      const arm = parseFloat(document.getElementById('arm').value) || 0;
+      const thigh = parseFloat(document.getElementById('thigh').value) || 0;
+
+      // Validate data integrity
+      const validation = validateBodyData(age, height, weight, gender, waist, chest, arm, thigh);
+      if (!validation.isValid) {
+        alert('⚠️ ' + validation.message);
+        return;
+      }
+
+      // BMI Calculation
+      const bmi = weight / ((height / 100) ** 2);
+      const bmiStatus = getBMIStatus(bmi);
+
+      // Body Fat Estimation (US Navy Formula)
+      let bodyFatResult = calculateBodyFat(gender, waist, height, weight, bmi);
+      let bodyFat = bodyFatResult.estimate;
+      let bodyFatConfidence = bodyFatResult.confidence;
+      let bodyFatNote = bodyFatResult.note;
+
+      const leanMass = weight * (1 - bodyFat / 100);
+      const fatMass = weight - leanMass;
+
+      // Body Type
+      const bodyType = determineBodyType(bmi, bodyFat, gender);
+
+      // TDEE Calculation (Mifflin-St Jeor)
+      const bmr = calculateBMR(weight, height, age, gender);
+      const activityFactor = getActivityFactor(activity);
+      const tdee = Math.round(bmr * activityFactor);
+
+      // Calorie adjustments
+      const fatLossCal = Math.round(tdee - 500);
+      const muscleGainCal = Math.round(tdee + 500);
+
+      // Macros
+      const goalCalories = goal === 'fat_loss' ? fatLossCal : goal === 'muscle_gain' ? muscleGainCal : tdee;
+      const macros = calculateMacros(leanMass, goalCalories, goal, gender);
+
+      // Display results
+      document.getElementById('bmiValue').textContent = bmi.toFixed(1);
+      document.getElementById('bmiStatus').textContent = bmiStatus;
+      
+      // Display body fat with confidence indicator
+      const bodyFatDisplay = bodyFatConfidence >= 80 ? 
+        bodyFat.toFixed(1) + '%' : 
+        (bodyFat - 2).toFixed(0) + '-' + (bodyFat + 2).toFixed(0) + '%';
+      
+      document.getElementById('bodyFatValue').textContent = bodyFatDisplay;
+      
+      // Show confidence and note
+      const confidenceIndicator = bodyFatConfidence >= 80 ? '✓ High confidence' : 
+                                  bodyFatConfidence >= 60 ? '⚠ Moderate confidence' : 
+                                  '⚠ Low confidence - add measurements';
+      
+      const bodyFatStatusDiv = document.getElementById('bodyFatStatus');
+      bodyFatStatusDiv.innerHTML = getBodyFatStatus(bodyFat, gender) + '<br><span class="text-xs text-stone-500 mt-1 inline-block">' + confidenceIndicator + ' ' + bodyFatNote + '</span>';
+      
+      document.getElementById('leanMassValue').textContent = leanMass.toFixed(1);
+      document.getElementById('bodyTypeValue').textContent = bodyType.name;
+      document.getElementById('bodyTypeDesc').textContent = bodyType.desc;
+      
+      document.getElementById('tdeeValue').textContent = tdee;
+      document.getElementById('fatLossCalValue').textContent = fatLossCal;
+      document.getElementById('muscleGainCalValue').textContent = muscleGainCal;
+
+      // Macros display
+      const macroHTML = `
+        <div class="grid grid-cols-3 gap-3">
+          <div class="p-3 bg-red-500/10 rounded-lg border border-red-500/20 text-center">
+            <div class="text-stone-400 text-xs">Protein</div>
+            <div class="text-xl font-bold text-red-400 mt-1">${macros.protein}g</div>
+            <div class="text-stone-500 text-xs mt-1">${macros.proteinCal} cal</div>
+          </div>
+          <div class="p-3 bg-blue-500/10 rounded-lg border border-blue-500/20 text-center">
+            <div class="text-stone-400 text-xs">Carbs</div>
+            <div class="text-xl font-bold text-blue-400 mt-1">${macros.carbs}g</div>
+            <div class="text-stone-500 text-xs mt-1">${macros.carbsCal} cal</div>
+          </div>
+          <div class="p-3 bg-yellow-500/10 rounded-lg border border-yellow-500/20 text-center">
+            <div class="text-stone-400 text-xs">Fats</div>
+            <div class="text-xl font-bold text-yellow-400 mt-1">${macros.fats}g</div>
+            <div class="text-stone-500 text-xs mt-1">${macros.fatsCal} cal</div>
+          </div>
+        </div>
+        <p class="text-stone-400 text-xs mt-3">Daily goal: ${goalCalories} calories</p>
+      `;
+      document.getElementById('macroResults').innerHTML = macroHTML;
+
+      // Workout Split
+      document.getElementById('splitResult').textContent = getWorkoutSplit(days, goal);
+
+      // Cardio recommendation
+      document.getElementById('cardioResult').textContent = getCardioRecommendation(goal, activity);
+
+      // Timeline
+      document.getElementById('timelineResult').textContent = getTimeline(weight, fatMass, goal, bodyFat);
+
+      // Strengths & Weaknesses
+      generateAnalysis(bmi, bodyFat, bodyType, goal, age);
+
+      // Personalized advice
+      generateAdvice(goal, bodyFat, bmi, days);
+
+      // Action Plan
+      generateActionPlan(goal, days, goalCalories, macros);
+
+      emptyState.classList.add('hidden');
+      resultsContainer.classList.remove('hidden');
+    }
+
+    function validateBodyData(age, height, weight, gender, waist, chest, arm, thigh) {
+      // Age validation
+      if (age < 15 || age > 100) {
+        return { isValid: false, message: 'Age must be between 15-100 years' };
+      }
+
+      // Height & Weight validation
+      if (height < 140 || height > 220) {
+        return { isValid: false, message: 'Height must be between 140-220 cm' };
+      }
+      if (weight < 40 || weight > 200) {
+        return { isValid: false, message: 'Weight must be between 40-200 kg' };
+      }
+
+      // Calculate BMI for context
+      const bmi = weight / ((height / 100) ** 2);
+
+      // Waist validation - cross-check with weight and BMI
+      if (waist > 0) {
+        const waistHeightRatio = waist / height;
+        
+        // Check for unrealistic combinations
+        if (gender === 'male' && weight > 80 && waist < 60) {
+          return { isValid: false, message: 'Warning: Waist measurement seems too small for your weight. Please verify measurements are in cm.' };
+        }
+        if (gender === 'female' && weight > 70 && waist < 50) {
+          return { isValid: false, message: 'Warning: Waist measurement seems too small for your weight. Please verify measurements are in cm.' };
+        }
+
+        // BMI vs waist consistency check
+        if (bmi < 20 && waist > height * 0.6) {
+          return { isValid: false, message: 'Inconsistent data: Low BMI but high waist circumference. Please verify all measurements.' };
+        }
+      }
+
+      // Measurement consistency checks
+      if (chest > 0 && gender === 'male' && waist > 0 && chest < waist * 0.8) {
+        return { isValid: false, message: 'Note: Chest smaller than expected relative to waist. Verify measurements in cm.' };
+      }
+
+      // Weight extremes for height
+      const minWeightForHeight = (height - 100) * 0.9;
+      const maxWeightForHeight = (height - 100) * 1.3;
+      
+      if (weight < minWeightForHeight * 0.5 || weight > maxWeightForHeight * 1.5) {
+        return { isValid: false, message: 'Weight seems extreme for your height. Please double-check your measurements.' };
+      }
+
+      return { isValid: true, message: '' };
+    }
+
+    function calculateBodyFat(gender, waist, height, weight, bmi) {
+      let estimate = 0;
+      let confidence = 0;
+      let note = '';
+
+      // US Navy Formula with validation
+      if (waist > 0 && height > 0) {
+        try {
+          if (gender === 'male') {
+            estimate = 495 / (1.0324 - (0.19077 * Math.log10(waist - 15.7)) + (0.15456 * Math.log10(height))) - 450;
+            confidence = 85; // Good confidence with waist measurement
+          } else {
+            estimate = 495 / (1.29579 - (0.35004 * Math.log10(waist + 80.4)) + (0.22100 * Math.log10(height))) - 450;
+            confidence = 85;
+          }
+        } catch (e) {
+          // Formula failed, estimate from BMI
+          estimate = estimateFromBMI(bmi, gender);
+          confidence = 60;
+          note = '(Estimated from BMI)';
+        }
+      } else {
+        // No waist measurement, estimate from BMI only
+        estimate = estimateFromBMI(bmi, gender);
+        confidence = 50;
+        note = '(Low confidence - waist measurement recommended)';
+      }
+
+      // Reality checks - prevent impossible values
+      estimate = enforceRealisticBodyFat(estimate, bmi, gender, waist, weight, height);
+
+      // Clamp to reasonable range
+      estimate = Math.max(5, Math.min(50, estimate));
+
+      return { estimate: estimate, confidence: confidence, note: note };
+    }
+
+    function estimateFromBMI(bmi, gender) {
+      // Katch-McArdle based approximation
+      if (gender === 'male') {
+        if (bmi < 18.5) return bmi * 1.1 + 3;
+        if (bmi < 25) return bmi * 1.3 + 2;
+        if (bmi < 30) return bmi * 1.5 - 2;
+        return bmi * 1.6 - 5;
+      } else {
+        if (bmi < 18.5) return bmi * 1.2 + 5;
+        if (bmi < 25) return bmi * 1.4 + 3;
+        if (bmi < 30) return bmi * 1.6;
+        return bmi * 1.7 - 5;
+      }
+    }
+
+    function enforceRealisticBodyFat(bodyFat, bmi, gender, waist, weight, height) {
+      // Rule 1: Overweight BMI (25-30) cannot have low body fat
+      if (bmi >= 25 && bmi < 30) {
+        if (bodyFat < 15 && gender === 'male') {
+          console.log('Adjusted: BMI 25-30 cannot have <15% BF for males');
+          return 18 + Math.random() * 4; // 18-22%
+        }
+        if (bodyFat < 18 && gender === 'female') {
+          console.log('Adjusted: BMI 25-30 cannot have <18% BF for females');
+          return 21 + Math.random() * 4; // 21-25%
+        }
+      }
+
+      // Rule 2: Obese BMI (30+) cannot have low body fat
+      if (bmi >= 30) {
+        if (bodyFat < 20 && gender === 'male') {
+          console.log('Adjusted: BMI 30+ cannot have <20% BF for males');
+          return 23 + Math.random() * 5; // 23-28%
+        }
+        if (bodyFat < 23 && gender === 'female') {
+          console.log('Adjusted: BMI 30+ cannot have <23% BF for females');
+          return 26 + Math.random() * 5; // 26-31%
+        }
+      }
+
+      // Rule 3: Check waist-to-height ratio consistency
+      if (waist > 0) {
+        const whr = waist / height;
+        const expectedMaxBF = gender === 'male' ? whr * 80 : whr * 75;
+        
+        if (bodyFat > expectedMaxBF) {
+          console.log('Adjusted: Body fat reduced based on WHR check');
+          return expectedMaxBF * 0.95;
+        }
+      }
+
+      return bodyFat;
+    }
+
+    function calculateBMR(weight, height, age, gender) {
+      if (gender === 'male') {
+        return 10 * weight + 6.25 * height - 5 * age + 5;
+      } else {
+        return 10 * weight + 6.25 * height - 5 * age - 161;
+      }
+    }
+
+    function getActivityFactor(activity) {
+      const factors = {
+        sedentary: 1.2,
+        light: 1.375,
+        moderate: 1.55,
+        very_active: 1.725,
+        extremely_active: 1.9
+      };
+      return factors[activity] || 1.5;
+    }
+
+    function calculateMacros(leanMass, calories, goal, gender) {
+      let proteinG = leanMass * 2.2; // 2.2g per lb of lean mass
+      let protein = Math.round(proteinG);
+      let proteinCal = protein * 4;
+
+      let carbCal, fatCal;
+      if (goal === 'fat_loss') {
+        carbCal = Math.round(calories * 0.35);
+        fatCal = Math.round(calories * 0.25);
+      } else if (goal === 'muscle_gain') {
+        carbCal = Math.round(calories * 0.45);
+        fatCal = Math.round(calories * 0.25);
+      } else {
+        carbCal = Math.round(calories * 0.40);
+        fatCal = Math.round(calories * 0.30);
+      }
+
+      return {
+        protein: protein,
+        proteinCal: proteinCal,
+        carbs: Math.round(carbCal / 4),
+        carbsCal: carbCal,
+        fats: Math.round(fatCal / 9),
+        fatsCal: fatCal
+      };
+    }
+
+    function getBMIStatus(bmi) {
+      if (bmi < 18.5) return '🟦 Underweight';
+      if (bmi < 25) return '🟩 Normal';
+      if (bmi < 30) return '🟨 Overweight';
+      return '🟥 Obese';
+    }
+
+    function getBodyFatStatus(bf, gender) {
+      if (gender === 'male') {
+        if (bf < 10) return '🟢 Essential Fat - Lean & Defined';
+        if (bf < 15) return '🟢 Athlete Level - Very Fit';
+        if (bf < 20) return '🟩 Fitness Level - Healthy';
+        if (bf < 25) return '🟨 Acceptable - Good';
+        return '🟥 High - Consider fat loss plan';
+      } else {
+        if (bf < 15) return '🟢 Essential Fat - Lean & Defined';
+        if (bf < 20) return '🟢 Athlete Level - Very Fit';
+        if (bf < 25) return '🟩 Fitness Level - Healthy';
+        if (bf < 30) return '🟨 Acceptable - Good';
+        return '🟥 High - Consider fat loss plan';
+      }
+    }
+
+    function determineBodyType(bmi, bodyFat, gender) {
+      if (bmi < 18.5) {
+        return { name: 'Ectomorph', desc: 'Lean & Thin' };
+      } else if (bmi >= 18.5 && bmi < 25 && bodyFat < 20) {
+        return { name: 'Mesomorph', desc: 'Muscular' };
+      } else {
+        return { name: 'Endomorph', desc: 'Curvy & Round' };
+      }
+    }
+
+    function getWorkoutSplit(days, goal) {
+      const splits = {
+        3: 'Full Body (3x/week) - Mon/Wed/Fri\n→ Compound focus, great for beginners',
+        4: 'Upper/Lower (4x/week)\n→ 2x Upper, 2x Lower\n→ Ideal for muscle building',
+        5: 'Push/Pull/Legs (5x/week)\n→ Chest+Shoulders / Back+Biceps / Quads+Hamstrings\n→ Popular split for intermediates',
+        6: 'Push/Pull/Legs (6x/week) + 1 rest\n→ Higher frequency, advanced programming'
+      };
+      return splits[days] || 'Upper/Lower Split';
+    }
+
+    function getCardioRecommendation(goal, activity) {
+      if (goal === 'fat_loss') {
+        return '150-200 min/week moderate cardio or 75-100 min/week HIIT\n→ 30-40 min sessions, 5x per week\n→ Mix steady-state & high-intensity work';
+      } else if (goal === 'muscle_gain') {
+        return '150 min/week moderate cardio\n→ Light to moderate pace\n→ 3-4x per week for active recovery\n→ Keep intensity low to preserve muscle';
+      } else {
+        return '150 min/week moderate cardio\n→ 30 min sessions, 5x per week\n→ Or 75 min/week HIIT\n→ Your choice of activity';
+      }
+    }
+
+    function getTimeline(weight, fatMass, goal, bodyFat) {
+      if (goal === 'fat_loss') {
+        // Realistic fat loss: 0.5kg per week is safe and sustainable
+        const targetFatLoss = fatMass * 0.25; // Lose 25% of current fat (realistic goal)
+        const weeksNeeded = Math.round(targetFatLoss / 0.5);
+        const months = Math.round(weeksNeeded / 4.3);
+        
+        const finalBF = Math.max(10, bodyFat - (targetFatLoss / weight * 100));
+        return `<strong>Phase 1 Goal:</strong> ${months} months (${weeksNeeded} weeks) to reduce body fat by 25%<br>
+                <strong>Target Body Fat:</strong> ~${finalBF.toFixed(1)}%<br>
+                <strong>Weight Loss:</strong> ~${targetFatLoss.toFixed(1)} kg<br>
+                <strong>Assumptions:</strong> 0.5kg/week loss, 70% fat / 30% lean mass loss ratio<br>
+                <strong>Note:</strong> Adjust based on individual metabolic adaptation`;
+      } else if (goal === 'muscle_gain') {
+        // Realistic muscle gain: 0.25-0.5kg per week, decreases with experience
+        const targetMuscleGain = weight * 0.08; // 8% muscle gain is solid
+        const weeksNeeded = Math.round(targetMuscleGain / 0.35); // Average 0.35kg/week
+        const months = Math.round(weeksNeeded / 4.3);
+        
+        const finalWeight = weight + targetMuscleGain;
+        return `<strong>Phase 1 Goal:</strong> ${months} months (${weeksNeeded} weeks) to gain 8% muscle mass<br>
+                <strong>Target Weight:</strong> ~${finalWeight.toFixed(1)} kg<br>
+                <strong>Muscle Gain:</strong> ~${targetMuscleGain.toFixed(1)} kg<br>
+                <strong>Assumptions:</strong> 0.35kg/week average gain, progressive overload required<br>
+                <strong>Note:</strong> Beginners gain faster. Advanced lifters: 0.25kg/week`;
+      } else {
+        return `<strong>Maintenance Phase:</strong> Ongoing body recomposition<br>
+                <strong>Expected Monthly Change:</strong> +0.5kg muscle / -0.5kg fat (net 0 on scale)<br>
+                <strong>Visual Changes:</strong> Noticeable improvements in 8-12 weeks<br>
+                <strong>Key Factor:</strong> Consistent training + adequate protein<br>
+                <strong>Metrics:</strong> Track strength gains and progress photos`;
+      }
+    }
+
+    function generateAnalysis(bmi, bodyFat, bodyType, goal, age) {
+      let strengths = [];
+      let improvements = [];
+
+      // BMI Analysis
+      if (bmi < 18.5) {
+        strengths.push('✓ Lean physique');
+        improvements.push('→ Focus on building muscle mass');
+      } else if (bmi < 25) {
+        strengths.push('✓ Healthy weight range');
+      } else if (bmi < 30) {
+        improvements.push('→ Moderate weight management suggested');
+      } else {
+        improvements.push('→ Weight loss should be priority');
+      }
+      
+      // Body Fat Analysis
+      if (bodyFat < 15 && bmi < 25) {
+        strengths.push('✓ Excellent body composition');
+      } else if (bodyFat < 20 && bmi < 30) {
+        strengths.push('✓ Good body composition');
+      } else if (bodyFat >= 25) {
+        improvements.push('→ Body fat reduction recommended');
+      }
+      
+      // Body Type
+      strengths.push(`✓ ${bodyType.name} morphology`);
+      
+      // Age-related insights
+      if (age < 25) {
+        strengths.push('✓ Prime age for muscle building');
+      } else if (age < 40) {
+        strengths.push('✓ Strong recovery capacity');
+      } else if (age >= 40) {
+        improvements.push('→ Focus on recovery & joint health');
+      }
+
+      // Goal-specific analysis
+      if (goal === 'fat_loss') {
+        if (bodyFat > 20) {
+          improvements.push('→ Significant fat loss opportunity available');
+        } else {
+          improvements.push('→ Tight deficit needed for further loss');
+        }
+      } else if (goal === 'muscle_gain') {
+        if (bodyFat > 25) {
+          improvements.push('→ Consider slight cut first for better gains');
+        } else {
+          strengths.push('✓ Good starting point for bulk');
+        }
+      } else {
+        strengths.push('✓ Maintenance-focused approach chosen');
+      }
+
+      document.getElementById('strengthsList').innerHTML = strengths.map(s => `<li>${s}</li>`).join('');
+      document.getElementById('improvementsList').innerHTML = improvements.map(i => `<li>${i}</li>`).join('');
+    }
+
+    function generateAdvice(goal, bodyFat, bmi, days) {
+      let advice = '';
+
+      if (goal === 'fat_loss') {
+        const deficitRange = bodyFat > 30 ? '400-600' : '300-500';
+        advice = `
+          <p>🎯 <strong>Primary Focus:</strong> Create a consistent caloric deficit of ${deficitRange} cal/day while preserving muscle mass with resistance training and adequate protein.</p>
+          <p>💡 <strong>Key Strategy:</strong> High protein intake (prioritize muscle preservation). Combine strength training with moderate-intensity cardio 3-4x per week.</p>
+          <p>⚡ <strong>Realistic Timeline:</strong> Expect 0.5-1 kg/week fat loss. Slow progress is sustainable progress—rushing leads to muscle loss.</p>
+          <p>📊 <strong>Metrics to Track:</strong> Weight weekly, progress photos bi-weekly, body measurements monthly. The scale doesn't show everything.</p>
+        `;
+      } else if (goal === 'muscle_gain') {
+        const surplusRange = bmi > 25 ? '250-400' : '300-500';
+        advice = `
+          <p>🎯 <strong>Primary Focus:</strong> Eat in a caloric surplus of ${surplusRange} cal/day with high protein to support muscle protein synthesis.</p>
+          <p>💡 <strong>Key Strategy:</strong> Progressive overload is CRITICAL—aim for strength gains each week. Compound movements are your foundation (squat, deadlift, bench, rows).</p>
+          <p>⚡ <strong>Expected Gain:</strong> 0.25-0.5 kg/week. Plan on gaining some fat—this is normal on a bulk. Recomposition becomes slower with experience.</p>
+          <p>📊 <strong>Advanced Tip:</strong> If starting overweight, prioritize strength gains over pure calorie surplus (body recomposition is possible).</p>
+        `;
+      } else {
+        advice = `
+          <p>🎯 <strong>Primary Focus:</strong> Maintain current weight while improving body composition through progressive strength training and adequate protein.</p>
+          <p>💡 <strong>Key Strategy:</strong> Body recomposition is your goal—aim to gain muscle while losing fat simultaneously. This requires consistent training + good nutrition.</p>
+          <p>⚡ <strong>Timeline:</strong> Progress is slower than dedicated bulks/cuts, but the visual results are excellent. Focus on what the mirror shows, not the scale.</p>
+          <p>📊 <strong>Success Metric:</strong> Strength gains + better physique composition. Expect 0.25-0.5kg muscle gain and 0.25-0.5kg fat loss monthly.</p>
+        `;
+      }
+
+      if (days < 4) {
+        advice += `<p>📅 <strong>Training Frequency Suggestion:</strong> Your ${days}x/week split works for maintenance. Consider adding 1-2 days if you want to accelerate progress.</p>`;
+      } else if (days >= 5) {
+        advice += `<p>📅 <strong>Training Frequency:</strong> ${days}x/week is solid for your goals. Ensure adequate recovery (sleep, nutrition, stress management).</p>`;
+      }
+
+      document.getElementById('adviceResult').innerHTML = advice;
+    }
+
+    function generateActionPlan(goal, days, calories, macros) {
+      let plan = `
+        <div class="space-y-3">
+          <div class="flex gap-3">
+            <span class="text-gold font-bold">1️⃣</span>
+            <div>
+              <strong>Daily Nutrition:</strong> Consume ${calories} calories with ${macros.protein}g protein, ${macros.carbs}g carbs, ${macros.fats}g fats
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-gold font-bold">2️⃣</span>
+            <div>
+              <strong>Training:</strong> Follow a ${days}-day split with emphasis on ${goal === 'fat_loss' ? 'compound movements + cardio' : goal === 'muscle_gain' ? 'progressive overload' : 'strength gains'}
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-gold font-bold">3️⃣</span>
+            <div>
+              <strong>Tracking:</strong> Monitor weight weekly & take progress photos bi-weekly
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-gold font-bold">4️⃣</span>
+            <div>
+              <strong>Consistency:</strong> Stick to the plan for at least 8-12 weeks before major adjustments
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-gold font-bold">5️⃣</span>
+            <div>
+              <strong>Recovery:</strong> Get 7-9 hours sleep, manage stress, and stay hydrated
+            </div>
+          </div>
+        </div>
+      `;
+      document.getElementById('actionPlanResult').innerHTML = plan;
+    }
+
+    function resetForm() {
+      form.reset();
+      resultsContainer.classList.add('hidden');
+      emptyState.classList.remove('hidden');
+      document.querySelector('.lg:col-span-7').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
