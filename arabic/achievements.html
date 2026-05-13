@@ -1,0 +1,211 @@
+﻿<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <script>try{localStorage.setItem('app-lang','ar')}catch(e){}</script>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Achievements â€” GoldTech</title>
+  <script>tailwind.config = { theme: { extend: { colors: { gold: { DEFAULT: '#f5b041' } }, fontFamily: { display:['Poppins','Inter','system-ui','sans-serif'] } } } }</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="assets/js/i18n.js" defer></script>
+</head>
+<body class="antialiased">
+  <div id="shell-root" class="app-shell min-h-screen flex">
+    <div class="shell-overlay"></div>
+    <aside class="app-sidebar hidden md:flex flex-col w-72 p-5 gap-6 glass rounded-2xl sticky top-6 m-6 h-[calc(100vh-48px)] overflow-hidden">
+      <a href="landing.html" class="flex items-center gap-3 sidebar-brand">
+        <div class="sidebar-brand-icon rounded-xl p-2 bg-gradient-to-br from-[#1b1b1d] to-[#111112]"><img src="assets/golds-logo.png" alt="Golds logo" class="w-9 h-9 object-contain"/></div>
+        <div class="sidebar-brand-text"><div class="text-white font-semibold text-lg">GoldTech</div><div class="sidebar-meta text-stone-400 text-xs uppercase tracking-widest">Smart Fitness OS</div></div>
+      </a>
+      <nav aria-label="Primary" class="flex-1 overflow-y-auto pr-1">
+        <ul class="space-y-1 text-sm">
+              <li><a href="landing.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Home</span></a></li>
+              <li><a href="dashboard.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Dashboard</span></a></li>
+              <li><a href="programs.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Programs</span></a></li>
+              <li><a href="workout.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Workouts</span></a></li>
+              <li><a href="classes.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Classes</span></a></li>
+              <li><a href="coaches.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Coaches</span></a></li>
+              <li><a href="community.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Community</span></a></li>
+              <li><a href="blogs.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Blogs</span></a></li>
+              <li><a href="crowd.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Crowd</span></a></li>
+              <li><a href="inbody.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">InBody</span></a></li>
+              <li><a href="machines.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Machines</span></a></li>
+              <li><a href="nutrition.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Nutrition</span></a></li>
+              <li><a href="smart-test.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Smart Test</span></a></li>
+              <li><a href="achievements.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Achievements</span></a></li>
+              <li><a href="store.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Store</span></a></li>
+              <li><a href="membership.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Membership</span></a></li>
+              <li><a href="notifications.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Notifications</span></a></li>
+              <li><a href="settings.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Settings</span></a></li>
+              <li><a href="support.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Support</span></a></li>
+              <li><a href="profile.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Profile</span></a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer pt-3 border-t border-white/6 text-sm"><div class="text-stone-400">Active Membership</div><div class="mt-2 flex items-center justify-between"><div><div class="text-white font-semibold">Gold Elite</div><div class="text-stone-400 text-xs">Valid until May 2027</div></div><div class="bg-gradient-to-br from-[#2a2a2a]/80 to-[#161616]/60 p-2 rounded-lg text-gold">?</div></div></div>
+    </aside>
+    <main class="flex-1 p-5 md:p-8 overflow-y-auto safe-bottom">
+      <header class="sticky top-6 z-30 glass rounded-2xl p-3 md:p-4 mb-6 flex items-center justify-between fast-trans backdrop-blur-xl">`r`n  <script>try{localStorage.setItem('app-lang','ar')}catch(e){}</script>
+
+        <div class="flex items-center gap-3 md:gap-4"><button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16" stroke-width="1.6" stroke-linecap="round"/></svg></button><button id="sidebarToggle" class="hidden md:inline-flex sidebar-toggle p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle sidebar" aria-pressed="false"><svg class="w-5 h-5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="hidden md:flex items-center gap-4"><h1 class="text-white font-extrabold text-lg">Achievements</h1><div class="text-stone-400 text-sm">Premium smart gym platform</div></div></div>
+        <div class="flex items-center gap-3"><button id="themeToggle" class="hidden sm:inline-flex p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle theme" aria-pressed="false"><span data-theme-icon="dark" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-theme-icon="light" class="hidden" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="relative hidden sm:flex items-center"><label for="search" class="sr-only">Search</label><input id="search" class="glass rounded-xl px-3 py-2 pl-10 pr-3 w-64 bg-transparent text-white placeholder:opacity-60 fast-trans focus-visible-ring" placeholder="Search"/><svg class="absolute left-3 w-4 h-4 text-stone-400" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.2"/></svg></div><a href="profile.html" class="flex items-center gap-3 rounded-2xl bg-white/3 px-3 py-2 hover:bg-white/6 fast-trans"><div class="text-right hidden sm:block"><div class="text-white font-semibold">Ø¹Ù„ÙŠ Ù…Ø­Ù…Ø¯</div><div class="text-stone-400 text-xs">Gold Elite</div></div><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=64&auto=format&fit=crop&s=placeholder" alt="avatar" class="w-10 h-10 rounded-full object-cover border border-white/6"/></a></div>
+      </header>
+      <div id="page-main">
+      <div class="space-y-8">
+        <div class="glass rounded-3xl p-8">
+          <div class="flex items-center justify-between mb-2"><div class="text-gold text-xs font-bold uppercase tracking-wider">Gamification</div><div class="text-stone-400 text-sm">24 badges earned</div></div>
+          <h1 class="text-3xl font-black mb-1">Your Achievements</h1>
+          <p class="text-stone-300">Track your fitness journey with badges, streaks, and milestones</p>
+        </div>
+
+        <!-- Streaks & Milestones -->
+        <div class="glass rounded-3xl p-8">
+          <h2 class="text-2xl font-black mb-6">Active Streaks & Goals</h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="border-l-4 border-gold pl-6">
+              <div class="text-4xl font-black text-gold">47</div>
+              <div class="text-lg font-bold mt-2">Day Workout Streak</div>
+              <p class="text-stone-400 mt-2">You've worked out every single day! Keep the momentum going! ðŸ”¥</p>
+              <div class="mt-4 h-2 bg-white/10 rounded-full overflow-hidden"><div class="w-11/12 h-full bg-gold rounded-full"></div></div>
+            </div>
+            <div class="border-l-4 border-emerald-400 pl-6">
+              <div class="text-4xl font-black text-emerald-400">12</div>
+              <div class="text-lg font-bold mt-2">Consecutive Week Goal</div>
+              <p class="text-stone-400 mt-2">5+ workouts per week for 12 straight weeks! Almost there!</p>
+              <div class="mt-4 h-2 bg-white/10 rounded-full overflow-hidden"><div class="w-5/6 h-full bg-emerald-400 rounded-full"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Badges Grid -->
+        <div class="glass rounded-3xl p-8">
+          <h2 class="text-2xl font-black mb-6">Earned Badges</h2>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <!-- Streak Badges -->
+            <div class="glass rounded-2xl p-6 text-center hover:scale-110 fast-trans cursor-pointer">
+              <div class="text-6xl mb-3">ðŸ”¥</div>
+              <div class="font-bold text-sm">7-Day Streak</div>
+              <div class="text-stone-400 text-xs mt-1">Apr 10</div>
+            </div>
+            <div class="glass rounded-2xl p-6 text-center hover:scale-110 fast-trans cursor-pointer">
+              <div class="text-6xl mb-3">ðŸ”¥</div>
+              <div class="font-bold text-sm">30-Day Streak</div>
+              <div class="text-stone-400 text-xs mt-1">Apr 20</div>
+            </div>
+            <div class="glass rounded-2xl p-6 text-center hover:scale-110 fast-trans cursor-pointer bg-gold/10 border border-gold/30">
+              <div class="text-6xl mb-3">ðŸ”¥</div>
+              <div class="font-bold text-sm">47-Day Streak</div>
+              <div class="text-gold text-xs mt-1">CURRENT</div>
+            </div>
+
+            <!-- Strength Badges -->
+            <div class="glass rounded-2xl p-6 text-center hover:scale-110 fast-trans cursor-pointer">
+              <div class="text-6xl mb-3">ðŸ’ª</div>
+              <div class="font-bold text-sm">Bench 100kg</div>
+              <div class="text-stone-400 text-xs mt-1">Mar 5</div>
+            </div>
+            <div class="glass rounded-2xl p-6 text-center hover:scale-110 fast-trans cursor-pointer">
+              <div class="text-6xl mb-3">ðŸ’ª</div>
+              <div class="font-bold text-sm">Deadlift 150kg</div>
+              <div class="text-stone-400 text-xs mt-1">Apr 12</div>
+            </div>
+            <div class="glass rounded-2xl p-6 text-center hover:scale-110 fast-trans cursor-pointer bg-gold/10 border border-gold/30">
+              <div class="text-6xl mb-3">ðŸ’ª</div>
+              <div class="font-bold text-sm">Squat 160kg</div>
+              <div class="text-gold text-xs mt-1">PERSONAL BEST</div>
+            </div>
+
+            <!-- Body Transformation -->
+            <div class="glass rounded-2xl p-6 text-center hover:scale-110 fast-trans cursor-pointer">
+              <div class="text-6xl mb-3">ðŸ“‰</div>
+              <div class="font-bold text-sm">10kg Lost</div>
+              <div class="text-stone-400 text-xs mt-1">Mar 15</div>
+            </div>
+            <div class="glass rounded-2xl p-6 text-center hover:scale-110 fast-trans cursor-pointer">
+              <div class="text-6xl mb-3">ðŸ’ª</div>
+              <div class="font-bold text-sm">Muscle Gain</div>
+              <div class="text-stone-400 text-xs mt-1">+2.5kg</div>
+            </div>
+
+            <!-- Consistency -->
+            <div class="glass rounded-2xl p-6 text-center hover:scale-110 fast-trans cursor-pointer">
+              <div class="text-6xl mb-3">ðŸŽ¯</div>
+              <div class="font-bold text-sm">50 Workouts</div>
+              <div class="text-stone-400 text-xs mt-1">Apr 8</div>
+            </div>
+            <div class="glass rounded-2xl p-6 text-center hover:scale-110 fast-trans cursor-pointer">
+              <div class="text-6xl mb-3">â­</div>
+              <div class="font-bold text-sm">100 Workouts</div>
+              <div class="text-stone-400 text-xs mt-1">Next Goal</div>
+            </div>
+
+            <!-- Special Achievements -->
+            <div class="glass rounded-2xl p-6 text-center hover:scale-110 fast-trans cursor-pointer">
+              <div class="text-6xl mb-3">ðŸ†</div>
+              <div class="font-bold text-sm">Trainer Session</div>
+              <div class="text-stone-400 text-xs mt-1">Apr 5</div>
+            </div>
+            <div class="glass rounded-2xl p-6 text-center hover:scale-110 fast-trans cursor-pointer">
+              <div class="text-6xl mb-3">ðŸ“±</div>
+              <div class="font-bold text-sm">App Expert</div>
+              <div class="text-stone-400 text-xs mt-1">All Features Used</div>
+            </div>
+
+            <!-- Community -->
+            <div class="glass rounded-2xl p-6 text-center hover:scale-110 fast-trans cursor-pointer">
+              <div class="text-6xl mb-3">ðŸ‘¥</div>
+              <div class="font-bold text-sm">Social Butterfly</div>
+              <div class="text-stone-400 text-xs mt-1">10+ Friends</div>
+            </div>
+            <div class="glass rounded-2xl p-6 text-center hover:scale-110 fast-trans cursor-pointer">
+              <div class="text-6xl mb-3">âœ…</div>
+              <div class="font-bold text-sm">Milestone Reached</div>
+              <div class="text-stone-400 text-xs mt-1">Every 25 workouts</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leaderboard -->
+        <div class="glass rounded-3xl p-8">
+          <h2 class="text-2xl font-black mb-6">Monthly Leaderboard</h2>
+          <div class="space-y-3">
+            <div class="glass rounded-xl p-4 flex items-center justify-between">
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center font-black text-gold">1</div>
+                <div><div class="font-bold">You</div><div class="text-stone-400 text-sm">47-day streak â€¢ 2,850 kcal</div></div>
+              </div>
+              <div class="text-gold font-black text-xl">1,280 pts</div>
+            </div>
+            <div class="glass rounded-xl p-4 flex items-center justify-between opacity-60">
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center font-black">2</div>
+                <div><div class="font-bold">James M.</div><div class="text-stone-400 text-sm">32-day streak â€¢ Upper/Lower</div></div>
+              </div>
+              <div class="text-stone-400 font-black text-xl">1,125 pts</div>
+            </div>
+            <div class="glass rounded-xl p-4 flex items-center justify-between opacity-60">
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center font-black">3</div>
+                <div><div class="font-bold">Sarah T.</div><div class="text-stone-400 text-sm">28-day streak â€¢ HIIT Fat Loss</div></div>
+              </div>
+              <div class="text-stone-400 font-black text-xl">985 pts</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      </div>
+    </main>
+  </div>
+  <script src="assets/js/components.js"></script>
+  <script>
+    Components.init();
+  </script>
+</body>
+</html>
+
+
+
+
