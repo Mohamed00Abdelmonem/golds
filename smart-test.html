@@ -348,7 +348,7 @@
       const bmiStatus = getBMIStatus(bmi);
 
       // Body Fat Estimation (US Navy Formula)
-      let bodyFatResult = calculateBodyFat(gender, waist, height, weight, bmi);
+      let bodyFatResult = calculateBodyFat(gender, waist, height, weight, bmi, chest, arm, thigh, activity);
       let bodyFat = bodyFatResult.estimate;
       let bodyFatConfidence = bodyFatResult.confidence;
       let bodyFatNote = bodyFatResult.note;
@@ -495,41 +495,89 @@
       return { isValid: true, message: '' };
     }
 
-    function calculateBodyFat(gender, waist, height, weight, bmi) {
+    function calculateBodyFat(gender, waist, height, weight, bmi, chest, arm, thigh, activity) {
       let estimate = 0;
-      let confidence = 0;
+      let confidence = 60;
       let note = '';
 
-      // US Navy Formula with validation
-      if (waist > 0 && height > 0) {
-        try {
-          if (gender === 'male') {
-            estimate = 495 / (1.0324 - (0.19077 * Math.log10(waist - 15.7)) + (0.15456 * Math.log10(height))) - 450;
-            confidence = 85; // Good confidence with waist measurement
-          } else {
-            estimate = 495 / (1.29579 - (0.35004 * Math.log10(waist + 80.4)) + (0.22100 * Math.log10(height))) - 450;
-            confidence = 85;
-          }
-        } catch (e) {
-          // Formula failed, estimate from BMI
-          estimate = estimateFromBMI(bmi, gender);
-          confidence = 60;
-          note = '(Estimated from BMI)';
+      const hasWaist = waist > 0 && height > 0;
+      const whtr = hasWaist ? waist / height : 0;
+
+      // 1) Primary signal: Waist-to-Height Ratio (less BMI bias for athletic users)
+      if (hasWaist) {
+        if (gender === 'male') {
+          if (whtr < 0.43) estimate = 10 + (whtr - 0.36) * 90;
+          else if (whtr < 0.50) estimate = 16 + (whtr - 0.43) * 100;
+          else estimate = 23 + (whtr - 0.50) * 110;
+        } else {
+          if (whtr < 0.42) estimate = 16 + (whtr - 0.35) * 95;
+          else if (whtr < 0.49) estimate = 22 + (whtr - 0.42) * 105;
+          else estimate = 29 + (whtr - 0.49) * 110;
         }
+        confidence = 85;
       } else {
-        // No waist measurement, estimate from BMI only
         estimate = estimateFromBMI(bmi, gender);
         confidence = 50;
         note = '(Low confidence - waist measurement recommended)';
       }
 
-      // Reality checks - prevent impossible values
-      estimate = enforceRealisticBodyFat(estimate, bmi, gender, waist, weight, height);
+      // 2) Secondary signal: BMI (weak adjustment only, no automatic obesity jump)
+      const bmiDelta = bmi - 22;
+      estimate += bmiDelta * 0.45;
 
-      // Clamp to reasonable range
+      // 3) Lean-mass proxy from circumferences
+      const muscularity = getMuscularityScore(gender, height, chest, arm, thigh, waist);
+      estimate -= muscularity * 2.2;
+
+      // 4) Activity cross-check (active users typically carry less fat at same BMI)
+      const activityAdj = {
+        sedentary: 1.2,
+        light: 0.6,
+        moderate: 0.0,
+        very_active: -0.8,
+        extremely_active: -1.4
+      };
+      estimate += activityAdj[activity] || 0;
+
+      // 5) Athletic safeguard: low waist + decent muscularity must not be obese-level BF
+      if (hasWaist) {
+        const athleticWaist = (gender === 'male' && whtr <= 0.47) || (gender === 'female' && whtr <= 0.45);
+        if (athleticWaist && muscularity >= 1.0) {
+          const athleticCap = gender === 'male' ? 22 : 30;
+          estimate = Math.min(estimate, athleticCap);
+        }
+      }
+
+      // Final reality checks
+      estimate = enforceRealisticBodyFat(estimate, bmi, gender, waist, weight, height, muscularity, activity);
       estimate = Math.max(5, Math.min(50, estimate));
 
       return { estimate: estimate, confidence: confidence, note: note };
+    }
+
+    function getMuscularityScore(gender, height, chest, arm, thigh, waist) {
+      let score = 0;
+      if (height <= 0) return score;
+
+      // Size normalized by height keeps this fair across body sizes
+      const armRatio = arm > 0 ? arm / height : 0;
+      const chestRatio = chest > 0 ? chest / height : 0;
+      const thighRatio = thigh > 0 ? thigh / height : 0;
+      const chestWaistRatio = chest > 0 && waist > 0 ? chest / waist : 0;
+
+      if (gender === 'male') {
+        if (armRatio >= 0.20) score += 0.45;
+        if (chestRatio >= 0.58) score += 0.45;
+        if (thighRatio >= 0.31) score += 0.35;
+        if (chestWaistRatio >= 1.18) score += 0.35;
+      } else {
+        if (armRatio >= 0.17) score += 0.35;
+        if (chestRatio >= 0.52) score += 0.35;
+        if (thighRatio >= 0.33) score += 0.45;
+        if (chestWaistRatio >= 1.10) score += 0.25;
+      }
+
+      return Math.max(0, Math.min(2.0, score));
     }
 
     function estimateFromBMI(bmi, gender) {
@@ -547,43 +595,43 @@
       }
     }
 
-    function enforceRealisticBodyFat(bodyFat, bmi, gender, waist, weight, height) {
-      // Rule 1: Overweight BMI (25-30) cannot have low body fat
-      if (bmi >= 25 && bmi < 30) {
-        if (bodyFat < 15 && gender === 'male') {
-          console.log('Adjusted: BMI 25-30 cannot have <15% BF for males');
-          return 18 + Math.random() * 4; // 18-22%
-        }
-        if (bodyFat < 18 && gender === 'female') {
-          console.log('Adjusted: BMI 25-30 cannot have <18% BF for females');
-          return 21 + Math.random() * 4; // 21-25%
+    function enforceRealisticBodyFat(bodyFat, bmi, gender, waist, weight, height, muscularity, activity) {
+      let adjusted = bodyFat;
+      const hasWaist = waist > 0 && height > 0;
+      const whtr = hasWaist ? waist / height : 0;
+
+      // Keep deterministic (no randomness).
+      // BMI high should not force very high fat when waist is lean and muscle/activity are good.
+      if (hasWaist) {
+        const leanWaist = (gender === 'male' && whtr <= 0.47) || (gender === 'female' && whtr <= 0.45);
+        const active = activity === 'very_active' || activity === 'extremely_active';
+        if (leanWaist && (muscularity >= 1.0 || active)) {
+          const maxForAthletic = gender === 'male' ? 22 : 30;
+          adjusted = Math.min(adjusted, maxForAthletic);
         }
       }
 
-      // Rule 2: Obese BMI (30+) cannot have low body fat
+      // Broad lower/upper guards by BMI, but softened by waist & muscularity.
       if (bmi >= 30) {
-        if (bodyFat < 20 && gender === 'male') {
-          console.log('Adjusted: BMI 30+ cannot have <20% BF for males');
-          return 23 + Math.random() * 5; // 23-28%
+        if (hasWaist && whtr <= 0.50 && muscularity >= 1.0) {
+          adjusted = Math.max(adjusted, gender === 'male' ? 14 : 22);
+          adjusted = Math.min(adjusted, gender === 'male' ? 24 : 33);
+        } else {
+          adjusted = Math.max(adjusted, gender === 'male' ? 20 : 27);
         }
-        if (bodyFat < 23 && gender === 'female') {
-          console.log('Adjusted: BMI 30+ cannot have <23% BF for females');
-          return 26 + Math.random() * 5; // 26-31%
-        }
-      }
-
-      // Rule 3: Check waist-to-height ratio consistency
-      if (waist > 0) {
-        const whr = waist / height;
-        const expectedMaxBF = gender === 'male' ? whr * 80 : whr * 75;
-        
-        if (bodyFat > expectedMaxBF) {
-          console.log('Adjusted: Body fat reduced based on WHR check');
-          return expectedMaxBF * 0.95;
+      } else if (bmi >= 25 && bmi < 30) {
+        if (!(hasWaist && whtr <= 0.47 && muscularity >= 1.0)) {
+          adjusted = Math.max(adjusted, gender === 'male' ? 12 : 20);
         }
       }
 
-      return bodyFat;
+      // WHtR consistency cap (waist primary): avoid impossible high fat with small waist
+      if (hasWaist) {
+        const maxFromWaist = (gender === 'male' ? 8 : 14) + (whtr * 30);
+        adjusted = Math.min(adjusted, maxFromWaist + 6);
+      }
+
+      return adjusted;
     }
 
     function calculateBMR(weight, height, age, gender) {
