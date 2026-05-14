@@ -186,9 +186,9 @@
     <div id="modalBackdrop" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
 
     <!-- Modal Box -->
-    <div class="relative z-10 w-full max-w-4xl rounded-2xl overflow-visible shadow-2xl" style="background:transparent;">
+    <div class="relative z-10 w-full max-w-4xl rounded-2xl shadow-2xl flex items-center justify-center" style="background:transparent; max-height:calc(90vh - 40px);">
 
-      <div class="mx-2 md:mx-0 rounded-2xl overflow-hidden shadow-2xl" style="background:#0e0e10;border:1px solid rgba(255,255,255,0.04)">
+      <div class="mx-2 md:mx-0 rounded-2xl overflow-hidden shadow-2xl" style="background:#0e0e10;border:1px solid rgba(255,255,255,0.04); display:flex; flex-direction:column; width:100%; max-height:calc(90vh - 60px);">
         <!-- Header -->
         <div class="px-6 pt-5 pb-3 flex justify-between items-start">
           <div class="flex items-center gap-4">
@@ -204,8 +204,8 @@
         </div>
 
         <!-- Video Player with decorative frame -->
-        <div class="p-6 pt-2">
-          <div class="video-frame mx-auto">
+        <div class="p-6 pt-2" style="flex:1; display:flex; align-items:center; justify-content:center;">
+          <div class="video-frame mx-auto" style="width:100%;">
             <div class="relative w-full rounded-xl overflow-hidden bg-black aspect-video flex items-center justify-center">
               <video id="tutorialVideo" class="w-full h-full object-contain" controls controlsList="nodownload">
                 <source src="" type="video/mp4">
@@ -252,6 +252,15 @@
     @media (max-width: 640px) {
       .video-frame { padding: 10px; }
       #modalTitle { font-size: 1.125rem; }
+    }
+
+    /* Small-screen bottom-sheet behaviour */
+    @media (max-width: 640px) {
+      #tutorialModal { align-items: flex-end; padding: 12px 12px 20px 12px; }
+      #tutorialModal > .z-10 { width:100%; max-width:100%; margin:0; }
+      #tutorialModal .mx-2 { border-radius: 12px 12px 0 0; max-height: 70vh; }
+      .video-frame { max-width:100%; padding:12px; }
+      .video-frame > .relative { max-height: calc(60vh); }
     }
   </style>
 
@@ -323,7 +332,9 @@
         }
 
         modal.style.display = 'flex';
-        modal.classList.remove('modal-close');
+          // add mobile class for bottom-sheet on small screens
+          if (window.innerWidth <= 640) modal.classList.add('mobile'); else modal.classList.remove('mobile');
+          modal.classList.remove('modal-close');
         void modal.offsetWidth; // reflow
         modal.classList.add('modal-open');
         document.body.style.overflow = 'hidden';
@@ -334,6 +345,7 @@
         modal.classList.add('modal-close');
         modal.addEventListener('animationend', function handler() {
           modal.style.display = 'none';
+          modal.classList.remove('mobile');
           modal.classList.remove('modal-close');
           // stop native video
           try { video.pause(); } catch (e) {}
