@@ -424,11 +424,13 @@
 
 <!-- Tutorial modal (reused) -->
 <div id="tutorialModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50" style="padding:clamp(0.75rem,2vw,1rem)">
-  <div class="w-full glass relative max-h-[90vh] overflow-y-auto" style="border-radius:clamp(0.5rem,2vw,1rem); padding:clamp(0.75rem,2vw,1rem); max-width:clamp(280px,90vw,800px)">
+  <div class="w-full glass relative max-h-[90vh] overflow-y-auto flex items-center justify-center" style="border-radius:clamp(0.5rem,2vw,1rem); padding:clamp(0.75rem,2vw,1rem); max-width:clamp(280px,90vw,800px)">
     <button id="closeTutorial" class="absolute p-1 rounded-md bg-white/4" style="right:clamp(0.5rem,1.5vw,0.75rem); top:clamp(0.5rem,1.5vw,0.75rem); font-size:clamp(1rem,2vw,1.25rem)">\u2715</button>
     <div class="text-white font-bold pr-8" style="font-size:clamp(1rem,3vw,1.25rem)">Exercise Tutorial</div>
     <div class="text-stone-400" style="margin-top:clamp(0.25rem,0.75vw,0.5rem); font-size:clamp(0.75rem,1.8vw,0.875rem)">Video and pointers</div>
-    <div class="mt-3 md:mt-4 bg-black rounded-lg overflow-hidden" style="height:clamp(200px,50vh,400px)"><video controls class="w-full h-full bg-black object-cover"><source src="" /></video></div>
+    <div class="mt-3 md:mt-4 bg-black rounded-lg overflow-hidden" style="width:100%; max-height:calc(90vh - 160px); display:flex; align-items:center; justify-content:center">
+      <video controls class="w-full h-auto bg-black object-contain" style="max-height:calc(80vh - 120px); width:100%;"><source src="" /></video>
+    </div>
   </div>
 </div>
 
