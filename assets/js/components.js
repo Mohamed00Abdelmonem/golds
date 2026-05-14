@@ -55,6 +55,7 @@ const Components = (function () {
     const isArabicPage = window.location.pathname.includes('/arabic/');
     const label = isArabicPage ? 'المؤقت' : 'Timer';
     const sidebarLinks = document.querySelectorAll('aside.app-sidebar nav ul');
+    const mobileNavs = document.querySelectorAll('nav#mobileNav');
 
     sidebarLinks.forEach((list) => {
       if (list.querySelector('a[href="timer.html"]')) return;
@@ -75,6 +76,24 @@ const Components = (function () {
       }
 
       list.appendChild(timerItem);
+    });
+
+    mobileNavs.forEach((nav) => {
+      if (nav.querySelector('a[href="timer.html"]')) return;
+
+      const timerLink = document.createElement('a');
+      timerLink.setAttribute('href', 'timer.html');
+      timerLink.setAttribute('data-mobile-nav-link', '');
+      timerLink.className = 'flex flex-col items-center gap-1 text-stone-400';
+      timerLink.innerHTML = '<span class="w-2 h-2 rounded-full bg-white/30"></span><div class="text-xs">' + label + '</div>';
+
+      const profileLink = nav.querySelector('a[href="profile.html"]');
+      if (profileLink) {
+        profileLink.before(timerLink);
+        return;
+      }
+
+      nav.appendChild(timerLink);
     });
   };
 
