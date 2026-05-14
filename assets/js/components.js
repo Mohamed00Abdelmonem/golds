@@ -51,6 +51,33 @@ const Components = (function () {
     toggle.setAttribute('aria-pressed', String(collapsed));
   };
 
+  const injectTimerNav = () => {
+    const isArabicPage = window.location.pathname.includes('/arabic/');
+    const label = isArabicPage ? 'المؤقت' : 'Timer';
+    const sidebarLinks = document.querySelectorAll('aside.app-sidebar nav ul');
+
+    sidebarLinks.forEach((list) => {
+      if (list.querySelector('a[href="timer.html"]')) return;
+
+      const timerItem = document.createElement('li');
+      timerItem.innerHTML = '<a href="timer.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">' + label + '</span></a>';
+
+      const settingsLink = list.querySelector('a[href="settings.html"]');
+      if (settingsLink?.parentElement) {
+        settingsLink.parentElement.before(timerItem);
+        return;
+      }
+
+      const supportLink = list.querySelector('a[href="support.html"]');
+      if (supportLink?.parentElement) {
+        supportLink.parentElement.before(timerItem);
+        return;
+      }
+
+      list.appendChild(timerItem);
+    });
+  };
+
   const highlightActiveNav = () => {
     const page = currentPage();
     document.querySelectorAll('[data-nav-link]').forEach((link) => {
@@ -88,6 +115,7 @@ const Components = (function () {
   function init() {
     applyTheme(getPreferredTheme());
     syncSidebarState();
+    injectTimerNav();
     highlightActiveNav();
     initRevealObserver();
 
