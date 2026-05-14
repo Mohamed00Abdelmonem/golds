@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Timer & Stopwatch — GoldTech</title>
+  <script>tailwind.config={theme:{extend:{colors:{gold:{DEFAULT:'#f5b041'}},fontFamily:{display:['Poppins','Inter','system-ui','sans-serif']}}}}</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    .timer-display { font-family: 'Courier New', monospace; font-weight: 900; letter-spacing: 0.1em; }
+    .circular-progress { width: 280px; height: 280px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; background: conic-gradient(from 0deg, #f5b041 0deg, #f5b041 var(--progress), rgba(255,255,255,0.1) var(--progress), rgba(255,255,255,0.1) 360deg); }
+    .circular-progress::after { content: ''; position: absolute; inset: 8px; border-radius: 50%; background: linear-gradient(180deg, #0f0f10, #070708); }
+    .circular-progress-text { position: relative; z-index: 10; text-align: center; }
+    .btn-timer { transition: all 200ms ease; border: 1px solid transparent; }
+    .btn-timer:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(245,176,65,0.2); }
+    .btn-timer.active { background: linear-gradient(135deg, #f5b041, #ffd700); color: #070708; box-shadow: 0 0 20px rgba(245,176,65,0.4); }
+    .btn-timer.paused { background: rgba(245,176,65,0.2); border-color: #f5b041; }
+    .lap-item { animation: slideIn 300ms ease forwards; }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+    .preset-btn { transition: all 150ms ease; }
+    .preset-btn:hover { background: rgba(245,176,65,0.2); transform: scale(1.05); }
+    .preset-btn.selected { background: linear-gradient(135deg, #f5b041, #ffd700); color: #070708; }
+    .time-separator { animation: pulse 1s infinite; }
+    @keyframes pulse { 0%, 49%, 100% { opacity: 1; } 50%, 99% { opacity: 0.3; } }
+  </style>
+</head>
+<body class="antialiased">
+  <div id="shell-root" class="app-shell min-h-screen flex">
+    <div class="shell-overlay"></div>
+    <aside class="app-sidebar hidden md:flex flex-col w-72 p-5 gap-6 glass rounded-2xl sticky top-6 m-6 h-[calc(100vh-48px)] overflow-hidden">
+      <a href="landing.html" class="flex items-center gap-3 sidebar-brand">
+        <div class="sidebar-brand-icon rounded-xl p-2 bg-gradient-to-br from-[#1b1b1d] to-[#111112]"><img src="assets/golds-logo.png" alt="Golds logo" class="w-9 h-9 object-contain"/></div>
+        <div class="sidebar-brand-text"><div class="text-white font-semibold text-lg">GoldTech</div><div class="sidebar-meta text-stone-400 text-xs uppercase tracking-widest">Smart Fitness OS</div></div>
+      </a>
+      <nav aria-label="Primary" class="flex-1 overflow-y-auto pr-1">
+        <ul class="space-y-1 text-sm">
+          <li><a href="landing.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Home</span></a></li>
+          <li><a href="dashboard.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Dashboard</span></a></li>
+          <li><a href="programs.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Programs</span></a></li>
+          <li><a href="workout.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Workouts</span></a></li>
+          <li><a href="classes.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Classes</span></a></li>
+          <li><a href="coaches.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Coaches</span></a></li>
+          <li><a href="community.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Community</span></a></li>
+          <li><a href="blogs.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Blogs</span></a></li>
+          <li><a href="crowd.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Crowd</span></a></li>
+          <li><a href="inbody.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">InBody</span></a></li>
+          <li><a href="machines.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Machines</span></a></li>
+          <li><a href="nutrition.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Nutrition</span></a></li>
+          <li><a href="smart-test.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Smart Test</span></a></li>
+          <li><a href="achievements.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Achievements</span></a></li>
+          <li><a href="store.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Store</span></a></li>
+          <li><a href="membership.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Membership</span></a></li>
+          <li><a href="notifications.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Notifications</span></a></li>
+          <li><a href="timer.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Timer</span></a></li>
+          <li><a href="settings.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Settings</span></a></li>
+          <li><a href="support.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Support</span></a></li>
+          <li><a href="profile.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Profile</span></a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer pt-3 border-t border-white/6 text-sm"><div class="text-stone-400">Active Membership</div><div class="mt-2 flex items-center justify-between"><div><div class="text-white font-semibold">Gold Elite</div><div class="text-stone-400 text-xs">Valid until May 2027</div></div><div class="bg-gradient-to-br from-[#2a2a2a]/80 to-[#161616]/60 p-2 rounded-lg text-gold">●</div></div></div>
+    </aside>
+    <main class="flex-1 p-5 md:p-8 overflow-y-auto safe-bottom">
+      <header class="sticky top-6 z-30 glass rounded-2xl p-3 md:p-4 mb-6 flex items-center justify-between fast-trans backdrop-blur-xl">
+        <div class="flex items-center gap-3 md:gap-4"><button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16" stroke-width="1.6" stroke-linecap="round"/></svg></button><button id="sidebarToggle" class="hidden md:inline-flex sidebar-toggle p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle sidebar" aria-pressed="false"><svg class="w-5 h-5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="hidden md:flex items-center gap-4"><h1 class="text-white font-extrabold text-lg">Timer & Stopwatch</h1><div class="text-stone-400 text-sm">Workout timing tools</div></div></div>
+        <div class="flex items-center gap-3"><button id="themeToggle" class="hidden sm:inline-flex p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle theme" aria-pressed="false"><span data-theme-icon="dark" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-theme-icon="light" class="hidden" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="relative hidden sm:flex items-center"><label for="search" class="sr-only">Search</label><input id="search" class="glass rounded-xl px-3 py-2 pl-10 pr-3 w-64 bg-transparent text-white placeholder:opacity-60 fast-trans focus-visible-ring" placeholder="Search"/><svg class="absolute left-3 w-4 h-4 text-stone-400" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.2"/></svg></div><a href="profile.html" class="flex items-center gap-3 rounded-2xl bg-white/3 px-3 py-2 hover:bg-white/6 fast-trans"><div class="text-right hidden sm:block"><div class="text-white font-semibold">علي محمد</div><div class="text-stone-400 text-xs">Gold Elite</div></div><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=64&auto=format&fit=crop&s=placeholder" alt="avatar" class="w-10 h-10 rounded-full object-cover border border-white/6"/></a></div>
+      </header>
+
+      <div id="page-main">
+        <div class="space-y-6">
+          <!-- Current Time Display -->
+          <div class="glass rounded-3xl p-6 md:p-8 text-center">
+            <div class="text-stone-400 text-sm uppercase tracking-widest mb-2">Current Time</div>
+            <div id="currentTime" class="timer-display text-6xl md:text-7xl text-gold mb-2">00:00:00</div>
+            <div id="currentDate" class="text-stone-400">Loading...</div>
+          </div>
+
+          <!-- Tabs -->
+          <div class="glass rounded-2xl p-3 flex gap-2 overflow-x-auto sticky top-32 z-20">
+            <button class="tab-btn active-tab px-4 py-2 rounded-lg font-semibold whitespace-nowrap" data-tab="stopwatch">Stopwatch</button>
+            <button class="tab-btn px-4 py-2 rounded-lg font-semibold whitespace-nowrap" data-tab="timer">Countdown Timer</button>
+            <button class="tab-btn px-4 py-2 rounded-lg font-semibold whitespace-nowrap" data-tab="rest">Rest Timer</button>
+            <button class="tab-btn px-4 py-2 rounded-lg font-semibold whitespace-nowrap" data-tab="workout">Workout Timer</button>
+          </div>
+
+          <!-- STOPWATCH TAB -->
+          <div id="stopwatch-tab" class="space-y-6">
+            <!-- Stopwatch Display -->
+            <div class="glass rounded-3xl p-8 text-center">
+              <div class="inline-flex items-center justify-center circular-progress" style="--progress: 0%">
+                <div class="circular-progress-text">
+                  <div id="stopwatchDisplay" class="timer-display text-5xl md:text-6xl text-white">00:00:00</div>
+                  <div id="stopwatchLaps" class="text-stone-400 text-sm mt-2"><span id="lapCount">0</span> Laps</div>
+                </div>
+              </div>
+              <div class="mt-6 flex gap-3 justify-center flex-wrap">
+                <button id="stopwatchStart" class="btn-timer active px-6 py-3 rounded-lg bg-gold text-black font-semibold hover:scale-105">Start</button>
+                <button id="stopwatchPause" class="btn-timer px-6 py-3 rounded-lg glass font-semibold hover:scale-105">Pause</button>
+                <button id="stopwatchLap" class="btn-timer px-6 py-3 rounded-lg glass font-semibold hover:scale-105">Lap</button>
+                <button id="stopwatchReset" class="btn-timer px-6 py-3 rounded-lg glass font-semibold hover:scale-105">Reset</button>
+              </div>
+            </div>
+
+            <!-- Laps List -->
+            <div class="glass rounded-2xl p-6">
+              <h3 class="text-white font-bold mb-4">Laps</h3>
+              <div id="lapsList" class="space-y-2 max-h-64 overflow-y-auto">
+                <div class="text-stone-400 text-sm text-center py-4">No laps recorded</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- COUNTDOWN TIMER TAB -->
+          <div id="timer-tab" class="space-y-6 hidden">
+            <!-- Timer Input & Display -->
+            <div class="glass rounded-3xl p-8 text-center">
+              <div class="inline-flex items-center justify-center circular-progress" style="--progress: 0%">
+                <div class="circular-progress-text">
+                  <div id="timerDisplay" class="timer-display text-5xl md:text-6xl text-white">00:00</div>
+                </div>
+              </div>
+              
+              <!-- Timer Input -->
+              <div class="mt-6 grid grid-cols-3 gap-3 max-w-xs mx-auto mb-6">
+                <div>
+                  <label class="text-stone-400 text-xs block mb-2">Minutes</label>
+                  <input id="timerMinutes" type="number" min="0" max="59" value="1" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-center focus:outline-none focus:ring-2 focus:ring-gold/50">
+                </div>
+                <div>
+                  <label class="text-stone-400 text-xs block mb-2">Seconds</label>
+                  <input id="timerSeconds" type="number" min="0" max="59" value="0" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-center focus:outline-none focus:ring-2 focus:ring-gold/50">
+                </div>
+                <div>
+                  <button id="timerSet" class="w-full h-full bg-gold/20 text-gold rounded-lg font-semibold hover:bg-gold/30 mt-6">Set</button>
+                </div>
+              </div>
+
+              <!-- Preset Buttons -->
+              <div class="flex gap-2 justify-center flex-wrap mb-6">
+                <button class="preset-btn px-3 py-2 rounded-lg glass text-sm font-semibold" data-preset="30">30s</button>
+                <button class="preset-btn px-3 py-2 rounded-lg glass text-sm font-semibold" data-preset="60">1m</button>
+                <button class="preset-btn px-3 py-2 rounded-lg glass text-sm font-semibold" data-preset="90">90s</button>
+                <button class="preset-btn px-3 py-2 rounded-lg glass text-sm font-semibold" data-preset="120">2m</button>
+                <button class="preset-btn px-3 py-2 rounded-lg glass text-sm font-semibold" data-preset="300">5m</button>
+              </div>
+
+              <!-- Timer Controls -->
+              <div class="flex gap-3 justify-center flex-wrap">
+                <button id="timerStart" class="btn-timer active px-6 py-3 rounded-lg bg-gold text-black font-semibold hover:scale-105">Start</button>
+                <button id="timerPause" class="btn-timer px-6 py-3 rounded-lg glass font-semibold hover:scale-105">Pause</button>
+                <button id="timerReset" class="btn-timer px-6 py-3 rounded-lg glass font-semibold hover:scale-105">Reset</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- REST TIMER TAB -->
+          <div id="rest-tab" class="space-y-6 hidden">
+            <div class="glass rounded-3xl p-8 text-center">
+              <div class="inline-flex items-center justify-center circular-progress" style="--progress: 0%">
+                <div class="circular-progress-text">
+                  <div id="restDisplay" class="timer-display text-5xl md:text-6xl text-white">00:00</div>
+                </div>
+              </div>
+              
+              <!-- Rest Presets -->
+              <div class="mt-6 flex gap-2 justify-center flex-wrap mb-6">
+                <button class="preset-btn px-4 py-2 rounded-lg glass font-semibold" data-rest="30">30s</button>
+                <button class="preset-btn px-4 py-2 rounded-lg glass font-semibold" data-rest="45">45s</button>
+                <button class="preset-btn px-4 py-2 rounded-lg glass font-semibold" data-rest="60">60s</button>
+                <button class="preset-btn px-4 py-2 rounded-lg glass font-semibold" data-rest="90">90s</button>
+                <button class="preset-btn px-4 py-2 rounded-lg glass font-semibold" data-rest="120">2m</button>
+              </div>
+
+              <!-- Rest Controls -->
+              <div class="flex gap-3 justify-center flex-wrap">
+                <button id="restStart" class="btn-timer active px-6 py-3 rounded-lg bg-gold text-black font-semibold hover:scale-105">Start</button>
+                <button id="restPause" class="btn-timer px-6 py-3 rounded-lg glass font-semibold hover:scale-105">Pause</button>
+                <button id="restReset" class="btn-timer px-6 py-3 rounded-lg glass font-semibold hover:scale-105">Reset</button>
+              </div>
+
+              <!-- Rest Sets -->
+              <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="glass rounded-lg p-4 text-center">
+                  <div class="text-stone-400 text-xs mb-1">Sets Completed</div>
+                  <div id="setsCount" class="text-2xl font-bold text-gold">0</div>
+                </div>
+                <div class="glass rounded-lg p-4 text-center">
+                  <div class="text-stone-400 text-xs mb-1">Total Rest</div>
+                  <div id="totalRestTime" class="text-2xl font-bold text-gold">00:00</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- WORKOUT TIMER TAB -->
+          <div id="workout-tab" class="space-y-6 hidden">
+            <div class="glass rounded-3xl p-8 text-center">
+              <div class="inline-flex items-center justify-center circular-progress" style="--progress: 0%">
+                <div class="circular-progress-text">
+                  <div id="workoutDisplay" class="timer-display text-5xl md:text-6xl text-white">00:00:00</div>
+                </div>
+              </div>
+              
+              <!-- Workout Setup -->
+              <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto mb-6">
+                <div>
+                  <label class="text-stone-400 text-xs block mb-2">Work (seconds)</label>
+                  <input id="workoutWork" type="number" min="1" value="30" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-center focus:outline-none focus:ring-2 focus:ring-gold/50">
+                </div>
+                <div>
+                  <label class="text-stone-400 text-xs block mb-2">Rest (seconds)</label>
+                  <input id="workoutRest" type="number" min="1" value="15" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-center focus:outline-none focus:ring-2 focus:ring-gold/50">
+                </div>
+                <div>
+                  <label class="text-stone-400 text-xs block mb-2">Rounds</label>
+                  <input id="workoutRounds" type="number" min="1" value="5" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-center focus:outline-none focus:ring-2 focus:ring-gold/50">
+                </div>
+              </div>
+
+              <!-- Workout Status -->
+              <div class="mb-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="glass rounded-lg p-4 text-center">
+                  <div class="text-stone-400 text-xs mb-1">Round</div>
+                  <div id="workoutRound" class="text-2xl font-bold text-gold">1</div>
+                </div>
+                <div class="glass rounded-lg p-4 text-center">
+                  <div class="text-stone-400 text-xs mb-1">Phase</div>
+                  <div id="workoutPhase" class="text-xl font-bold text-gold">WORK</div>
+                </div>
+                <div class="glass rounded-lg p-4 text-center">
+                  <div class="text-stone-400 text-xs mb-1">Sets Left</div>
+                  <div id="workoutSetsLeft" class="text-2xl font-bold text-gold">5</div>
+                </div>
+                <div class="glass rounded-lg p-4 text-center">
+                  <div class="text-stone-400 text-xs mb-1">Total Time</div>
+                  <div id="workoutTotal" class="text-xl font-bold text-gold">05:45</div>
+                </div>
+              </div>
+
+              <!-- Workout Controls -->
+              <div class="flex gap-3 justify-center flex-wrap">
+                <button id="workoutStart" class="btn-timer active px-6 py-3 rounded-lg bg-gold text-black font-semibold hover:scale-105">Start</button>
+                <button id="workoutPause" class="btn-timer px-6 py-3 rounded-lg glass font-semibold hover:scale-105">Pause</button>
+                <button id="workoutReset" class="btn-timer px-6 py-3 rounded-lg glass font-semibold hover:scale-105">Reset</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="assets/js/components.js"></script>
+  <script>
+    Components.init();
+
+    // Current time update
+    function updateCurrentTime() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      document.getElementById('currentTime').textContent = `${hours}:${minutes}:${seconds}`;
+      
+      const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', dateOptions);
+    }
+    updateCurrentTime();
+    setInterval(updateCurrentTime, 1000);
+
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => {
+          b.classList.remove('bg-white/6', 'text-gold', 'active-tab');
+          b.classList.add('text-stone-400');
+        });
+        btn.classList.add('bg-white/6', 'text-gold', 'active-tab');
+        btn.classList.remove('text-stone-400');
+        
+        document.querySelectorAll('[id$="-tab"]').forEach(tab => tab.classList.add('hidden'));
+        document.getElementById(`${btn.dataset.tab}-tab`).classList.remove('hidden');
+      });
+    });
+
+    // ===== STOPWATCH =====
+    let stopwatchInterval = null;
+    let stopwatchTime = 0;
+    let laps = [];
+    
+    function formatTime(ms) {
+      const totalSeconds = Math.floor(ms / 1000);
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+      return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    document.getElementById('stopwatchStart').addEventListener('click', () => {
+      if (stopwatchInterval) return;
+      stopwatchInterval = setInterval(() => {
+        stopwatchTime += 10;
+        document.getElementById('stopwatchDisplay').textContent = formatTime(stopwatchTime);
+      }, 10);
+    });
+
+    document.getElementById('stopwatchPause').addEventListener('click', () => {
+      if (stopwatchInterval) {
+        clearInterval(stopwatchInterval);
+        stopwatchInterval = null;
+      }
+    });
+
+    document.getElementById('stopwatchLap').addEventListener('click', () => {
+      if (stopwatchTime > 0) {
+        laps.push(stopwatchTime);
+        document.getElementById('lapCount').textContent = laps.length;
+        const lapsList = document.getElementById('lapsList');
+        const lapEl = document.createElement('div');
+        lapEl.className = 'lap-item flex justify-between items-center p-3 bg-white/3 rounded-lg';
+        lapEl.innerHTML = `<span class="text-stone-400">Lap ${laps.length}</span><span class="text-white font-mono font-bold">${formatTime(stopwatchTime)}</span>`;
+        lapsList.insertBefore(lapEl, lapsList.firstChild);
+      }
+    });
+
+    document.getElementById('stopwatchReset').addEventListener('click', () => {
+      if (stopwatchInterval) clearInterval(stopwatchInterval);
+      stopwatchInterval = null;
+      stopwatchTime = 0;
+      laps = [];
+      document.getElementById('stopwatchDisplay').textContent = '00:00:00';
+      document.getElementById('lapCount').textContent = '0';
+      document.getElementById('lapsList').innerHTML = '<div class="text-stone-400 text-sm text-center py-4">No laps recorded</div>';
+    });
+
+    // ===== COUNTDOWN TIMER =====
+    let timerInterval = null;
+    let timerTime = 0;
+    let timerTotalTime = 0;
+
+    function updateTimerDisplay() {
+      const minutes = Math.floor(timerTime / 60);
+      const seconds = timerTime % 60;
+      document.getElementById('timerDisplay').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      const progress = timerTotalTime > 0 ? ((timerTotalTime - timerTime) / timerTotalTime) * 360 : 0;
+      document.querySelector('#timer-tab .circular-progress').style.setProperty('--progress', progress + 'deg');
+    }
+
+    document.getElementById('timerSet').addEventListener('click', () => {
+      const min = parseInt(document.getElementById('timerMinutes').value) || 0;
+      const sec = parseInt(document.getElementById('timerSeconds').value) || 0;
+      timerTime = min * 60 + sec;
+      timerTotalTime = timerTime;
+      updateTimerDisplay();
+    });
+
+    document.querySelectorAll('[data-preset]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sec = parseInt(btn.dataset.preset);
+        timerTime = sec;
+        timerTotalTime = sec;
+        document.getElementById('timerMinutes').value = Math.floor(sec / 60);
+        document.getElementById('timerSeconds').value = sec % 60;
+        updateTimerDisplay();
+        document.querySelectorAll('[data-preset]').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+      });
+    });
+
+    document.getElementById('timerStart').addEventListener('click', () => {
+      if (timerInterval || timerTime <= 0) return;
+      timerInterval = setInterval(() => {
+        timerTime--;
+        updateTimerDisplay();
+        if (timerTime <= 0) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          alert('Timer finished!');
+        }
+      }, 1000);
+    });
+
+    document.getElementById('timerPause').addEventListener('click', () => {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    });
+
+    document.getElementById('timerReset').addEventListener('click', () => {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = null;
+      timerTime = 0;
+      updateTimerDisplay();
+    });
+
+    // ===== REST TIMER =====
+    let restInterval = null;
+    let restTime = 0;
+    let restTotalTime = 0;
+    let setsCount = 0;
+    let totalRestTime = 0;
+
+    function updateRestDisplay() {
+      const minutes = Math.floor(restTime / 60);
+      const seconds = restTime % 60;
+      document.getElementById('restDisplay').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      const progress = restTotalTime > 0 ? ((restTotalTime - restTime) / restTotalTime) * 360 : 0;
+      document.querySelector('#rest-tab .circular-progress').style.setProperty('--progress', progress + 'deg');
+    }
+
+    document.querySelectorAll('[data-rest]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sec = parseInt(btn.dataset.rest);
+        restTime = sec;
+        restTotalTime = sec;
+        updateRestDisplay();
+        document.querySelectorAll('[data-rest]').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+      });
+    });
+
+    document.getElementById('restStart').addEventListener('click', () => {
+      if (restInterval || restTime <= 0) return;
+      restInterval = setInterval(() => {
+        restTime--;
+        updateRestDisplay();
+        if (restTime <= 0) {
+          clearInterval(restInterval);
+          restInterval = null;
+          setsCount++;
+          totalRestTime += restTotalTime;
+          document.getElementById('setsCount').textContent = setsCount;
+          const m = Math.floor(totalRestTime / 60);
+          const s = totalRestTime % 60;
+          document.getElementById('totalRestTime').textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+          alert('Rest complete! Ready for next set?');
+        }
+      }, 1000);
+    });
+
+    document.getElementById('restPause').addEventListener('click', () => {
+      if (restInterval) {
+        clearInterval(restInterval);
+        restInterval = null;
+      }
+    });
+
+    document.getElementById('restReset').addEventListener('click', () => {
+      if (restInterval) clearInterval(restInterval);
+      restInterval = null;
+      restTime = 0;
+      setsCount = 0;
+      totalRestTime = 0;
+      updateRestDisplay();
+      document.getElementById('setsCount').textContent = '0';
+      document.getElementById('totalRestTime').textContent = '00:00';
+    });
+
+    // ===== WORKOUT TIMER =====
+    let workoutInterval = null;
+    let workoutCurrent = 0;
+    let workoutRound = 1;
+    let workoutPhase = 'WORK'; // WORK or REST
+    let workoutRunning = false;
+
+    function updateWorkoutDisplay() {
+      const hours = Math.floor(workoutCurrent / 3600);
+      const minutes = Math.floor((workoutCurrent % 3600) / 60);
+      const seconds = workoutCurrent % 60;
+      document.getElementById('workoutDisplay').textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    function calculateWorkoutTotal() {
+      const work = parseInt(document.getElementById('workoutWork').value) || 30;
+      const rest = parseInt(document.getElementById('workoutRest').value) || 15;
+      const rounds = parseInt(document.getElementById('workoutRounds').value) || 5;
+      const total = (work + rest) * rounds - rest;
+      const m = Math.floor(total / 60);
+      const s = total % 60;
+      document.getElementById('workoutTotal').textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    document.getElementById('workoutStart').addEventListener('click', () => {
+      if (workoutRunning) return;
+      workoutRunning = true;
+      const work = parseInt(document.getElementById('workoutWork').value) || 30;
+      const rest = parseInt(document.getElementById('workoutRest').value) || 15;
+      const rounds = parseInt(document.getElementById('workoutRounds').value) || 5;
+
+      let phaseTime = work;
+      let currentRound = workoutRound;
+      let currentPhase = workoutPhase;
+
+      workoutInterval = setInterval(() => {
+        workoutCurrent++;
+        phaseTime--;
+
+        if (phaseTime <= 0) {
+          if (currentPhase === 'WORK') {
+            currentPhase = 'REST';
+            phaseTime = rest;
+          } else {
+            currentRound++;
+            currentPhase = 'WORK';
+            phaseTime = work;
+          }
+          
+          if (currentRound > rounds) {
+            clearInterval(workoutInterval);
+            workoutRunning = false;
+            alert('Workout complete!');
+            return;
+          }
+          
+          document.getElementById('workoutRound').textContent = currentRound;
+          document.getElementById('workoutPhase').textContent = currentPhase;
+          document.getElementById('workoutSetsLeft').textContent = rounds - currentRound + 1;
+        }
+        
+        updateWorkoutDisplay();
+      }, 1000);
+    });
+
+    document.getElementById('workoutPause').addEventListener('click', () => {
+      if (workoutInterval) {
+        clearInterval(workoutInterval);
+        workoutRunning = false;
+      }
+    });
+
+    document.getElementById('workoutReset').addEventListener('click', () => {
+      if (workoutInterval) clearInterval(workoutInterval);
+      workoutRunning = false;
+      workoutCurrent = 0;
+      workoutRound = 1;
+      workoutPhase = 'WORK';
+      updateWorkoutDisplay();
+      document.getElementById('workoutRound').textContent = '1';
+      document.getElementById('workoutPhase').textContent = 'WORK';
+      calculateWorkoutTotal();
+    });
+
+    // Calculate initial total
+    calculateWorkoutTotal();
+  </script>
+</body>
+</html>
