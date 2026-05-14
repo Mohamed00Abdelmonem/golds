@@ -67,7 +67,7 @@
               <p class="text-stone-300 text-sm mb-4">Guided machine for safe chest development. Perfect for isolating chest with controlled range of motion.</p>
               <div class="flex gap-2 text-xs">
                 <button class="flex-1 bg-gold text-black px-3 py-2 rounded-lg font-semibold hover:scale-105 fast-trans">Scan QR</button>
-                <button class="flex-1 glass px-3 py-2 rounded-lg hover:bg-white/10 fast-trans">Tutorial</button>
+                <button class="tutorial-btn flex-1 glass px-3 py-2 rounded-lg hover:bg-white/10 fast-trans" data-video="assets/img/posts/post1video.mp4" data-title="Exercise Tutorial" data-subtitle="Chest Press Machine">Tutorial</button>
               </div>
             </div>
           </article>
@@ -80,7 +80,7 @@
               <p class="text-stone-300 text-sm mb-4">Heavy-duty machine for leg strength. Load capacity up to 600kg with adjustable foot placement.</p>
               <div class="flex gap-2 text-xs">
                 <button class="flex-1 bg-gold text-black px-3 py-2 rounded-lg font-semibold hover:scale-105 fast-trans">Scan QR</button>
-                <button class="flex-1 glass px-3 py-2 rounded-lg hover:bg-white/10 fast-trans">Tutorial</button>
+                <button class="tutorial-btn flex-1 glass px-3 py-2 rounded-lg hover:bg-white/10 fast-trans" data-video="assets/img/posts/post2video.mp4" data-title="Exercise Tutorial" data-subtitle="Leg Press Machine">Tutorial</button>
               </div>
             </div>
           </article>
@@ -93,7 +93,7 @@
               <p class="text-stone-300 text-sm mb-4">Dual cable machine for complex movements. Perfect for functional training and compound exercises.</p>
               <div class="flex gap-2 text-xs">
                 <button class="flex-1 bg-gold text-black px-3 py-2 rounded-lg font-semibold hover:scale-105 fast-trans">Scan QR</button>
-                <button class="flex-1 glass px-3 py-2 rounded-lg hover:bg-white/10 fast-trans">Tutorial</button>
+                <button class="tutorial-btn flex-1 glass px-3 py-2 rounded-lg hover:bg-white/10 fast-trans" data-video="assets/img/posts/post1video.mp4" data-title="Exercise Tutorial" data-subtitle="Functional Trainer">Tutorial</button>
               </div>
             </div>
           </article>
@@ -106,7 +106,7 @@
               <p class="text-stone-300 text-sm mb-4">Guided back machine for lat development. Load range 20-180kg with smooth, natural arc motion.</p>
               <div class="flex gap-2 text-xs">
                 <button class="flex-1 bg-gold text-black px-3 py-2 rounded-lg font-semibold hover:scale-105 fast-trans">Scan QR</button>
-                <button class="flex-1 glass px-3 py-2 rounded-lg hover:bg-white/10 fast-trans">Tutorial</button>
+                <button class="tutorial-btn flex-1 glass px-3 py-2 rounded-lg hover:bg-white/10 fast-trans" data-video="assets/img/posts/post2video.mp4" data-title="Exercise Tutorial" data-subtitle="Lat Pulldown Machine">Tutorial</button>
               </div>
             </div>
           </article>
@@ -119,7 +119,7 @@
               <p class="text-stone-300 text-sm mb-4">Heavy-duty row machine. Great for back thickness with independent arm control.</p>
               <div class="flex gap-2 text-xs">
                 <button class="flex-1 bg-stone-600 text-white px-3 py-2 rounded-lg font-semibold cursor-not-allowed" disabled>In Use (3 min)</button>
-                <button class="flex-1 glass px-3 py-2 rounded-lg hover:bg-white/10 fast-trans">Tutorial</button>
+                <button class="tutorial-btn flex-1 glass px-3 py-2 rounded-lg hover:bg-white/10 fast-trans" data-video="assets/img/posts/post1video.mp4" data-title="Exercise Tutorial" data-subtitle="Seated Row Machine">Tutorial</button>
               </div>
             </div>
           </article>
@@ -132,7 +132,7 @@
               <p class="text-stone-300 text-sm mb-4">Isolated hamstring machine. Adjustable seat and adjustable range of motion.</p>
               <div class="flex gap-2 text-xs">
                 <button class="flex-1 bg-gold text-black px-3 py-2 rounded-lg font-semibold hover:scale-105 fast-trans">Scan QR</button>
-                <button class="flex-1 glass px-3 py-2 rounded-lg hover:bg-white/10 fast-trans">Tutorial</button>
+                <button class="tutorial-btn flex-1 glass px-3 py-2 rounded-lg hover:bg-white/10 fast-trans" data-video="assets/img/posts/post2video.mp4" data-title="Exercise Tutorial" data-subtitle="Leg Curl Machine">Tutorial</button>
               </div>
             </div>
           </article>
@@ -179,9 +179,190 @@
       </div>
     </main>
   </div>
+
+  <!-- ===== Video Tutorial Modal ===== -->
+  <div id="tutorialModal" role="dialog" aria-modal="true" aria-label="Machine Tutorial" style="display:none" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <!-- Backdrop -->
+    <div id="modalBackdrop" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+
+    <!-- Modal Box -->
+    <div class="relative z-10 w-full max-w-4xl rounded-2xl overflow-visible shadow-2xl" style="background:transparent;">
+
+      <div class="mx-2 md:mx-0 rounded-2xl overflow-hidden shadow-2xl" style="background:#0e0e10;border:1px solid rgba(255,255,255,0.04)">
+        <!-- Header -->
+        <div class="px-6 pt-5 pb-3 flex justify-between items-start">
+          <div class="flex items-center gap-4">
+            <div id="modalPoster" class="w-16 h-10 rounded-lg bg-gradient-to-br from-stone-700 to-stone-800 overflow-hidden flex items-center justify-center text-stone-400 text-xs font-semibold">Tutorial</div>
+            <div>
+              <h2 id="modalTitle" class="text-2xl font-black text-white mb-1">Exercise Tutorial</h2>
+              <p id="modalSubtitle" class="text-stone-400 font-medium">Video and pointers</p>
+            </div>
+          </div>
+          <button id="modalClose" aria-label="Close tutorial" class="p-3 rounded-lg text-stone-300 hover:text-white hover:bg-white/6 fast-trans">
+            <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6"><path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+
+        <!-- Video Player with decorative frame -->
+        <div class="p-6 pt-2">
+          <div class="video-frame mx-auto">
+            <div class="relative w-full rounded-xl overflow-hidden bg-black aspect-video flex items-center justify-center">
+              <video id="tutorialVideo" class="w-full h-full object-contain" controls controlsList="nodownload">
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <!-- subtle play pulse for non-playing state -->
+              <div id="videoPlayPulse" class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Modal animations */
+    #tutorialModal { animation: none; }
+    #tutorialModal.modal-open  { animation: modalFadeIn  .25s ease forwards; }
+    #tutorialModal.modal-close { animation: modalFadeOut .2s  ease forwards; }
+    @keyframes modalFadeIn  { from { opacity:0; transform:translateY(6px) scale(.995); } to { opacity:1; transform:translateY(0) scale(1); } }
+    @keyframes modalFadeOut { from { opacity:1; transform:translateY(0) scale(1); } to { opacity:0; transform:translateY(6px) scale(.995); } }
+
+    /* Decorative responsive video frame */
+    .video-frame { max-width: 100%; border-radius: 14px; padding: 14px; box-sizing: border-box; margin: 0 auto; }
+    .video-frame { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02); }
+    .video-frame > .relative { border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.03); }
+
+    /* Poster thumbnail in header */
+    #modalPoster { width:64px; height:40px; min-width:64px; display:flex; align-items:center; justify-content:center; }
+
+    /* Close button larger on small screens */
+    #modalClose { border: 1px solid transparent; }
+
+    /* Player styling tweaks */
+    .video-frame video { background: #000; display:block; }
+    .video-frame iframe { width:100%; height:100%; display:block; }
+
+    /* Optional play pulse (hidden by default) */
+    #videoPlayPulse { transition: opacity .28s ease; }
+
+    /* Custom video controls styling if supported by browser */
+    video::-webkit-media-controls-panel { background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.7)) !important; }
+
+    @media (max-width: 640px) {
+      .video-frame { padding: 10px; }
+      #modalTitle { font-size: 1.125rem; }
+    }
+  </style>
+
   <script src="assets/js/components.js"></script>
   <script>
     Components.init();
+
+    (function () {
+      const modal    = document.getElementById('tutorialModal');
+      const video    = document.getElementById('tutorialVideo');
+      const title    = document.getElementById('modalTitle');
+      const subtitle = document.getElementById('modalSubtitle');
+      const backdrop = document.getElementById('modalBackdrop');
+      const playerContainer = document.querySelector('.video-frame > .relative');
+
+      const posterEl = document.getElementById('modalPoster');
+
+      function openModal(videoUrl, videoTitle, videoSubtitle, posterUrl) {
+        // set poster if provided
+        if (posterUrl) {
+          posterEl.style.backgroundImage = `url(${posterUrl})`;
+          posterEl.textContent = '';
+        } else {
+          posterEl.style.backgroundImage = '';
+          posterEl.textContent = (videoSubtitle || videoTitle || 'Tutorial');
+        }
+        title.textContent = videoTitle || 'Exercise Tutorial';
+        subtitle.textContent = videoSubtitle || 'Video and pointers';
+
+        // Clear previous iframe if any
+        const existingIframe = playerContainer.querySelector('iframe');
+        if (existingIframe) existingIframe.remove();
+
+        // Decide whether to use <video> (local mp4) or iframe (YouTube/Vimeo)
+        const isYouTube = /youtube\.com|youtu\.be/.test(videoUrl);
+
+        if (isYouTube) {
+          // hide native video element
+          video.style.display = 'none';
+          // create iframe embed
+          let videoId = '';
+          try {
+            const u = new URL(videoUrl);
+            if (u.hostname.includes('youtu')) {
+              if (u.searchParams.get('v')) videoId = u.searchParams.get('v');
+              else videoId = u.pathname.split('/').pop();
+            }
+          } catch (e) {
+            videoId = videoUrl.split('/').pop();
+          }
+          const iframe = document.createElement('iframe');
+          iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`);
+          iframe.setAttribute('allow', 'autoplay; encrypted-media; fullscreen');
+          iframe.setAttribute('allowfullscreen', '');
+          iframe.className = 'w-full h-full';
+          iframe.style.border = '0';
+          playerContainer.appendChild(iframe);
+        } else {
+          // Local video file
+          // remove any iframe leftovers
+          const iframeLeft = playerContainer.querySelector('iframe');
+          if (iframeLeft) iframeLeft.remove();
+          video.style.display = 'block';
+          const sourceEl = video.querySelector('source');
+          if (sourceEl) sourceEl.src = videoUrl;
+          if (posterUrl) video.setAttribute('poster', posterUrl); else video.removeAttribute('poster');
+          try { video.load(); } catch (e) {}
+          video.play().catch(() => {});
+        }
+
+        modal.style.display = 'flex';
+        modal.classList.remove('modal-close');
+        void modal.offsetWidth; // reflow
+        modal.classList.add('modal-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        modal.classList.remove('modal-open');
+        modal.classList.add('modal-close');
+        modal.addEventListener('animationend', function handler() {
+          modal.style.display = 'none';
+          modal.classList.remove('modal-close');
+          // stop native video
+          try { video.pause(); } catch (e) {}
+          const srcEl = video.querySelector('source');
+          if (srcEl) srcEl.src = '';
+          // remove any iframe embeds
+          const existingIframe = playerContainer.querySelector('iframe');
+          if (existingIframe) existingIframe.remove();
+          // show video element again for next use
+          video.style.display = 'block';
+          document.body.style.overflow = '';
+          modal.removeEventListener('animationend', handler);
+        });
+      }
+
+      // Open on Tutorial button click
+      document.querySelectorAll('.tutorial-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          openModal(btn.dataset.video, btn.dataset.title, btn.dataset.subtitle, btn.dataset.poster);
+        });
+      });
+
+      // Close triggers
+      document.getElementById('modalClose').addEventListener('click', closeModal);
+      backdrop.addEventListener('click', closeModal);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.style.display !== 'none') closeModal();
+      });
+    })();
   </script>
 </body>
 </html>

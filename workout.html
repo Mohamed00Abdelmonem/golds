@@ -205,7 +205,7 @@
           <!-- Bench Press -->
           <article class="exercise-card glass hover-lift fast-trans" style="border-radius:clamp(0.5rem,2vw,1rem); padding:var(--card-pad)">
             <div class="flex flex-col md:flex-row md:items-start" style="gap:var(--gap)">
-              <img src="assets/img/img1.png" alt="Barbell Bench Press" class="object-cover border border-white/6 flex-shrink-0" style="width:clamp(3rem,12vw,5rem); height:clamp(3rem,12vw,5rem); border-radius:clamp(0.375rem,1.5vw,0.5rem)" />
+              <img src="assets/img/exercises/img1.png" alt="Barbell Bench Press" class="object-cover border border-white/6 flex-shrink-0" style="width:clamp(3rem,12vw,5rem); height:clamp(3rem,12vw,5rem); border-radius:clamp(0.375rem,1.5vw,0.5rem)" />
               <div class="flex-1 min-w-0">
                 <div class="flex flex-col justify-between">
                   <div class="min-w-0">
@@ -242,7 +242,7 @@
                   </div>
                   <div class="flex flex-wrap items-center" style="margin-top:clamp(0.5rem,1vw,0.75rem); gap:clamp(0.25rem,1vw,0.5rem)">
                     <button class="glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)" data-action="qr">Scan QR</button>
-                    <button class="glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)" data-action="watch">Watch Tutorial</button>
+                    <button id="watchMachine" class="tutorial-btn glass rounded-lg" data-video="assets/img/posts/post1video.mp4" data-title="Machine Tutorial" data-subtitle="Model X9" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Watch Tutorial</button>
                     <div class="text-stone-400 ml-auto" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Machine: M-231</div>
                   </div>
                 </div>
@@ -266,7 +266,7 @@
           <!-- Bent-over Row -->
           <article class="exercise-card glass hover-lift fast-trans" style="border-radius:clamp(0.5rem,2vw,1rem); padding:var(--card-pad)">
             <div class="flex flex-col md:flex-row md:items-start" style="gap:var(--gap)">
-              <img src="assets/img/image2.png" alt="Bent-over Row" class="object-cover border border-white/6 flex-shrink-0" style="width:clamp(3rem,12vw,5rem); height:clamp(3rem,12vw,5rem); border-radius:clamp(0.375rem,1.5vw,0.5rem)" />
+              <img src="assets/img/exercises/image2.png" alt="Bent-over Row" class="object-cover border border-white/6 flex-shrink-0" style="width:clamp(3rem,12vw,5rem); height:clamp(3rem,12vw,5rem); border-radius:clamp(0.375rem,1.5vw,0.5rem)" />
               <div class="flex-1 min-w-0">
                 <div class="flex flex-col justify-between">
                   <div class="min-w-0">
@@ -299,7 +299,7 @@
           <!-- Overhead Press -->
           <article class="exercise-card glass hover-lift fast-trans" style="border-radius:clamp(0.5rem,2vw,1rem); padding:var(--card-pad)">
             <div class="flex flex-col md:flex-row md:items-start" style="gap:var(--gap)">
-              <img src="assets/img/sholder.png" alt="Overhead Press" class="object-cover border border-white/6 flex-shrink-0" style="width:clamp(3rem,12vw,5rem); height:clamp(3rem,12vw,5rem); border-radius:clamp(0.375rem,1.5vw,0.5rem)" />
+              <img src="assets/img/exercises/excersice4.png" alt="Overhead Press" class="object-cover border border-white/6 flex-shrink-0" style="width:clamp(3rem,12vw,5rem); height:clamp(3rem,12vw,5rem); border-radius:clamp(0.375rem,1.5vw,0.5rem)" />
               <div class="flex-1 min-w-0">
                 <div class="flex flex-col justify-between">
                   <div class="min-w-0">
@@ -437,40 +437,40 @@
   // Exercise data organized by category
   const exerciseData = {
     'Push Day': [
-      { name: 'Barbell Bench Press', target: 'Chest', sets: 4, reps: '6-8', rest: '90s', weight: 80, image: 'assets/img/img1.png', instructions: 'Lie flat on bench, grip slightly wider than shoulder. Lower bar to chest under control, pause briefly, and press up explosively.', mistakes: ['Flared elbows', 'Bouncing off chest'], safety: ['Use spotter for heavy sets', 'Control tempo'], machine: 'M-231' },
-      { name: 'Incline Dumbbell Press', target: 'Upper Chest', sets: 4, reps: '8-10', rest: '90s', weight: 35, image: 'assets/img/img1.png', instructions: 'Set bench to 45° angle, press dumbbells upward and inward in controlled motion.', mistakes: ['Dropping dumbbells', 'Uneven press'], safety: ['Secure dumbbells grip', 'No swinging'], machine: 'N/A' },
-      { name: 'Tricep Dips', target: 'Triceps', sets: 3, reps: '8-12', rest: '60s', weight: 'Bodyweight', image: 'assets/img/img1.png', instructions: 'Use parallel bars, lower body until elbows are 90°, then press back up explosively.', mistakes: ['Excessive forward lean', 'Incomplete range'], safety: ['Use dip belt for weight', 'Maintain upright posture'], machine: 'M-245' },
-      { name: 'Lateral Raises', target: 'Shoulders', sets: 3, reps: '12-15', rest: '45s', weight: 15, image: 'assets/img/sholder.png', instructions: 'Stand with dumbbells at sides, raise arms to shoulder height with slight bend.', mistakes: ['Jerky movements', 'Too heavy weight'], safety: ['Controlled tempo', 'No momentum'], machine: 'N/A' }
+      { name: 'Barbell Bench Press', target: 'Chest', sets: 4, reps: '6-8', rest: '90s', weight: 80, image: 'assets/img/exercises/img1.png', instructions: 'Lie flat on bench, grip slightly wider than shoulder. Lower bar to chest under control, pause briefly, and press up explosively.', mistakes: ['Flared elbows', 'Bouncing off chest'], safety: ['Use spotter for heavy sets', 'Control tempo'], machine: 'M-231' },
+      { name: 'Incline Dumbbell Press', target: 'Upper Chest', sets: 4, reps: '8-10', rest: '90s', weight: 35, image: 'assets/img/exercises/exersice.png', instructions: 'Set bench to 45° angle, press dumbbells upward and inward in controlled motion.', mistakes: ['Dropping dumbbells', 'Uneven press'], safety: ['Secure dumbbells grip', 'No swinging'], machine: 'N/A' },
+      { name: 'Tricep Dips', target: 'Triceps', sets: 3, reps: '8-12', rest: '60s', weight: 'Bodyweight', image: 'assets/img/exercises/exersice5.png', instructions: 'Use parallel bars, lower body until elbows are 90°, then press back up explosively.', mistakes: ['Excessive forward lean', 'Incomplete range'], safety: ['Use dip belt for weight', 'Maintain upright posture'], machine: 'M-245' },
+      { name: 'Lateral Raises', target: 'Shoulders', sets: 3, reps: '12-15', rest: '45s', weight: 15, image: 'assets/img/exercises/excersice4.png', instructions: 'Stand with dumbbells at sides, raise arms to shoulder height with slight bend.', mistakes: ['Jerky movements', 'Too heavy weight'], safety: ['Controlled tempo', 'No momentum'], machine: 'N/A' }
     ],
     'Pull Day': [
-      { name: 'Bent-over Barbell Row', target: 'Back', sets: 4, reps: '6-8', rest: '90s', weight: 100, image: 'assets/img/image2.png', instructions: 'Hinge at hips, keep a flat back, pull bar towards lower ribs with explosive force.', mistakes: ['Rounded back', 'Bar path deviation'], safety: ['Warm up thoroughly', 'Use lifting belt'], machine: 'M-312' },
-      { name: 'Pull-ups', target: 'Lats', sets: 4, reps: '8-12', rest: '90s', weight: 'Bodyweight', image: 'assets/img/image2.png', instructions: 'Grip bar shoulder-width apart, pull body up until chest touches bar, control descent.', mistakes: ['Partial range', 'Kipping'], safety: ['Assisted if needed', 'Controlled negatives'], machine: 'M-156' },
-      { name: 'Face Pulls', target: 'Rear Delts', sets: 3, reps: '12-15', rest: '60s', weight: 30, image: 'assets/img/sholder.png', instructions: 'Use rope attachment, pull towards face while elbows high, squeeze rear delts.', mistakes: ['Too heavy', 'Low elbow position'], safety: ['Shoulder friendly', 'Light weight'], machine: 'M-289' },
-      { name: 'Barbell Curl', target: 'Biceps', sets: 3, reps: '8-10', rest: '60s', weight: 50, image: 'assets/img/image2.png', instructions: 'Stand with bar at thighs, curl upward keeping elbows locked at sides.', mistakes: ['Swinging bar', 'Moving elbows'], safety: ['No momentum', 'Controlled tempo'], machine: 'N/A' }
+      { name: 'Bent-over Barbell Row', target: 'Back', sets: 4, reps: '6-8', rest: '90s', weight: 100, image: 'assets/img/exercises/image2.png', instructions: 'Hinge at hips, keep a flat back, pull bar towards lower ribs with explosive force.', mistakes: ['Rounded back', 'Bar path deviation'], safety: ['Warm up thoroughly', 'Use lifting belt'], machine: 'M-312' },
+      { name: 'Pull-ups', target: 'Lats', sets: 4, reps: '8-12', rest: '90s', weight: 'Bodyweight', image: 'assets/img/exercises/exersice2.png', instructions: 'Grip bar shoulder-width apart, pull body up until chest touches bar, control descent.', mistakes: ['Partial range', 'Kipping'], safety: ['Assisted if needed', 'Controlled negatives'], machine: 'M-156' },
+      { name: 'Face Pulls', target: 'Rear Delts', sets: 3, reps: '12-15', rest: '60s', weight: 30, image: 'assets/img/exercises/excersice4.png', instructions: 'Use rope attachment, pull towards face while elbows high, squeeze rear delts.', mistakes: ['Too heavy', 'Low elbow position'], safety: ['Shoulder friendly', 'Light weight'], machine: 'M-289' },
+      { name: 'Barbell Curl', target: 'Biceps', sets: 3, reps: '8-10', rest: '60s', weight: 50, image: 'assets/img/exercises/exersice5.png', instructions: 'Stand with bar at thighs, curl upward keeping elbows locked at sides.', mistakes: ['Swinging bar', 'Moving elbows'], safety: ['No momentum', 'Controlled tempo'], machine: 'N/A' }
     ],
     'Leg Day': [
-      { name: 'Barbell Back Squat', target: 'Quads & Glutes', sets: 4, reps: '6-8', rest: '120s', weight: 140, image: 'assets/img/img1.png', instructions: 'Bar across upper back, squat until thighs parallel, drive through heels to stand.', mistakes: ['Forward knee cave', 'Excessive lean'], safety: ['Use rack', 'Spotter recommended', 'Tight core'], machine: 'M-401' },
-      { name: 'Romanian Deadlift', target: 'Hamstrings', sets: 4, reps: '6-8', rest: '90s', weight: 120, image: 'assets/img/image2.png', instructions: 'Keep legs nearly straight, hinge at hips, lower bar to shins, squeeze glutes to return.', mistakes: ['Rounding back', 'Bent knees'], safety: ['Maintain neutral spine', 'Light weight for form'], machine: 'M-445' },
-      { name: 'Leg Press', target: 'Quads', sets: 3, reps: '8-12', rest: '60s', weight: 300, image: 'assets/img/img1.png', instructions: 'Feet shoulder-width on platform, lower weight under control, press through heels.', mistakes: ['Knees caving', 'Shallow depth'], safety: ['Full range of motion', 'Controlled descent'], machine: 'M-234' },
-      { name: 'Leg Curl', target: 'Hamstrings', sets: 3, reps: '10-12', rest: '45s', weight: 80, image: 'assets/img/img1.png', instructions: 'Lie face down, curl weight towards glutes with controlled motion.', mistakes: ['Hip lift', 'Jerky movement'], safety: ['No swinging', 'Steady tempo'], machine: 'M-289' }
+      { name: 'Barbell Back Squat', target: 'Quads & Glutes', sets: 4, reps: '6-8', rest: '120s', weight: 140, image: 'assets/img/exercises/exersice.png', instructions: 'Bar across upper back, squat until thighs parallel, drive through heels to stand.', mistakes: ['Forward knee cave', 'Excessive lean'], safety: ['Use rack', 'Spotter recommended', 'Tight core'], machine: 'M-401' },
+      { name: 'Romanian Deadlift', target: 'Hamstrings', sets: 4, reps: '6-8', rest: '90s', weight: 120, image: 'assets/img/exercises/image3.png', instructions: 'Keep legs nearly straight, hinge at hips, lower bar to shins, squeeze glutes to return.', mistakes: ['Rounding back', 'Bent knees'], safety: ['Maintain neutral spine', 'Light weight for form'], machine: 'M-445' },
+      { name: 'Leg Press', target: 'Quads', sets: 3, reps: '8-12', rest: '60s', weight: 300, image: 'assets/img/exercises/exersice3.png', instructions: 'Feet shoulder-width on platform, lower weight under control, press through heels.', mistakes: ['Knees caving', 'Shallow depth'], safety: ['Full range of motion', 'Controlled descent'], machine: 'M-234' },
+      { name: 'Leg Curl', target: 'Hamstrings', sets: 3, reps: '10-12', rest: '45s', weight: 80, image: 'assets/img/exercises/excersice4.png', instructions: 'Lie face down, curl weight towards glutes with controlled motion.', mistakes: ['Hip lift', 'Jerky movement'], safety: ['No swinging', 'Steady tempo'], machine: 'M-289' }
     ],
     'Upper Body': [
-      { name: 'Barbell Bench Press', target: 'Chest', sets: 4, reps: '6-8', rest: '90s', weight: 80, image: 'assets/img/img1.png', instructions: 'Lie flat on bench, grip slightly wider than shoulder. Lower bar to chest under control, pause briefly, and press up explosively.', mistakes: ['Flared elbows', 'Bouncing off chest'], safety: ['Use spotter for heavy sets', 'Control tempo'], machine: 'M-231' },
-      { name: 'Bent-over Barbell Row', target: 'Back', sets: 4, reps: '6-8', rest: '90s', weight: 100, image: 'assets/img/image2.png', instructions: 'Hinge at hips, keep a flat back, pull bar towards lower ribs with explosive force.', mistakes: ['Rounded back', 'Bar path deviation'], safety: ['Warm up thoroughly', 'Use lifting belt'], machine: 'M-312' },
-      { name: 'Standing Overhead Press', target: 'Shoulders', sets: 4, reps: '6', rest: '120s', weight: 54, image: 'assets/img/sholder.png', instructions: 'Engage core, drive bar overhead in a straight path, lower with control.', mistakes: ['Excessive arching', 'Forward bar path'], safety: ['Brace core', 'Light weight for form'], machine: 'N/A' },
-      { name: 'Pull-ups', target: 'Lats', sets: 3, reps: '8-10', rest: '90s', weight: 'Bodyweight', image: 'assets/img/image2.png', instructions: 'Grip bar shoulder-width apart, pull body up until chest touches bar, control descent.', mistakes: ['Partial range', 'Kipping'], safety: ['Assisted if needed', 'Controlled negatives'], machine: 'M-156' }
+      { name: 'Barbell Bench Press', target: 'Chest', sets: 4, reps: '6-8', rest: '90s', weight: 80, image: 'assets/img/exercises/img1.png', instructions: 'Lie flat on bench, grip slightly wider than shoulder. Lower bar to chest under control, pause briefly, and press up explosively.', mistakes: ['Flared elbows', 'Bouncing off chest'], safety: ['Use spotter for heavy sets', 'Control tempo'], machine: 'M-231' },
+      { name: 'Bent-over Barbell Row', target: 'Back', sets: 4, reps: '6-8', rest: '90s', weight: 100, image: 'assets/img/exercises/image2.png', instructions: 'Hinge at hips, keep a flat back, pull bar towards lower ribs with explosive force.', mistakes: ['Rounded back', 'Bar path deviation'], safety: ['Warm up thoroughly', 'Use lifting belt'], machine: 'M-312' },
+      { name: 'Standing Overhead Press', target: 'Shoulders', sets: 4, reps: '6', rest: '120s', weight: 54, image: 'assets/img/exercises/excersice4.png', instructions: 'Engage core, drive bar overhead in a straight path, lower with control.', mistakes: ['Excessive arching', 'Forward bar path'], safety: ['Brace core', 'Light weight for form'], machine: 'N/A' },
+      { name: 'Pull-ups', target: 'Lats', sets: 3, reps: '8-10', rest: '90s', weight: 'Bodyweight', image: 'assets/img/exercises/exersice2.png', instructions: 'Grip bar shoulder-width apart, pull body up until chest touches bar, control descent.', mistakes: ['Partial range', 'Kipping'], safety: ['Assisted if needed', 'Controlled negatives'], machine: 'M-156' }
     ],
     'Lower Body': [
-      { name: 'Barbell Back Squat', target: 'Quads & Glutes', sets: 4, reps: '6-8', rest: '120s', weight: 140, image: 'assets/img/img1.png', instructions: 'Bar across upper back, squat until thighs parallel, drive through heels to stand.', mistakes: ['Forward knee cave', 'Excessive lean'], safety: ['Use rack', 'Spotter recommended', 'Tight core'], machine: 'M-401' },
-      { name: 'Romanian Deadlift', target: 'Hamstrings', sets: 4, reps: '6-8', rest: '90s', weight: 120, image: 'assets/img/image2.png', instructions: 'Keep legs nearly straight, hinge at hips, lower bar to shins, squeeze glutes to return.', mistakes: ['Rounding back', 'Bent knees'], safety: ['Maintain neutral spine', 'Light weight for form'], machine: 'M-445' },
-      { name: 'Leg Press', target: 'Quads', sets: 3, reps: '8-12', rest: '60s', weight: 300, image: 'assets/img/img1.png', instructions: 'Feet shoulder-width on platform, lower weight under control, press through heels.', mistakes: ['Knees caving', 'Shallow depth'], safety: ['Full range of motion', 'Controlled descent'], machine: 'M-234' },
-      { name: 'Leg Curl', target: 'Hamstrings', sets: 3, reps: '10-12', rest: '45s', weight: 80, image: 'assets/img/img1.png', instructions: 'Lie face down, curl weight towards glutes with controlled motion.', mistakes: ['Hip lift', 'Jerky movement'], safety: ['No swinging', 'Steady tempo'], machine: 'M-289' }
+      { name: 'Barbell Back Squat', target: 'Quads & Glutes', sets: 4, reps: '6-8', rest: '120s', weight: 140, image: 'assets/img/exercises/exersice.png', instructions: 'Bar across upper back, squat until thighs parallel, drive through heels to stand.', mistakes: ['Forward knee cave', 'Excessive lean'], safety: ['Use rack', 'Spotter recommended', 'Tight core'], machine: 'M-401' },
+      { name: 'Romanian Deadlift', target: 'Hamstrings', sets: 4, reps: '6-8', rest: '90s', weight: 120, image: 'assets/img/exercises/image3.png', instructions: 'Keep legs nearly straight, hinge at hips, lower bar to shins, squeeze glutes to return.', mistakes: ['Rounding back', 'Bent knees'], safety: ['Maintain neutral spine', 'Light weight for form'], machine: 'M-445' },
+      { name: 'Leg Press', target: 'Quads', sets: 3, reps: '8-12', rest: '60s', weight: 300, image: 'assets/img/exercises/exersice3.png', instructions: 'Feet shoulder-width on platform, lower weight under control, press through heels.', mistakes: ['Knees caving', 'Shallow depth'], safety: ['Full range of motion', 'Controlled descent'], machine: 'M-234' },
+      { name: 'Leg Curl', target: 'Hamstrings', sets: 3, reps: '10-12', rest: '45s', weight: 80, image: 'assets/img/exercises/excersice4.png', instructions: 'Lie face down, curl weight towards glutes with controlled motion.', mistakes: ['Hip lift', 'Jerky movement'], safety: ['No swinging', 'Steady tempo'], machine: 'M-289' }
     ],
     'Full Body': [
-      { name: 'Barbell Back Squat', target: 'Quads & Glutes', sets: 3, reps: '8', rest: '120s', weight: 120, image: 'assets/img/img1.png', instructions: 'Bar across upper back, squat until thighs parallel, drive through heels to stand.', mistakes: ['Forward knee cave', 'Excessive lean'], safety: ['Use rack', 'Spotter recommended', 'Tight core'], machine: 'M-401' },
-      { name: 'Barbell Bench Press', target: 'Chest', sets: 3, reps: '8', rest: '90s', weight: 70, image: 'assets/img/img1.png', instructions: 'Lie flat on bench, grip slightly wider than shoulder. Lower bar to chest under control, pause briefly, and press up explosively.', mistakes: ['Flared elbows', 'Bouncing off chest'], safety: ['Use spotter for heavy sets', 'Control tempo'], machine: 'M-231' },
-      { name: 'Bent-over Barbell Row', target: 'Back', sets: 3, reps: '8', rest: '90s', weight: 90, image: 'assets/img/image2.png', instructions: 'Hinge at hips, keep a flat back, pull bar towards lower ribs with explosive force.', mistakes: ['Rounded back', 'Bar path deviation'], safety: ['Warm up thoroughly', 'Use lifting belt'], machine: 'M-312' },
-      { name: 'Standing Overhead Press', target: 'Shoulders', sets: 3, reps: '8', rest: '90s', weight: 48, image: 'assets/img/sholder.png', instructions: 'Engage core, drive bar overhead in a straight path, lower with control.', mistakes: ['Excessive arching', 'Forward bar path'], safety: ['Brace core', 'Light weight for form'], machine: 'N/A' }
+      { name: 'Barbell Back Squat', target: 'Quads & Glutes', sets: 3, reps: '8', rest: '120s', weight: 120, image: 'assets/img/exercises/exersice.png', instructions: 'Bar across upper back, squat until thighs parallel, drive through heels to stand.', mistakes: ['Forward knee cave', 'Excessive lean'], safety: ['Use rack', 'Spotter recommended', 'Tight core'], machine: 'M-401' },
+      { name: 'Barbell Bench Press', target: 'Chest', sets: 3, reps: '8', rest: '90s', weight: 70, image: 'assets/img/exercises/img1.png', instructions: 'Lie flat on bench, grip slightly wider than shoulder. Lower bar to chest under control, pause briefly, and press up explosively.', mistakes: ['Flared elbows', 'Bouncing off chest'], safety: ['Use spotter for heavy sets', 'Control tempo'], machine: 'M-231' },
+      { name: 'Bent-over Barbell Row', target: 'Back', sets: 3, reps: '8', rest: '90s', weight: 90, image: 'assets/img/exercises/image2.png', instructions: 'Hinge at hips, keep a flat back, pull bar towards lower ribs with explosive force.', mistakes: ['Rounded back', 'Bar path deviation'], safety: ['Warm up thoroughly', 'Use lifting belt'], machine: 'M-312' },
+      { name: 'Standing Overhead Press', target: 'Shoulders', sets: 3, reps: '8', rest: '90s', weight: 48, image: 'assets/img/exercises/excersice4.png', instructions: 'Engage core, drive bar overhead in a straight path, lower with control.', mistakes: ['Excessive arching', 'Forward bar path'], safety: ['Brace core', 'Light weight for form'], machine: 'N/A' }
     ]
   };
 
@@ -515,7 +515,7 @@
               </div>
               <div class="flex flex-wrap items-center" style="margin-top:clamp(0.5rem,1vw,0.75rem); gap:clamp(0.25rem,1vw,0.5rem)">
                 <button class="glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)" data-action="qr">Scan QR</button>
-                <button class="glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)" data-action="watch">Watch Tutorial</button>
+                <button class="tutorial-btn glass rounded-lg" data-video="${ex.video || ('assets/img/posts/post' + (idx+1) + 'video.mp4')}" data-title="${ex.name}" data-subtitle="${ex.target}" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Watch Tutorial</button>
                 <div class="text-stone-400 ml-auto" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Machine: ${ex.machine}</div>
               </div>
             </div>
@@ -580,10 +580,45 @@
       });
     });
 
-    document.querySelectorAll('[data-action="watch"]').forEach(b => {
+    // Tutorial buttons (supports local mp4 or YouTube URLs)
+    document.querySelectorAll('.tutorial-btn').forEach(b => {
       b.addEventListener('click', () => {
-        document.getElementById('tutorialModal').classList.remove('hidden');
-        document.getElementById('tutorialModal').classList.add('flex');
+        const modal = document.getElementById('tutorialModal');
+        const videoEl = modal.querySelector('video');
+        const playerWrap = videoEl.parentElement;
+        const src = b.dataset.video || '';
+        const title = b.dataset.title || 'Exercise Tutorial';
+        const subtitle = b.dataset.subtitle || 'Video and pointers';
+
+        modal.querySelector('.text-white.font-bold') && (modal.querySelector('.text-white.font-bold').textContent = title);
+        modal.querySelector('.text-stone-400') && (modal.querySelector('.text-stone-400').textContent = subtitle);
+
+        // remove existing iframe if any
+        const existingIframe = playerWrap.querySelector('iframe');
+        if (/youtube\.com|youtu\.be/.test(src)) {
+          // ensure video element is hidden
+          videoEl.style.display = 'none';
+          if (existingIframe) existingIframe.remove();
+          let videoId = '';
+          try { const u = new URL(src); if (u.searchParams.get('v')) videoId = u.searchParams.get('v'); else videoId = u.pathname.split('/').pop(); } catch(e){ videoId = src.split('/').pop(); }
+          const iframe = document.createElement('iframe');
+          iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`);
+          iframe.setAttribute('allow', 'autoplay; encrypted-media; fullscreen');
+          iframe.setAttribute('allowfullscreen', '');
+          iframe.className = 'w-full h-full';
+          iframe.style.border = '0';
+          playerWrap.appendChild(iframe);
+        } else {
+          // local video file
+          if (existingIframe) existingIframe.remove();
+          videoEl.style.display = 'block';
+          const sourceEl = videoEl.querySelector('source');
+          if (sourceEl) sourceEl.src = src;
+          try { videoEl.load(); videoEl.play().catch(()=>{}); } catch(e){}
+        }
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
       });
     });
   }
@@ -639,7 +674,20 @@
   });
 
   // Tutorial modal
-  document.getElementById('closeTutorial').addEventListener('click', ()=>{ document.getElementById('tutorialModal').classList.add('hidden'); document.getElementById('tutorialModal').classList.remove('flex'); });
+  document.getElementById('closeTutorial').addEventListener('click', ()=>{
+    const modal = document.getElementById('tutorialModal');
+    const videoEl = modal.querySelector('video');
+    const playerWrap = videoEl.parentElement;
+    // hide modal
+    modal.classList.add('hidden'); modal.classList.remove('flex');
+    // stop and clear native video
+    try { videoEl.pause(); } catch(e){}
+    const sourceEl = videoEl.querySelector('source'); if (sourceEl) sourceEl.src = '';
+    // remove any iframe embeds
+    const existingIframe = playerWrap.querySelector('iframe'); if (existingIframe) existingIframe.remove();
+    // ensure video element visible for next use
+    videoEl.style.display = 'block';
+  });
 
   // Mobile menu toggle
   document.getElementById('mobileMenuBtn')?.addEventListener('click', ()=>{ document.querySelector('aside')?.classList.toggle('hidden'); });
