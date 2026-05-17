@@ -49,16 +49,498 @@
         <div class="flex items-center gap-3"><button id="themeToggle" class="hidden sm:inline-flex p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle theme" aria-pressed="false"><span data-theme-icon="dark" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-theme-icon="light" class="hidden" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="relative hidden sm:flex items-center"><label for="search" class="sr-only">Search</label><input id="search" class="glass rounded-xl px-3 py-2 pl-10 pr-3 w-64 bg-transparent text-white placeholder:opacity-60 fast-trans focus-visible-ring" placeholder="Search"/><svg class="absolute left-3 w-4 h-4 text-stone-400" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.2"/></svg></div><a href="profile.html" class="flex items-center gap-3 rounded-2xl bg-white/3 px-3 py-2 hover:bg-white/6 fast-trans"><div class="text-right hidden sm:block"><div class="text-white font-semibold">علي محمد</div><div class="text-stone-400 text-xs">Gold Elite</div></div><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=64&auto=format&fit=crop&s=placeholder" alt="avatar" class="w-10 h-10 rounded-full object-cover border border-white/6"/></a></div>
       </header>
       <div id="page-main">
-      <div class="glass rounded-2xl p-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4"><div class="md:col-span-2"><img src="https://images.unsplash.com/photo-1589987604482-1a4d3f6f3a6d?q=80&w=800&auto=format&fit=crop&s=placeholder" alt="product" class="w-full h-64 object-cover rounded-xl"/></div><div class="glass p-4 rounded-xl"><div class="text-stone-400 text-xs">Gold Whey 2kg</div><div class="text-white font-extrabold text-2xl mt-2">$39.99</div><div class="mt-4 text-stone-400">High-quality whey protein for recovery and mass.</div><div class="mt-4"><button class="bg-gold text-black px-4 py-2 rounded-lg">Add to cart</button></div></div></div>
-      </div>
-    
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 mb-6 text-sm text-stone-400">
+          <a href="store.html" class="hover:text-gold fast-trans">Store</a>
+          <span>/</span>
+          <a href="#" id="categoryBreadcrumb" class="hover:text-gold fast-trans">Supplements</a>
+          <span>/</span>
+          <span class="text-white" id="productNameBreadcrumb">Gold Whey Isolate</span>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Product Images Gallery -->
+          <div class="lg:col-span-1">
+            <div class="glass rounded-2xl p-4 sticky top-24">
+              <!-- Main Image -->
+              <img id="mainImage" src="assets/img/products/image.png" alt="product" class="w-full h-96 object-cover rounded-xl mb-3 cursor-zoom-in" />
+
+              <!-- Thumbnail Gallery -->
+              <div id="galleryThumbs" class="grid grid-cols-4 gap-2">
+                <img src="assets/img/products/image.png" alt="view-1" class="w-full h-20 object-cover rounded-lg cursor-pointer hover:border-gold border-2 border-transparent fast-trans" />
+                <img src="assets/img/products/image copy.png" alt="view-2" class="w-full h-20 object-cover rounded-lg cursor-pointer hover:border-gold border-2 border-transparent fast-trans" />
+                <img src="assets/img/products/image copy 2.png" alt="view-3" class="w-full h-20 object-cover rounded-lg cursor-pointer hover:border-gold border-2 border-transparent fast-trans" />
+                <img src="assets/img/products/image copy 3.png" alt="view-4" class="w-full h-20 object-cover rounded-lg cursor-pointer hover:border-gold border-2 border-transparent fast-trans" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Details -->
+          <div class="lg:col-span-2 space-y-6">
+            <!-- Header Info -->
+            <div class="glass rounded-2xl p-6">
+              <div class="flex items-start justify-between mb-4">
+                <div>
+                  <span class="text-gold text-xs font-bold uppercase tracking-wider">Premium Supplement</span>
+                  <h1 id="productName" class="text-4xl font-black text-white mt-2">Gold Whey Isolate 2kg</h1>
+                </div>
+                <button class="p-3 rounded-lg bg-white/5 hover:bg-white/10 fast-trans" aria-label="Add to wishlist">
+                  <svg class="w-6 h-6 text-stone-400 hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Rating & Reviews -->
+              <div class="flex items-center gap-4 mb-4">
+                <div class="flex items-center gap-2">
+                  <div class="flex text-gold text-sm">★★★★★</div>
+                  <span id="ratingCount" class="text-stone-400 text-sm">(184 reviews)</span>
+                </div>
+                <span class="text-green-500 text-sm font-semibold">In Stock (87 left)</span>
+              </div>
+
+              <!-- Price Section -->
+              <div class="flex items-center gap-4 mb-6">
+                <span id="price" class="text-5xl font-black text-gold">$49.99</span>
+                <div class="text-right">
+                  <div class="text-stone-400 line-through">$64.99</div>
+                  <div class="text-green-500 font-semibold">Save 23%</div>
+                </div>
+              </div>
+
+              <p id="description" class="text-stone-300 leading-relaxed mb-4">
+                Premium whey isolate with 25g of pure protein per serving. Perfect for post-workout recovery and muscle building. Fast-absorbing formula with minimal lactose. Vanilla flavor mixes smoothly with water or milk.
+              </p>
+            </div>
+
+            <!-- Options & Cart -->
+            <div class="glass rounded-2xl p-6 space-y-4">
+              <!-- Flavor Selection -->
+              <div>
+                <label class="text-white font-semibold block mb-3">Flavor</label>
+                <div class="grid grid-cols-3 gap-2">
+                  <button data-flavor class="px-4 py-3 rounded-lg border-2 border-gold bg-gold/10 text-gold font-semibold fast-trans">Vanilla</button>
+                  <button data-flavor class="px-4 py-3 rounded-lg border-2 border-transparent bg-white/5 text-stone-300 hover:bg-white/10 font-semibold fast-trans">Chocolate</button>
+                  <button data-flavor class="px-4 py-3 rounded-lg border-2 border-transparent bg-white/5 text-stone-300 hover:bg-white/10 font-semibold fast-trans">Strawberry</button>
+                </div>
+              </div>
+
+              <!-- Size Selection -->
+              <div>
+                <label class="text-white font-semibold block mb-3">Size</label>
+                <div class="grid grid-cols-3 gap-2">
+                  <button class="px-4 py-3 rounded-lg border-2 border-transparent bg-white/5 text-stone-300 hover:bg-white/10 font-semibold fast-trans">1kg</button>
+                  <button class="px-4 py-3 rounded-lg border-2 border-gold bg-gold/10 text-gold font-semibold fast-trans">2kg</button>
+                  <button class="px-4 py-3 rounded-lg border-2 border-transparent bg-white/5 text-stone-300 hover:bg-white/10 font-semibold fast-trans">5kg</button>
+                </div>
+              </div>
+
+              <!-- Quantity & Add to Cart -->
+              <div class="flex gap-4">
+                <div class="flex items-center gap-3 bg-white/5 rounded-lg px-4 py-3">
+                  <button class="text-stone-400 hover:text-white text-xl">−</button>
+                  <input type="number" value="1" min="1" class="w-12 text-center bg-transparent text-white font-semibold outline-none" />
+                  <button class="text-stone-400 hover:text-white text-xl">+</button>
+                </div>
+                <button class="flex-1 bg-gold text-black px-6 py-3 rounded-lg font-bold text-lg hover:bg-amber-400 fast-trans flex items-center justify-center gap-2">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m0 0h6m0 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  Add to Cart
+                </button>
+              </div>
+
+              <!-- Buy Now -->
+              <button class="w-full border-2 border-gold text-gold px-6 py-3 rounded-lg font-bold hover:bg-gold/10 fast-trans">
+                Buy Now
+              </button>
+            </div>
+
+            <!-- Key Features -->
+            <div class="glass rounded-2xl p-6">
+              <h2 class="text-xl font-bold text-white mb-4">Key Features</h2>
+              <ul id="keyFeaturesList" class="space-y-3">
+                <li class="flex items-center gap-3 text-stone-300">
+                  <span class="w-2 h-2 bg-gold rounded-full"></span>
+                  25g protein per serving
+                </li>
+                <li class="flex items-center gap-3 text-stone-300">
+                  <span class="w-2 h-2 bg-gold rounded-full"></span>
+                  Ultra-fast absorbing formula
+                </li>
+                <li class="flex items-center gap-3 text-stone-300">
+                  <span class="w-2 h-2 bg-gold rounded-full"></span>
+                  Minimal lactose content
+                </li>
+                <li class="flex items-center gap-3 text-stone-300">
+                  <span class="w-2 h-2 bg-gold rounded-full"></span>
+                  No artificial sweeteners
+                </li>
+                <li class="flex items-center gap-3 text-stone-300">
+                  <span class="w-2 h-2 bg-gold rounded-full"></span>
+                  30 servings per container
+                </li>
+              </ul>
+            </div>
+
+            <!-- Specifications -->
+            <div class="glass rounded-2xl p-6">
+              <h2 class="text-xl font-bold text-white mb-4">Specifications</h2>
+              <div id="specsGrid" class="grid grid-cols-2 gap-4">
+                <div>
+                  <div class="text-stone-400 text-sm mb-1">Weight</div>
+                  <div class="text-white font-semibold">2kg (2000g)</div>
+                </div>
+                <div>
+                  <div class="text-stone-400 text-sm mb-1">Servings</div>
+                  <div class="text-white font-semibold">~60 servings</div>
+                </div>
+                <div>
+                  <div class="text-stone-400 text-sm mb-1">Protein Per Serving</div>
+                  <div class="text-white font-semibold">25g</div>
+                </div>
+                <div>
+                  <div class="text-stone-400 text-sm mb-1">Calories Per Serving</div>
+                  <div class="text-white font-semibold">110 kcal</div>
+                </div>
+                <div>
+                  <div class="text-stone-400 text-sm mb-1">Carbs</div>
+                  <div class="text-white font-semibold">2g per serving</div>
+                </div>
+                <div>
+                  <div class="text-stone-400 text-sm mb-1">Fat</div>
+                  <div class="text-white font-semibold">0.5g per serving</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Shipping & Returns -->
+            <div class="glass rounded-2xl p-6">
+              <h2 class="text-xl font-bold text-white mb-4">Shipping & Returns</h2>
+              <div class="space-y-3 text-stone-300 text-sm">
+                <div class="flex items-start gap-3">
+                  <span class="text-gold mt-1">✓</span>
+                  <span>Free shipping on orders over $50</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="text-gold mt-1">✓</span>
+                  <span>30-day money-back guarantee</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="text-gold mt-1">✓</span>
+                  <span>Delivery in 2-5 business days</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="text-gold mt-1">✓</span>
+                  <span>Secure packaging guaranteed</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Customer Reviews -->
+            <div class="glass rounded-2xl p-6">
+              <h2 class="text-xl font-bold text-white mb-4">Customer Reviews</h2>
+              <div class="space-y-4">
+                <!-- Review 1 -->
+                <div class="border-b border-white/10 pb-4 last:border-0">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-2">
+                      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=40&auto=format&fit=crop" class="w-8 h-8 rounded-full" alt="reviewer" />
+                      <div>
+                        <div class="text-white font-semibold text-sm">Ahmed Hassan</div>
+                        <div class="text-stone-400 text-xs">Verified Purchase</div>
+                      </div>
+                    </div>
+                    <div class="text-gold text-sm">★★★★★</div>
+                  </div>
+                  <p class="text-stone-300 text-sm">Excellent quality protein! Mixes well and tastes great. Already seeing results after 2 weeks.</p>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="border-b border-white/10 pb-4 last:border-0">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-2">
+                      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=40&auto=format&fit=crop" class="w-8 h-8 rounded-full" alt="reviewer" />
+                      <div>
+                        <div class="text-white font-semibold text-sm">Fatima Ali</div>
+                        <div class="text-stone-400 text-xs">Verified Purchase</div>
+                      </div>
+                    </div>
+                    <div class="text-gold text-sm">★★★★☆</div>
+                  </div>
+                  <p class="text-stone-300 text-sm">Good product, fast delivery. Slight vanilla flavor could be stronger but overall very satisfied.</p>
+                </div>
+              </div>
+              <button class="w-full mt-4 border border-gold/30 text-gold px-4 py-2 rounded-lg hover:bg-gold/10 fast-trans">
+                View All Reviews
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Related Products -->
+        <div class="mt-12">
+          <h2 class="text-2xl font-bold text-white mb-6">Related Products</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <!-- Product Card 1 -->
+            <article class="glass rounded-2xl overflow-hidden hover-lift fast-trans cursor-pointer">
+              <img src="assets/img/products/image copy.png" class="w-full h-48 object-cover" alt="Creatine">
+              <div class="p-4">
+                <div class="flex items-start justify-between mb-2">
+                  <div class="text-gold text-xs font-bold uppercase">Supplement</div>
+                  <div class="flex items-center gap-1 text-sm"><span class="text-gold">★★★★☆</span><span class="text-stone-400">(267)</span></div>
+                </div>
+                <h3 class="font-black text-sm mb-1">Creatine 300g</h3>
+                <p class="text-stone-400 text-xs mb-3">Pure creatine monohydrate</p>
+                <div class="flex items-center justify-between">
+                  <span class="text-gold font-black">$24.99</span>
+                  <button class="bg-gold text-black px-3 py-1 rounded-lg font-semibold text-xs hover:scale-105 fast-trans">Add</button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Product Card 2 -->
+            <article class="glass rounded-2xl overflow-hidden hover-lift fast-trans cursor-pointer">
+              <img src="assets/img/products/image copy 2.png" class="w-full h-48 object-cover" alt="BCAA">
+              <div class="p-4">
+                <div class="flex items-start justify-between mb-2">
+                  <div class="text-gold text-xs font-bold uppercase">Amino Acids</div>
+                  <div class="flex items-center gap-1 text-sm"><span class="text-gold">★★★★★</span><span class="text-stone-400">(312)</span></div>
+                </div>
+                <h3 class="font-black text-sm mb-1">BCAA 8:1:1</h3>
+                <p class="text-stone-400 text-xs mb-3">Recovery blend</p>
+                <div class="flex items-center justify-between">
+                  <span class="text-gold font-black">$34.99</span>
+                  <button class="bg-gold text-black px-3 py-1 rounded-lg font-semibold text-xs hover:scale-105 fast-trans">Add</button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Product Card 3 -->
+            <article class="glass rounded-2xl overflow-hidden hover-lift fast-trans cursor-pointer">
+              <img src="assets/img/products/image copy 3.png" class="w-full h-48 object-cover" alt="Pre-Workout">
+              <div class="p-4">
+                <div class="flex items-start justify-between mb-2">
+                  <div class="text-gold text-xs font-bold uppercase">Energy</div>
+                  <div class="flex items-center gap-1 text-sm"><span class="text-gold">★★★★★</span><span class="text-stone-400">(428)</span></div>
+                </div>
+                <h3 class="font-black text-sm mb-1">Pre-Workout Blast</h3>
+                <p class="text-stone-400 text-xs mb-3">Intense focus & pump</p>
+                <div class="flex items-center justify-between">
+                  <span class="text-gold font-black">$39.99</span>
+                  <button class="bg-gold text-black px-3 py-1 rounded-lg font-semibold text-xs hover:scale-105 fast-trans">Add</button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Product Card 4 -->
+            <article class="glass rounded-2xl overflow-hidden hover-lift fast-trans cursor-pointer">
+              <img src="assets/img/products/image.png" class="w-full h-48 object-cover" alt="Whey Casein">
+              <div class="p-4">
+                <div class="flex items-start justify-between mb-2">
+                  <div class="text-gold text-xs font-bold uppercase">Protein</div>
+                  <div class="flex items-center gap-1 text-sm"><span class="text-gold">★★★★★</span><span class="text-stone-400">(189)</span></div>
+                </div>
+                <h3 class="font-black text-sm mb-1">Casein Blend 1kg</h3>
+                <p class="text-stone-400 text-xs mb-3">Slow-release formula</p>
+                <div class="flex items-center justify-between">
+                  <span class="text-gold font-black">$32.99</span>
+                  <button class="bg-gold text-black px-3 py-1 rounded-lg font-semibold text-xs hover:scale-105 fast-trans">Add</button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
       </div>
     </main>
   </div>
   <script src="assets/js/components.js"></script>
   <script>
-    Components.init();
+    // Product Database (includes image filenames under assets/img/products)
+    const productDatabase = {
+      'whey-isolate': {
+        name: 'Gold Whey Isolate 2kg',
+        category: 'Protein',
+        price: 49.99,
+        originalPrice: 64.99,
+        rating: 5,
+        reviews: 184,
+        stock: 87,
+        images: ['image.png','image copy.png','image copy 2.png','image copy 3.png'],
+        description: 'Premium whey isolate with 25g of pure protein per serving. Perfect for post-workout recovery and muscle building. Fast-absorbing formula with minimal lactose. Vanilla flavor mixes smoothly with water or milk.',
+        flavors: ['Vanilla', 'Chocolate', 'Strawberry'],
+        sizes: ['1kg', '2kg', '5kg'],
+        features: [
+          '25g protein per serving',
+          'Ultra-fast absorbing formula',
+          'Minimal lactose content',
+          'No artificial sweeteners',
+          '30 servings per container'
+        ],
+        specs: {
+          weight: '2kg (2000g)',
+          servings: '~60 servings',
+          protein: '25g',
+          calories: '110 kcal',
+          carbs: '2g per serving',
+          fat: '0.5g per serving'
+        }
+      },
+      'creatine': {
+        name: 'Creatine Monohydrate 300g',
+        category: 'Supplement',
+        price: 24.99,
+        originalPrice: 29.99,
+        rating: 4,
+        reviews: 267,
+        stock: 156,
+        images: ['image copy.png','image.png','image copy 2.png'],
+        description: '100% pure creatine monohydrate. Unflavored, mixes smoothly. Perfect for strength gains and muscle development. Third-party tested for purity and potency.',
+        flavors: ['Unflavored'],
+        sizes: ['300g', '600g', '1kg'],
+        features: [
+          '100% pure creatine',
+          'Micronized for better absorption',
+          'No fillers or additives',
+          'Third-party tested',
+          '60 servings per container'
+        ],
+        specs: {
+          weight: '300g',
+          servings: '~60 servings',
+          creatine: '5g per serving',
+          calories: '0 kcal',
+          carbs: '0g per serving',
+          fat: '0g per serving'
+        }
+      },
+      'bcaa': {
+        name: 'Advanced BCAA 8:1:1',
+        category: 'Amino Acids',
+        price: 34.99,
+        originalPrice: 44.99,
+        rating: 5,
+        reviews: 312,
+        stock: 93,
+        images: ['image copy 2.png','image copy 3.png','image.png'],
+        description: 'During-workout amino acid complex with optimal 8:1:1 ratio. Blue Raspberry flavor. Supports muscle recovery and reduces fatigue during intense training sessions.',
+        flavors: ['Blue Raspberry', 'Watermelon', 'Citrus'],
+        sizes: ['250g', '500g', '1kg'],
+        features: [
+          'Optimal 8:1:1 ratio',
+          'Fast-absorbing formula',
+          'Great taste',
+          'No sugar',
+          '50 servings per container'
+        ],
+        specs: {
+          weight: '250g',
+          servings: '~50 servings',
+          bcaa: '5g per serving',
+          calories: '20 kcal',
+          carbs: '1g per serving',
+          fat: '0g per serving'
+        }
+      },
+      'preworkout': {
+        name: 'Premium Pre-Workout Blast',
+        category: 'Energy',
+        price: 54.99,
+        originalPrice: 69.99,
+        rating: 5,
+        reviews: 428,
+        stock: 112,
+        images: ['image copy 3.png','image copy 2.png','image copy.png'],
+        description: 'Intense focus and pump formula. Citrus flavor. 400g container with 40 servings. Boosts energy, endurance, and mental clarity for maximum workout performance.',
+        flavors: ['Citrus', 'Watermelon', 'Pink Lemonade'],
+        sizes: ['400g', '600g', '1kg'],
+        features: [
+          'Intense focus & pump',
+          '200mg caffeine per serving',
+          'Beta-Alanine for endurance',
+          'Citrulline Malate for pump',
+          'No artificial colors'
+        ],
+        specs: {
+          weight: '400g',
+          servings: '~40 servings',
+          caffeine: '200mg',
+          calories: '5 kcal',
+          carbs: '1g per serving',
+          fat: '0g per serving'
+        }
+      }
+    };
+
+    function loadProduct() {
+      const params = new URLSearchParams(window.location.search);
+      const productId = params.get('id') || 'whey-isolate';
+      const product = productDatabase[productId];
+
+      if (!product) return;
+
+      // Update basic info
+      document.getElementById('productName').textContent = product.name;
+      document.getElementById('productNameBreadcrumb').textContent = product.name;
+      document.getElementById('categoryBreadcrumb').textContent = product.category;
+      document.getElementById('price').textContent = '$' + product.price.toFixed(2);
+      document.getElementById('description').textContent = product.description;
+      document.getElementById('ratingCount').textContent = `(${product.reviews} reviews)`;
+
+      // Update main image and thumbnails
+      const mainImage = document.getElementById('mainImage');
+      const thumbs = document.querySelectorAll('#galleryThumbs img');
+      if (product.images && product.images.length) {
+        mainImage.src = `assets/img/products/${product.images[0]}`;
+        thumbs.forEach((thumb, idx) => {
+          if (product.images[idx]) {
+            thumb.src = `assets/img/products/${product.images[idx]}`;
+            thumb.style.display = '';
+            thumb.onclick = () => {
+              mainImage.src = thumb.src;
+              thumbs.forEach(t => t.classList.remove('ring-2','ring-gold'));
+              thumb.classList.add('ring-2','ring-gold');
+            };
+          } else {
+            thumb.style.display = 'none';
+          }
+        });
+      }
+
+      // Update features list
+      const featuresUl = document.getElementById('keyFeaturesList');
+      if (featuresUl) {
+        featuresUl.innerHTML = product.features.map(feature =>
+          `<li class="flex items-center gap-3 text-stone-300"><span class="w-2 h-2 bg-gold rounded-full"></span>${feature}</li>`
+        ).join('');
+      }
+
+      // Update specifications
+      const specsGrid = document.getElementById('specsGrid');
+      if (specsGrid) {
+        specsGrid.innerHTML = Object.entries(product.specs).map(([key, value]) =>
+          `<div><div class="text-stone-400 text-sm mb-1">${key.charAt(0).toUpperCase() + key.slice(1)}</div><div class="text-white font-semibold">${value}</div></div>`
+        ).join('');
+      }
+
+      // Update flavor buttons
+      const flavorButtons = document.querySelectorAll('[data-flavor]');
+      flavorButtons.forEach((btn, idx) => {
+        if (product.flavors[idx]) {
+          btn.textContent = product.flavors[idx];
+          btn.style.display = '';
+        } else {
+          btn.style.display = 'none';
+        }
+      });
+    }
+
+    // Load product when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      loadProduct();
+      Components.init();
+    });
   </script>
 </body>
 </html>
