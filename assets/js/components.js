@@ -97,6 +97,88 @@ const Components = (function () {
     });
   };
 
+  const injectCoachDashboardNav = () => {
+    const isArabicPage = window.location.pathname.includes('/arabic/');
+    const label = isArabicPage ? 'لوحة المدرب' : 'Coach Dashboard';
+    const href = isArabicPage ? '../coach-dashboard.html' : 'coach-dashboard.html';
+    const sidebarLinks = document.querySelectorAll('aside.app-sidebar nav ul');
+    const mobileNavs = document.querySelectorAll('nav#mobileNav');
+
+    sidebarLinks.forEach((list) => {
+      if (list.querySelector(`a[href="${href}"]`)) return;
+
+      const coachItem = document.createElement('li');
+      coachItem.innerHTML = '<a href="' + href + '" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">' + label + '</span></a>';
+
+      const supportLink = list.querySelector('a[href="support.html"]');
+      if (supportLink?.parentElement) {
+        supportLink.parentElement.before(coachItem);
+        return;
+      }
+
+      list.appendChild(coachItem);
+    });
+
+    mobileNavs.forEach((nav) => {
+      if (nav.querySelector(`a[href="${href}"]`)) return;
+
+      const coachLink = document.createElement('a');
+      coachLink.setAttribute('href', href);
+      coachLink.setAttribute('data-mobile-nav-link', '');
+      coachLink.className = 'flex flex-col items-center gap-1 text-stone-400';
+      coachLink.innerHTML = '<span class="w-2 h-2 rounded-full bg-white/30"></span><div class="text-xs">' + label + '</div>';
+
+      const profileLink = nav.querySelector('a[href="profile.html"]');
+      if (profileLink) {
+        profileLink.before(coachLink);
+        return;
+      }
+
+      nav.appendChild(coachLink);
+    });
+  };
+
+  const injectAttendanceNav = () => {
+    const isArabicPage = window.location.pathname.includes('/arabic/');
+    const label = isArabicPage ? 'الحضور الذكي' : 'Smart Attendance';
+    const href = isArabicPage ? '../smart-attendance.html' : 'smart-attendance.html';
+    const sidebarLinks = document.querySelectorAll('aside.app-sidebar nav ul');
+    const mobileNavs = document.querySelectorAll('nav#mobileNav');
+
+    sidebarLinks.forEach((list) => {
+      if (list.querySelector(`a[href="${href}"]`)) return;
+
+      const attendanceItem = document.createElement('li');
+      attendanceItem.innerHTML = '<a href="' + href + '" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">' + label + '</span></a>';
+
+      const supportLink = list.querySelector('a[href="support.html"]');
+      if (supportLink?.parentElement) {
+        supportLink.parentElement.before(attendanceItem);
+        return;
+      }
+
+      list.appendChild(attendanceItem);
+    });
+
+    mobileNavs.forEach((nav) => {
+      if (nav.querySelector(`a[href="${href}"]`)) return;
+
+      const attendanceLink = document.createElement('a');
+      attendanceLink.setAttribute('href', href);
+      attendanceLink.setAttribute('data-mobile-nav-link', '');
+      attendanceLink.className = 'flex flex-col items-center gap-1 text-stone-400';
+      attendanceLink.innerHTML = '<span class="w-2 h-2 rounded-full bg-white/30"></span><div class="text-xs">' + label + '</div>';
+
+      const profileLink = nav.querySelector('a[href="profile.html"]');
+      if (profileLink) {
+        profileLink.before(attendanceLink);
+        return;
+      }
+
+      nav.appendChild(attendanceLink);
+    });
+  };
+
   const highlightActiveNav = () => {
     const page = currentPage();
     document.querySelectorAll('[data-nav-link]').forEach((link) => {
@@ -131,12 +213,408 @@ const Components = (function () {
     });
   };
 
+  const initProgressPhotos = () => {
+    const section = document.querySelector('[data-progress-photos]');
+    if (!section) return;
+
+    const storageKey = 'goldtech.progressPhotos';
+    const fallbackEntries = [
+      {
+        id: 'seed-3',
+        date: '2026-05-15',
+        note: 'Pulled a little tighter on the waist and improved back pose control.',
+        weight: 77.8,
+        bodyFat: 18.2,
+        muscleMass: 35.5,
+        bmi: 23.9,
+        front: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=1200&auto=format&fit=crop',
+        side: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1200&auto=format&fit=crop',
+        back: 'https://images.unsplash.com/photo-1518459031867-a89b944bffe4?q=80&w=1200&auto=format&fit=crop',
+      },
+      {
+        id: 'seed-2',
+        date: '2026-05-08',
+        note: 'Stayed consistent with strength training and steps. Leaner posture visible.',
+        weight: 78.4,
+        bodyFat: 18.8,
+        muscleMass: 35.1,
+        bmi: 24.1,
+        front: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200&auto=format&fit=crop',
+        side: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1200&auto=format&fit=crop',
+        back: 'https://images.unsplash.com/photo-1518459031867-a89b944bffe4?q=80&w=1200&auto=format&fit=crop',
+      },
+      {
+        id: 'seed-1',
+        date: '2026-05-01',
+        note: 'Baseline capture before the cutting phase began.',
+        weight: 79.3,
+        bodyFat: 19.7,
+        muscleMass: 34.8,
+        bmi: 24.6,
+        front: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=1200&auto=format&fit=crop',
+        side: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1200&auto=format&fit=crop',
+        back: 'https://images.unsplash.com/photo-1518459031867-a89b944bffe4?q=80&w=1200&auto=format&fit=crop',
+      },
+    ];
+
+    const fallbackMedia = {
+      front: fallbackEntries[2].front,
+      side: fallbackEntries[2].side,
+      back: fallbackEntries[2].back,
+    };
+
+    const parseEntries = () => {
+      try {
+        const raw = localStorage.getItem(storageKey);
+        if (!raw) return [...fallbackEntries];
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) && parsed.length ? parsed : [...fallbackEntries];
+      } catch {
+        return [...fallbackEntries];
+      }
+    };
+
+    const persistEntries = (entries) => {
+      localStorage.setItem(storageKey, JSON.stringify(entries));
+    };
+
+    const state = {
+      entries: parseEntries(),
+      selectedFiles: [],
+    };
+
+    const elements = {
+      uploadForm: section.querySelector('[data-progress-form]'),
+      fileInput: section.querySelector('[data-progress-input]'),
+      dropZone: section.querySelector('[data-progress-dropzone]'),
+      fileList: section.querySelector('[data-progress-files]'),
+      noteInput: section.querySelector('[data-progress-note]'),
+      status: section.querySelector('[data-progress-status]'),
+      emptyState: section.querySelector('[data-progress-empty]'),
+      timeline: section.querySelector('[data-progress-timeline]'),
+      chartLine: section.querySelector('[data-progress-chart-line]'),
+      chartArea: section.querySelector('[data-progress-chart-area]'),
+      compareRange: section.querySelector('[data-progress-compare-range]'),
+      compareReveal: section.querySelector('[data-progress-compare-reveal]'),
+      compareBefore: section.querySelector('[data-progress-before]'),
+      compareAfter: section.querySelector('[data-progress-after]'),
+      compareCaption: section.querySelector('[data-progress-compare-caption]'),
+      statValues: section.querySelectorAll('[data-progress-stat-value]'),
+      statDeltas: section.querySelectorAll('[data-progress-stat-delta]'),
+      statMeta: section.querySelectorAll('[data-progress-stat-meta]'),
+      noteCount: section.querySelector('[data-progress-note-count]'),
+      uploadHint: section.querySelector('[data-progress-upload-hint]'),
+    };
+
+    const formatShortDate = (value) => new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric' }).format(new Date(value));
+
+    const getLatest = () => state.entries[0] || null;
+    const getPrevious = () => state.entries[1] || state.entries[0] || null;
+
+    const readFileAsDataUrl = (file) => new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(reader.error || new Error('Unable to read file'));
+      reader.readAsDataURL(file);
+    });
+
+    const updateStatus = (message) => {
+      if (elements.status) elements.status.textContent = message;
+    };
+
+    const setCompareImages = () => {
+      const latest = getLatest();
+      const previous = getPrevious();
+      const before = previous || latest;
+      const after = latest || previous;
+      const reveal = elements.compareReveal;
+      if (!reveal || !elements.compareBefore || !elements.compareAfter) return;
+
+      elements.compareBefore.src = before?.front || fallbackMedia.front;
+      elements.compareAfter.src = after?.front || fallbackMedia.front;
+      elements.compareBefore.alt = before ? `Before photo from ${formatShortDate(before.date)}` : 'Before progress photo';
+      elements.compareAfter.alt = after ? `After photo from ${formatShortDate(after.date)}` : 'After progress photo';
+
+      const value = elements.compareRange ? elements.compareRange.value : '50';
+      reveal.style.setProperty('--compare-width', `${value}%`);
+      if (elements.compareCaption) {
+        elements.compareCaption.textContent = latest && previous
+          ? `Comparing ${formatShortDate(before.date)} and ${formatShortDate(after.date)}`
+          : 'Add another upload to activate the before/after comparison.';
+      }
+    };
+
+    const setChart = () => {
+      const entries = [...state.entries].slice(0, 6).reverse();
+      if (!elements.chartLine || !elements.chartArea) return;
+
+      if (!entries.length) {
+        elements.chartLine.setAttribute('d', '');
+        elements.chartArea.setAttribute('d', '');
+        return;
+      }
+
+      const width = 260;
+      const height = 110;
+      const values = entries.map((entry) => entry.weight);
+      const min = Math.min(...values) - 0.6;
+      const max = Math.max(...values) + 0.6;
+      const span = max - min || 1;
+      const step = entries.length > 1 ? width / (entries.length - 1) : width;
+
+      const points = values.map((value, index) => {
+        const x = index * step;
+        const y = height - ((value - min) / span) * (height - 10) - 5;
+        return { x, y };
+      });
+
+      const linePath = points.map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(' ');
+      const areaPath = `${linePath} L ${width} ${height} L 0 ${height} Z`;
+      elements.chartLine.setAttribute('d', linePath);
+      elements.chartArea.setAttribute('d', areaPath);
+    };
+
+    const renderMetrics = () => {
+      const latest = getLatest();
+      const previous = getPrevious();
+      const values = [latest?.weight ?? 0, latest?.bodyFat ?? 0, latest?.muscleMass ?? 0, latest?.bmi ?? 0];
+      const deltas = [
+        latest && previous ? latest.weight - previous.weight : 0,
+        latest && previous ? latest.bodyFat - previous.bodyFat : 0,
+        latest && previous ? latest.muscleMass - previous.muscleMass : 0,
+        latest && previous ? latest.bmi - previous.bmi : 0,
+      ];
+      const labels = ['kg', '% body fat', 'kg lean muscle', 'BMI'];
+
+      elements.statValues.forEach((node, index) => {
+        const value = values[index];
+        node.textContent = index === 1 ? `${value.toFixed(1)}%` : index === 3 ? value.toFixed(1) : `${value.toFixed(1)}kg`;
+      });
+
+      elements.statDeltas.forEach((node, index) => {
+        const delta = deltas[index];
+        const positive = index === 1 || index === 3 ? delta <= 0 : delta >= 0;
+        if (delta === 0) {
+          node.textContent = 'Stable vs prior update';
+        } else {
+          const sign = delta > 0 ? '+' : '−';
+          node.textContent = `${sign}${Math.abs(delta).toFixed(1)} ${labels[index]}`;
+        }
+        node.classList.toggle('text-emerald-300', positive && delta !== 0);
+        node.classList.toggle('text-rose-300', !positive && delta !== 0);
+      });
+
+      elements.statMeta.forEach((node, index) => {
+        node.textContent = labels[index];
+      });
+
+      if (elements.noteCount) {
+        const noteCount = state.entries.filter((entry) => entry.note).length;
+        elements.noteCount.textContent = `${noteCount} notes recorded`;
+      }
+    };
+
+    const renderTimeline = () => {
+      if (!elements.timeline || !elements.emptyState) return;
+
+      if (!state.entries.length) {
+        elements.timeline.innerHTML = '';
+        elements.emptyState.classList.remove('hidden');
+        return;
+      }
+
+      elements.emptyState.classList.add('hidden');
+      elements.timeline.innerHTML = state.entries.map((entry) => {
+        const day = new Date(entry.date).getDate().toString().padStart(2, '0');
+        return `
+          <article class="progress-timeline-item rounded-[1.5rem] border border-white/6 bg-white/3 p-4 md:p-5 hover:bg-white/5 fast-trans">
+            <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+              <div class="space-y-3">
+                <div class="flex items-center gap-3">
+                  <div class="h-11 w-11 rounded-2xl bg-gradient-to-br from-gold/25 to-white/5 border border-white/10 flex items-center justify-center text-gold font-bold">${day}</div>
+                  <div>
+                    <div class="text-white font-semibold">${formatShortDate(entry.date)}</div>
+                    <div class="text-stone-400 text-sm">${entry.note || 'Progress capture synced from the gym app.'}</div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-2 text-xs">
+                  <span class="rounded-full border border-white/8 bg-black/20 px-3 py-1 text-stone-200">${entry.weight.toFixed(1)} kg</span>
+                  <span class="rounded-full border border-white/8 bg-black/20 px-3 py-1 text-stone-200">${entry.bodyFat.toFixed(1)}% body fat</span>
+                  <span class="rounded-full border border-white/8 bg-black/20 px-3 py-1 text-stone-200">${entry.muscleMass.toFixed(1)} kg muscle</span>
+                  <span class="rounded-full border border-white/8 bg-black/20 px-3 py-1 text-stone-200">BMI ${entry.bmi.toFixed(1)}</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-3 gap-2 md:w-48 shrink-0">
+                ${['front', 'side', 'back'].map((slot) => `<div class="overflow-hidden rounded-2xl border border-white/8 bg-black/30 aspect-square"><img src="${entry[slot]}" alt="${slot} progress photo" class="h-full w-full object-cover"/></div>`).join('')}
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    };
+
+    const renderSelection = () => {
+      if (!elements.fileList || !elements.uploadHint) return;
+      if (!state.selectedFiles.length) {
+        elements.fileList.innerHTML = '';
+        elements.uploadHint.textContent = 'Drop front, side, and back images here, or browse from your device.';
+        return;
+      }
+
+      elements.uploadHint.textContent = `${state.selectedFiles.length} image${state.selectedFiles.length > 1 ? 's' : ''} ready for upload`;
+      elements.fileList.innerHTML = state.selectedFiles.map((file, index) => `
+        <div class="flex items-center justify-between rounded-2xl border border-white/8 bg-black/20 px-3 py-2 text-sm">
+          <span class="truncate text-stone-200">${['Front', 'Side', 'Back'][index] || 'Photo'}: ${file.name}</span>
+          <span class="text-stone-500">${(file.size / 1024 / 1024).toFixed(1)} MB</span>
+        </div>
+      `).join('');
+    };
+
+    const syncState = () => {
+      persistEntries(state.entries);
+      renderMetrics();
+      renderTimeline();
+      setChart();
+      setCompareImages();
+      renderSelection();
+    };
+
+    const handleFiles = async (fileList) => {
+      const files = Array.from(fileList || []).filter((file) => file.type.startsWith('image/')).slice(0, 3);
+      if (!files.length) {
+        updateStatus('Select image files to create a progress update.');
+        return;
+      }
+
+      state.selectedFiles = files;
+      const mediaUrls = await Promise.all(files.map((file) => readFileAsDataUrl(file)));
+      const latest = getLatest();
+      const record = {
+        id: `entry-${Date.now()}`,
+        date: new Date().toISOString().slice(0, 10),
+        note: elements.noteInput?.value.trim() || 'New progress photos uploaded from the gym floor.',
+        weight: Number(section.querySelector('[name="weight"]')?.value || latest?.weight || 0),
+        bodyFat: Number(section.querySelector('[name="bodyFat"]')?.value || latest?.bodyFat || 0),
+        muscleMass: Number(section.querySelector('[name="muscleMass"]')?.value || latest?.muscleMass || 0),
+        bmi: Number(section.querySelector('[name="bmi"]')?.value || latest?.bmi || 0),
+        front: mediaUrls[0] || latest?.front || fallbackMedia.front,
+        side: mediaUrls[1] || latest?.side || fallbackMedia.side,
+        back: mediaUrls[2] || latest?.back || fallbackMedia.back,
+      };
+
+      state.entries = [record, ...state.entries];
+      syncState();
+      elements.uploadForm?.reset();
+      updateStatus('Progress update saved to your timeline.');
+    };
+
+    elements.uploadForm?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const inputFiles = elements.fileInput?.files;
+      const files = state.selectedFiles.length ? state.selectedFiles : Array.from(inputFiles || []);
+      if (!files.length) {
+        updateStatus('Choose at least one photo before uploading.');
+        return;
+      }
+      handleFiles(files).catch(() => updateStatus('The selected files could not be processed.'));
+    });
+
+    elements.fileInput?.addEventListener('change', () => {
+      state.selectedFiles = Array.from(elements.fileInput?.files || []).filter((file) => file.type.startsWith('image/')).slice(0, 3);
+      renderSelection();
+      updateStatus(state.selectedFiles.length ? 'Files staged. Press upload to save this progress update.' : 'Choose front, side, and back images to continue.');
+    });
+
+    if (elements.dropZone && elements.fileInput) {
+      const openPicker = () => elements.fileInput?.click();
+      elements.dropZone.addEventListener('click', openPicker);
+      elements.dropZone.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openPicker();
+        }
+      });
+
+      ['dragenter', 'dragover'].forEach((eventName) => {
+        elements.dropZone.addEventListener(eventName, (event) => {
+          event.preventDefault();
+          elements.dropZone.classList.add('is-dragging');
+        });
+      });
+
+      ['dragleave', 'drop'].forEach((eventName) => {
+        elements.dropZone.addEventListener(eventName, (event) => {
+          event.preventDefault();
+          elements.dropZone.classList.remove('is-dragging');
+        });
+      });
+
+      elements.dropZone.addEventListener('drop', (event) => {
+        const files = Array.from(event.dataTransfer?.files || []).filter((file) => file.type.startsWith('image/')).slice(0, 3);
+        if (!files.length) return;
+        state.selectedFiles = files;
+        renderSelection();
+        updateStatus('Images dropped in and ready to upload.');
+      });
+    }
+
+    elements.compareRange?.addEventListener('input', () => {
+      if (elements.compareReveal) {
+        elements.compareReveal.style.setProperty('--compare-width', `${elements.compareRange.value}%`);
+      }
+    });
+
+    syncState();
+    updateStatus('Ready to capture your next progress update.');
+  };
+
+  const initLeaderboardChallenges = () => {
+    const section = document.querySelector('[data-gamify-dashboard]');
+    if (!section) return;
+
+    const nodes = Array.from(section.querySelectorAll('[data-countdown-target]'));
+    if (!nodes.length) return;
+
+    const formatCountdown = (targetDate) => {
+      const delta = Math.max(0, targetDate.getTime() - Date.now());
+      const totalHours = Math.floor(delta / 36e5);
+      const days = Math.floor(totalHours / 24);
+      const hours = totalHours % 24;
+      const minutes = Math.floor((delta % 36e5) / 6e4);
+      if (days > 0) return `${days}d ${String(hours).padStart(2, '0')}h left`;
+      return `${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m left`;
+    };
+
+    const update = () => {
+      nodes.forEach((node) => {
+        const target = new Date(node.getAttribute('data-countdown-target') || '');
+        if (Number.isNaN(target.getTime())) return;
+        node.textContent = formatCountdown(target);
+      });
+    };
+
+    update();
+    window.setInterval(update, 60000);
+  };
+
   function init() {
     applyTheme(getPreferredTheme());
     syncSidebarState();
     injectTimerNav();
+    injectCoachDashboardNav();
+    injectAttendanceNav();
     highlightActiveNav();
     initRevealObserver();
+    initProgressPhotos();
+    initLeaderboardChallenges();
+
+    if (!window.location.hash) {
+      window.requestAnimationFrame(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      });
+    }
 
     const shellRoot = document.getElementById('shell-root');
     const sidebar = document.querySelector('aside.app-sidebar');

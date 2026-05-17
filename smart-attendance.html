@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smart Attendance — GoldTech</title>
+  <script>tailwind.config = { theme: { extend: { colors: { gold: { DEFAULT: '#f5b041' } }, fontFamily: { display:['Poppins','Inter','system-ui','sans-serif'] } } } }</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    body{font-family:Poppins,system-ui;background:radial-gradient(circle at top,#161618 0%,#09090a 42%,#050506 100%);color:#fff}
+    .glass{background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.015));border:1px solid rgba(255,255,255,0.07);backdrop-filter:blur(14px)}
+    .fast-trans{transition:all 180ms ease}
+    .scan-grid{background-image:linear-gradient(rgba(245,176,65,0.08) 1px, transparent 1px),linear-gradient(90deg, rgba(245,176,65,0.08) 1px, transparent 1px);background-size:22px 22px}
+    .qr-frame{position:relative;overflow:hidden}
+    .qr-frame::before{content:'';position:absolute;inset:-35%;background:radial-gradient(circle, rgba(245,176,65,0.16), transparent 60%);animation:floatGlow 6s ease-in-out infinite}
+    .qr-pattern{background:
+      linear-gradient(90deg, rgba(255,255,255,0.95) 12%, transparent 12% 24%, rgba(255,255,255,0.95) 24% 36%, transparent 36% 48%, rgba(255,255,255,0.95) 48% 60%, transparent 60% 72%, rgba(255,255,255,0.95) 72% 84%, transparent 84%),
+      linear-gradient(180deg, rgba(255,255,255,0.95) 12%, transparent 12% 24%, rgba(255,255,255,0.95) 24% 36%, transparent 36% 48%, rgba(255,255,255,0.95) 48% 60%, transparent 60% 72%, rgba(255,255,255,0.95) 72% 84%, transparent 84%),
+      linear-gradient(135deg, rgba(245,176,65,0.95), rgba(245,176,65,0.4));
+      background-size:100% 100%,100% 100%,100% 100%;
+      background-blend-mode:screen,screen,normal;
+    }
+    .scanner-line{animation:scannerSweep 2.4s linear infinite}
+    .pulse-ring{box-shadow:0 0 0 0 rgba(245,176,65,0.35);animation:pulseRing 2s infinite}
+    .skeleton{background:linear-gradient(90deg,rgba(255,255,255,0.06) 25%,rgba(255,255,255,0.13) 37%,rgba(255,255,255,0.06) 63%);background-size:400% 100%;animation:skeleton 1.4s ease infinite}
+    .chart-bar{transform-origin:bottom;animation:barRise .9s ease both}
+    .success-pop{transform:translateY(14px) scale(0.96);opacity:0;transition:all 220ms ease}
+    .success-pop.is-visible{transform:translateY(0) scale(1);opacity:1}
+    @keyframes pulseRing{0%{box-shadow:0 0 0 0 rgba(245,176,65,0.35)}70%{box-shadow:0 0 0 18px rgba(245,176,65,0)}100%{box-shadow:0 0 0 0 rgba(245,176,65,0)}}
+    @keyframes scannerSweep{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
+    @keyframes floatGlow{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(6%) rotate(5deg)}}
+    @keyframes skeleton{0%{background-position:0% 50%}100%{background-position:100% 50%}}
+    @keyframes barRise{from{transform:scaleY(0.2);opacity:0.25}to{transform:scaleY(1);opacity:1}}
+    @media (max-width: 640px){
+      .attendance-stack{grid-template-columns:1fr !important}
+      .attendance-controls{grid-template-columns:1fr !important}
+      .attendance-history-grid{grid-template-columns:1fr !important}
+      .attendance-mobile-2{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+      .attendance-mobile-3{grid-template-columns:repeat(3,minmax(0,1fr)) !important}
+    }
+    @media (max-width: 420px){
+      .attendance-mobile-2,.attendance-mobile-3{grid-template-columns:1fr !important}
+    }
+  </style>
+</head>
+<body class="antialiased">
+  <div id="shell-root" class="app-shell min-h-screen flex">
+    <div class="shell-overlay"></div>
+    <aside class="app-sidebar hidden md:flex flex-col w-72 p-5 gap-6 glass rounded-2xl sticky top-6 m-6 h-[calc(100vh-48px)] overflow-hidden">
+      <a href="landing.html" class="flex items-center gap-3 sidebar-brand">
+        <div class="sidebar-brand-icon rounded-xl p-2 bg-gradient-to-br from-[#1b1b1d] to-[#111112]"><img src="assets/golds-logo.png" alt="Golds logo" class="w-9 h-9 object-contain"/></div>
+        <div class="sidebar-brand-text"><div class="text-white font-semibold text-lg">GoldTech</div><div class="sidebar-meta text-stone-400 text-xs uppercase tracking-widest">Smart Fitness OS</div></div>
+      </a>
+      <nav aria-label="Primary" class="flex-1 overflow-y-auto pr-1">
+        <ul class="space-y-1 text-sm">
+              <li><a href="landing.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Home</span></a></li>
+              <li><a href="dashboard.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Dashboard</span></a></li>
+              <li><a href="programs.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Programs</span></a></li>
+              <li><a href="workout.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Workouts</span></a></li>
+              <li><a href="classes.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Classes</span></a></li>
+              <li><a href="coaches.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Coaches</span></a></li>
+              <li><a href="community.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Community</span></a></li>
+              <li><a href="blogs.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Blogs</span></a></li>
+              <li><a href="crowd.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Crowd</span></a></li>
+              <li><a href="inbody.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">InBody</span></a></li>
+              <li><a href="machines.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Machines</span></a></li>
+              <li><a href="nutrition.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Nutrition</span></a></li>
+              <li><a href="smart-test.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Smart Test</span></a></li>
+              <li><a href="achievements.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Achievements</span></a></li>
+              <li><a href="store.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Store</span></a></li>
+              <li><a href="membership.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Membership</span></a></li>
+              <li><a href="notifications.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Notifications</span></a></li>
+              <li><a href="settings.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Settings</span></a></li>
+              <li><a href="support.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Support</span></a></li>
+              <li><a href="profile.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Profile</span></a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer pt-3 border-t border-white/6 text-sm"><div class="text-stone-400">Active Membership</div><div class="mt-2 flex items-center justify-between"><div><div class="text-white font-semibold">Gold Elite</div><div class="text-stone-400 text-xs">Valid until May 2027</div></div><div class="bg-gradient-to-br from-[#2a2a2a]/80 to-[#161616]/60 p-2 rounded-lg text-gold">&#9679;</div></div></div>
+    </aside>
+
+    <main class="flex-1 p-5 md:p-8 overflow-y-auto safe-bottom">
+      <header class="sticky top-6 z-30 glass rounded-2xl p-3 md:p-4 mb-6 flex items-center justify-between fast-trans backdrop-blur-xl">
+        <div class="flex items-center gap-3 md:gap-4">
+          <button id="mobileMenuBtn" class="md:hidden p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+          <button id="sidebarToggle" class="hidden md:inline-flex sidebar-toggle p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle sidebar" aria-pressed="false"><svg class="w-5 h-5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="hidden md:flex items-center gap-4"><h1 class="text-white font-extrabold text-lg">Smart Attendance</h1><div class="text-stone-400 text-sm">QR check-in and check-out intelligence</div></div>
+        </div>
+        <div class="flex items-center gap-2 sm:gap-3">
+          <button id="themeToggle" class="hidden sm:inline-flex p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle theme" aria-pressed="false"><span data-theme-icon="dark" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-theme-icon="light" class="hidden" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+          <div class="relative hidden sm:flex items-center"><label for="searchAttendance" class="sr-only">Search attendance</label><input id="searchAttendance" class="glass rounded-xl px-3 py-2 pl-10 pr-3 w-48 sm:w-64 bg-transparent text-white placeholder:opacity-60 fast-trans focus-visible-ring text-base" placeholder="Search members"/><svg class="absolute left-3 w-4 h-4 text-stone-400" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.2"/></svg></div>
+          <a href="profile.html" class="flex items-center gap-2 sm:gap-3 rounded-2xl bg-white/3 px-2 sm:px-3 py-2 min-h-[44px] hover:bg-white/6 fast-trans"><div class="text-right hidden sm:block"><div class="text-white font-semibold text-sm">Attendance Admin</div><div class="text-stone-400 text-xs">Gold Elite</div></div><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=64&auto=format&fit=crop" alt="avatar" class="w-10 h-10 rounded-full object-cover border border-white/6"/></a>
+        </div>
+      </header>
+
+      <div id="page-main" class="space-y-6">
+        <section class="glass rounded-[2rem] p-5 md:p-6 lg:p-8 overflow-hidden relative">
+          <div class="absolute inset-0 scan-grid opacity-30 pointer-events-none"></div>
+          <div class="relative grid xl:grid-cols-12 gap-6 items-start">
+            <div class="xl:col-span-7 space-y-5">
+              <div class="inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.24em] text-gold">
+                <span class="h-2 w-2 rounded-full bg-gold pulse-ring"></span>
+                Live gym occupancy
+              </div>
+              <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <h2 class="text-3xl md:text-4xl font-black text-white">Smart Attendance</h2>
+                  <p class="mt-2 max-w-2xl text-sm md:text-base text-stone-400">Fast QR based check-in and check-out with secure validation, live updates, streak tracking, and AI attendance insights.</p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <button id="openScannerBtn" class="rounded-2xl bg-gold px-4 py-3 text-sm font-semibold text-black fast-trans hover:scale-[1.02]">Open Scanner</button>
+                  <a id="downloadQrTop" href="#" download="smart-attendance-qr.svg" class="rounded-2xl border border-white/8 bg-white/5 px-4 py-3 text-sm font-semibold text-white fast-trans hover:bg-white/10">Download QR Card</a>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 xl:grid-cols-4 gap-3 attendance-mobile-2">
+                <article class="glass rounded-2xl p-4">
+                  <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">Check-ins today</div>
+                  <div class="mt-2 text-3xl font-black text-white">1,284</div>
+                  <div class="mt-1 text-xs text-emerald-300">+18% vs yesterday</div>
+                </article>
+                <article class="glass rounded-2xl p-4">
+                  <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">Active inside</div>
+                  <div class="mt-2 text-3xl font-black text-white">382</div>
+                  <div class="mt-1 text-xs text-stone-300">Live occupancy 76%</div>
+                </article>
+                <article class="glass rounded-2xl p-4">
+                  <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">Peak hour</div>
+                  <div class="mt-2 text-3xl font-black text-white">18:15</div>
+                  <div class="mt-1 text-xs text-stone-300">Expected rush window</div>
+                </article>
+                <article class="glass rounded-2xl p-4">
+                  <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">Suspicious scans blocked</div>
+                  <div class="mt-2 text-3xl font-black text-white">12</div>
+                  <div class="mt-1 text-xs text-amber-300">Cooldown and device lock</div>
+                </article>
+              </div>
+            </div>
+
+            <div class="xl:col-span-5 space-y-4">
+              <div class="glass rounded-[1.75rem] p-4 md:p-5">
+                <div class="flex items-center justify-between gap-3">
+                  <div>
+                    <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">Live occupancy indicator</div>
+                    <div class="mt-1 text-white font-semibold">Current gym flow</div>
+                  </div>
+                  <div class="text-right">
+                    <div id="occupancyPercent" class="text-3xl font-black text-gold">76%</div>
+                    <div class="text-xs text-stone-400">Inside capacity</div>
+                  </div>
+                </div>
+                <div class="mt-4 h-3 rounded-full bg-white/5 overflow-hidden">
+                  <div id="occupancyBar" class="h-full w-[76%] rounded-full bg-gradient-to-r from-gold to-amber-200"></div>
+                </div>
+                <div class="mt-3 grid grid-cols-3 gap-2 text-xs text-stone-300 attendance-mobile-3">
+                  <div class="rounded-2xl bg-black/20 border border-white/8 px-3 py-2 text-center"><div class="text-white font-semibold">Morning</div><div>28%</div></div>
+                  <div class="rounded-2xl bg-black/20 border border-white/8 px-3 py-2 text-center"><div class="text-white font-semibold">Afternoon</div><div>34%</div></div>
+                  <div class="rounded-2xl bg-black/20 border border-white/8 px-3 py-2 text-center"><div class="text-white font-semibold">Evening</div><div>38%</div></div>
+                </div>
+              </div>
+
+              <div class="glass rounded-[1.75rem] p-4 md:p-5">
+                <div class="flex items-center justify-between gap-3">
+                  <div>
+                    <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">Permission state</div>
+                    <div id="permissionText" class="mt-1 text-white font-semibold">Camera permission not granted</div>
+                  </div>
+                  <button id="grantCameraBtn" class="rounded-xl border border-white/8 bg-white/5 px-3 py-2 text-xs font-semibold text-white fast-trans hover:bg-white/10">Allow camera</button>
+                </div>
+                <div class="mt-4 grid grid-cols-2 gap-3 attendance-mobile-2 text-sm">
+                  <div class="rounded-2xl border border-white/8 bg-black/20 p-3"><div class="text-stone-400 text-xs uppercase">Duplicate scans</div><div class="mt-1 text-white font-semibold">Blocked for 30s</div></div>
+                  <div class="rounded-2xl border border-white/8 bg-black/20 p-3"><div class="text-stone-400 text-xs uppercase">Device validation</div><div class="mt-1 text-white font-semibold">Trusted device only</div></div>
+                </div>
+              </div>
+
+              <div class="glass rounded-[1.75rem] p-4 md:p-5">
+                <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">Notifications</div>
+                <div class="mt-3 space-y-3 text-sm">
+                  <div class="rounded-2xl border border-emerald-400/20 bg-emerald-400/10 px-3 py-2 text-emerald-200">Check-in success notification ready.</div>
+                  <div class="rounded-2xl border border-amber-400/20 bg-amber-400/10 px-3 py-2 text-amber-200">Membership expired warning: 2 members.</div>
+                  <div class="rounded-2xl border border-white/8 bg-white/5 px-3 py-2 text-stone-300">Attendance reminder scheduled for inactive members.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="grid xl:grid-cols-12 gap-6">
+          <div class="xl:col-span-8 space-y-6">
+            <div class="grid gap-6 attendance-stack lg:grid-cols-2">
+              <article class="glass rounded-[1.75rem] p-5 md:p-6 overflow-hidden">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">Member QR code</div>
+                    <h3 class="mt-2 text-2xl font-black text-white" id="memberName">Ali Mohamed</h3>
+                    <p class="mt-1 text-sm text-stone-400">Unique encrypted QR token for secure check-in and check-out.</p>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-xs text-stone-400 uppercase tracking-[0.18em]">Expires in</div>
+                    <div id="qrExpiry" class="mt-1 text-gold font-semibold">59:59</div>
+                  </div>
+                </div>
+
+                <div class="mt-5 grid md:grid-cols-[auto,1fr] gap-4 items-center">
+                  <div class="qr-frame rounded-[1.5rem] p-5 bg-[#0d0d0f] border border-white/8 w-full max-w-[280px] mx-auto md:mx-0">
+                    <div class="rounded-[1.25rem] bg-[#f5f5f5] p-4 relative overflow-hidden">
+                      <div class="absolute inset-x-0 top-0 h-1/3 scanner-line bg-gradient-to-b from-transparent via-gold/30 to-transparent"></div>
+                      <div id="qrPattern" class="qr-pattern aspect-square rounded-[1rem] border border-black/10"></div>
+                      <div class="mt-3 flex items-center justify-between text-[10px] uppercase tracking-[0.24em] text-stone-500">
+                        <span id="memberCode">GT-10248</span>
+                        <span id="memberTier">Gold Elite</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-3 attendance-mobile-2">
+                      <button id="scanInBtn" class="rounded-2xl bg-gold px-4 py-3 text-sm font-semibold text-black fast-trans hover:scale-[1.02]">Scan check-in</button>
+                      <button id="scanOutBtn" class="rounded-2xl border border-white/8 bg-white/5 px-4 py-3 text-sm font-semibold text-white fast-trans hover:bg-white/10">Scan check-out</button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 attendance-mobile-2">
+                      <button id="regenerateQrBtn" class="rounded-2xl border border-white/8 bg-white/5 px-4 py-3 text-sm font-semibold text-white fast-trans hover:bg-white/10">Regenerate QR</button>
+                      <a id="downloadQrCard" href="#" download="smart-attendance-qr.svg" class="rounded-2xl border border-white/8 bg-white/5 px-4 py-3 text-sm font-semibold text-white text-center fast-trans hover:bg-white/10">Download card</a>
+                    </div>
+                    <div class="rounded-2xl border border-white/8 bg-black/20 p-4 text-sm text-stone-300">
+                      <div class="flex items-center justify-between gap-3">
+                        <div>
+                          <div class="text-white font-semibold">Security validation</div>
+                          <div class="text-stone-400 text-xs mt-1">Encrypted QR, device binding, and duplicate scan prevention are active.</div>
+                        </div>
+                        <div class="rounded-full bg-emerald-400/10 px-3 py-1 text-xs text-emerald-300">Secure</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="glass rounded-[1.75rem] p-5 md:p-6">
+                <div class="flex items-center justify-between gap-3">
+                  <div>
+                    <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">Camera and scan state</div>
+                    <h3 class="mt-2 text-xl font-black text-white">Modern QR scanner</h3>
+                  </div>
+                  <span id="cameraBadge" class="rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1 text-xs text-amber-200">Permission pending</span>
+                </div>
+
+                <div class="mt-4 rounded-[1.5rem] border border-white/8 bg-black/30 p-4">
+                  <div class="aspect-[4/3] rounded-[1.25rem] border border-dashed border-white/10 bg-[radial-gradient(circle_at_center,rgba(245,176,65,0.16),transparent_55%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))] scan-grid flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent scanner-line"></div>
+                    <div class="relative text-center px-4">
+                      <div class="mx-auto h-16 w-16 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center">
+                        <svg class="w-8 h-8 text-gold" viewBox="0 0 24 24" fill="none"><path d="M4 4h6v6H4V4Zm10 0h6v6h-6V4ZM4 14h6v6H4v-6Zm10 0h2v2h-2v-2Zm4 0h2v6h-6v-2h4v-4Zm-4 4h2v2h-2v-2ZM14 14h2v2h-2v-2Zm-8-4h2v2H6v-2ZM14 6h2v2h-2V6Z" fill="currentColor"/></svg>
+                      </div>
+                      <div class="mt-4 text-white font-semibold">Ready to scan member QR</div>
+                      <div class="mt-1 text-xs text-stone-400">Open the camera, validate the code, then confirm the session.</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-4 grid grid-cols-2 gap-3 attendance-mobile-2 text-sm">
+                  <div class="rounded-2xl border border-white/8 bg-black/20 p-3"><div class="text-stone-400 text-xs uppercase">Cooldown</div><div id="cooldownLabel" class="mt-1 text-white font-semibold">Ready</div></div>
+                  <div class="rounded-2xl border border-white/8 bg-black/20 p-3"><div class="text-stone-400 text-xs uppercase">Device</div><div class="mt-1 text-white font-semibold">Trusted phone</div></div>
+                </div>
+              </article>
+            </div>
+
+            <article class="glass rounded-[1.75rem] p-5 md:p-6">
+              <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+                <div>
+                  <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">Attendance analytics</div>
+                  <h3 class="mt-2 text-2xl font-black text-white">Daily, weekly, and monthly trends</h3>
+                  <p class="mt-1 text-sm text-stone-400">Interactive charts highlight gym flow, streak patterns, and recommended workout windows.</p>
+                </div>
+                <div class="flex flex-wrap gap-2 text-sm">
+                  <button class="chart-mode rounded-full border border-white/8 bg-white/5 px-3 py-2 text-stone-200" data-chart-mode="daily">Daily</button>
+                  <button class="chart-mode rounded-full border border-white/8 bg-white/5 px-3 py-2 text-stone-200" data-chart-mode="weekly">Weekly</button>
+                  <button class="chart-mode rounded-full border border-white/8 bg-white/5 px-3 py-2 text-stone-200" data-chart-mode="monthly">Monthly</button>
+                </div>
+              </div>
+
+              <div class="mt-6 grid lg:grid-cols-2 gap-6">
+                <div class="rounded-[1.5rem] border border-white/8 bg-black/20 p-4">
+                  <div class="flex items-center justify-between gap-3">
+                    <div>
+                      <div class="text-white font-semibold">Attendance trend</div>
+                      <div id="chartCaption" class="text-stone-400 text-xs mt-1">Weekly check-ins are tracking above average.</div>
+                    </div>
+                    <div class="text-right text-xs text-stone-400"><div>AI insight</div><div id="aiInsightLabel" class="text-gold font-semibold">Best window: 18:00 - 19:30</div></div>
+                  </div>
+                  <svg id="attendanceChart" viewBox="0 0 420 220" class="mt-4 w-full h-52" aria-label="Attendance chart">
+                    <defs>
+                      <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#f5b041" stop-opacity="0.95"/>
+                        <stop offset="100%" stop-color="#f5b041" stop-opacity="0.08"/>
+                      </linearGradient>
+                    </defs>
+                    <rect x="0" y="0" width="420" height="220" rx="24" fill="rgba(255,255,255,0.02)"/>
+                    <path id="chartArea" d="M20 170 C 70 155, 95 120, 140 118 S 215 86, 260 110 S 335 78, 400 64 L 400 190 L 20 190 Z" fill="url(#chartFill)"/>
+                    <path id="chartLine" d="M20 170 C 70 155, 95 120, 140 118 S 215 86, 260 110 S 335 78, 400 64" fill="none" stroke="#f5b041" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <g id="chartDots" fill="#fff"></g>
+                  </svg>
+                </div>
+
+                <div class="space-y-4">
+                  <div class="rounded-[1.5rem] border border-white/8 bg-black/20 p-4">
+                    <div class="flex items-center justify-between gap-3">
+                      <div>
+                        <div class="text-white font-semibold">Most active members</div>
+                        <div class="text-stone-400 text-xs mt-1">Top attendance streaks and check-in volume.</div>
+                      </div>
+                      <span class="rounded-full bg-emerald-400/10 px-3 py-1 text-xs text-emerald-300">Live</span>
+                    </div>
+                    <div class="mt-4 space-y-3 text-sm">
+                      <div class="flex items-center justify-between rounded-2xl border border-white/8 bg-white/3 px-3 py-3"><span>Malik Grant</span><span class="text-gold font-semibold">18 day streak</span></div>
+                      <div class="flex items-center justify-between rounded-2xl border border-white/8 bg-white/3 px-3 py-3"><span>Sara Ahmed</span><span class="text-gold font-semibold">16 check-ins</span></div>
+                      <div class="flex items-center justify-between rounded-2xl border border-white/8 bg-white/3 px-3 py-3"><span>Omar Saleh</span><span class="text-gold font-semibold">94% consistency</span></div>
+                    </div>
+                  </div>
+
+                  <div class="rounded-[1.5rem] border border-white/8 bg-black/20 p-4">
+                    <div class="text-white font-semibold">Recommended workout times</div>
+                    <div class="mt-3 grid grid-cols-3 gap-3 text-center text-xs attendance-mobile-3">
+                      <div class="rounded-2xl bg-white/5 border border-white/8 p-3"><div class="text-white font-semibold">06:30</div><div class="text-stone-400 mt-1">Quiet</div></div>
+                      <div class="rounded-2xl bg-white/5 border border-white/8 p-3"><div class="text-white font-semibold">12:45</div><div class="text-stone-400 mt-1">Steady</div></div>
+                      <div class="rounded-2xl bg-white/5 border border-white/8 p-3"><div class="text-white font-semibold">18:20</div><div class="text-stone-400 mt-1">Peak</div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="glass rounded-[1.75rem] p-5 md:p-6">
+              <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+                <div>
+                  <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">Member attendance history</div>
+                  <h3 class="mt-2 text-2xl font-black text-white">Check-in, check-out, streaks, and late arrivals</h3>
+                </div>
+                <div class="flex gap-2">
+                  <button class="history-filter rounded-full border border-white/8 bg-white/5 px-3 py-2 text-xs text-stone-200" data-history-filter="all">All</button>
+                  <button class="history-filter rounded-full border border-white/8 bg-white/5 px-3 py-2 text-xs text-stone-200" data-history-filter="late">Late</button>
+                  <button class="history-filter rounded-full border border-white/8 bg-white/5 px-3 py-2 text-xs text-stone-200" data-history-filter="inside">Inside</button>
+                </div>
+              </div>
+
+              <div class="mt-5 overflow-hidden rounded-[1.25rem] border border-white/8 bg-black/20">
+                <div class="hidden md:grid grid-cols-6 gap-3 border-b border-white/8 px-4 py-3 text-xs uppercase tracking-[0.2em] text-stone-400">
+                  <div>Member</div><div>Check-in</div><div>Check-out</div><div>Duration</div><div>Streak</div><div>Status</div>
+                </div>
+                <div id="historyRows" class="divide-y divide-white/8">
+                  <div class="px-4 py-4 history-row grid gap-3 md:grid-cols-6 items-center" data-history-row data-state="inside" data-name="Ali Mohamed">
+                    <div><div class="font-semibold text-white">Ali Mohamed</div><div class="text-xs text-stone-400">GT-10248</div></div>
+                    <div class="text-stone-300">06:41 AM</div><div class="text-stone-300">11:12 AM</div><div class="text-stone-300">4h 31m</div><div class="text-gold font-semibold">47 days</div><div class="text-emerald-300">Inside</div>
+                  </div>
+                  <div class="px-4 py-4 history-row grid gap-3 md:grid-cols-6 items-center" data-history-row data-state="late" data-name="Sara Ahmed">
+                    <div><div class="font-semibold text-white">Sara Ahmed</div><div class="text-xs text-stone-400">GT-10319</div></div>
+                    <div class="text-stone-300">09:18 AM</div><div class="text-stone-300">10:56 AM</div><div class="text-stone-300">1h 38m</div><div class="text-gold font-semibold">11 days</div><div class="text-amber-300">Late</div>
+                  </div>
+                  <div class="px-4 py-4 history-row grid gap-3 md:grid-cols-6 items-center" data-history-row data-state="inside" data-name="Omar Saleh">
+                    <div><div class="font-semibold text-white">Omar Saleh</div><div class="text-xs text-stone-400">GT-10601</div></div>
+                    <div class="text-stone-300">05:58 PM</div><div class="text-stone-300">--</div><div class="text-stone-300">In session</div><div class="text-gold font-semibold">9 days</div><div class="text-emerald-300">Inside</div>
+                  </div>
+                  <div class="px-4 py-4 history-row grid gap-3 md:grid-cols-6 items-center" data-history-row data-state="late" data-name="Maya Hassan">
+                    <div><div class="font-semibold text-white">Maya Hassan</div><div class="text-xs text-stone-400">GT-10984</div></div>
+                    <div class="text-stone-300">10:02 AM</div><div class="text-stone-300">--</div><div class="text-stone-300">Missed checkout</div><div class="text-gold font-semibold">7 days</div><div class="text-red-300">Late</div>
+                  </div>
+                  <div class="px-4 py-4 history-row grid gap-3 md:grid-cols-6 items-center" data-history-row data-state="inside" data-name="Noah Carter">
+                    <div><div class="font-semibold text-white">Noah Carter</div><div class="text-xs text-stone-400">GT-11022</div></div>
+                    <div class="text-stone-300">07:14 AM</div><div class="text-stone-300">08:51 AM</div><div class="text-stone-300">1h 37m</div><div class="text-gold font-semibold">22 days</div><div class="text-emerald-300">Inside</div>
+                  </div>
+                </div>
+                <div id="historyEmpty" class="hidden p-8 text-center text-stone-400">
+                  <div class="mx-auto mb-3 h-12 w-12 rounded-2xl border border-white/8 bg-white/5 flex items-center justify-center text-gold">0</div>
+                  No attendance records match the current filter.
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="xl:col-span-4 space-y-6">
+            <article class="glass rounded-[1.75rem] p-5 md:p-6">
+              <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">QR management</div>
+              <h3 class="mt-2 text-xl font-black text-white">Generate, expire, and secure member QR cards</h3>
+              <div class="mt-4 space-y-3 text-sm">
+                <button id="qrExpireBtn" class="w-full rounded-2xl border border-white/8 bg-white/5 px-4 py-3 text-left text-white fast-trans hover:bg-white/10">Expire QR code now</button>
+                <button id="qrRegenerateMiniBtn" class="w-full rounded-2xl border border-white/8 bg-white/5 px-4 py-3 text-left text-white fast-trans hover:bg-white/10">Regenerate encrypted QR</button>
+                <button id="exportCsvBtn" class="w-full rounded-2xl bg-gold px-4 py-3 text-left text-black font-semibold fast-trans hover:scale-[1.01]">Export attendance report</button>
+              </div>
+              <div class="mt-4 grid grid-cols-2 gap-3 attendance-mobile-2 text-xs">
+                <div class="rounded-2xl border border-white/8 bg-black/20 p-3"><div class="text-stone-400 uppercase">Card status</div><div id="qrStatusText" class="mt-1 text-white font-semibold">Active</div></div>
+                <div class="rounded-2xl border border-white/8 bg-black/20 p-3"><div class="text-stone-400 uppercase">Token</div><div id="qrTokenShort" class="mt-1 text-white font-semibold">GT-QR-7A2C</div></div>
+              </div>
+            </article>
+
+            <article class="glass rounded-[1.75rem] p-5 md:p-6">
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">Loading skeletons</div>
+                  <h3 class="mt-2 text-xl font-black text-white">Initial data state</h3>
+                </div>
+                <span class="rounded-full bg-white/5 px-3 py-1 text-xs text-stone-300">Auto hides</span>
+              </div>
+              <div id="loadingSkeleton" class="mt-4 space-y-3">
+                <div class="skeleton h-4 w-3/4 rounded-full"></div>
+                <div class="skeleton h-20 w-full rounded-2xl"></div>
+                <div class="skeleton h-20 w-full rounded-2xl"></div>
+              </div>
+            </article>
+
+            <article class="glass rounded-[1.75rem] p-5 md:p-6">
+              <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">AI attendance insights</div>
+              <div id="insightRotation" class="mt-2 text-xl font-black text-white">Members are most consistent between 6:00 PM and 7:30 PM.</div>
+              <div class="mt-4 space-y-3 text-sm">
+                <div class="rounded-2xl border border-white/8 bg-white/5 px-3 py-3"><div class="text-white font-semibold">Low attendance</div><div class="text-stone-400 text-xs mt-1">3 members need a reminder today.</div></div>
+                <div class="rounded-2xl border border-white/8 bg-white/5 px-3 py-3"><div class="text-white font-semibold">Missed gym days</div><div class="text-stone-400 text-xs mt-1">12 missed visits in the last 7 days.</div></div>
+                <div class="rounded-2xl border border-white/8 bg-white/5 px-3 py-3"><div class="text-white font-semibold">Late arrivals</div><div class="text-stone-400 text-xs mt-1">Average check-in delay is 14 minutes.</div></div>
+              </div>
+            </article>
+
+            <article class="glass rounded-[1.75rem] p-5 md:p-6">
+              <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">Staff controls</div>
+              <div class="mt-3 grid grid-cols-2 gap-3 attendance-controls">
+                <button id="manualOverrideBtn" class="rounded-2xl border border-white/8 bg-white/5 px-3 py-3 text-sm text-white fast-trans hover:bg-white/10">Manual override</button>
+                <button id="suspiciousToggleBtn" class="rounded-2xl border border-white/8 bg-white/5 px-3 py-3 text-sm text-white fast-trans hover:bg-white/10">Block suspicious</button>
+                <button id="searchMemberBtn" class="rounded-2xl border border-white/8 bg-white/5 px-3 py-3 text-sm text-white fast-trans hover:bg-white/10">Search members</button>
+                <button id="filterResetBtn" class="rounded-2xl bg-gold px-3 py-3 text-sm font-semibold text-black fast-trans hover:scale-[1.01]">Reset filters</button>
+              </div>
+              <div class="mt-4 rounded-2xl border border-white/8 bg-black/20 p-4 text-sm text-stone-300">
+                <div class="flex items-center justify-between gap-3">
+                  <div>
+                    <div class="text-white font-semibold">Real-time feed</div>
+                    <div class="text-stone-400 text-xs mt-1">Latest check-ins and alerts appear instantly.</div>
+                  </div>
+                  <span class="rounded-full bg-emerald-400/10 px-3 py-1 text-xs text-emerald-300">Live</span>
+                </div>
+                <div id="activityFeed" class="mt-4 space-y-3"></div>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div id="scannerModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 px-4">
+    <div class="w-full max-w-3xl glass rounded-[2rem] p-4 md:p-6 shadow-2xl">
+      <div class="flex items-center justify-between gap-3">
+        <div>
+          <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">QR scanner modal</div>
+          <h3 class="mt-2 text-2xl font-black text-white">Scan member attendance QR</h3>
+        </div>
+        <button id="closeScannerBtn" class="rounded-xl border border-white/8 bg-white/5 px-3 py-2 text-sm text-white fast-trans hover:bg-white/10">Close</button>
+      </div>
+
+      <div class="mt-5 grid gap-5 lg:grid-cols-[1.2fr,0.8fr] items-start">
+        <div class="rounded-[1.5rem] border border-white/8 bg-black/40 p-4">
+          <div class="aspect-[4/3] rounded-[1.25rem] border border-white/8 bg-[radial-gradient(circle_at_center,rgba(245,176,65,0.18),transparent_55%),linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))] scan-grid relative overflow-hidden">
+            <div class="absolute inset-x-0 top-0 h-1/4 scanner-line bg-gradient-to-b from-transparent via-gold/40 to-transparent"></div>
+            <div class="absolute inset-0 flex items-center justify-center text-center px-4">
+              <div>
+                <div class="mx-auto h-16 w-16 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center text-gold pulse-ring">
+                  <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none"><path d="M4 4h6v6H4V4Zm10 0h6v6h-6V4ZM4 14h6v6H4v-6Zm10 0h2v2h-2v-2Zm4 0h2v6h-6v-2h4v-4Zm-4 4h2v2h-2v-2ZM14 14h2v2h-2v-2Zm-8-4h2v2H6v-2ZM14 6h2v2h-2V6Z" fill="currentColor"/></svg>
+                </div>
+                <div class="mt-4 text-white font-semibold">Camera preview active</div>
+                <div class="mt-1 text-xs text-stone-400">Frame the member QR code inside the scanner area.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div class="rounded-[1.5rem] border border-white/8 bg-black/20 p-4">
+            <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">Permission</div>
+            <div id="scannerPermissionState" class="mt-2 text-white font-semibold">Camera access required</div>
+            <button id="scannerGrantBtn" class="mt-4 rounded-2xl bg-gold px-4 py-3 text-sm font-semibold text-black fast-trans hover:scale-[1.01]">Grant camera access</button>
+          </div>
+          <div class="rounded-[1.5rem] border border-white/8 bg-black/20 p-4">
+            <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">Scan result</div>
+            <div id="scanResultText" class="mt-2 text-white font-semibold">Awaiting QR scan</div>
+            <div class="mt-4 grid grid-cols-2 gap-3 text-xs attendance-mobile-2">
+              <div class="rounded-2xl bg-white/5 border border-white/8 p-3"><div class="text-stone-400 uppercase">Device</div><div class="mt-1 text-white">Trusted</div></div>
+              <div class="rounded-2xl bg-white/5 border border-white/8 p-3"><div class="text-stone-400 uppercase">Location</div><div class="mt-1 text-white">Main gym gate</div></div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <button id="simulateScanInBtn" class="flex-1 rounded-2xl bg-gold px-4 py-3 text-sm font-semibold text-black fast-trans hover:scale-[1.01]">Simulate check-in</button>
+            <button id="simulateScanOutBtn" class="flex-1 rounded-2xl border border-white/8 bg-white/5 px-4 py-3 text-sm font-semibold text-white fast-trans hover:bg-white/10">Simulate check-out</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="successPopup" class="success-pop fixed bottom-5 right-5 z-50 w-[min(92vw,22rem)] rounded-[1.5rem] border border-emerald-400/20 bg-[#0d1410]/95 p-4 shadow-2xl">
+    <div class="flex items-center gap-3">
+      <div class="h-12 w-12 rounded-2xl bg-emerald-400/15 flex items-center justify-center text-emerald-300">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"><path d="M20 7L9 18l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="text-emerald-200 font-semibold">Attendance confirmed</div>
+        <div id="successPopupText" class="text-xs text-stone-300">Session recorded successfully.</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/components.js"></script>
+  <script>
+    Components.init();
+
+    const members = [
+      { name: 'Ali Mohamed', code: 'GT-10248', tier: 'Gold Elite', token: 'GT-QR-7A2C' },
+      { name: 'Sara Ahmed', code: 'GT-10319', tier: 'Platinum', token: 'GT-QR-18BD' },
+      { name: 'Omar Saleh', code: 'GT-10601', tier: 'Gold', token: 'GT-QR-92EF' },
+      { name: 'Maya Hassan', code: 'GT-10984', tier: 'Silver', token: 'GT-QR-6C41' }
+    ];
+
+    const chartPresets = {
+      daily: {
+        caption: 'Today\'s attendance is strongest during evening sessions.',
+        insight: 'Best window: 18:00 - 19:30',
+        path: 'M20 160 C 55 150, 70 118, 110 124 S 170 92, 210 100 S 280 72, 320 88 S 372 62, 400 56',
+        area: 'M20 160 C 55 150, 70 118, 110 124 S 170 92, 210 100 S 280 72, 320 88 S 372 62, 400 56 L 400 190 L 20 190 Z',
+        dots: [160, 150, 118, 124, 92, 100, 72, 88, 62, 56]
+      },
+      weekly: {
+        caption: 'Weekly check-ins are tracking above average.',
+        insight: 'Best window: 18:00 - 19:30',
+        path: 'M20 170 C 70 155, 95 120, 140 118 S 215 86, 260 110 S 335 78, 400 64',
+        area: 'M20 170 C 70 155, 95 120, 140 118 S 215 86, 260 110 S 335 78, 400 64 L 400 190 L 20 190 Z',
+        dots: [170, 155, 120, 118, 86, 110, 78, 64]
+      },
+      monthly: {
+        caption: 'Monthly retention is improving with stronger streaks.',
+        insight: 'Best window: 17:30 - 20:00',
+        path: 'M20 176 C 65 165, 96 150, 138 130 S 220 112, 256 104 S 332 74, 400 72',
+        area: 'M20 176 C 65 165, 96 150, 138 130 S 220 112, 256 104 S 332 74, 400 72 L 400 190 L 20 190 Z',
+        dots: [176, 165, 150, 130, 112, 104, 74, 72]
+      }
+    };
+
+    const feedSeed = [
+      'Ali Mohamed checked in at 06:41 AM',
+      'Sara Ahmed checked out after 1h 38m',
+      'System blocked a duplicate QR attempt',
+      'Maya Hassan received a late-arrival warning'
+    ];
+
+    const state = {
+      selectedMember: 0,
+      qrToken: members[0].token,
+      qrExpiresAt: Date.now() + 60 * 60 * 1000,
+      cameraGranted: false,
+      cooldownUntil: 0,
+      suspiciousBlocked: true,
+      historyFilter: 'all',
+      chartMode: 'weekly'
+    };
+
+    const els = {
+      qrPattern: document.getElementById('qrPattern'),
+      memberName: document.getElementById('memberName'),
+      memberCode: document.getElementById('memberCode'),
+      memberTier: document.getElementById('memberTier'),
+      qrTokenShort: document.getElementById('qrTokenShort'),
+      qrExpiry: document.getElementById('qrExpiry'),
+      qrStatusText: document.getElementById('qrStatusText'),
+      permissionText: document.getElementById('permissionText'),
+      cameraBadge: document.getElementById('cameraBadge'),
+      cooldownLabel: document.getElementById('cooldownLabel'),
+      occupancyPercent: document.getElementById('occupancyPercent'),
+      occupancyBar: document.getElementById('occupancyBar'),
+      scannerModal: document.getElementById('scannerModal'),
+      scannerPermissionState: document.getElementById('scannerPermissionState'),
+      scanResultText: document.getElementById('scanResultText'),
+      successPopup: document.getElementById('successPopup'),
+      successPopupText: document.getElementById('successPopupText'),
+      loadingSkeleton: document.getElementById('loadingSkeleton'),
+      activityFeed: document.getElementById('activityFeed'),
+      chartLine: document.getElementById('chartLine'),
+      chartArea: document.getElementById('chartArea'),
+      chartDots: document.getElementById('chartDots'),
+      chartCaption: document.getElementById('chartCaption'),
+      aiInsightLabel: document.getElementById('aiInsightLabel'),
+      insightRotation: document.getElementById('insightRotation'),
+      historyRows: document.querySelectorAll('[data-history-row]'),
+      historyEmpty: document.getElementById('historyEmpty')
+    };
+
+    const escapeXml = (input) => String(input).replace(/[<>&"]/g, (char) => ({ '<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;' }[char]));
+
+    const buildQrSvg = (member, token) => {
+      const svg = [
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 420">',
+        '<rect width="320" height="420" rx="28" fill="#0f0f10"/>',
+        '<rect x="28" y="28" width="264" height="264" rx="22" fill="#f4f4f5"/>',
+        '<rect x="44" y="44" width="56" height="56" rx="12" fill="#111"/><rect x="220" y="44" width="56" height="56" rx="12" fill="#111"/><rect x="44" y="220" width="56" height="56" rx="12" fill="#111"/>'
+      ];
+
+      const seed = Array.from(token + member.code + member.name).reduce((sum, char) => sum + char.charCodeAt(0), 0);
+      const cells = [];
+      for (let row = 0; row < 13; row += 1) {
+        for (let col = 0; col < 13; col += 1) {
+          const value = ((seed + row * 17 + col * 31) % 7) < 3;
+          if (!value) continue;
+          const x = 60 + col * 14;
+          const y = 60 + row * 14;
+          cells.push(`<rect x="${x}" y="${y}" width="10" height="10" rx="2" fill="#111"/>`);
+        }
+      }
+
+      svg.push(cells.join(''));
+      svg.push(`<text x="160" y="340" text-anchor="middle" fill="#f5b041" font-family="Poppins,Arial,sans-serif" font-size="24" font-weight="700">${escapeXml(member.name)}</text>`);
+      svg.push(`<text x="160" y="366" text-anchor="middle" fill="#d4d4d8" font-family="Poppins,Arial,sans-serif" font-size="14">${escapeXml(member.code)} · ${escapeXml(member.tier)}</text>`);
+      svg.push(`<text x="160" y="392" text-anchor="middle" fill="#8a8a91" font-family="Poppins,Arial,sans-serif" font-size="12">${escapeXml(token)}</text>`);
+      svg.push('</svg>');
+      return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg.join(''))}`;
+    };
+
+    const buildQrPattern = (member, token) => {
+      const seed = Array.from(token).reduce((sum, char) => sum + char.charCodeAt(0), 0);
+      const blocks = [];
+      for (let row = 0; row < 11; row += 1) {
+        for (let col = 0; col < 11; col += 1) {
+          const active = ((seed + row * 11 + col * 19) % 6) < 3;
+          blocks.push(`<span class="${active ? 'bg-stone-900' : 'bg-transparent'} rounded-[0.18rem]"></span>`);
+        }
+      }
+      els.qrPattern.innerHTML = `<div class="grid h-full w-full grid-cols-11 gap-1 p-2">${blocks.join('')}</div>`;
+      els.qrPattern.style.background = 'linear-gradient(180deg,#fafafa,#e9e9eb)';
+    };
+
+    const updateQrCard = () => {
+      const member = members[state.selectedMember];
+      els.memberName.textContent = member.name;
+      els.memberCode.textContent = member.code;
+      els.memberTier.textContent = member.tier;
+      els.qrTokenShort.textContent = state.qrToken;
+      els.qrStatusText.textContent = state.qrExpiresAt > Date.now() ? 'Active' : 'Expired';
+      els.permissionText.textContent = state.cameraGranted ? 'Camera permission granted' : 'Camera permission not granted';
+      els.cameraBadge.textContent = state.cameraGranted ? 'Camera ready' : 'Permission pending';
+      els.downloadQrTop.href = buildQrSvg(member, state.qrToken);
+      document.getElementById('downloadQrCard').href = buildQrSvg(member, state.qrToken);
+      buildQrPattern(member, state.qrToken);
+    };
+
+    const formatRemaining = () => {
+      const remaining = Math.max(0, state.qrExpiresAt - Date.now());
+      const minutes = Math.floor(remaining / 60000);
+      const seconds = Math.floor((remaining % 60000) / 1000);
+      return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    };
+
+    const updateCountdown = () => {
+      els.qrExpiry.textContent = formatRemaining();
+      const cooldownRemaining = Math.max(0, state.cooldownUntil - Date.now());
+      els.cooldownLabel.textContent = cooldownRemaining > 0 ? `${Math.ceil(cooldownRemaining / 1000)}s` : 'Ready';
+      if (state.qrExpiresAt <= Date.now()) {
+        els.qrStatusText.textContent = 'Expired';
+      }
+    };
+
+    const openScanner = () => {
+      els.scannerModal.classList.remove('hidden');
+      els.scannerModal.classList.add('flex');
+      els.scannerPermissionState.textContent = state.cameraGranted ? 'Camera access granted' : 'Camera access required';
+      els.scanResultText.textContent = 'Awaiting QR scan';
+    };
+
+    const closeScanner = () => {
+      els.scannerModal.classList.add('hidden');
+      els.scannerModal.classList.remove('flex');
+    };
+
+    const showPopup = (title, detail, tone = 'emerald') => {
+      els.successPopup.classList.toggle('border-emerald-400/20', tone === 'emerald');
+      els.successPopup.classList.toggle('bg-[#0d1410]/95', tone === 'emerald');
+      els.successPopup.classList.toggle('border-amber-400/20', tone === 'amber');
+      els.successPopup.classList.toggle('bg-[#14110d]/95', tone === 'amber');
+      els.successPopupText.textContent = detail;
+      els.successPopup.querySelector('.text-emerald-200').textContent = title;
+      els.successPopup.classList.add('is-visible');
+      window.clearTimeout(showPopup.timer);
+      showPopup.timer = window.setTimeout(() => els.successPopup.classList.remove('is-visible'), 2800);
+    };
+
+    const addFeedItem = (text) => {
+      const item = document.createElement('div');
+      item.className = 'rounded-2xl border border-white/8 bg-white/5 px-3 py-3 text-sm text-stone-300';
+      item.textContent = `${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} · ${text}`;
+      els.activityFeed.prepend(item);
+      while (els.activityFeed.children.length > 5) {
+        els.activityFeed.removeChild(els.activityFeed.lastElementChild);
+      }
+    };
+
+    const handleScan = (direction) => {
+      if (Date.now() < state.cooldownUntil) {
+        showPopup('Scan cooldown active', 'Please wait before scanning the same member again.', 'amber');
+        els.scanResultText.textContent = 'Duplicate scan blocked';
+        return;
+      }
+
+      if (!state.cameraGranted) {
+        state.cameraGranted = true;
+        els.permissionText.textContent = 'Camera permission granted';
+        els.cameraBadge.textContent = 'Camera ready';
+        els.scannerPermissionState.textContent = 'Camera access granted';
+      }
+
+      const member = members[state.selectedMember];
+      els.scanResultText.textContent = `Validating ${member.name} ...`;
+      window.setTimeout(() => {
+        state.cooldownUntil = Date.now() + 30000;
+        const action = direction === 'out' ? 'checked out' : 'checked in';
+        const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        els.scanResultText.textContent = `${member.name} ${action} at ${timestamp}`;
+        showPopup('Attendance confirmed', `${member.name} ${action} successfully.`, 'emerald');
+        addFeedItem(`${member.name} ${action} at ${timestamp}`);
+      }, 900);
+    };
+
+    const regenerateQr = () => {
+      state.qrToken = `GT-QR-${Math.random().toString(16).slice(2, 6).toUpperCase()}`;
+      state.qrExpiresAt = Date.now() + 60 * 60 * 1000;
+      updateQrCard();
+      showPopup('QR regenerated', 'A new secure code has been issued.', 'emerald');
+      addFeedItem('Encrypted QR regenerated for the selected member');
+    };
+
+    const expireQr = () => {
+      state.qrExpiresAt = Date.now() - 1000;
+      updateQrCard();
+      showPopup('QR expired', 'The current member QR has been marked inactive.', 'amber');
+      addFeedItem('QR expired manually for validation testing');
+    };
+
+    const renderChart = () => {
+      const preset = chartPresets[state.chartMode];
+      els.chartLine.setAttribute('d', preset.path);
+      els.chartArea.setAttribute('d', preset.area);
+      els.chartCaption.textContent = preset.caption;
+      els.aiInsightLabel.textContent = preset.insight;
+      els.chartDots.innerHTML = preset.dots.map((value, index) => `<circle cx="${20 + (index * (380 / Math.max(preset.dots.length - 1, 1)))}" cy="${value}" r="4.5" fill="#fff" stroke="#f5b041" stroke-width="2"></circle>`).join('');
+      document.querySelectorAll('.chart-mode').forEach((button) => {
+        button.classList.toggle('bg-gold', button.getAttribute('data-chart-mode') === state.chartMode);
+        button.classList.toggle('text-black', button.getAttribute('data-chart-mode') === state.chartMode);
+        button.classList.toggle('bg-white/5', button.getAttribute('data-chart-mode') !== state.chartMode);
+        button.classList.toggle('text-stone-200', button.getAttribute('data-chart-mode') !== state.chartMode);
+      });
+    };
+
+    const filterHistory = () => {
+      let visible = 0;
+      els.historyRows.forEach((row) => {
+        const stateMatch = state.historyFilter === 'all' || row.dataset.state === state.historyFilter;
+        const nameMatch = !document.getElementById('searchAttendance').value || row.dataset.name.toLowerCase().includes(document.getElementById('searchAttendance').value.toLowerCase());
+        const show = stateMatch && nameMatch;
+        row.classList.toggle('hidden', !show);
+        if (show) visible += 1;
+      });
+      els.historyEmpty.classList.toggle('hidden', visible > 0);
+    };
+
+    const exportCsv = () => {
+      const rows = [
+        ['Member', 'Check-in', 'Check-out', 'Duration', 'Streak', 'Status'],
+        ['Ali Mohamed', '06:41 AM', '11:12 AM', '4h 31m', '47 days', 'Inside'],
+        ['Sara Ahmed', '09:18 AM', '10:56 AM', '1h 38m', '11 days', 'Late'],
+        ['Omar Saleh', '05:58 PM', '--', 'In session', '9 days', 'Inside'],
+        ['Maya Hassan', '10:02 AM', '--', 'Missed checkout', '7 days', 'Late'],
+        ['Noah Carter', '07:14 AM', '08:51 AM', '1h 37m', '22 days', 'Inside']
+      ];
+      const csv = rows.map((row) => row.map((cell) => `"${cell}"`).join(',')).join('\n');
+      const link = document.createElement('a');
+      link.href = `data:text/csv;charset=utf-8,${encodeURIComponent(csv)}`;
+      link.download = 'attendance-report.csv';
+      link.click();
+      addFeedItem('Attendance report exported as CSV');
+    };
+
+    const rotateInsight = () => {
+      const insights = [
+        'Members are most consistent between 6:00 PM and 7:30 PM.',
+        'Low attendance members respond best to lunchtime reminders.',
+        'Late arrivals fall when mobile QR reminders go out 30 minutes earlier.',
+        'Weekend check-ins rise when the AI recommends the best workout slot.'
+      ];
+      let index = 0;
+      const update = () => {
+        els.insightRotation.textContent = insights[index % insights.length];
+        index += 1;
+      };
+      update();
+      window.setInterval(update, 10000);
+    };
+
+    document.getElementById('openScannerBtn').addEventListener('click', openScanner);
+    document.getElementById('scanInBtn').addEventListener('click', () => handleScan('in'));
+    document.getElementById('scanOutBtn').addEventListener('click', () => handleScan('out'));
+    document.getElementById('simulateScanInBtn').addEventListener('click', () => handleScan('in'));
+    document.getElementById('simulateScanOutBtn').addEventListener('click', () => handleScan('out'));
+    document.getElementById('closeScannerBtn').addEventListener('click', closeScanner);
+    document.getElementById('grantCameraBtn').addEventListener('click', () => {
+      state.cameraGranted = true;
+      updateQrCard();
+      els.scannerPermissionState.textContent = 'Camera access granted';
+      showPopup('Camera ready', 'Permission granted and scanner unlocked.', 'emerald');
+    });
+    document.getElementById('scannerGrantBtn').addEventListener('click', () => {
+      state.cameraGranted = true;
+      updateQrCard();
+      els.scannerPermissionState.textContent = 'Camera access granted';
+      showPopup('Camera ready', 'Permission granted and scanner unlocked.', 'emerald');
+    });
+    document.getElementById('regenerateQrBtn').addEventListener('click', regenerateQr);
+    document.getElementById('qrRegenerateMiniBtn').addEventListener('click', regenerateQr);
+    document.getElementById('qrExpireBtn').addEventListener('click', expireQr);
+    document.getElementById('exportCsvBtn').addEventListener('click', exportCsv);
+    document.getElementById('manualOverrideBtn').addEventListener('click', () => {
+      showPopup('Manual override saved', 'Staff override added to the attendance log.', 'emerald');
+      addFeedItem('Manual override approved by staff');
+    });
+    document.getElementById('suspiciousToggleBtn').addEventListener('click', () => {
+      state.suspiciousBlocked = !state.suspiciousBlocked;
+      document.getElementById('suspiciousToggleBtn').textContent = state.suspiciousBlocked ? 'Block suspicious' : 'Allow review mode';
+      showPopup('Security updated', state.suspiciousBlocked ? 'Suspicious scans will be blocked again.' : 'Review mode enabled for auditing.', state.suspiciousBlocked ? 'emerald' : 'amber');
+    });
+    document.getElementById('searchMemberBtn').addEventListener('click', () => document.getElementById('searchAttendance').focus());
+    document.getElementById('filterResetBtn').addEventListener('click', () => {
+      state.historyFilter = 'all';
+      document.getElementById('searchAttendance').value = '';
+      filterHistory();
+    });
+
+    document.querySelectorAll('.chart-mode').forEach((button) => {
+      button.addEventListener('click', () => {
+        state.chartMode = button.getAttribute('data-chart-mode');
+        renderChart();
+      });
+    });
+
+    document.querySelectorAll('.history-filter').forEach((button) => {
+      button.addEventListener('click', () => {
+        state.historyFilter = button.getAttribute('data-history-filter');
+        filterHistory();
+      });
+    });
+
+    document.getElementById('searchAttendance').addEventListener('input', filterHistory);
+
+    document.querySelectorAll('[data-member-switch]').forEach((button) => {
+      button.addEventListener('click', () => {
+        state.selectedMember = Number(button.getAttribute('data-member-switch'));
+        state.qrToken = members[state.selectedMember].token;
+        state.qrExpiresAt = Date.now() + 60 * 60 * 1000;
+        updateQrCard();
+      });
+    });
+
+    window.addEventListener('click', (event) => {
+      if (event.target === els.scannerModal) closeScanner();
+    });
+
+    updateQrCard();
+    renderChart();
+    filterHistory();
+    rotateInsight();
+
+    feedSeed.forEach((text) => addFeedItem(text));
+    addFeedItem('Gym occupancy synced from live entry sensors');
+
+    window.setInterval(updateCountdown, 1000);
+    window.setInterval(() => {
+      const occupancy = 72 + Math.floor((Date.now() / 1000) % 8);
+      els.occupancyPercent.textContent = `${occupancy}%`;
+      els.occupancyBar.style.width = `${occupancy}%`;
+    }, 6000);
+
+    window.setTimeout(() => {
+      els.loadingSkeleton.classList.add('hidden');
+    }, 1300);
+  </script>
+</body>
+</html>

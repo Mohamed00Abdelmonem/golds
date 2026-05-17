@@ -125,10 +125,10 @@
         <div class="story-modal-content w-full h-full md:w-96 md:h-screen md:rounded-2xl md:overflow-hidden relative bg-black flex flex-col">
           <button id="closeStoryBtn" class="absolute top-4 left-4 md:hidden z-10 p-2 rounded-lg bg-white/10 text-white hover:bg-white/20 transition fast-trans"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
           <div class="flex-1 bg-black flex items-center justify-center overflow-hidden">
-            <img id="storyImage" src="" alt="Story" class="w-full h-full object-cover">
+            <img id="storyImage" src="assets/img/posts/image.png" alt="Story" class="w-full h-full object-cover">
             <video id="storyVideo" class="hidden w-full h-full object-cover" playsinline webkit-playsinline controls></video>
           </div>
-          <div class="p-4 bg-gradient-to-t from-black via-black/50 to-transparent"><div class="flex items-center gap-3 mb-3"><img id="storyUserAvatar" src="" alt="" class="w-10 h-10 rounded-full object-cover"><div><div id="storyUserName" class="text-white font-semibold text-sm"></div><div class="text-stone-400 text-xs">1h ago</div></div></div><input type="text" placeholder="Reply..." class="w-full bg-white/10 rounded-full px-4 py-2 text-xs text-white placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-gold/50"></div>
+          <div class="p-4 bg-gradient-to-t from-black via-black/50 to-transparent"><div class="flex items-center gap-3 mb-3"><img id="storyUserAvatar" src="assets/img/user.png" alt="" class="w-10 h-10 rounded-full object-cover"><div><div id="storyUserName" class="text-white font-semibold text-sm"></div><div class="text-stone-400 text-xs">1h ago</div></div></div><input type="text" placeholder="Reply..." class="w-full bg-white/10 rounded-full px-4 py-2 text-xs text-white placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-gold/50"></div>
           <button id="prevStoryBtn" class="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-lg text-white hover:bg-white/10 transition fast-trans"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 19l-7-7 7-7"/></svg></button>
           <button id="nextStoryBtn" class="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-lg text-white hover:bg-white/10 transition fast-trans"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></button>
         </div>
@@ -144,7 +144,7 @@
 
       <template id="commentTemplate">
         <div class="comment-item flex gap-3">
-          <img data-comment-avatar src="" alt="" class="w-6 h-6 rounded-full object-cover flex-shrink-0">
+          <img data-comment-avatar src="assets/img/user.png" alt="" class="w-6 h-6 rounded-full object-cover flex-shrink-0">
           <div class="flex-1"><div data-comment-author class="text-xs font-semibold text-white"></div><div data-comment-body class="text-xs text-stone-300 mt-1"></div></div>
         </div>
       </template>
