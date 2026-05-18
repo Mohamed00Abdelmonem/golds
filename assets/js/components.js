@@ -218,6 +218,11 @@ const Components = (function () {
     if (!section) return;
 
     const storageKey = 'goldtech.progressPhotos';
+    const localMedia = {
+      front: 'assets/img/image1.png',
+      side: 'assets/img/image1.png',
+      back: 'assets/img/imag1.png',
+    };
     const fallbackEntries = [
       {
         id: 'seed-3',
@@ -227,9 +232,9 @@ const Components = (function () {
         bodyFat: 18.2,
         muscleMass: 35.5,
         bmi: 23.9,
-        front: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=1200&auto=format&fit=crop',
-        side: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1200&auto=format&fit=crop',
-        back: 'https://images.unsplash.com/photo-1518459031867-a89b944bffe4?q=80&w=1200&auto=format&fit=crop',
+        front: localMedia.front,
+        side: localMedia.side,
+        back: localMedia.back,
       },
       {
         id: 'seed-2',
@@ -239,9 +244,9 @@ const Components = (function () {
         bodyFat: 18.8,
         muscleMass: 35.1,
         bmi: 24.1,
-        front: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200&auto=format&fit=crop',
-        side: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1200&auto=format&fit=crop',
-        back: 'https://images.unsplash.com/photo-1518459031867-a89b944bffe4?q=80&w=1200&auto=format&fit=crop',
+        front: localMedia.front,
+        side: localMedia.side,
+        back: localMedia.back,
       },
       {
         id: 'seed-1',
@@ -251,9 +256,9 @@ const Components = (function () {
         bodyFat: 19.7,
         muscleMass: 34.8,
         bmi: 24.6,
-        front: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=1200&auto=format&fit=crop',
-        side: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1200&auto=format&fit=crop',
-        back: 'https://images.unsplash.com/photo-1518459031867-a89b944bffe4?q=80&w=1200&auto=format&fit=crop',
+        front: localMedia.front,
+        side: localMedia.side,
+        back: localMedia.back,
       },
     ];
 
@@ -268,7 +273,19 @@ const Components = (function () {
         const raw = localStorage.getItem(storageKey);
         if (!raw) return [...fallbackEntries];
         const parsed = JSON.parse(raw);
-        return Array.isArray(parsed) && parsed.length ? parsed : [...fallbackEntries];
+        const normalizeMedia = (url, fallbackUrl) => {
+          if (typeof url !== 'string' || !url) return fallbackUrl;
+          if (url.startsWith('data:')) return url;
+          if (url === localMedia.front || url === localMedia.side || url === localMedia.back) return url;
+          return fallbackUrl;
+        };
+        if (!Array.isArray(parsed) || !parsed.length) return [...fallbackEntries];
+        return parsed.map((entry, index) => ({
+          ...entry,
+          front: normalizeMedia(entry.front, localMedia.front),
+          side: normalizeMedia(entry.side, localMedia.side),
+          back: normalizeMedia(entry.back, localMedia.back),
+        }));
       } catch {
         return [...fallbackEntries];
       }

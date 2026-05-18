@@ -29,13 +29,17 @@
     .accordion-open{max-height:800px}
     .check-anim{transition:transform 160ms,opacity 160ms}
     .glow-amber{box-shadow:0 6px 30px rgba(245,176,65,0.12)}
-    .complete-checkbox{width:20px; height:20px; accent-color:#f5b041; cursor:pointer; transition:all 180ms ease}
-    .complete-checkbox:checked{background-color:#f5b041; border:2px solid #f5b041; box-shadow:0 0 12px rgba(245,176,65,0.4)}
+    .complete-checkbox{width:20px; height:20px; accent-color:#f5b041; cursor:pointer; transition:all 220ms ease}
+    .complete-checkbox + div{transition:background-color 220ms ease, box-shadow 220ms ease, transform 220ms ease}
+    .complete-checkbox + div + span{transition:transform 220ms cubic-bezier(.2,.9,.2,1), background-color 220ms ease, box-shadow 220ms ease}
+    .complete-checkbox:checked{background-color:#f5b041; border:2px solid #f5b041; box-shadow:0 0 14px rgba(245,176,65,0.45)}
     .hydration-bar{width:40%}
     .achievement-toast{min-width:220px}
     .tutorial-video-frame{height:360px}
     .complete-checkbox:checked{background-color:#f5b041 !important; border-color:#f5b041 !important}
     .complete-checkbox:checked::after{background-color:#070708 !important}
+    .complete-checkbox:checked + div{background:rgba(245,176,65,0.22) !important; box-shadow:0 0 0 1px rgba(245,176,65,0.16), 0 0 18px rgba(245,176,65,0.24) !important}
+    .complete-checkbox:checked + div + span{background:#f5b041 !important; box-shadow:0 0 16px rgba(245,176,65,0.72), 0 0 28px rgba(245,176,65,0.26) !important}
     
     /* Tab styling */
     .tab-btn{background:transparent; color:#a1a1a1; border:1px solid transparent; transition:all 180ms cubic-bezier(0.2,0.9,0.2,1)}
@@ -233,9 +237,9 @@
                     <div class="flex items-center" style="gap:clamp(0.375rem,1vw,0.5rem)">
                       <button class="expand-btn glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Details</button>
                       <label class="relative inline-flex items-center cursor-pointer" style="min-height:2.25rem; min-width:2.25rem">
-                        <input type="checkbox" class="sr-only complete-checkbox" />
+                        <input type="checkbox" class="sr-only complete-checkbox peer" />
                         <div class="bg-white/6 rounded-full peer-checked:bg-gold fast-trans" style="width:clamp(1.75rem,5vw,2.5rem); height:clamp(1rem,2.5vw,1.5rem)"></div>
-                        <span class="absolute bg-white rounded-full transform peer-checked:translate-x-3 md:peer-checked:translate-x-4 fast-trans" style="width:clamp(0.875rem,2vw,1.25rem); height:clamp(0.875rem,2vw,1.25rem); left:clamp(0.125rem,0.5vw,0.25rem); top:clamp(0.125rem,0.5vw,0.25rem)"></span>
+                        <span class="absolute bg-white rounded-full transform peer-checked:translate-x-3 md:peer-checked:translate-x-4 peer-checked:bg-gold peer-checked:shadow-[0_0_16px_rgba(245,176,65,0.72),0_0_28px_rgba(245,176,65,0.26)] fast-trans" style="width:clamp(0.875rem,2vw,1.25rem); height:clamp(0.875rem,2vw,1.25rem); left:clamp(0.125rem,0.5vw,0.25rem); top:clamp(0.125rem,0.5vw,0.25rem)"></span>
                       </label>
                     </div>
                   </div>
@@ -291,9 +295,9 @@
                     <div class="flex items-center" style="gap:clamp(0.375rem,1vw,0.5rem)">
                       <button class="expand-btn glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Details</button>
                       <label class="relative inline-flex items-center cursor-pointer" style="min-height:2.25rem; min-width:2.25rem">
-                        <input type="checkbox" class="sr-only complete-checkbox" />
+                        <input type="checkbox" class="sr-only complete-checkbox peer" />
                         <div class="bg-white/6 rounded-full peer-checked:bg-gold fast-trans" style="width:clamp(1.75rem,5vw,2.5rem); height:clamp(1rem,2.5vw,1.5rem)"></div>
-                        <span class="bg-white rounded-full transform peer-checked:translate-x-3 md:peer-checked:translate-x-4 fast-trans absolute" style="width:clamp(0.875rem,2vw,1.25rem); height:clamp(0.875rem,2vw,1.25rem); left:clamp(0.125rem,0.5vw,0.25rem); top:clamp(0.125rem,0.5vw,0.25rem)"></span>
+                        <span class="bg-white rounded-full transform peer-checked:translate-x-3 md:peer-checked:translate-x-4 peer-checked:bg-gold peer-checked:shadow-[0_0_16px_rgba(245,176,65,0.72),0_0_28px_rgba(245,176,65,0.26)] fast-trans absolute" style="width:clamp(0.875rem,2vw,1.25rem); height:clamp(0.875rem,2vw,1.25rem); left:clamp(0.125rem,0.5vw,0.25rem); top:clamp(0.125rem,0.5vw,0.25rem)"></span>
                       </label>
                     </div>
                   </div>
@@ -324,9 +328,9 @@
                     <div class="flex items-center" style="gap:clamp(0.375rem,1vw,0.5rem)">
                       <button class="expand-btn glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Details</button>
                       <label class="relative inline-flex items-center cursor-pointer" style="min-height:2.25rem; min-width:2.25rem">
-                        <input type="checkbox" class="sr-only complete-checkbox" />
+                        <input type="checkbox" class="sr-only complete-checkbox peer" />
                         <div class="bg-white/6 rounded-full peer-checked:bg-gold fast-trans" style="width:clamp(1.75rem,5vw,2.5rem); height:clamp(1rem,2.5vw,1.5rem)"></div>
-                        <span class="bg-white rounded-full transform peer-checked:translate-x-3 md:peer-checked:translate-x-4 fast-trans absolute" style="width:clamp(0.875rem,2vw,1.25rem); height:clamp(0.875rem,2vw,1.25rem); left:clamp(0.125rem,0.5vw,0.25rem); top:clamp(0.125rem,0.5vw,0.25rem)"></span>
+                        <span class="bg-white rounded-full transform peer-checked:translate-x-3 md:peer-checked:translate-x-4 peer-checked:bg-gold peer-checked:shadow-[0_0_16px_rgba(245,176,65,0.72),0_0_28px_rgba(245,176,65,0.26)] fast-trans absolute" style="width:clamp(0.875rem,2vw,1.25rem); height:clamp(0.875rem,2vw,1.25rem); left:clamp(0.125rem,0.5vw,0.25rem); top:clamp(0.125rem,0.5vw,0.25rem)"></span>
                       </label>
                     </div>
                   </div>
@@ -387,11 +391,14 @@
         <!-- Muscle visualization -->
         <div class="glass hover-lift fast-trans" style="border-radius:clamp(0.5rem,2vw,1rem); padding:var(--card-pad); margin-top:clamp(0.75rem,2vw,1rem)">
           <div class="flex flex-col md:flex-row md:items-center md:justify-between" style="gap:var(--gap); margin-bottom:clamp(0.5rem,1.5vw,0.75rem)">
-            <div><div class="text-stone-400">Target Muscles</div><div class="text-white font-extrabold">Active: Shoulder</div></div>
-            <div class="text-stone-400" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Session focus</div>
+            <div>
+              <div class="text-stone-400">Target Muscles</div>
+              <div id="muscleActiveLabel" class="text-white font-extrabold">Active: Shoulder</div>
+            </div>
+            <div id="muscleSessionFocus" class="text-stone-400" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Session focus</div>
           </div>
           <div class="flex items-center justify-center">
-            <video src="assets/videos/sholder.mp4" autoplay loop muted class="object-contain rounded-lg" style="width:clamp(8rem,30vw,12rem); height:clamp(12rem,40vw,18rem); border-radius:clamp(0.375rem,1.5vw,0.5rem)"></video>
+            <video id="muscleVideo" src="assets/videos/sholder.mp4" autoplay loop muted class="object-contain rounded-lg" style="width:clamp(8rem,30vw,12rem); height:clamp(12rem,40vw,18rem); border-radius:clamp(0.375rem,1.5vw,0.5rem)"></video>
           </div>
         </div>
 
@@ -445,6 +452,42 @@
 <!-- JS: tabs, accordion, tracker, timer, achievements -->
 <script>
   // Exercise data organized by category
+  const muscleVideoMap = {
+    chest: { src: 'assets/videos/bush2.mp4', label: 'Active: Chest', focus: 'Push pattern' },
+    'upper chest': { src: 'assets/videos/bush2.mp4', label: 'Active: Upper Chest', focus: 'Push pattern' },
+    shoulders: { src: 'assets/videos/bush2.mp4', label: 'Active: Shoulders', focus: 'Pressing' },
+    shoulder: { src: 'assets/videos/bush2.mp4', label: 'Active: Shoulder', focus: 'Pressing' },
+    triceps: { src: 'assets/videos/bush2.mp4', label: 'Active: Triceps', focus: 'Push pattern' },
+    back: { src: 'assets/videos/Back.mp4', label: 'Active: Back', focus: 'Pull pattern' },
+    lats: { src: 'assets/videos/Back.mp4', label: 'Active: Lats', focus: 'Pull pattern' },
+    'rear delts': { src: 'assets/videos/Back.mp4', label: 'Active: Rear Delts', focus: 'Pull pattern' },
+    biceps: { src: 'assets/videos/Back.mp4', label: 'Active: Biceps', focus: 'Pull pattern' },
+    'quads & glutes': { src: 'assets/videos/bush2.mp4', label: 'Active: Legs', focus: 'Lower body' },
+    quads: { src: 'assets/videos/bush2.mp4', label: 'Active: Legs', focus: 'Lower body' },
+    hamstrings: { src: 'assets/videos/bush2.mp4', label: 'Active: Legs', focus: 'Lower body' }
+  };
+
+  function setMuscleVisualization(exercise) {
+    const videoEl = document.getElementById('muscleVideo');
+    const labelEl = document.getElementById('muscleActiveLabel');
+    const focusEl = document.getElementById('muscleSessionFocus');
+    if (!videoEl || !labelEl || !focusEl || !exercise) return;
+
+    const key = (exercise.target || '').toLowerCase();
+    const muscleState = muscleVideoMap[key] || muscleVideoMap.shoulder;
+    videoEl.src = muscleState.src;
+    try { videoEl.load(); videoEl.play().catch(() => {}); } catch (error) {}
+    labelEl.textContent = muscleState.label;
+    focusEl.textContent = muscleState.focus;
+  }
+
+  function getDetailVideo(exercise) {
+    const target = (exercise.target || '').toLowerCase();
+    if (target.includes('back') || target.includes('lat') || target.includes('rear delt') || target.includes('biceps')) return 'assets/videos/Back.mp4';
+    if (target.includes('quads') || target.includes('hamstring') || target.includes('glute') || target.includes('leg')) return 'assets/videos/bush2.mp4';
+    return 'assets/videos/Back.mp4';
+  }
+
   const exerciseData = {
     'Push Day': [
       { name: 'Barbell Bench Press', target: 'Chest', sets: 4, reps: '6-8', rest: '90s', weight: 80, image: 'assets/img/exercises/img1.png', instructions: 'Lie flat on bench, grip slightly wider than shoulder. Lower bar to chest under control, pause briefly, and press up explosively.', mistakes: ['Flared elbows', 'Bouncing off chest'], safety: ['Use spotter for heavy sets', 'Control tempo'], machine: 'M-231' },
@@ -490,7 +533,7 @@
     const exercises = exerciseData[category] || [];
     
     exerciseList.innerHTML = exercises.map((ex, idx) => `
-      <article class="exercise-card glass hover-lift fast-trans" style="border-radius:clamp(0.5rem,2vw,1rem); padding:var(--card-pad)">
+      <article class="exercise-card glass hover-lift fast-trans" data-target="${ex.target}" data-detail-video="${getDetailVideo(ex)}" style="border-radius:clamp(0.5rem,2vw,1rem); padding:var(--card-pad)">
         <div class="flex flex-col md:flex-row md:items-start" style="gap:var(--gap)">
           <img src="${ex.image}" alt="${ex.name}" class="object-cover border border-white/6 flex-shrink-0" style="width:clamp(3rem,12vw,5rem); height:clamp(3rem,12vw,5rem); border-radius:clamp(0.375rem,1.5vw,0.5rem)" />
           <div class="flex-1 min-w-0">
@@ -509,9 +552,9 @@
                 <div class="flex items-center" style="gap:clamp(0.375rem,1vw,0.5rem)">
                   <button class="expand-btn glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Details</button>
                   <label class="relative inline-flex items-center cursor-pointer" style="min-height:2.25rem; min-width:2.25rem">
-                    <input type="checkbox" class="sr-only complete-checkbox" />
+                    <input type="checkbox" class="sr-only complete-checkbox peer" />
                     <div class="bg-white/6 rounded-full peer-checked:bg-gold fast-trans" style="width:clamp(1.75rem,5vw,2.5rem); height:clamp(1rem,2.5vw,1.5rem)"></div>
-                    <span class="absolute bg-white rounded-full transform peer-checked:translate-x-3 md:peer-checked:translate-x-4 fast-trans" style="width:clamp(0.875rem,2vw,1.25rem); height:clamp(0.875rem,2vw,1.25rem); left:clamp(0.125rem,0.5vw,0.25rem); top:clamp(0.125rem,0.5vw,0.25rem)"></span>
+                    <span class="absolute bg-white rounded-full transform peer-checked:translate-x-3 md:peer-checked:translate-x-4 peer-checked:bg-gold peer-checked:shadow-[0_0_16px_rgba(245,176,65,0.72),0_0_28px_rgba(245,176,65,0.26)] fast-trans" style="width:clamp(0.875rem,2vw,1.25rem); height:clamp(0.875rem,2vw,1.25rem); left:clamp(0.125rem,0.5vw,0.25rem); top:clamp(0.125rem,0.5vw,0.25rem)"></span>
                   </label>
                 </div>
               </div>
@@ -522,6 +565,9 @@
               <div class="grid grid-cols-1 md:grid-cols-2" style="margin-top:clamp(0.5rem,1vw,0.75rem); gap:var(--gap)">
                 <div class="glass rounded-lg" style="padding:clamp(0.5rem,1.5vw,0.75rem)"><div class="text-stone-400">Common mistakes</div><ul class="text-stone-400" style="margin-top:clamp(0.25rem,0.75vw,0.5rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">${ex.mistakes.map(m => `<li>${m}</li>`).join('')}</ul></div>
                 <div class="glass rounded-lg" style="padding:clamp(0.5rem,1.5vw,0.75rem)"><div class="text-stone-400">Safety tips</div><ul class="text-stone-400" style="margin-top:clamp(0.25rem,0.75vw,0.5rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">${ex.safety.map(s => `<li>${s}</li>`).join('')}</ul></div>
+              </div>
+              <div class="exercise-detail-video-wrap glass rounded-lg overflow-hidden" style="margin-top:clamp(0.5rem,1vw,0.75rem)">
+                <video class="exercise-detail-video w-full object-contain bg-black" muted playsinline loop preload="none" style="max-height:clamp(10rem,30vw,14rem)"></video>
               </div>
               <div class="flex flex-wrap items-center" style="margin-top:clamp(0.5rem,1vw,0.75rem); gap:clamp(0.25rem,1vw,0.5rem)">
                 <button class="glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)" data-action="qr">Scan QR</button>
@@ -546,6 +592,8 @@
       </article>
     `).join('');
 
+    setMuscleVisualization(exercises[0]);
+
     // Re-attach event listeners for new elements
     attachExerciseListeners();
     updateCounts();
@@ -557,15 +605,26 @@
       btn.addEventListener('click', () => {
         const card = btn.closest('.exercise-card');
         const details = card.querySelector('.details');
+        const detailVideo = card.querySelector('.exercise-detail-video');
+        const detailVideoSrc = card.dataset.detailVideo || '';
         const isOpen = details.classList.contains('accordion-open');
         if(isOpen) {
           details.classList.remove('accordion-open');
           details.classList.add('accordion-enter');
           details.style.maxHeight = '0px';
+          if (detailVideo) {
+            try { detailVideo.pause(); } catch (error) {}
+            detailVideo.removeAttribute('src');
+            detailVideo.load();
+          }
         } else {
           details.classList.add('accordion-open');
           details.classList.remove('accordion-enter');
           details.style.maxHeight = details.scrollHeight + 'px';
+          if (detailVideo && detailVideoSrc) {
+            detailVideo.src = detailVideoSrc;
+            try { detailVideo.load(); detailVideo.play().catch(() => {}); } catch (error) {}
+          }
         }
       });
     });
@@ -577,6 +636,15 @@
         const title = card.querySelector('.text-white.font-semibold').textContent;
         updateCounts();
         if(checked) showAchievement('+50 XP', 'Exercise completed: ' + title);
+      });
+    });
+
+    document.querySelectorAll('.exercise-card').forEach(card => {
+      card.addEventListener('click', (event) => {
+        if (event.target.closest('button, input, label, a, select, textarea')) return;
+        const target = card.dataset.target || '';
+        if (!target) return;
+        setMuscleVisualization({ target });
       });
     });
 
