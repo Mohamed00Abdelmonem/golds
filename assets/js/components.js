@@ -3,7 +3,7 @@ const Components = (function () {
   const STORAGE_KEY = 'goldtech.sidebarCollapsed';
   const THEME_KEY = 'goldtech.theme';
   const MANIFEST_PATH = 'manifest.json';
-  const APP_ICON_PATH = 'assets/golds-logo.png';
+  const APP_ICON_PATH = 'assets/logo-app.png';
   const PWA_THEME_COLORS = {
     dark: '#070708',
     light: '#f7f8fb',

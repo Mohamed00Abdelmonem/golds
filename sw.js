@@ -9,7 +9,7 @@ const CORE_ASSETS = [
   'assets/css/style.css',
   'assets/js/components.js',
   'assets/js/i18n.js',
-  'assets/golds-logo.png',
+  'assets/logo-app.png',
   'achievements.html',
   'blog-details.html',
   'blogs.html',
