@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#070708" />
+  <title>GoldTech Offline</title>
+  <style>
+    :root{color-scheme:dark;--gold:#f5b041}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:radial-gradient(circle at top,rgba(245,176,65,.12),transparent 25%),linear-gradient(180deg,#050506,#0d0d0f 60%,#050506);color:#fff;display:grid;place-items:center;padding:1.5rem}
+    .card{width:min(720px,100%);border:1px solid rgba(255,255,255,.08);border-radius:2rem;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));backdrop-filter:blur(18px) saturate(130%);padding:clamp(1.5rem,4vw,3rem);box-shadow:0 28px 70px rgba(0,0,0,.42)}
+    .brand{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem}
+    .mark{width:3.5rem;height:3.5rem;border-radius:1.15rem;background:linear-gradient(135deg,rgba(245,176,65,.22),rgba(255,255,255,.05));display:grid;place-items:center;border:1px solid rgba(245,176,65,.25);box-shadow:0 0 30px rgba(245,176,65,.12)}
+    .mark span{font-weight:900;color:var(--gold);font-size:1.35rem;letter-spacing:.02em}
+    h1{margin:.25rem 0 0;font-size:clamp(2rem,4vw,3.5rem);line-height:1.02}
+    p{color:#cbd5e1;line-height:1.7;font-size:1rem;max-width:58ch}
+    .actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.75rem}
+    a,button{appearance:none;border:none;border-radius:1rem;padding:.95rem 1.15rem;font:inherit;font-weight:700;text-decoration:none;cursor:pointer;min-height:44px}
+    .primary{background:var(--gold);color:#0b0b0c}
+    .secondary{background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.08)}
+    .hint{margin-top:1.5rem;font-size:.875rem;color:#94a3b8}
+    @media (max-width: 640px){.actions a,.actions button{width:100%;text-align:center}}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="brand">
+      <div class="mark" aria-hidden="true"><span>G</span></div>
+      <div>
+        <div style="letter-spacing:.24em;text-transform:uppercase;color:#f5b041;font-size:.72rem;font-weight:800">GoldTech PWA</div>
+        <h1>You are offline</h1>
+      </div>
+    </div>
+    <p>The app shell is still available. Reconnect to sync your workouts, classes, coaching content, and membership updates.</p>
+    <div class="actions">
+      <a class="primary" href="landing.html">Open the app</a>
+      <button class="secondary" type="button" onclick="location.reload()">Try again</button>
+    </div>
+    <div class="hint">Cached pages will continue to work after they’ve been opened once while online.</div>
+  </main>
+</body>
+</html>
