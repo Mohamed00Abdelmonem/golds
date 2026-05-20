@@ -2,6 +2,13 @@
 const Components = (function () {
   const STORAGE_KEY = 'goldtech.sidebarCollapsed';
   const THEME_KEY = 'goldtech.theme';
+  const MANIFEST_PATH = 'manifest.json';
+  const APP_ICON_PATH = 'assets/golds-logo.png';
+  const PWA_THEME_COLORS = {
+    dark: '#070708',
+    light: '#f7f8fb',
+  };
+  let deferredInstallPrompt = null;
   const currentPage = () => window.location.pathname.split('/').pop() || 'index.html';
   const resolveActive = (href, page) => {
     const aliases = {
@@ -17,6 +24,111 @@ const Components = (function () {
     const saved = localStorage.getItem(THEME_KEY);
     if (saved === 'light' || saved === 'dark') return saved;
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  };
+
+  const isStandaloneMode = () => window.matchMedia?.('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
+  const ensureMeta = (name, content) => {
+    let meta = document.head.querySelector(`meta[name="${name}"]`);
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.setAttribute('name', name);
+      document.head.appendChild(meta);
+    }
+    meta.setAttribute('content', content);
+    return meta;
+  };
+
+  const ensureLink = (rel, href, extraAttributes = {}) => {
+    let link = document.head.querySelector(`link[rel="${rel}"]`);
+    if (!link) {
+      link = document.createElement('link');
+      link.setAttribute('rel', rel);
+      document.head.appendChild(link);
+    }
+    link.setAttribute('href', href);
+    Object.entries(extraAttributes).forEach(([key, value]) => link.setAttribute(key, value));
+    return link;
+  };
+
+  const syncThemeColor = (theme) => {
+    const resolved = theme === 'light' ? 'light' : 'dark';
+    ensureMeta('theme-color', PWA_THEME_COLORS[resolved]);
+    document.documentElement.style.colorScheme = resolved;
+  };
+
+  const injectPwaAssets = () => {
+    ensureLink('manifest', MANIFEST_PATH, { type: 'application/manifest+json' });
+    ensureLink('icon', APP_ICON_PATH, { type: 'image/png' });
+    ensureLink('apple-touch-icon', APP_ICON_PATH);
+    ensureMeta('application-name', 'GoldTech');
+    ensureMeta('apple-mobile-web-app-title', 'GoldTech');
+    ensureMeta('apple-mobile-web-app-capable', 'yes');
+    ensureMeta('mobile-web-app-capable', 'yes');
+    ensureMeta('apple-mobile-web-app-status-bar-style', 'black-translucent');
+    syncThemeColor(getPreferredTheme());
+  };
+
+  const registerServiceWorker = async () => {
+    if (!('serviceWorker' in navigator)) return;
+
+    try {
+      await navigator.serviceWorker.register('sw.js', { scope: './' });
+    } catch {
+      // Silent fallback for unsupported hosts or file:// previews.
+    }
+  };
+
+  const initInstallPrompt = () => {
+    if (!document.body || document.getElementById('pwaInstallButton')) return;
+
+    const installButton = document.createElement('button');
+    installButton.id = 'pwaInstallButton';
+    installButton.type = 'button';
+    installButton.className = 'pwa-install-button hidden';
+    installButton.setAttribute('aria-label', 'Install GoldTech app');
+    installButton.innerHTML = '<span class="pwa-install-button__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v10m0 0 3.5-3.5M12 13l-3.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 14.5v2.8c0 1.2.9 2.2 2 2.2h10c1.1 0 2-.9 2-2.2v-2.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span class="pwa-install-button__text">Install app</span>';
+
+    const updateVisibility = () => {
+      const shouldShow = Boolean(deferredInstallPrompt) && !isStandaloneMode();
+      installButton.classList.toggle('hidden', !shouldShow);
+    };
+
+    const handleInstall = async () => {
+      if (!deferredInstallPrompt) return;
+
+      deferredInstallPrompt.prompt();
+      try {
+        await deferredInstallPrompt.userChoice;
+      } finally {
+        deferredInstallPrompt = null;
+        updateVisibility();
+      }
+    };
+
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault();
+      deferredInstallPrompt = event;
+      updateVisibility();
+    });
+
+    window.addEventListener('appinstalled', () => {
+      deferredInstallPrompt = null;
+      updateVisibility();
+    });
+
+    window.matchMedia?.('(display-mode: standalone)')?.addEventListener?.('change', updateVisibility);
+    installButton.addEventListener('click', handleInstall);
+    document.body.appendChild(installButton);
+    updateVisibility();
+  };
+
+  const syncPwaState = () => {
+    injectPwaAssets();
+    document.documentElement.classList.toggle('is-standalone', isStandaloneMode());
+    document.body?.classList.toggle('is-standalone', isStandaloneMode());
+    initInstallPrompt();
+    registerServiceWorker();
   };
 
   const syncThemeIcons = (theme) => {
@@ -38,7 +150,12 @@ const Components = (function () {
     document.documentElement.setAttribute('data-theme', resolved);
     document.body.setAttribute('data-theme', resolved);
     localStorage.setItem(THEME_KEY, resolved);
+    syncThemeColor(resolved);
     syncThemeIcons(resolved);
+  };
+
+  const toggleTheme = () => {
+    applyTheme(document.body.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
   };
 
   const syncSidebarState = () => {
@@ -679,7 +796,17 @@ const Components = (function () {
     document.body.classList.add('page-ready');
   }
 
-  return { init, applyTheme };
+  const bootPwa = () => {
+    syncPwaState();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootPwa, { once: true });
+  } else {
+    bootPwa();
+  }
+
+  return { init, applyTheme, toggleTheme };
 })();
 
 window.Components = Components;

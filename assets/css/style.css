@@ -132,6 +132,75 @@ body[data-theme="light"] .progress-empty-state{background:linear-gradient(180deg
   body,.fast-trans,.reveal{transition:none !important;animation:none !important}
 }
 
+body.is-standalone{
+  overscroll-behavior:none;
+}
+
+.pwa-install-button{
+  position:fixed;
+  right:1rem;
+  bottom:1rem;
+  z-index:60;
+  display:inline-flex;
+  align-items:center;
+  gap:0.75rem;
+  padding:0.9rem 1.05rem;
+  border-radius:1.25rem;
+  border:1px solid rgba(245,176,65,0.28);
+  background:linear-gradient(180deg,rgba(18,18,20,0.96),rgba(10,10,11,0.9));
+  color:#fff;
+  box-shadow:0 18px 48px rgba(0,0,0,0.35),0 0 32px rgba(245,176,65,0.12);
+  backdrop-filter:blur(16px) saturate(130%);
+  -webkit-backdrop-filter:blur(16px) saturate(130%);
+  transition:transform 180ms ease,opacity 180ms ease,box-shadow 180ms ease;
+}
+
+.pwa-install-button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 22px 54px rgba(0,0,0,0.42),0 0 36px rgba(245,176,65,0.18);
+}
+
+.pwa-install-button.hidden{
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(10px);
+}
+
+.pwa-install-button__icon{
+  width:1.9rem;
+  height:1.9rem;
+  border-radius:0.9rem;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,rgba(245,176,65,0.22),rgba(255,255,255,0.05));
+  color:var(--gold);
+  flex:0 0 auto;
+}
+
+.pwa-install-button__icon svg{
+  width:1.1rem;
+  height:1.1rem;
+}
+
+.pwa-install-button__text{
+  font-size:0.875rem;
+  font-weight:700;
+  letter-spacing:0.01em;
+}
+
+body.is-standalone .pwa-install-button{
+  display:none;
+}
+
+@media (max-width: 640px){
+  .pwa-install-button{
+    left:1rem;
+    right:1rem;
+    bottom:calc(1rem + env(safe-area-inset-bottom));
+    justify-content:center;
+  }
+}
+
 /* ========================================
    MOBILE RESPONSIVE OPTIMIZATIONS
    ======================================== */
