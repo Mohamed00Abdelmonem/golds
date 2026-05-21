@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Coach — GoldTech</title>
+  <script>tailwind.config = { theme: { extend: { colors: { gold: { DEFAULT: '#f5b041' } }, fontFamily: { display:['Poppins','Inter','system-ui','sans-serif'] } } } }</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="antialiased">
+  <div id="shell-root" class="app-shell min-h-screen flex">
+    <div class="shell-overlay"></div>
+    <aside class="app-sidebar hidden md:flex flex-col w-72 p-5 gap-6 glass rounded-2xl sticky top-6 m-6 h-[calc(100vh-48px)] overflow-hidden">
+      <a href="landing.html" class="flex items-center gap-3 sidebar-brand">
+        <div class="sidebar-brand-icon rounded-xl p-2 bg-gradient-to-br from-[#1b1b1d] to-[#111112]"><img src="assets/golds-logo.png" alt="Golds logo" class="w-9 h-9 object-contain"/></div>
+        <div class="sidebar-brand-text"><div class="text-white font-semibold text-lg">GoldTech</div><div class="sidebar-meta text-stone-400 text-xs uppercase tracking-widest">Smart Fitness OS</div></div>
+      </a>
+      <nav aria-label="Primary" class="flex-1 overflow-y-auto pr-1">
+        <ul class="space-y-1 text-sm">
+          <li><a href="landing.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Home</span></a></li>
+          <li><a href="dashboard.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Dashboard</span></a></li>
+          <li><a href="programs.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Programs</span></a></li>
+          <li><a href="workout.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Workouts</span></a></li>
+          <li><a href="community.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Community</span></a></li>
+          <li><a href="support.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Support</span></a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer pt-3 border-t border-white/6 text-sm"><div class="text-stone-400">Active Membership</div><div class="mt-2 flex items-center justify-between"><div><div class="text-white font-semibold">Gold Elite</div><div class="text-stone-400 text-xs">Valid until May 2027</div></div><div class="bg-gradient-to-br from-[#2a2a2a]/80 to-[#161616]/60 p-2 rounded-lg text-gold">&#9679;</div></div></div>
+    </aside>
+
+    <main class="flex-1 p-5 md:p-8 overflow-y-auto safe-bottom">
+      <header class="sticky top-6 z-30 glass rounded-2xl p-3 md:p-4 mb-6 flex items-center justify-between fast-trans backdrop-blur-xl">
+        <div class="flex items-center gap-3 md:gap-4"><button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16" stroke-width="1.6" stroke-linecap="round"/></svg></button><button id="sidebarToggle" class="hidden md:inline-flex sidebar-toggle p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle sidebar" aria-pressed="false"><svg class="w-5 h-5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="hidden md:flex items-center gap-4"><h1 class="text-white font-extrabold text-lg">AI Coach</h1><div class="text-stone-400 text-sm">Smart training & nutrition assistant</div></div></div>
+        <div class="flex items-center gap-3"><button id="themeToggle" class="hidden sm:inline-flex p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle theme" aria-pressed="false"><span data-theme-icon="dark" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-theme-icon="light" class="hidden" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><a href="profile.html" class="flex items-center gap-3 rounded-2xl bg-white/3 px-3 py-2 hover:bg-white/6 fast-trans"><div class="text-right hidden sm:block"><div class="text-white font-semibold">Mohamed</div><div class="text-stone-400 text-xs">Gold Elite</div></div><img src="assets/img/user.png" alt="avatar" class="w-10 h-10 rounded-full object-cover border border-white/6"/></a></div>
+      </header>
+
+      <section class="rounded-[1.75rem] border border-white/10 bg-gradient-to-b from-[#090b10] to-[#05070a] p-5 md:p-7 shadow-[0_22px_60px_rgba(0,0,0,0.35)]">
+        <div class="flex flex-wrap items-center gap-2">
+          <button class="ai-suggest rounded-full border border-white/12 bg-white/5 px-3 py-1.5 text-xs text-stone-300 hover:border-gold/50 hover:text-gold fast-trans">Build my weekly plan</button>
+          <button class="ai-suggest rounded-full border border-white/12 bg-white/5 px-3 py-1.5 text-xs text-stone-300 hover:border-gold/50 hover:text-gold fast-trans">High-protein meal ideas</button>
+          <button class="ai-suggest rounded-full border border-white/12 bg-white/5 px-3 py-1.5 text-xs text-stone-300 hover:border-gold/50 hover:text-gold fast-trans">Fix squat plateau</button>
+        </div>
+
+        <div id="chatWindow" class="mt-4 rounded-2xl border border-white/10 bg-[#0f131a] p-4 md:p-5 min-h-[420px] max-h-[58vh] overflow-y-auto space-y-4">
+          <article class="max-w-[90%] md:max-w-[72%] rounded-2xl border border-white/10 bg-white/5 p-3 md:p-4">
+            <div class="text-xs uppercase tracking-[0.14em] text-stone-400 font-semibold">AI Coach</div>
+            <p class="mt-2 text-sm text-stone-200">Ready to coach you today. Ask for workouts, macros, progress analysis, or recovery tips.</p>
+          </article>
+        </div>
+
+        <form id="chatForm" class="mt-4 flex gap-3">
+          <input id="chatInput" type="text" placeholder="Ask AI Coach anything..." class="flex-1 rounded-2xl border border-white/12 bg-[#10131a] px-4 py-3 text-sm text-white placeholder:text-stone-500 outline-none focus:border-gold/55 focus:ring-2 focus:ring-gold/20 fast-trans" />
+          <button type="submit" class="rounded-[1rem] border border-white/15 bg-gradient-to-b from-[#171a20] to-[#0d1015] px-5 py-3 text-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] hover:border-gold/55 hover:text-gold fast-trans">Send</button>
+        </form>
+      </section>
+
+      <nav id="mobileNav" class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] md:hidden glass rounded-full p-2 flex items-center justify-between px-4 shadow-glass-strong safe-bottom">
+          <a href="dashboard.html" data-mobile-nav-link class="flex flex-col items-center gap-1 text-stone-400"><span class="w-2 h-2 rounded-full bg-white/30"></span><div class="text-xs">Home</div></a>
+          <a href="programs.html" data-mobile-nav-link class="flex flex-col items-center gap-1 text-stone-400"><span class="w-2 h-2 rounded-full bg-white/30"></span><div class="text-xs">Programs</div></a>
+          <a href="workout.html" data-mobile-nav-link class="flex flex-col items-center gap-1 text-stone-400"><span class="w-2 h-2 rounded-full bg-white/30"></span><div class="text-xs">Scan</div></a>
+          <a href="profile.html" data-mobile-nav-link class="flex flex-col items-center gap-1 text-stone-400"><span class="w-2 h-2 rounded-full bg-white/30"></span><div class="text-xs">Profile</div></a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="assets/js/components.js"></script>
+  <script>
+    Components.init();
+
+    const chatForm = document.getElementById('chatForm');
+    const chatInput = document.getElementById('chatInput');
+    const chatWindow = document.getElementById('chatWindow');
+    const suggestButtons = document.querySelectorAll('.ai-suggest');
+
+    const appendMessage = (role, text) => {
+      const wrapper = document.createElement('article');
+      wrapper.className = (role === 'user')
+        ? 'ml-auto max-w-[90%] md:max-w-[72%] rounded-2xl border border-gold/30 bg-gold/10 p-3 md:p-4'
+        : 'max-w-[90%] md:max-w-[72%] rounded-2xl border border-white/10 bg-white/5 p-3 md:p-4';
+
+      const title = document.createElement('div');
+      title.className = 'text-xs uppercase tracking-[0.14em] font-semibold ' + (role === 'user' ? 'text-gold' : 'text-stone-400');
+      title.textContent = role === 'user' ? 'You' : 'AI Coach';
+
+      const body = document.createElement('p');
+      body.className = 'mt-2 text-sm ' + (role === 'user' ? 'text-amber-100' : 'text-stone-200');
+      body.textContent = text;
+
+      wrapper.appendChild(title);
+      wrapper.appendChild(body);
+      chatWindow.appendChild(wrapper);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    };
+
+    const coachReply = (prompt) => {
+      const lower = prompt.toLowerCase();
+      if (lower.includes('meal') || lower.includes('protein')) return 'Start with 1.8-2.2g protein/kg bodyweight, split across 4 meals. Want a full day meal plan with calories?';
+      if (lower.includes('squat') || lower.includes('plateau')) return 'For squat plateau: reduce load 10% for 1 week, add pause squats 3x4, and improve sleep to 7.5h+. I can build your 4-week progression.';
+      if (lower.includes('weekly') || lower.includes('plan')) return 'Weekly split suggestion: Push, Pull, Legs, Rest, Upper, Lower, Rest. I can personalize sets/reps based on your goal.';
+      return 'Great question. Tell me your goal, training age, and available days, and I will build a personalized coaching plan.';
+    };
+
+    chatForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = chatInput.value.trim();
+      if (!text) return;
+      appendMessage('user', text);
+      chatInput.value = '';
+      window.setTimeout(() => appendMessage('ai', coachReply(text)), 350);
+    });
+
+    suggestButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const text = button.textContent.trim();
+        chatInput.value = text;
+        chatForm.dispatchEvent(new Event('submit', { cancelable: true }));
+      });
+    });
+  </script>
+</body>
+</html>
