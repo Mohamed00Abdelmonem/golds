@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -18,6 +18,8 @@
       .progress-module { padding: 1rem !important; }
       .progress-dropzone .grid { grid-template-columns: repeat(3,1fr) !important; }
       .progress-dropzone .grid > div { height: 72px; }
+      .progress-stat-meta { align-items: flex-start; text-align: left; white-space: normal; }
+      .progress-stat-meta [data-progress-stat-delta] { white-space: normal; }
     }
     @media (max-width: 420px) {
       .progress-mobile-three { grid-template-columns: repeat(3, minmax(0,1fr)) !important; }
@@ -44,6 +46,17 @@
     .compare-after { position: absolute; inset: 0; width: var(--compare-width, 50%); overflow: hidden; border-right: 1px solid rgba(245,176,65,0.6); box-shadow: 10px 0 22px rgba(0,0,0,0.28); z-index: 2; }
     .compare-after img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
     .compare-handle { z-index: 3; }
+    /* Calendar module */
+    .calendar-day.is-selected { border-color: rgba(245,176,65,0.7) !important; box-shadow: 0 0 0 2px rgba(245,176,65,0.2); }
+    .calendar-day.is-today { border-color: rgba(255,255,255,0.45) !important; }
+    .calendar-dot { width: 0.35rem; height: 0.35rem; border-radius: 9999px; background: #f5b041; box-shadow: 0 0 10px rgba(245,176,65,0.6); }
+    @media (max-width: 640px) {
+      [data-workout-calendar] .grid-cols-7 { grid-template-columns: repeat(7, minmax(0, 1fr)) !important; }
+      [data-workout-calendar] [data-calendar-grid] { grid-template-columns: repeat(7, minmax(0, 1fr)) !important; }
+      [data-workout-calendar] .calendar-day { font-size: 0.7rem; }
+      [data-workout-calendar] .calendar-day span { font-size: 0.7rem; }
+      [data-workout-calendar] .calendar-dot { width: 0.28rem; height: 0.28rem; }
+    }
   </style>
 </head>
 <body class="antialiased">
@@ -81,7 +94,7 @@
     <main class="flex-1 p-5 md:p-8 overflow-y-auto safe-bottom">
       <header class="sticky top-6 z-30 glass rounded-2xl p-3 md:p-4 mb-6 flex items-center justify-between fast-trans backdrop-blur-xl">
         <div class="flex items-center gap-3 md:gap-4"><button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16" stroke-width="1.6" stroke-linecap="round"/></svg></button><button id="sidebarToggle" class="hidden md:inline-flex sidebar-toggle p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle sidebar" aria-pressed="false"><svg class="w-5 h-5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="hidden md:flex items-center gap-4"><h1 class="text-white font-extrabold text-lg">Member Profile</h1><div class="text-stone-400 text-sm">Premium smart gym platform</div></div></div>
-        <div class="flex items-center gap-3"><button id="themeToggle" class="hidden sm:inline-flex p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle theme" aria-pressed="false"><span data-theme-icon="dark" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-theme-icon="light" class="hidden" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="relative hidden sm:flex items-center"><label for="search" class="sr-only">Search</label><input id="search" class="glass rounded-xl px-3 py-2 pl-10 pr-3 w-64 bg-transparent text-white placeholder:opacity-60 fast-trans focus-visible-ring" placeholder="Search"/><svg class="absolute left-3 w-4 h-4 text-stone-400" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.2"/></svg></div><a href="profile.html" class="flex items-center gap-3 rounded-2xl bg-white/3 px-3 py-2 hover:bg-white/6 fast-trans"><div class="text-right hidden sm:block"><div class="text-white font-semibold">علي محمد</div><div class="text-stone-400 text-xs">Gold Elite</div></div><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=64&auto=format&fit=crop&s=placeholder" alt="avatar" class="w-10 h-10 rounded-full object-cover border border-white/6"/></a></div>
+        <div class="flex items-center gap-3"><button id="themeToggle" class="hidden sm:inline-flex p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle theme" aria-pressed="false"><span data-theme-icon="dark" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-theme-icon="light" class="hidden" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="relative hidden sm:flex items-center"><label for="search" class="sr-only">Search</label><input id="search" class="glass rounded-xl px-3 py-2 pl-10 pr-3 w-64 bg-transparent text-white placeholder:opacity-60 fast-trans focus-visible-ring" placeholder="Search"/><svg class="absolute left-3 w-4 h-4 text-stone-400" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.2"/></svg></div><a href="profile.html" class="flex items-center gap-3 rounded-2xl bg-white/3 px-3 py-2 hover:bg-white/6 fast-trans"><div class="text-right hidden sm:block"><div class="text-white font-semibold">Mohamed</div><div class="text-stone-400 text-xs">Gold Elite</div></div><img src="assets/img/user.png" alt="avatar" class="w-10 h-10 rounded-full object-cover border border-white/6"/></a></div>
       </header>
       <div id="page-main">
       <section class="grid xl:grid-cols-12 gap-6 reveal" data-progress-photos>
@@ -89,7 +102,7 @@
           <div class="flex items-center justify-between gap-4">
             <div>
               <div class="text-stone-400 text-xs uppercase tracking-[0.24em]">Member profile</div>
-              <h1 class="mt-2 text-3xl md:text-4xl font-black">علي محمد</h1>
+              <h1 class="mt-2 text-3xl md:text-4xl font-black">Mohamed</h1>
             </div>
             <div class="rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-xs font-semibold text-gold">Gold Elite</div>
           </div>
@@ -97,7 +110,7 @@
           <div class="mt-6 relative overflow-hidden rounded-[2rem] border border-white/8 bg-black/25 p-5">
             <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,176,65,0.16),transparent_35%)]"></div>
             <div class="relative flex flex-col items-center text-center">
-              <img src="assets/img/posts/user.png" alt="Profile" class="w-36 h-36 rounded-full object-cover border border-white/10 shadow-[0_0_40px_rgba(245,176,65,.18)]">
+              <img src="assets/img/user.png" alt="Profile" class="w-36 h-36 rounded-full object-cover border border-white/10 shadow-[0_0_40px_rgba(245,176,65,.18)]">
               <p class="mt-4 text-stone-300">Premium smart gym member • 4 month streak</p>
               <div class="mt-4 inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/3 px-4 py-2 text-sm text-stone-200">
                 <span class="h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_16px_rgba(74,222,128,0.35)]"></span>
@@ -238,8 +251,8 @@
                   <span class="rounded-full border border-white/8 bg-white/5 px-3 py-1 text-xs text-stone-300">Live slider</span>
                 </div>
                 <div class="mt-4 compare-frame aspect-[4/5]" data-progress-compare-reveal>
-                  <img data-progress-before src=".//assets/img/image2.png" alt="Before progress photo" />
-                  <div class="compare-after"><img data-progress-after src="assets/img/image1.png" alt="After progress photo" /></div>
+                  <img data-progress-before src="assets/img/transformations/1.png" alt="Before progress photo" />
+                  <div class="compare-after"><img data-progress-after src="assets/img/transformations/2.png" alt="After progress photo" /></div>
                   <div class="compare-handle"></div>
                 </div>
                 <input type="range" min="20" max="80" value="62" class="mt-4 w-full accent-[var(--gold)]" data-progress-compare-range />
@@ -280,6 +293,46 @@
             </div>
           </div>
 
+          <section class="glass rounded-[2rem] p-5 md:p-6 progress-module overflow-hidden" data-workout-calendar>
+            <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+              <div>
+                <div class="text-stone-400 text-xs uppercase tracking-[0.24em]">Progressive overload</div>
+                <h2 class="mt-2 text-2xl font-black text-white">Workouts by day</h2>
+                <p class="mt-2 text-sm text-stone-400">Track daily sessions and review exercises completed.</p>
+              </div>
+              <a href="programs.html" class="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white hover:bg-white/10 fast-trans">Open progressive overload</a>
+            </div>
+
+            <div class="mt-6 grid gap-6 lg:grid-cols-12">
+              <div class="lg:col-span-7">
+                <div class="flex items-center justify-between mb-4">
+                  <div class="text-white font-semibold" data-calendar-title>May 2026</div>
+                  <div class="text-xs text-stone-400">Click a day to view details</div>
+                </div>
+                <div class="grid grid-cols-7 gap-2 text-xs text-stone-400 mb-2">
+                  <div class="text-center">Mon</div>
+                  <div class="text-center">Tue</div>
+                  <div class="text-center">Wed</div>
+                  <div class="text-center">Thu</div>
+                  <div class="text-center">Fri</div>
+                  <div class="text-center">Sat</div>
+                  <div class="text-center">Sun</div>
+                </div>
+                <div class="grid grid-cols-7 gap-2" data-calendar-grid></div>
+              </div>
+
+              <div class="lg:col-span-5">
+                <div class="rounded-[1.5rem] border border-white/8 bg-black/25 p-5">
+                  <div class="text-sm text-stone-400">Selected day</div>
+                  <div class="mt-2 text-xl font-black text-white" data-calendar-detail>Date</div>
+                  <div class="mt-1 text-xs text-stone-400" data-calendar-detail-meta>Summary</div>
+                  <div class="mt-4 space-y-2" data-calendar-detail-list></div>
+                  <div class="mt-4 text-sm text-stone-400 hidden" data-calendar-empty>No workouts logged for this day.</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           <section class="glass rounded-[2rem] p-5 md:p-6 progress-module overflow-hidden">
             <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
               <div>
@@ -308,6 +361,153 @@
   <script src="assets/js/components.js"></script>
   <script>
     Components.init();
+
+    (function () {
+      const root = document.querySelector('[data-workout-calendar]');
+      if (!root) return;
+
+      const titleEl = root.querySelector('[data-calendar-title]');
+      const gridEl = root.querySelector('[data-calendar-grid]');
+      const detailEl = root.querySelector('[data-calendar-detail]');
+      const detailMetaEl = root.querySelector('[data-calendar-detail-meta]');
+      const detailListEl = root.querySelector('[data-calendar-detail-list]');
+      const emptyEl = root.querySelector('[data-calendar-empty]');
+
+      const storageKey = 'goldtech.workoutCalendar';
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth();
+
+      const toISO = (y, m, d) => {
+        const mm = String(m + 1).padStart(2, '0');
+        const dd = String(d).padStart(2, '0');
+        return `${y}-${mm}-${dd}`;
+      };
+
+      const seedData = {
+        [toISO(year, month, 3)]: {
+          title: 'Upper body strength',
+          duration: '62 min',
+          calories: '480 kcal',
+          exercises: ['Bench press 4x6', 'Incline DB press 3x10', 'Seated row 3x12', 'Tricep rope 3x12'],
+        },
+        [toISO(year, month, 8)]: {
+          title: 'Lower body power',
+          duration: '55 min',
+          calories: '510 kcal',
+          exercises: ['Back squat 5x5', 'RDL 3x8', 'Walking lunge 3x12', 'Calf raise 4x15'],
+        },
+        [toISO(year, month, 15)]: {
+          title: 'Pull focus',
+          duration: '58 min',
+          calories: '450 kcal',
+          exercises: ['Deadlift 4x4', 'Lat pulldown 3x10', 'Face pull 3x15', 'Bicep curl 3x12'],
+        },
+        [toISO(year, month, 21)]: {
+          title: 'Conditioning + core',
+          duration: '42 min',
+          calories: '390 kcal',
+          exercises: ['Rowing intervals 6x1m', 'Plank 3x45s', 'Hanging knee raise 3x12', 'Farmer carry 4x30m'],
+        },
+      };
+
+      const loadData = () => {
+        const stored = localStorage.getItem(storageKey);
+        if (stored) {
+          try {
+            return JSON.parse(stored);
+          } catch {
+            return { ...seedData };
+          }
+        }
+        localStorage.setItem(storageKey, JSON.stringify(seedData));
+        return { ...seedData };
+      };
+
+      const workouts = loadData();
+
+      const formatTitle = (y, m) => {
+        const date = new Date(y, m, 1);
+        return date.toLocaleString('en-US', { month: 'long', year: 'numeric' });
+      };
+
+      const renderDetails = (iso) => {
+        const entry = workouts[iso];
+        if (!entry) {
+          detailEl.textContent = iso;
+          detailMetaEl.textContent = 'No session logged.';
+          detailListEl.innerHTML = '';
+          emptyEl.classList.remove('hidden');
+          return;
+        }
+
+        emptyEl.classList.add('hidden');
+        detailEl.textContent = iso;
+        detailMetaEl.textContent = `${entry.title} • ${entry.duration} • ${entry.calories}`;
+        detailListEl.innerHTML = entry.exercises
+          .map((item) => `<div class="flex items-center justify-between rounded-2xl border border-white/8 bg-white/3 px-4 py-2 text-sm text-stone-200"><span>${item}</span><span class="text-xs text-stone-400">Completed</span></div>`)
+          .join('');
+      };
+
+      const buildCalendar = () => {
+        titleEl.textContent = formatTitle(year, month);
+        gridEl.innerHTML = '';
+
+        const firstDay = new Date(year, month, 1);
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const offset = (firstDay.getDay() + 6) % 7; // Monday start
+        const totalCells = 42;
+
+        for (let i = 0; i < totalCells; i += 1) {
+          const dayNumber = i - offset + 1;
+          const cell = document.createElement('div');
+          cell.className = 'aspect-square';
+
+          if (dayNumber < 1 || dayNumber > daysInMonth) {
+            cell.innerHTML = '<div class="h-full rounded-2xl border border-white/6 bg-white/2"></div>';
+            gridEl.appendChild(cell);
+            continue;
+          }
+
+          const iso = toISO(year, month, dayNumber);
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'calendar-day h-full w-full rounded-2xl border border-white/10 bg-white/3 text-sm text-white flex flex-col items-center justify-center gap-2 fast-trans hover:bg-white/6';
+          button.dataset.date = iso;
+          button.innerHTML = `<span class="text-sm font-semibold">${dayNumber}</span>`;
+
+          if (workouts[iso]) {
+            const dot = document.createElement('span');
+            dot.className = 'calendar-dot';
+            button.appendChild(dot);
+          }
+
+          if (iso === toISO(today.getFullYear(), today.getMonth(), today.getDate())) {
+            button.classList.add('is-today');
+          }
+
+          button.addEventListener('click', () => {
+            gridEl.querySelectorAll('.calendar-day.is-selected').forEach((node) => node.classList.remove('is-selected'));
+            button.classList.add('is-selected');
+            renderDetails(iso);
+          });
+
+          cell.appendChild(button);
+          gridEl.appendChild(cell);
+        }
+
+        const defaultIso = toISO(today.getFullYear(), today.getMonth(), today.getDate());
+        const defaultButton = gridEl.querySelector(`[data-date="${defaultIso}"]`);
+        if (defaultButton) {
+          defaultButton.classList.add('is-selected');
+          renderDetails(defaultIso);
+        }
+      };
+
+      buildCalendar();
+    })();
   </script>
 </body>
 </html>
+
+

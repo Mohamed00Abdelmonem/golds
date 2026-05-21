@@ -38,6 +38,15 @@ body.page-leaving{opacity:0;transform:translateY(8px)}
 .shell-overlay{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at top right,rgba(245,176,65,0.08),transparent 35%),radial-gradient(circle at bottom left,rgba(255,255,255,0.04),transparent 40%);transition:opacity 200ms ease}
 .shell-overlay.opacity-100{opacity:1;pointer-events:auto}
 .shell-overlay.pointer-events-auto{pointer-events:auto}
+.app-shell main > header{gap:1rem;align-items:center}
+.app-shell main > header > .flex:first-child{flex:1 1 auto;min-width:0}
+.app-shell main > header > .flex:last-child{flex:0 0 auto}
+.app-shell main > header h1,
+.app-shell main > header .text-stone-400{white-space:nowrap}
+@media (max-width:1024px){
+  .app-shell main > header h1,
+  .app-shell main > header .text-stone-400{white-space:normal}
+}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity 560ms ease,transform 560ms ease}
 .reveal.in-view{opacity:1;transform:translateY(0)}
 .float-ambient{animation:floaty 6s ease-in-out infinite}
@@ -780,19 +789,21 @@ body.is-standalone .pwa-install-button{
     pointer-events: none;
   }
 }
+
+@media (max-width: 640px) {
   header {
     padding: 1rem 0.75rem !important;
     flex-wrap: wrap;
   }
-  
+
   header nav {
     display: none;
   }
-  
+
   header .hidden.sm\\:inline-flex {
     display: none;
   }
-  
+
   /* Mobile button improvements */
   .bg-gold {
     min-height: 44px;
@@ -842,6 +853,10 @@ body.is-standalone .pwa-install-button{
 @media (max-width: 768px) {
   .focus-visible-ring:focus {
     box-shadow: 0 0 0 3px rgba(245,176,65,0.28) !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 

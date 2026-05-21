@@ -296,6 +296,47 @@ const Components = (function () {
     });
   };
 
+  const injectAiCoachNav = () => {
+    const isArabicPage = window.location.pathname.includes('/arabic/');
+    const label = isArabicPage ? 'AI Coach' : 'AI Coach';
+    const href = isArabicPage ? '../ai-coach.html' : 'ai-coach.html';
+    const sidebarLinks = document.querySelectorAll('aside.app-sidebar nav ul');
+    const mobileNavs = document.querySelectorAll('nav#mobileNav');
+
+    sidebarLinks.forEach((list) => {
+      if (list.querySelector(`a[href="${href}"]`)) return;
+
+      const aiItem = document.createElement('li');
+      aiItem.innerHTML = '<a href="' + href + '" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">' + label + '</span></a>';
+
+      const supportLink = list.querySelector('a[href="support.html"]');
+      if (supportLink?.parentElement) {
+        supportLink.parentElement.before(aiItem);
+        return;
+      }
+
+      list.appendChild(aiItem);
+    });
+
+    mobileNavs.forEach((nav) => {
+      if (nav.querySelector(`a[href="${href}"]`)) return;
+
+      const aiLink = document.createElement('a');
+      aiLink.setAttribute('href', href);
+      aiLink.setAttribute('data-mobile-nav-link', '');
+      aiLink.className = 'flex flex-col items-center gap-1 text-stone-400';
+      aiLink.innerHTML = '<span class="w-2 h-2 rounded-full bg-white/30"></span><div class="text-xs">' + label + '</div>';
+
+      const profileLink = nav.querySelector('a[href="profile.html"]');
+      if (profileLink) {
+        profileLink.before(aiLink);
+        return;
+      }
+
+      nav.appendChild(aiLink);
+    });
+  };
+
   const highlightActiveNav = () => {
     const page = currentPage();
     document.querySelectorAll('[data-nav-link]').forEach((link) => {
@@ -336,9 +377,9 @@ const Components = (function () {
 
     const storageKey = 'goldtech.progressPhotos';
     const localMedia = {
-      front: 'assets/img/image1.png',
-      side: 'assets/img/image1.png',
-      back: 'assets/img/imag1.png',
+      front: 'assets/img/transformations/1.png',
+      side: 'assets/img/transformations/2.png',
+      back: 'assets/img/transformations/3.png',
     };
     const fallbackEntries = [
       {
@@ -737,6 +778,7 @@ const Components = (function () {
     injectTimerNav();
     injectCoachDashboardNav();
     injectAttendanceNav();
+    injectAiCoachNav();
     highlightActiveNav();
     initRevealObserver();
     initProgressPhotos();
