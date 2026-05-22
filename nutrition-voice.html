@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Nutrition Voice Tracking - GoldTech</title>
+  <script>tailwind.config = { theme: { extend: { colors: { gold: { DEFAULT: '#f5b041' } }, fontFamily: { display:['Poppins','Inter','system-ui','sans-serif'] } } } }</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="antialiased">
+  <div id="shell-root" class="app-shell min-h-screen flex">
+    <div class="shell-overlay"></div>
+    <aside class="app-sidebar hidden md:flex flex-col w-72 p-5 gap-6 glass rounded-2xl sticky top-6 m-6 h-[calc(100vh-48px)] overflow-hidden">
+      <a href="landing.html" class="flex items-center gap-3 sidebar-brand">
+        <div class="sidebar-brand-icon rounded-xl p-2 bg-gradient-to-br from-[#1b1b1d] to-[#111112]"><img src="assets/golds-logo.png" alt="Golds logo" class="w-9 h-9 object-contain"/></div>
+        <div class="sidebar-brand-text"><div class="text-white font-semibold text-lg">GoldTech</div><div class="sidebar-meta text-stone-400 text-xs uppercase tracking-widest">Smart Fitness OS</div></div>
+      </a>
+      <nav aria-label="Primary" class="flex-1 overflow-y-auto pr-1">
+        <ul class="space-y-1 text-sm">
+          <li><a href="landing.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Home</span></a></li>
+          <li><a href="dashboard.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Dashboard</span></a></li>
+          <li><a href="nutrition.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Nutrition</span></a></li>
+          <li><a href="profile.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Profile</span></a></li>
+          <li><a href="support.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Support</span></a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="flex-1 p-5 md:p-8 overflow-y-auto safe-bottom">
+      <header class="sticky top-6 z-30 glass rounded-2xl p-3 md:p-4 mb-6 flex items-center justify-between fast-trans backdrop-blur-xl">
+        <div class="flex items-center gap-3 md:gap-4">
+          <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+          <button id="sidebarToggle" class="hidden md:inline-flex sidebar-toggle p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle sidebar" aria-pressed="false"><svg class="w-5 h-5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="hidden md:flex items-center gap-4"><h1 class="text-white font-extrabold text-lg">Nutrition Voice Tracking</h1><div class="text-stone-400 text-sm">Log meals by speaking naturally</div></div>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="nutrition.html" class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold hover:bg-white/10 fast-trans">Back to Nutrition</a>
+          <a href="profile.html" class="flex items-center gap-3 rounded-2xl bg-white/3 px-3 py-2 hover:bg-white/6 fast-trans"><img src="assets/img/user.png" alt="avatar" class="w-10 h-10 rounded-full object-cover border border-white/6"/></a>
+        </div>
+      </header>
+
+      <div id="page-main" class="space-y-6">
+        <section class="glass rounded-3xl p-6 md:p-8 relative overflow-hidden">
+          <div class="absolute -top-10 -right-6 h-40 w-40 rounded-full bg-gold/15 blur-2xl"></div>
+          <div class="absolute -bottom-12 left-8 h-32 w-32 rounded-full bg-emerald-400/10 blur-2xl"></div>
+          <div class="relative">
+            <div class="text-gold text-xs font-bold uppercase tracking-[0.18em] mb-2">Voice Food Logging</div>
+            <h2 class="text-2xl md:text-4xl font-black text-white leading-tight">Speak once. Auto-create food cards by meal and time.</h2>
+            <p class="text-stone-300 mt-3 max-w-2xl">Frontend concept only: tap the microphone, preview transcript, then see individual food cards generated from what you said.</p>
+          </div>
+        </section>
+
+        <section class="grid xl:grid-cols-5 gap-6">
+          <div class="xl:col-span-2 glass rounded-3xl p-6 space-y-5">
+            <div>
+              <h3 class="text-xl font-black text-white">Voice Input</h3>
+              <p class="text-xs text-stone-400 mt-1">UI simulation without real speech recognition.</p>
+            </div>
+
+            <button id="mockMicBtn" class="w-full rounded-2xl border border-gold/35 bg-gradient-to-br from-gold/30 via-gold/20 to-transparent px-4 py-5 text-left hover:from-gold/40 hover:via-gold/25 fast-trans" type="button" aria-label="Start voice tracking mock">
+              <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-full bg-black/30 border border-gold/40 flex items-center justify-center shrink-0">
+                  <svg class="w-7 h-7 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                    <rect x="9" y="3" width="6" height="11" rx="3" stroke-width="1.7"></rect>
+                    <path d="M5 11a7 7 0 0 0 14 0M12 18v3M8.5 21h7" stroke-width="1.7" stroke-linecap="round"></path>
+                  </svg>
+                </div>
+                <div>
+                  <div id="micState" class="font-extrabold text-lg text-white">Tap to Start Listening</div>
+                  <div class="text-stone-300 text-sm">Expected time: 3-5 seconds per meal note</div>
+                </div>
+              </div>
+            </button>
+
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+              <div class="text-xs uppercase tracking-widest text-stone-400 mb-2">Transcript</div>
+              <textarea id="transcriptInput" class="w-full h-28 bg-transparent text-white placeholder:text-stone-500 outline-none resize-none" placeholder="Example: Today for breakfast I ate taameya, tomatoes, and bread at 8:15 am.">Today for breakfast I ate taameya, tomatoes, and bread at 8:15 am.</textarea>
+            </div>
+
+            <button id="generateCardsBtn" class="w-full rounded-xl bg-gold text-[#2e1d00] px-4 py-3 font-extrabold hover:brightness-105 fast-trans" type="button">Generate Food Cards</button>
+
+            <div class="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <div class="text-xs uppercase tracking-widest text-stone-400 mb-3">Detected Meta</div>
+              <div class="flex flex-wrap gap-2">
+                <span id="metaMeal" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-white">Meal: Breakfast</span>
+                <span id="metaTime" class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-400/20 text-emerald-300">Time: 8:15 AM</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-sky-400/20 text-sky-300">Source: Voice</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="xl:col-span-3 glass rounded-3xl p-6">
+            <div class="flex items-center justify-between gap-3 mb-5">
+              <div>
+                <h3 class="text-xl font-black text-white">Generated Food Cards</h3>
+                <p class="text-xs text-stone-400">One card per detected food item from the spoken sentence.</p>
+              </div>
+              <div class="text-xs text-stone-400">Preview mode</div>
+            </div>
+
+            <div id="foodCards" class="grid md:grid-cols-2 gap-4"></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="assets/js/components.js"></script>
+  <script>
+    Components.init();
+
+    (function () {
+      const micBtn = document.getElementById('mockMicBtn');
+      const micState = document.getElementById('micState');
+      const transcriptInput = document.getElementById('transcriptInput');
+      const generateBtn = document.getElementById('generateCardsBtn');
+      const foodCards = document.getElementById('foodCards');
+      const metaMeal = document.getElementById('metaMeal');
+      const metaTime = document.getElementById('metaTime');
+
+      const foodColors = ['from-amber-400/25 to-orange-500/10', 'from-emerald-400/25 to-teal-500/10', 'from-sky-400/25 to-blue-500/10', 'from-rose-400/25 to-pink-500/10'];
+
+      const parseMeal = (text) => {
+        const lower = text.toLowerCase();
+        if (lower.includes('breakfast')) return 'Breakfast';
+        if (lower.includes('lunch')) return 'Lunch';
+        if (lower.includes('dinner')) return 'Dinner';
+        if (lower.includes('snack')) return 'Snack';
+        return 'Meal';
+      };
+
+      const parseTime = (text) => {
+        const m = text.match(/\b(\d{1,2})(?::(\d{2}))?\s*(am|pm)?\b/i);
+        if (!m) return 'Not mentioned';
+        const hour = m[1];
+        const minute = m[2] || '00';
+        const suffix = (m[3] || '').toUpperCase();
+        return suffix ? `${hour}:${minute} ${suffix}` : `${hour}:${minute}`;
+      };
+
+      const parseFoods = (text) => {
+        const cleaned = text
+          .replace(/today|for|i ate|i had|at|breakfast|lunch|dinner|snack/gi, '')
+          .replace(/[.]/g, '')
+          .trim();
+
+        const split = cleaned.split(/,| and /i).map((item) => item.trim()).filter(Boolean);
+        return split.length ? split.slice(0, 6) : ['Food item'];
+      };
+
+      const renderCards = () => {
+        const spokenText = transcriptInput.value || '';
+        const meal = parseMeal(spokenText);
+        const time = parseTime(spokenText);
+        const foods = parseFoods(spokenText);
+
+        metaMeal.textContent = `Meal: ${meal}`;
+        metaTime.textContent = `Time: ${time}`;
+
+        foodCards.innerHTML = foods.map((food, index) => `
+          <article class="rounded-2xl border border-white/10 bg-gradient-to-br ${foodColors[index % foodColors.length]} p-4">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-white font-bold text-lg capitalize">${food}</div>
+                <div class="text-stone-300 text-sm mt-1">${meal} ${time !== 'Not mentioned' ? `• ${time}` : ''}</div>
+              </div>
+              <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-black/25 text-gold">Auto</span>
+            </div>
+            <div class="mt-4 grid grid-cols-3 gap-2 text-xs">
+              <div class="rounded-lg bg-black/20 p-2"><div class="text-stone-400">Calories</div><div class="text-white font-bold">--</div></div>
+              <div class="rounded-lg bg-black/20 p-2"><div class="text-stone-400">Protein</div><div class="text-white font-bold">--</div></div>
+              <div class="rounded-lg bg-black/20 p-2"><div class="text-stone-400">Carbs</div><div class="text-white font-bold">--</div></div>
+            </div>
+          </article>
+        `).join('');
+      };
+
+      micBtn?.addEventListener('click', () => {
+        micState.textContent = 'Listening (Mock)...';
+        micBtn.classList.add('ring-2', 'ring-gold/50');
+        setTimeout(() => {
+          micState.textContent = 'Voice Captured';
+          micBtn.classList.remove('ring-2', 'ring-gold/50');
+        }, 1200);
+      });
+
+      generateBtn?.addEventListener('click', renderCards);
+      renderCards();
+    })();
+  </script>
+</body>
+</html>
