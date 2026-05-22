@@ -337,6 +337,59 @@ const Components = (function () {
     });
   };
 
+  const injectNutritionVoiceNav = () => {
+    const isArabicPage = window.location.pathname.includes('/arabic/');
+    const label = isArabicPage ? 'Voice Nutrition' : 'Nutrition Voice';
+    const href = isArabicPage ? '../nutrition-voice.html' : 'nutrition-voice.html';
+    const sidebarLinks = document.querySelectorAll('aside.app-sidebar nav ul');
+    const mobileNavs = document.querySelectorAll('nav#mobileNav');
+
+    sidebarLinks.forEach((list) => {
+      if (list.querySelector(`a[href="${href}"]`)) return;
+
+      const voiceItem = document.createElement('li');
+      voiceItem.innerHTML = '<a href="' + href + '" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">' + label + '</span></a>';
+
+      const nutritionLink = list.querySelector('a[href="nutrition.html"]');
+      if (nutritionLink?.parentElement) {
+        nutritionLink.parentElement.after(voiceItem);
+        return;
+      }
+
+      const supportLink = list.querySelector('a[href="support.html"]');
+      if (supportLink?.parentElement) {
+        supportLink.parentElement.before(voiceItem);
+        return;
+      }
+
+      list.appendChild(voiceItem);
+    });
+
+    mobileNavs.forEach((nav) => {
+      if (nav.querySelector(`a[href="${href}"]`)) return;
+
+      const voiceLink = document.createElement('a');
+      voiceLink.setAttribute('href', href);
+      voiceLink.setAttribute('data-mobile-nav-link', '');
+      voiceLink.className = 'flex flex-col items-center gap-1 text-stone-400';
+      voiceLink.innerHTML = '<span class="w-2 h-2 rounded-full bg-white/30"></span><div class="text-xs">' + label + '</div>';
+
+      const nutritionMobileLink = nav.querySelector('a[href="nutrition.html"]');
+      if (nutritionMobileLink) {
+        nutritionMobileLink.after(voiceLink);
+        return;
+      }
+
+      const profileLink = nav.querySelector('a[href="profile.html"]');
+      if (profileLink) {
+        profileLink.before(voiceLink);
+        return;
+      }
+
+      nav.appendChild(voiceLink);
+    });
+  };
+
   const highlightActiveNav = () => {
     const page = currentPage();
     document.querySelectorAll('[data-nav-link]').forEach((link) => {
@@ -779,6 +832,7 @@ const Components = (function () {
     injectCoachDashboardNav();
     injectAttendanceNav();
     injectAiCoachNav();
+    injectNutritionVoiceNav();
     highlightActiveNav();
     initRevealObserver();
     initProgressPhotos();

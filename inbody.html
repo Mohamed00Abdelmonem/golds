@@ -60,7 +60,18 @@
         <div class="glass rounded-3xl p-8">
           <div class="flex items-center justify-between mb-6">
             <h2 class="text-2xl font-black">Latest Scan - April 26, 2026</h2>
-            <button class="bg-gold text-black px-6 py-3 rounded-xl font-bold hover:scale-105 fast-trans">Schedule Scan</button>
+            <div class="flex items-center gap-2">
+              <input id="inbodyPaperInput" type="file" accept="image/*" capture="environment" class="hidden" />
+              <button id="scanInbodyPaperBtn" class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-3 font-semibold hover:bg-white/10 fast-trans" type="button" aria-label="Scan InBody paper">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                  <rect x="3" y="7" width="18" height="14" rx="3" stroke-width="1.6"/>
+                  <path d="M7 7l2-3h6l2 3" stroke-width="1.6" stroke-linecap="round"/>
+                  <circle cx="12" cy="14" r="3.2" stroke-width="1.6"/>
+                </svg>
+                Scan Paper
+              </button>
+              <button class="bg-gold text-black px-6 py-3 rounded-xl font-bold hover:scale-105 fast-trans">Schedule Scan</button>
+            </div>
           </div>
 
           <!-- Main Metrics -->
@@ -209,6 +220,23 @@
             <div class="flex gap-3"><span class="text-gold">✓</span><span>Schedule your next scan in 4 weeks to track progress</span></div>
           </div>
         </div>
+
+        <!-- InBody Papers History -->
+        <div class="glass rounded-3xl p-8">
+          <div class="flex items-center justify-between gap-3 mb-6">
+            <div>
+              <h2 class="text-2xl font-black">InBody Papers History</h2>
+              <p class="text-xs text-stone-400 mt-1">Scanned papers are saved here for visual history tracking.</p>
+            </div>
+            <span id="inbodyHistoryCount" class="text-xs font-semibold px-3 py-1 rounded-full bg-white/10 text-stone-300">0 papers</span>
+          </div>
+
+          <div id="inbodyHistoryGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="rounded-2xl border border-dashed border-white/15 bg-white/5 p-5 text-center text-stone-400 text-sm">
+              No scanned papers yet. Tap <span class="text-gold font-semibold">Scan Paper</span> to add one.
+            </div>
+          </div>
+        </div>
       </div>
     
       </div>
@@ -217,6 +245,64 @@
   <script src="assets/js/components.js"></script>
   <script>
     Components.init();
+
+    (function () {
+      const scanBtn = document.getElementById('scanInbodyPaperBtn');
+      const paperInput = document.getElementById('inbodyPaperInput');
+      const historyGrid = document.getElementById('inbodyHistoryGrid');
+      const historyCount = document.getElementById('inbodyHistoryCount');
+
+      if (!scanBtn || !paperInput || !historyGrid || !historyCount) return;
+
+      const updateCount = () => {
+        const items = historyGrid.querySelectorAll('[data-inbody-paper-item]').length;
+        historyCount.textContent = `${items} paper${items === 1 ? '' : 's'}`;
+      };
+
+      const createHistoryItem = (file, imageUrl) => {
+        const wrapper = document.createElement('article');
+        wrapper.setAttribute('data-inbody-paper-item', '1');
+        wrapper.className = 'rounded-2xl border border-white/10 bg-white/5 overflow-hidden';
+
+        const now = new Date();
+        const scannedAt = now.toLocaleString([], {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+
+        wrapper.innerHTML = `
+          <img src="${imageUrl}" alt="InBody paper scan" class="w-full h-44 object-cover" />
+          <div class="p-4">
+            <div class="text-white font-semibold truncate">${file.name}</div>
+            <div class="text-xs text-stone-400 mt-1">Scanned: ${scannedAt}</div>
+            <div class="text-xs text-gold mt-2">Saved to InBody history</div>
+          </div>
+        `;
+
+        return wrapper;
+      };
+
+      scanBtn.addEventListener('click', () => {
+        paperInput.click();
+      });
+
+      paperInput.addEventListener('change', () => {
+        const file = paperInput.files && paperInput.files[0];
+        if (!file) return;
+
+        const imageUrl = URL.createObjectURL(file);
+        const emptyState = historyGrid.querySelector('div.border-dashed');
+        if (emptyState) emptyState.remove();
+
+        const card = createHistoryItem(file, imageUrl);
+        historyGrid.prepend(card);
+        updateCount();
+        paperInput.value = '';
+      });
+    })();
   </script>
 </body>
 </html>
