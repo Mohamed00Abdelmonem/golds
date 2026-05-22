@@ -44,6 +44,21 @@
     body[data-theme="light"] .pricing-active{color:#0f172a}
     .testimonials-track{scrollbar-width:none}
     .testimonials-track::-webkit-scrollbar{display:none}
+    @media (max-width: 640px){
+      .landing-hero-layout{display:flex;flex-direction:column;gap:1rem}
+      .landing-hero-copy{order:2}
+      .landing-hero-media{order:1}
+      .landing-hero-media{display:flex;flex-direction:column}
+      .landing-hero-media img{height:210px !important;object-fit:cover}
+      .landing-hero-overlay{position:static !important;inset:auto !important;left:auto !important;right:auto !important;bottom:auto !important;z-index:auto !important;padding:0.75rem !important;margin-top:0.75rem !important}
+      .landing-hero-overlay .glass{padding:1rem !important;border-radius:1.25rem !important}
+      .landing-hero-overlay .flex{gap:0.75rem}
+      .landing-hero-stats{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:.75rem !important}
+      .landing-hero-stats > div{padding:1rem !important}
+      .landing-hero-stats .counter,.landing-hero-stats .text-2xl,.landing-hero-stats .text-3xl,.landing-hero-stats .text-4xl{font-size:1.5rem !important}
+      .landing-preview-grid{grid-template-columns:1fr !important}
+      .landing-preview-card img{height:220px !important}
+    }
   </style>
   <script>
     (function(){
@@ -74,7 +89,7 @@
           <div class="absolute bottom-20 left-1/3 w-56 h-56 rounded-full bg-gold/10 blur-3xl float-ambient"></div>
         </div>
         <div class="mx-auto max-w-7xl px-5 md:px-8 py-14 md:py-20 relative">
-          <div class="max-w-4xl mx-auto text-center reveal in-view">
+          <div class="max-w-4xl mx-auto text-center reveal in-view landing-hero-copy">
             <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.25em] text-stone-200"><span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>Transform your body into your strongest version</div>
             <h1 class="mt-6 text-3xl sm:text-4xl md:text-7xl font-black leading-[0.92] tracking-tight">Train like a premium performance brand.</h1>
             <p class="mt-6 text-sm sm:text-base md:text-lg text-stone-300 max-w-3xl mx-auto leading-8">Live coaching, smart machines, body analytics, crowded-floor insights, and elegant progress tracking, all inside one cinematic gym platform.</p>
@@ -95,10 +110,10 @@
             </div>
           </div>
 
-          <div class="mt-10 section-track items-stretch">
-            <div class="lg:col-span-8 banner-shell rounded-[2.25rem] border border-white/10 bg-black/25 shadow-[0_30px_100px_rgba(0,0,0,.45)]">
+          <div class="mt-10 section-track items-stretch landing-hero-layout">
+            <div class="lg:col-span-8 banner-shell rounded-[2.25rem] border border-white/10 bg-black/25 shadow-[0_30px_100px_rgba(0,0,0,.45)] landing-hero-media">
               <img src="assets/img/home.png" alt="GoldTech gym banner" class="w-full h-[320px] sm:h-[420px] md:h-[540px] object-cover object-center">
-              <div class="absolute inset-x-0 bottom-0 p-4 sm:p-5 md:p-6 z-10">
+              <div class="absolute inset-x-0 bottom-0 p-4 sm:p-5 md:p-6 z-10 landing-hero-overlay">
                 <div class="glass rounded-[1.75rem] p-4 sm:p-5 md:p-6 backdrop-blur-xl bg-black/35 border border-white/10">
                   <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
                     <div>
@@ -110,7 +125,7 @@
                 </div>
               </div>
             </div>
-            <div class="lg:col-span-4 grid sm:grid-cols-3 lg:grid-cols-1 gap-3">
+            <div class="lg:col-span-4 grid sm:grid-cols-3 lg:grid-cols-1 gap-3 landing-hero-stats">
               <div class="stat-ring rounded-[1.5rem] border border-white/10 p-4 md:p-5"><div class="text-stone-400 text-xs uppercase tracking-[0.24em]">Active members</div><div class="mt-2 text-2xl sm:text-3xl md:text-4xl font-black counter" data-target="1245">0</div></div>
               <div class="stat-ring rounded-[1.5rem] border border-white/10 p-4 md:p-5"><div class="text-stone-400 text-xs uppercase tracking-[0.24em]">Classes</div><div class="mt-2 text-2xl sm:text-3xl md:text-4xl font-black counter" data-target="76">0</div></div>
               <div class="stat-ring rounded-[1.5rem] border border-white/10 p-4 md:p-5"><div class="text-stone-400 text-xs uppercase tracking-[0.24em]">Score</div><div class="mt-2 text-2xl sm:text-3xl md:text-4xl font-black">4.9</div></div>
@@ -142,7 +157,7 @@
       <section class="mx-auto max-w-7xl px-5 md:px-8 py-12 md:py-20 reveal">
         <div class="grid lg:grid-cols-12 gap-4 md:gap-5 items-center">
           <div class="lg:col-span-5 glass rounded-[2rem] p-4 md:p-8"><div class="text-stone-400 text-xs uppercase tracking-[0.24em]">Interactive app preview</div><h2 class="mt-3 text-2xl sm:text-3xl font-black">Layered screens that feel alive.</h2><p class="mt-3 text-sm sm:text-base text-stone-300">A compact preview of the dashboard, mobile training view, and analytics surfaces working together as one system.</p></div>
-          <div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4"><div class="glass rounded-[2rem] p-3 md:p-5 float-ambient"><img src="assets/img/transformations/1.png" class="w-full h-48 sm:h-56 md:h-72 object-cover rounded-[1.5rem]" alt="Dashboard preview"></div><div class="glass rounded-[2rem] p-3 md:p-5 drift-ambient md:mt-10"><img src="assets/img/transformations/2.png" class="w-full h-48 sm:h-56 md:h-72 object-cover rounded-[1.5rem]" alt="Mobile workout preview"></div></div>
+          <div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 landing-preview-grid"><div class="glass rounded-[2rem] p-3 md:p-5 float-ambient landing-preview-card"><img src="assets/img/transformations/1.png" class="w-full h-48 sm:h-56 md:h-72 object-cover rounded-[1.5rem]" alt="Dashboard preview"></div><div class="glass rounded-[2rem] p-3 md:p-5 drift-ambient md:mt-10 landing-preview-card"><img src="assets/img/transformations/2.png" class="w-full h-48 sm:h-56 md:h-72 object-cover rounded-[1.5rem]" alt="Mobile workout preview"></div></div>
         </div>
       </section>
 
