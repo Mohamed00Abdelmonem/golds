@@ -194,8 +194,8 @@
                 <div class="text-white font-bold">45%</div>
               </div>
               <div class="col-span-2 sm:col-span-2 md:col-span-1 flex items-center" style="gap:var(--gap)">
-                <button id="startWorkout" class="flex-1 md:flex-none bg-gradient-to-br from-[#2b2b2b] to-[#0f0f0f] text-gold rounded-lg font-semibold">Start</button>
-                <button id="resumeWorkout" class="flex-1 md:flex-none glass rounded-lg font-semibold">Resume</button>
+                <button id="startWorkout" class="flex-1 md:flex-none bg-gradient-to-br from-[#2b2b2b] to-[#0f0f0f] text-gold rounded-lg font-semibold">Start Workout</button>
+                <button id="resumeWorkout" class="flex-1 md:flex-none glass rounded-lg font-semibold">Resume Rest</button>
               </div>
             </div>
           </div>
@@ -231,7 +231,10 @@
                   <div class="mt-2 md:mt-3 flex flex-col md:flex-row md:items-center md:justify-between" style="gap:clamp(0.375rem,1vw,0.75rem)">
                     <!-- Weight info -->
                     <div class="flex items-center" style="gap:clamp(0.5rem,1.5vw,0.75rem)">
-                      <div class="text-stone-400" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Rest 90s</div>
+                      <button class="rest-btn glass rounded-lg flex items-center justify-center" aria-label="Start rest timer" title="Start rest" data-rest-action="start" style="padding:clamp(0.4rem,1vw,0.5rem); width:clamp(2.25rem,5vw,2.75rem); height:clamp(2.25rem,5vw,2.75rem)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-4 h-4 text-gold"><path d="M12 8v4l3 2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="8.5" stroke-width="1.8"/></svg>
+                      </button>
+                      <button class="expand-btn glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Details</button>
                       <div class="text-white font-bold">80 kg</div>
                     </div>
                     
@@ -290,7 +293,10 @@
                   
                   <div class="mt-2 md:mt-3 flex flex-col md:flex-row md:items-center md:justify-between" style="gap:clamp(0.375rem,1vw,0.75rem)">
                     <div class="flex items-center" style="gap:clamp(0.5rem,1.5vw,0.75rem)">
-                      <div class="text-stone-400" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Rest 90s</div>
+                      <button class="rest-btn glass rounded-lg flex items-center justify-center" aria-label="Start rest timer" title="Start rest" data-rest-action="start" style="padding:clamp(0.4rem,1vw,0.5rem); width:clamp(2.25rem,5vw,2.75rem); height:clamp(2.25rem,5vw,2.75rem)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-4 h-4 text-gold"><path d="M12 8v4l3 2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="8.5" stroke-width="1.8"/></svg>
+                      </button>
+                      <button class="expand-btn glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Details</button>
                       <div class="text-white font-bold">100 kg</div>
                     </div>
                     
@@ -323,7 +329,10 @@
                   
                   <div class="mt-2 md:mt-3 flex flex-col md:flex-row md:items-center md:justify-between" style="gap:clamp(0.375rem,1vw,0.75rem)">
                     <div class="flex items-center" style="gap:clamp(0.5rem,1.5vw,0.75rem)">
-                      <div class="text-stone-400" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Rest 120s</div>
+                      <button class="rest-btn glass rounded-lg flex items-center justify-center" aria-label="Start rest timer" title="Start rest" data-rest-action="start" style="padding:clamp(0.4rem,1vw,0.5rem); width:clamp(2.25rem,5vw,2.75rem); height:clamp(2.25rem,5vw,2.75rem)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-4 h-4 text-gold"><path d="M12 8v4l3 2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="8.5" stroke-width="1.8"/></svg>
+                      </button>
+                      <button class="expand-btn glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Details</button>
                       <div class="text-white font-bold">54 kg</div>
                     </div>
                     
@@ -357,9 +366,20 @@
             <div class="text-stone-400" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">12:34</div>
           </div>
           <div style="margin-top:clamp(0.75rem,2vw,1rem)">
-            <div class="text-stone-400">Completed</div>
+            <div class="text-stone-400">Sets completed</div>
             <div id="completedCount" class="text-white font-bold">0</div>
-            <div class="text-stone-400 mt-1" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Remaining: <span id="remainingCount">3</span></div>
+            <div class="text-stone-400 mt-1" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Sets remaining: <span id="remainingCount">3</span></div>
+          </div>
+          <div class="grid grid-cols-2 gap-2" style="margin-top:clamp(0.75rem,2vw,1rem)">
+            <div class="glass rounded-lg" style="padding:clamp(0.5rem,1vw,0.75rem)">
+              <div class="text-stone-400">Sets</div>
+              <div class="text-white font-bold"><span id="completedSets">0</span>/<span id="totalSets">0</span></div>
+            </div>
+            <div class="glass rounded-lg" style="padding:clamp(0.5rem,1vw,0.75rem)">
+              <div class="text-stone-400">Rest</div>
+              <div id="restCountdown" class="text-white font-bold">Ready</div>
+              <div id="activeExerciseLabel" class="text-stone-400 mt-1" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Tap Start</div>
+            </div>
           </div>
           <div class="flex flex-col md:flex-row md:items-center" style="margin-top:clamp(0.75rem,2vw,1rem); gap:clamp(0.75rem,2vw,1rem)">
             <div class="relative flex-shrink-0" style="width:clamp(4rem,10vw,5rem); height:clamp(4rem,10vw,5rem)">
@@ -490,6 +510,104 @@
     return 'assets/videos/Back.mp4';
   }
 
+  function parseRestSeconds(restValue) {
+    const parsed = parseInt(String(restValue).replace(/[^0-9]/g, ''), 10);
+    return Number.isFinite(parsed) ? parsed : 0;
+  }
+
+  function formatRestLabel(secondsLeft) {
+    if (!Number.isFinite(secondsLeft) || secondsLeft <= 0) return 'Ready';
+    const minutes = Math.floor(secondsLeft / 60);
+    const seconds = secondsLeft % 60;
+    return minutes > 0 ? `${minutes}:${seconds.toString().padStart(2, '0')}` : `${seconds}s`;
+  }
+
+  const workoutStartBtn = document.getElementById('startWorkout');
+  const workoutResumeBtn = document.getElementById('resumeWorkout');
+  const restCountdownEl = document.getElementById('restCountdown');
+  const activeExerciseLabelEl = document.getElementById('activeExerciseLabel');
+  const completedSetsEl = document.getElementById('completedSets');
+  const totalSetsEl = document.getElementById('totalSets');
+
+  let restTimer = null;
+  let restRemaining = 0;
+  let activeRestCard = null;
+
+  function stopRestTimer() {
+    if (restTimer) {
+      clearInterval(restTimer);
+      restTimer = null;
+    }
+  }
+
+  function updateRestPanel(card, secondsLeft) {
+    if (restCountdownEl) restCountdownEl.textContent = formatRestLabel(secondsLeft);
+    if (activeExerciseLabelEl) activeExerciseLabelEl.textContent = card ? `${card.dataset.name} • Rest ${card.dataset.restLabel}` : 'Tap Start';
+  }
+
+  function startRestTimer(card) {
+    if (!card) return;
+    stopRestTimer();
+    activeRestCard = card;
+    restRemaining = parseRestSeconds(card.dataset.rest);
+    updateRestPanel(card, restRemaining);
+    if (restRemaining <= 0) return;
+
+    restTimer = setInterval(() => {
+      restRemaining -= 1;
+      if (restRemaining <= 0) {
+        restRemaining = 0;
+        stopRestTimer();
+        updateRestPanel(activeRestCard, restRemaining);
+        showAchievement('Rest Complete', `${activeRestCard.dataset.name} is ready for the next set`);
+        return;
+      }
+      updateRestPanel(activeRestCard, restRemaining);
+    }, 1000);
+  }
+
+  function getExerciseCards() {
+    return Array.from(document.querySelectorAll('.exercise-card'));
+  }
+
+  function getFirstPendingCard() {
+    return getExerciseCards().find(card => (Number(card.dataset.completedSets) || 0) < (Number(card.dataset.sets) || 0)) || getExerciseCards()[0] || null;
+  }
+
+  function resetWorkoutSession() {
+    stopRestTimer();
+    restRemaining = 0;
+    activeRestCard = null;
+    if (workoutStartBtn) workoutStartBtn.textContent = 'Start Workout';
+    if (workoutResumeBtn) workoutResumeBtn.textContent = 'Resume Rest';
+    updateRestPanel(null, 0);
+  }
+
+  function updateCounts() {
+    const cards = getExerciseCards();
+    const total = cards.length;
+    const totalSets = cards.reduce((sum, card) => sum + (Number(card.dataset.sets) || 0), 0);
+    const completedSets = cards.reduce((sum, card) => sum + (Number(card.dataset.completedSets) || 0), 0);
+
+    document.getElementById('completedCount').textContent = completedSets;
+    document.getElementById('remainingCount').textContent = Math.max(0, totalSets - completedSets);
+    if (completedSetsEl) completedSetsEl.textContent = completedSets;
+    if (totalSetsEl) totalSetsEl.textContent = totalSets;
+
+    cards.forEach(card => {
+      const progressEl = card.querySelector('.set-progress');
+      const exerciseSets = Number(card.dataset.sets) || 0;
+      const exerciseCompletedSets = Number(card.dataset.completedSets) || 0;
+      if (progressEl) progressEl.textContent = `Sets ${exerciseCompletedSets}/${exerciseSets}`;
+    });
+
+    const pct = totalSets ? Math.round((completedSets / totalSets) * 100) : 0;
+    document.getElementById('progressPct').textContent = pct + '%';
+    const arc = document.getElementById('progArc');
+    const dash = (pct / 100) * 100;
+    arc.setAttribute('stroke-dasharray', dash + ' 100');
+  }
+
   const exerciseData = {
     'Push Day': [
       { name: 'Barbell Bench Press', target: 'Chest', sets: 4, reps: '6-8', rest: '90s', weight: 80, image: 'assets/img/exercises/img1.png', instructions: 'Lie flat on bench, grip slightly wider than shoulder. Lower bar to chest under control, pause briefly, and press up explosively.', mistakes: ['Flared elbows', 'Bouncing off chest'], safety: ['Use spotter for heavy sets', 'Control tempo'], machine: 'M-231' },
@@ -533,9 +651,11 @@
   function renderExercises(category) {
     const exerciseList = document.getElementById('exerciseList');
     const exercises = exerciseData[category] || [];
+
+    resetWorkoutSession();
     
     exerciseList.innerHTML = exercises.map((ex, idx) => `
-      <article class="exercise-card glass hover-lift fast-trans" data-target="${ex.target}" data-detail-video="${getDetailVideo(ex)}" style="border-radius:clamp(0.5rem,2vw,1rem); padding:var(--card-pad)">
+      <article class="exercise-card glass hover-lift fast-trans" data-target="${ex.target}" data-detail-video="${getDetailVideo(ex)}" data-name="${ex.name}" data-sets="${ex.sets}" data-completed-sets="0" data-rest="${parseRestSeconds(ex.rest)}" data-rest-label="${ex.rest}" style="border-radius:clamp(0.5rem,2vw,1rem); padding:var(--card-pad)">
         <div class="flex flex-col md:flex-row md:items-start" style="gap:var(--gap)">
           <img src="${ex.image}" alt="${ex.name}" class="object-cover border border-white/6 flex-shrink-0" style="width:clamp(3rem,12vw,5rem); height:clamp(3rem,12vw,5rem); border-radius:clamp(0.375rem,1.5vw,0.5rem)" />
           <div class="flex-1 min-w-0">
@@ -549,15 +669,12 @@
                 <div class="flex items-center" style="gap:clamp(0.5rem,1.5vw,0.75rem)">
                   <div class="text-stone-400" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Rest ${ex.rest}</div>
                   <div class="text-white font-bold">${ex.weight}${typeof ex.weight === 'string' ? '' : ' kg'}</div>
+                  <div class="set-progress glass rounded-full text-stone-400" style="padding:clamp(0.25rem,0.75vw,0.4rem) clamp(0.5rem,1vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Sets 0/${ex.sets}</div>
                 </div>
                 
                 <div class="flex items-center" style="gap:clamp(0.375rem,1vw,0.5rem)">
+                  <button class="set-btn bg-gradient-to-br from-[#2b2b2b] to-[#0f0f0f] text-gold rounded-lg font-semibold" data-action="start-set" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Start Set</button>
                   <button class="expand-btn glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Details</button>
-                  <label class="relative inline-flex items-center cursor-pointer" style="min-height:2.25rem; min-width:2.25rem">
-                    <input type="checkbox" class="sr-only complete-checkbox peer" />
-                    <div class="bg-white/6 rounded-full peer-checked:bg-gold fast-trans" style="width:clamp(1.75rem,5vw,2.5rem); height:clamp(1rem,2.5vw,1.5rem)"></div>
-                    <span class="absolute bg-white rounded-full transform peer-checked:translate-x-3 md:peer-checked:translate-x-4 peer-checked:bg-gold peer-checked:shadow-[0_0_16px_rgba(245,176,65,0.72),0_0_28px_rgba(245,176,65,0.26)] fast-trans" style="width:clamp(0.875rem,2vw,1.25rem); height:clamp(0.875rem,2vw,1.25rem); left:clamp(0.125rem,0.5vw,0.25rem); top:clamp(0.125rem,0.5vw,0.25rem)"></span>
-                  </label>
                 </div>
               </div>
             </div>
@@ -631,13 +748,36 @@
       });
     });
 
-    document.querySelectorAll('.complete-checkbox').forEach(cb => {
-      cb.addEventListener('change', (e) => {
-        const checked = e.target.checked;
-        const card = e.target.closest('.exercise-card');
-        const title = card.querySelector('.text-white.font-semibold').textContent;
+    document.querySelectorAll('.rest-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.exercise-card');
+        if (!card) return;
+        startRestTimer(card);
+        showAchievement('Rest Started', `${card.dataset.name} timer running`);
+      });
+    });
+
+    document.querySelectorAll('.set-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.exercise-card');
+        if (!card) return;
+
+        const totalSets = Number(card.dataset.sets) || 0;
+        const completedSets = Math.min(totalSets, (Number(card.dataset.completedSets) || 0) + 1);
+        card.dataset.completedSets = String(completedSets);
         updateCounts();
-        if(checked) showAchievement('+50 XP', 'Exercise completed: ' + title);
+
+        const setProgress = card.querySelector('.set-progress');
+        if (setProgress) setProgress.textContent = `Sets ${completedSets}/${totalSets}`;
+
+        startRestTimer(card);
+
+        if (completedSets >= totalSets) {
+          const title = card.dataset.name || 'Exercise';
+          showAchievement('Exercise Complete', `${title} all sets finished`);
+        } else {
+          showAchievement('Set Logged', `${card.dataset.name} ${completedSets}/${totalSets}`);
+        }
       });
     });
 
@@ -724,6 +864,19 @@
   // Initial render
   renderExercises('Push Day');
 
+  workoutStartBtn?.addEventListener('click', () => {
+    const card = getFirstPendingCard();
+    if (!card) return;
+    startRestTimer(card);
+    showAchievement('Workout Started', `${card.dataset.name} rest timer running`);
+  });
+
+  workoutResumeBtn?.addEventListener('click', () => {
+    const card = activeRestCard || getFirstPendingCard();
+    if (!card) return;
+    startRestTimer(card);
+  });
+
   // Completion checkboxes and achievement popup
   function showAchievement(text, sub){
     const container = document.getElementById('achieves');
@@ -733,19 +886,6 @@
     container.appendChild(el);
     el.animate([{ transform: 'translateY(-10px)', opacity:0 }, { transform: 'translateY(0)', opacity:1}], { duration:240, easing:'ease-out' });
     setTimeout(()=>{ el.animate([{ transform: 'translateY(0)', opacity:1 }, { transform: 'translateY(-8px)', opacity:0}], { duration:380, easing:'ease-in' }); setTimeout(()=>el.remove(),420); },2200);
-  }
-
-  // Tracker progress ring and counts
-  function updateCounts(){
-    const total = document.querySelectorAll('.exercise-card').length;
-    const completed = document.querySelectorAll('.complete-checkbox:checked').length;
-    document.getElementById('completedCount').textContent = completed;
-    document.getElementById('remainingCount').textContent = Math.max(0, total-completed);
-    const pct = Math.round((completed/total)*100);
-    document.getElementById('progressPct').textContent = pct + '%';
-    const arc = document.getElementById('progArc');
-    const dash = (pct/100)*100;
-    arc.setAttribute('stroke-dasharray', dash + ' 100');
   }
 
   // Timer
@@ -777,7 +917,7 @@
   document.getElementById('mobileMenuBtn')?.addEventListener('click', ()=>{ document.querySelector('aside')?.classList.toggle('hidden'); });
 
   // End workout
-  document.getElementById('endWorkout').addEventListener('click', ()=>{ if(timer) { clearInterval(timer); timer = null; } showAchievement('Workout Complete','+300 XP • Streak +1'); updateCounts(); });
+  document.getElementById('endWorkout').addEventListener('click', ()=>{ if(timer) { clearInterval(timer); timer = null; } stopRestTimer(); resetWorkoutSession(); showAchievement('Workout Complete','+300 XP • Streak +1'); updateCounts(); });
 
   // hydration sample update (simulate)
   setInterval(()=>{ const el = document.getElementById('hydrationBar'); const w = Math.min(100, Math.max(10, parseInt(el.style.width||'40') + (Math.random()*6-2))); el.style.width = w + '%'; },6000);

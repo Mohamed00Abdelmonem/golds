@@ -8,6 +8,38 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="assets/css/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    @media (max-width: 640px) {
+      main { padding: 0.75rem !important; }
+      header { top: 0.75rem !important; margin-bottom: 0.75rem !important; border-radius: 1rem !important; }
+      #page-main { padding-top: 0.25rem; }
+      .product-layout { gap: 1rem !important; }
+      .product-gallery, .product-details, .related-wrap { border-radius: 1.25rem !important; }
+      .product-gallery { padding: 0.75rem !important; }
+      .product-gallery .main-product-image { height: 16rem !important; object-fit: cover !important; }
+      .product-gallery .thumbs-row { display: flex !important; gap: 0.5rem !important; overflow-x: auto !important; padding-bottom: 0.25rem !important; }
+      .product-gallery .thumbs-row img { flex: 0 0 auto !important; width: 4.5rem !important; height: 4.5rem !important; }
+      .product-details { gap: 0.9rem !important; }
+      .product-summary, .product-actions, .feature-card, .spec-card, .shipping-card, .reviews-card { padding: 1rem !important; }
+      .product-summary h1 { font-size: 1.8rem !important; line-height: 1.05 !important; }
+      .product-summary .title-row { align-items: flex-start !important; gap: 0.75rem !important; }
+      .product-summary .meta-row { flex-direction: column !important; align-items: flex-start !important; gap: 0.5rem !important; }
+      .product-price-row { align-items: flex-end !important; gap: 0.75rem !important; }
+      .product-price-row #price { font-size: 2.6rem !important; line-height: 1 !important; }
+      .product-actions .cta-row { flex-direction: column !important; }
+      .product-actions .cta-row > * { width: 100% !important; }
+      .product-actions .qty-box { width: 100% !important; justify-content: space-between !important; }
+      .product-actions .option-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+      .product-actions button, .product-actions input { min-height: 2.75rem !important; }
+      .product-actions .option-grid button { font-size: 0.9rem !important; padding: 0.8rem 0.75rem !important; }
+      .feature-card ul, .shipping-card .space-y-3 { gap: 0.7rem !important; }
+      .reviews-card .review-item { padding-bottom: 0.9rem !important; }
+      .related-wrap h2 { font-size: 1.4rem !important; }
+      .related-grid { grid-template-columns: 1fr !important; gap: 0.85rem !important; }
+      .related-grid article img { height: 10.5rem !important; }
+      .product-summary .wishlist-btn { padding: 0.75rem !important; }
+    }
+  </style>
 </head>
 <body class="antialiased">
   <div id="shell-root" class="app-shell min-h-screen flex">
@@ -58,15 +90,15 @@
           <span class="text-white" id="productNameBreadcrumb">Gold Whey Isolate</span>
         </nav>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 product-layout">
           <!-- Product Images Gallery -->
           <div class="lg:col-span-1">
-            <div class="glass rounded-2xl p-4 sticky top-24">
+            <div class="glass rounded-2xl p-4 sticky top-24 product-gallery">
               <!-- Main Image -->
-              <img id="mainImage" src="assets/img/products/image.png" alt="product" class="w-full h-96 object-cover rounded-xl mb-3 cursor-zoom-in" />
+              <img id="mainImage" src="assets/img/products/image.png" alt="product" class="w-full h-96 object-cover rounded-xl mb-3 cursor-zoom-in main-product-image" />
 
               <!-- Thumbnail Gallery -->
-              <div id="galleryThumbs" class="grid grid-cols-4 gap-2">
+              <div id="galleryThumbs" class="grid grid-cols-4 gap-2 thumbs-row">
                 <img src="assets/img/products/image.png" alt="view-1" class="w-full h-20 object-cover rounded-lg cursor-pointer hover:border-gold border-2 border-transparent fast-trans" />
                 <img src="assets/img/products/image copy.png" alt="view-2" class="w-full h-20 object-cover rounded-lg cursor-pointer hover:border-gold border-2 border-transparent fast-trans" />
                 <img src="assets/img/products/image copy 2.png" alt="view-3" class="w-full h-20 object-cover rounded-lg cursor-pointer hover:border-gold border-2 border-transparent fast-trans" />
@@ -76,15 +108,15 @@
           </div>
 
           <!-- Product Details -->
-          <div class="lg:col-span-2 space-y-6">
+          <div class="lg:col-span-2 space-y-6 product-details">
             <!-- Header Info -->
-            <div class="glass rounded-2xl p-6">
-              <div class="flex items-start justify-between mb-4">
-                <div>
+            <div class="glass rounded-2xl p-6 product-summary">
+              <div class="flex items-start justify-between mb-4 title-row">
+                <div class="min-w-0">
                   <span class="text-gold text-xs font-bold uppercase tracking-wider">Premium Supplement</span>
-                  <h1 id="productName" class="text-4xl font-black text-white mt-2">Gold Whey Isolate 2kg</h1>
+                  <h1 id="productName" class="text-4xl font-black text-white mt-2 break-words">Gold Whey Isolate 2kg</h1>
                 </div>
-                <button class="p-3 rounded-lg bg-white/5 hover:bg-white/10 fast-trans" aria-label="Add to wishlist">
+                <button class="p-3 rounded-lg bg-white/5 hover:bg-white/10 fast-trans wishlist-btn flex-shrink-0" aria-label="Add to wishlist">
                   <svg class="w-6 h-6 text-stone-400 hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                   </svg>
@@ -92,7 +124,7 @@
               </div>
 
               <!-- Rating & Reviews -->
-              <div class="flex items-center gap-4 mb-4">
+              <div class="flex items-center gap-4 mb-4 meta-row">
                 <div class="flex items-center gap-2">
                   <div class="flex text-gold text-sm">★★★★★</div>
                   <span id="ratingCount" class="text-stone-400 text-sm">(184 reviews)</span>
@@ -101,7 +133,7 @@
               </div>
 
               <!-- Price Section -->
-              <div class="flex items-center gap-4 mb-6">
+              <div class="flex items-center gap-4 mb-6 product-price-row">
                 <span id="price" class="text-5xl font-black text-gold">$49.99</span>
                 <div class="text-right">
                   <div class="text-stone-400 line-through">$64.99</div>
@@ -115,11 +147,11 @@
             </div>
 
             <!-- Options & Cart -->
-            <div class="glass rounded-2xl p-6 space-y-4">
+            <div class="glass rounded-2xl p-6 space-y-4 product-actions">
               <!-- Flavor Selection -->
               <div>
                 <label class="text-white font-semibold block mb-3">Flavor</label>
-                <div class="grid grid-cols-3 gap-2">
+                <div class="grid grid-cols-3 gap-2 option-grid">
                   <button data-flavor class="px-4 py-3 rounded-lg border-2 border-gold bg-gold/10 text-gold font-semibold fast-trans">Vanilla</button>
                   <button data-flavor class="px-4 py-3 rounded-lg border-2 border-transparent bg-white/5 text-stone-300 hover:bg-white/10 font-semibold fast-trans">Chocolate</button>
                   <button data-flavor class="px-4 py-3 rounded-lg border-2 border-transparent bg-white/5 text-stone-300 hover:bg-white/10 font-semibold fast-trans">Strawberry</button>
@@ -129,7 +161,7 @@
               <!-- Size Selection -->
               <div>
                 <label class="text-white font-semibold block mb-3">Size</label>
-                <div class="grid grid-cols-3 gap-2">
+                <div class="grid grid-cols-3 gap-2 option-grid">
                   <button class="px-4 py-3 rounded-lg border-2 border-transparent bg-white/5 text-stone-300 hover:bg-white/10 font-semibold fast-trans">1kg</button>
                   <button class="px-4 py-3 rounded-lg border-2 border-gold bg-gold/10 text-gold font-semibold fast-trans">2kg</button>
                   <button class="px-4 py-3 rounded-lg border-2 border-transparent bg-white/5 text-stone-300 hover:bg-white/10 font-semibold fast-trans">5kg</button>
@@ -137,8 +169,8 @@
               </div>
 
               <!-- Quantity & Add to Cart -->
-              <div class="flex gap-4">
-                <div class="flex items-center gap-3 bg-white/5 rounded-lg px-4 py-3">
+              <div class="flex gap-4 cta-row">
+                <div class="flex items-center gap-3 bg-white/5 rounded-lg px-4 py-3 qty-box">
                   <button class="text-stone-400 hover:text-white text-xl">−</button>
                   <input type="number" value="1" min="1" class="w-12 text-center bg-transparent text-white font-semibold outline-none" />
                   <button class="text-stone-400 hover:text-white text-xl">+</button>
@@ -280,9 +312,9 @@
         </div>
 
         <!-- Related Products -->
-        <div class="mt-12">
+        <div class="mt-12 related-wrap">
           <h2 class="text-2xl font-bold text-white mb-6">Related Products</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 related-grid">
             <!-- Product Card 1 -->
             <article class="glass rounded-2xl overflow-hidden hover-lift fast-trans cursor-pointer">
               <img src="assets/img/products/image copy.png" class="w-full h-48 object-cover" alt="Creatine">
