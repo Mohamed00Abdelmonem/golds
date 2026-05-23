@@ -35,7 +35,7 @@
     .complete-checkbox + div{transition:background-color 220ms ease, box-shadow 220ms ease, transform 220ms ease}
     .complete-checkbox + div + span{transition:transform 220ms cubic-bezier(.2,.9,.2,1), background-color 220ms ease, box-shadow 220ms ease}
     .complete-checkbox:checked{background-color:#f5b041; border:2px solid #f5b041; box-shadow:0 0 14px rgba(245,176,65,0.45)}
-    .hydration-bar{width:40%}
+    .rest-time-bar{width:0%}
     .achievement-toast{min-width:220px}
     .tutorial-video-frame{height:360px}
     .complete-checkbox:checked{background-color:#f5b041 !important; border-color:#f5b041 !important}
@@ -362,8 +362,8 @@
             <div class="flex-1 min-w-0">
               <div class="text-stone-400">Calories</div>
               <div class="text-white font-bold">120 kcal</div>
-              <div class="mt-2 md:mt-3 text-stone-400">Hydration</div>
-              <div class="h-2 bg-white/6 rounded-full overflow-hidden" style="margin-top:clamp(0.25rem,0.75vw,0.5rem)"><div id="hydrationBar" class="hydration-bar h-full bg-gradient-to-r from-[#6fdc8d] to-[#2fd6a1] rounded-full"></div></div>
+              <div class="mt-2 md:mt-3 text-stone-400">Rest Time</div>
+              <div class="h-2 bg-white/6 rounded-full overflow-hidden" style="margin-top:clamp(0.25rem,0.75vw,0.5rem)"><div id="restTimeBar" class="rest-time-bar h-full bg-gradient-to-r from-[#f5b041] to-[#ffcf6b] rounded-full"></div></div>
             </div>
           </div>
           <div class="grid grid-cols-2 gap-2" style="margin-top:clamp(0.75rem,2vw,1rem)">
@@ -697,8 +697,9 @@
   // End workout
   document.getElementById('endWorkout').addEventListener('click', ()=>{ if(timer) { clearInterval(timer); timer = null; } showAchievement('Workout Complete','+300 XP â€¢ Streak +1'); updateCounts(); });
 
-  // hydration sample update (simulate)
-  setInterval(()=>{ const el = document.getElementById('hydrationBar'); const w = Math.min(100, Math.max(10, parseInt(el.style.width||'40') + (Math.random()*6-2))); el.style.width = w + '%'; },6000);
+  // rest-time bar follows the active workout timer
+  const restTimeBar = document.getElementById('restTimeBar');
+  if (restTimeBar) restTimeBar.style.width = '0%';
 </script>
 
 <!-- Comments: This page reuses visual system from index.html. Replace media src and integrate real APIs as needed. -->
