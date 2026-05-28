@@ -6,8 +6,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Programs â€” GoldTech</title>
-  <script>tailwind.config = { theme: { extend: { colors: { gold: { DEFAULT: '#f5b041' } }, fontFamily: { display:['Poppins','Inter','system-ui','sans-serif'] } } } }</script>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { theme: { extend: { colors: { gold: { DEFAULT: '#f5b041' } }, fontFamily: { display:['Poppins','Inter','system-ui','sans-serif'] } } } }</script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css" />
   <script src="assets/js/i18n.js" defer></script>
@@ -55,11 +55,13 @@
       <div id="page-main">
       <div class="space-y-8">
         <div class="glass rounded-3xl p-8">
-          <div class="flex items-center justify-between mb-2"><div class="text-gold text-xs font-bold uppercase tracking-wider">Training Plans</div><div class="text-stone-400 text-sm">8 programs available</div></div>
+          <div class="flex items-center justify-between gap-3 mb-2 flex-wrap"><div class="text-gold text-xs font-bold uppercase tracking-wider">خطط التدريب</div><div class="text-stone-400 text-sm">8 برامج متاحة</div></div>
           <h1 class="text-3xl font-black mb-1">Training Programs</h1>
           <p class="text-stone-300">Choose a program tailored to your fitness goals and experience level</p>
-          <div class="mt-6 flex gap-2 flex-wrap"><button class="glass px-4 py-2 rounded-xl text-sm border border-gold/30 text-gold">All</button><button class="glass px-4 py-2 rounded-xl text-sm border border-white/10 text-stone-300">Beginner</button><button class="glass px-4 py-2 rounded-xl text-sm border border-white/10 text-stone-300">Intermediate</button><button class="glass px-4 py-2 rounded-xl text-sm border border-white/10 text-stone-300">Advanced</button></div>
+          <div class="mt-6 flex flex-col sm:flex-row sm:items-center gap-3 flex-wrap"><button type="button" data-open-program-customizer class="report-cta px-5 py-3 text-sm font-semibold">تخصيص البرنامج</button><div class="flex gap-2 flex-wrap"><button class="glass px-4 py-2 rounded-xl text-sm border border-gold/30 text-gold">الكل</button><button class="glass px-4 py-2 rounded-xl text-sm border border-white/10 text-stone-300">مبتدئ</button><button class="glass px-4 py-2 rounded-xl text-sm border border-white/10 text-stone-300">متوسط</button><button class="glass px-4 py-2 rounded-xl text-sm border border-white/10 text-stone-300">متقدم</button></div></div>
         </div>
+
+        <div id="programCustomizerMount" class="space-y-4"></div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
           <!-- Push Pull Legs -->
@@ -139,8 +141,10 @@
     </main>
   </div>
   <script src="assets/js/components.js"></script>
+  <script src="assets/js/program-customizer.js"></script>
   <script>
     Components.init();
+    ProgramCustomizer.init();
   </script>
 </body>
 </html>
