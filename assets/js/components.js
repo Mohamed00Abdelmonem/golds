@@ -28,6 +28,8 @@ const Components = (function () {
 
   const isStandaloneMode = () => window.matchMedia?.('(display-mode: standalone)').matches || window.navigator.standalone === true;
 
+  const isMobileViewport = () => window.matchMedia?.('(max-width: 768px)').matches || window.matchMedia?.('(pointer: coarse)').matches;
+
   const ensureMeta = (name, content) => {
     let meta = document.head.querySelector(`meta[name="${name}"]`);
     if (!meta) {
@@ -77,6 +79,38 @@ const Components = (function () {
     } catch {
       // Silent fallback for unsupported hosts or file:// previews.
     }
+  };
+
+  const initSplashScreen = () => {
+    if (!document.body || document.getElementById('appSplashScreen')) return;
+    if (!isStandaloneMode() || !isMobileViewport()) return;
+
+    const splashSeenKey = 'goldtech.splashSeen';
+    const page = currentPage();
+    const isFirstAppPage = page === 'index.html' || page === 'landing.html';
+
+    if (!isFirstAppPage || sessionStorage.getItem(splashSeenKey) === '1') return;
+    sessionStorage.setItem(splashSeenKey, '1');
+
+    const splash = document.createElement('div');
+    splash.id = 'appSplashScreen';
+    splash.className = 'app-splash';
+    splash.innerHTML = `
+      <div class="app-splash__card">
+        <div class="app-splash__logo-wrap" aria-hidden="true">
+          <img src="${APP_ICON_PATH}" alt="" />
+        </div>
+        <div class="app-splash__title">GoldTech</div>
+        <div class="app-splash__subtitle">SMART FITNESS OS</div>
+      </div>`;
+
+    document.body.appendChild(splash);
+    document.body.classList.add('page-ready');
+
+    window.setTimeout(() => {
+      splash.classList.add('is-hidden');
+      window.setTimeout(() => splash.remove(), 460);
+    }, 2400);
   };
 
   const initInstallPrompt = () => {
@@ -894,6 +928,7 @@ const Components = (function () {
 
   const bootPwa = () => {
     syncPwaState();
+    initSplashScreen();
   };
 
   if (document.readyState === 'loading') {

@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Monthly Report — GoldTech</title>
+  <script>tailwind.config={theme:{extend:{colors:{gold:{DEFAULT:'#f5b041'}},fontFamily:{display:['Poppins','Inter','system-ui','sans-serif']}}}}</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script src="assets/js/i18n.js" defer></script>
+  <style>
+    :root{--report-radius:1.75rem}
+    body{background:linear-gradient(180deg,#050506 0%,#0a0a0b 44%,#0f0f10 100%)}
+    .report-shell{position:relative}
+    .report-page{position:relative;isolation:isolate}
+    .report-page::before{content:"";position:absolute;inset:0;border-radius:2rem;background:radial-gradient(circle at top right,rgba(245,176,65,0.14),transparent 30%),radial-gradient(circle at bottom left,rgba(255,255,255,0.04),transparent 34%);pointer-events:none;z-index:0}
+    .report-card{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,0.025),rgba(255,255,255,0.015));border:1px solid rgba(255,255,255,0.08);box-shadow:0 24px 60px rgba(0,0,0,0.28)}
+    .report-card > *{position:relative;z-index:1}
+    .report-chip{border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03)}
+    .report-chip--gold{border-color:rgba(245,176,65,0.28);background:rgba(245,176,65,0.08);color:#f5b041}
+    .report-metric{min-height:7.5rem}
+    .report-logo-float{animation:reportFloat 3s ease-in-out infinite}
+    .report-bar{transition:width 700ms ease}
+    .score-ring{width:clamp(10rem,24vw,14rem);aspect-ratio:1;border-radius:9999px;background:conic-gradient(#f5b041 0 87%, rgba(255,255,255,0.08) 87% 100%);padding:1rem;box-shadow:0 0 0 1px rgba(245,176,65,0.1),0 0 40px rgba(245,176,65,0.08)}
+    .score-ring__inner{width:100%;height:100%;border-radius:9999px;background:linear-gradient(180deg,rgba(0,0,0,0.94),rgba(15,15,16,0.96));display:grid;place-items:center;border:1px solid rgba(255,255,255,0.06)}
+    .score-ring__value{font-size:clamp(2rem,5vw,3.25rem);line-height:1;font-weight:900;color:#fff}.score-ring__label{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:#9ca3aa}
+    .chart-frame{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01))}
+    .muscle-row{display:grid;grid-template-columns:minmax(7rem,10rem) 1fr auto;gap:.9rem;align-items:center}
+    .muscle-track{height:.7rem;border-radius:9999px;background:rgba(255,255,255,0.08);overflow:hidden}.muscle-fill{height:100%;border-radius:9999px;background:linear-gradient(90deg,#f5b041,#fde68a);box-shadow:0 0 18px rgba(245,176,65,0.18)}
+    .badge-pill{display:inline-flex;align-items:center;gap:.45rem;border-radius:9999px;padding:.6rem .9rem}
+    @keyframes reportFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    @media (max-width: 1024px){.muscle-row{grid-template-columns:1fr}}
+    @media (max-width: 768px){.report-metric{min-height:6.75rem}.score-ring{width:clamp(9rem,44vw,12rem)}}
+    @media print{html,body{background:#000 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}body{opacity:1 !important;transform:none !important}.app-sidebar,header,.shell-overlay,#downloadReportBtn{display:none !important}main{padding:0 !important;overflow:visible !important}#page-main{padding:0 !important}.report-page{padding:0 !important;max-width:none !important}.report-card{break-inside:avoid;page-break-inside:avoid;box-shadow:none}}
+  </style>
+</head>
+<body class="antialiased">
+  <div id="shell-root" class="app-shell min-h-screen flex report-shell">
+    <div class="shell-overlay"></div>
+    <aside class="app-sidebar hidden md:flex flex-col w-72 p-5 gap-6 glass rounded-2xl sticky top-6 m-6 h-[calc(100vh-48px)] overflow-hidden">
+      <a href="landing.html" class="flex items-center gap-3 sidebar-brand">
+        <div class="sidebar-brand-icon rounded-xl p-2 bg-gradient-to-br from-[#1b1b1d] to-[#111112]"><img src="assets/golds-logo.png" alt="GoldTech" class="w-9 h-9 object-contain"/></div>
+        <div class="sidebar-brand-text"><div class="text-white font-semibold text-lg">GoldTech</div><div class="sidebar-meta text-stone-400 text-xs uppercase tracking-widest">Smart Fitness OS</div></div>
+      </a>
+      <nav aria-label="Primary" class="flex-1 overflow-y-auto pr-1">
+        <ul class="space-y-1 text-sm">
+          <li><a href="landing.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Home</span></a></li>
+          <li><a href="dashboard.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Dashboard</span></a></li>
+          <li><a href="programs.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Programs</span></a></li>
+          <li><a href="workout.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Workouts</span></a></li>
+          <li><a href="coaches.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Coaches</span></a></li>
+          <li><a href="community.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Community</span></a></li>
+          <li><a href="profile.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent bg-white/6"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Profile</span></a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="flex-1 p-4 md:p-8 overflow-y-auto safe-bottom">
+      <header class="sticky top-6 z-30 glass rounded-2xl p-3 md:p-4 mb-6 flex items-center justify-between fast-trans backdrop-blur-xl">
+        <div class="flex items-center gap-3 md:gap-4">
+          <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+          <button id="sidebarToggle" class="hidden md:inline-flex sidebar-toggle p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle sidebar" aria-pressed="false"><svg class="w-5 h-5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="hidden md:flex items-center gap-4"><h1 class="text-white font-extrabold text-lg">Monthly Fitness Report</h1><div class="text-stone-400 text-sm">GoldTech Smart Fitness OS</div></div>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="themeToggle" class="hidden sm:inline-flex p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle theme" aria-pressed="false"><span data-theme-icon="dark" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-theme-icon="light" class="hidden" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+          <a href="profile.html" class="flex items-center gap-3 rounded-2xl bg-white/3 px-3 py-2 hover:bg-white/6 fast-trans"><div class="text-right hidden sm:block"><div class="text-white font-semibold">Mohamed</div><div class="text-stone-400 text-xs">Gold Elite</div></div><img src="assets/img/user.png" alt="avatar" class="w-10 h-10 rounded-full object-cover border border-white/6"/></a>
+        </div>
+      </header>
+
+      <div id="page-main" class="report-page">
+        <section class="report-card rounded-[2rem] p-5 md:p-8 mb-6 overflow-hidden">
+          <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+            <div class="max-w-3xl space-y-5">
+              <div class="flex flex-wrap items-center gap-3">
+                <div class="report-logo-float flex items-center gap-3 rounded-[1.25rem] border border-gold/20 bg-black/25 px-4 py-3">
+                  <img src="assets/golds-logo.png" alt="GoldTech logo" class="h-12 w-12 object-contain" />
+                  <div>
+                    <div class="text-white font-black text-lg">GoldTech Fitness</div>
+                    <div class="text-stone-400 text-xs uppercase tracking-[0.24em]">Monthly Performance PDF</div>
+                  </div>
+                </div>
+                <span class="report-chip--gold badge-pill text-sm font-semibold">May 2026 Report</span>
+                <span class="report-chip badge-pill text-sm text-stone-300">Print / PDF Ready</span>
+              </div>
+
+              <div>
+                <h1 class="text-3xl md:text-5xl font-black text-white leading-tight">Monthly Fitness Report</h1>
+                <p class="mt-3 text-stone-300 max-w-2xl">A premium black-and-gold fitness report with charts, summaries, AI insights, and a print-friendly layout for PDF export.</p>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div class="report-card rounded-[1.5rem] p-5 flex items-center gap-4">
+                  <img src="assets/img/user.png" alt="Member photo" class="w-20 h-20 rounded-[1.25rem] object-cover border border-white/10" />
+                  <div class="space-y-1">
+                    <div class="text-stone-400 text-xs uppercase tracking-[0.24em]">User profile</div>
+                    <div class="text-2xl font-black text-white">Mohamed Ali</div>
+                    <div class="text-stone-300 text-sm">Gold Elite • 4 month streak</div>
+                    <div class="flex flex-wrap gap-2 pt-1"><span class="report-chip badge-pill text-xs text-stone-300">Goal: Body recomposition</span><span class="report-chip badge-pill text-xs text-stone-300">Last check-in: May 28, 2026</span></div>
+                  </div>
+                </div>
+
+                <div class="report-card rounded-[1.5rem] p-5 flex items-center justify-between gap-4">
+                  <div class="space-y-2">
+                    <div class="text-stone-400 text-xs uppercase tracking-[0.24em]">Fitness Score</div>
+                    <div class="text-4xl font-black text-white">87<span class="text-lg text-stone-400">/100</span></div>
+                    <div class="text-sm text-stone-300">Strong monthly consistency with clear strength gains</div>
+                  </div>
+                  <div class="score-ring"><div class="score-ring__inner"><div class="text-center"><div class="score-ring__label">Score</div><div class="score-ring__value">87</div><div class="text-xs text-stone-400">points</div></div></div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:w-[18rem] report-card rounded-[1.5rem] p-5">
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <div class="text-stone-400 text-xs uppercase tracking-[0.24em]">Export report</div>
+                  <h2 class="mt-2 text-xl font-black text-white">PDF Ready</h2>
+                </div>
+                <svg class="w-10 h-10 text-gold" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v10m0 0 3.5-3.5M12 13l-3.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 14.5v2.8c0 1.2.9 2.2 2 2.2h10c1.1 0 2-.9 2-2.2v-2.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </div>
+              <p class="mt-4 text-sm text-stone-400">Use the button below to open the print dialog and save this report as a professional PDF.</p>
+              <button id="downloadReportBtn" type="button" class="mt-5 w-full report-cta px-4 py-3 font-semibold">Download / Print PDF</button>
+              <p class="report-print-note mt-3 text-xs text-stone-500">Optimized for printing with dark and gold branding preserved.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="grid grid-cols-2 xl:grid-cols-6 gap-4 mb-6">
+          <article class="report-card rounded-[1.5rem] p-5 report-metric"><div class="text-stone-400 text-xs uppercase tracking-[0.22em]">Current weight</div><div class="mt-3 text-3xl font-black text-white">79.3 kg</div><div class="mt-2 text-sm text-emerald-300">-1.8 kg vs previous month</div></article>
+          <article class="report-card rounded-[1.5rem] p-5 report-metric"><div class="text-stone-400 text-xs uppercase tracking-[0.22em]">Previous month weight</div><div class="mt-3 text-3xl font-black text-white">81.1 kg</div><div class="mt-2 text-sm text-stone-400">Baseline comparison</div></article>
+          <article class="report-card rounded-[1.5rem] p-5 report-metric"><div class="text-stone-400 text-xs uppercase tracking-[0.22em]">Calories burned</div><div class="mt-3 text-3xl font-black text-white">12,480</div><div class="mt-2 text-sm text-emerald-300">+12% vs last month</div></article>
+          <article class="report-card rounded-[1.5rem] p-5 report-metric"><div class="text-stone-400 text-xs uppercase tracking-[0.22em]">Workouts completed</div><div class="mt-3 text-3xl font-black text-white">22</div><div class="mt-2 text-sm text-stone-400">Out of 24 planned sessions</div></article>
+          <article class="report-card rounded-[1.5rem] p-5 report-metric"><div class="text-stone-400 text-xs uppercase tracking-[0.22em]">Best streak</div><div class="mt-3 text-3xl font-black text-white">11 days</div><div class="mt-2 text-sm text-gold">Strong training streak</div></article>
+          <article class="report-card rounded-[1.5rem] p-5 report-metric"><div class="text-stone-400 text-xs uppercase tracking-[0.22em]">Workout consistency</div><div class="mt-3 text-3xl font-black text-white">94%</div><div class="mt-2 text-sm text-emerald-300">Excellent adherence</div></article>
+        </section>
+
+        <section class="grid xl:grid-cols-12 gap-6 mb-6">
+          <div class="xl:col-span-8 report-card rounded-[2rem] p-5 md:p-6"><div class="flex items-center justify-between gap-3 flex-wrap"><div><div class="text-stone-400 text-xs uppercase tracking-[0.24em]">Chart 1</div><h2 class="mt-2 text-2xl font-black text-white">Weight progress across the month</h2></div><span class="report-chip badge-pill text-xs text-stone-300">Steady downward trend</span></div><div class="mt-5 chart-frame rounded-[1.5rem] border border-white/8 bg-black/25 p-4"><svg viewBox="0 0 520 250" class="w-full h-64" role="img" aria-label="Weight progress chart"><defs><linearGradient id="weightFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(245,176,65,0.4)" /><stop offset="100%" stop-color="rgba(245,176,65,0.02)" /></linearGradient></defs><g stroke="rgba(255,255,255,0.08)" stroke-width="1"><line x1="24" y1="50" x2="496" y2="50"/><line x1="24" y1="98" x2="496" y2="98"/><line x1="24" y1="146" x2="496" y2="146"/><line x1="24" y1="194" x2="496" y2="194"/></g><path d="M24 182 L24 178 L116 158 L208 140 L300 114 L392 94 L484 84 L484 214 L24 214 Z" fill="url(#weightFill)" opacity="0.9"></path><path d="M24 178 L116 158 L208 140 L300 114 L392 94 L484 84" fill="none" stroke="#f5b041" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="24" cy="178" r="5" fill="#f5b041"/><circle cx="116" cy="158" r="5" fill="#f5b041"/><circle cx="208" cy="140" r="5" fill="#f5b041"/><circle cx="300" cy="114" r="5" fill="#f5b041"/><circle cx="392" cy="94" r="5" fill="#f5b041"/><circle cx="484" cy="84" r="5" fill="#f5b041"/><g fill="#9ca3aa" font-size="12" font-family="Poppins, sans-serif"><text x="10" y="232">W1</text><text x="102" y="232">W2</text><text x="194" y="232">W3</text><text x="286" y="232">W4</text><text x="378" y="232">W5</text><text x="470" y="232">W6</text></g></svg></div></div>
+
+          <div class="xl:col-span-4 report-card rounded-[2rem] p-5 md:p-6"><div class="flex items-center justify-between gap-3 flex-wrap"><div><div class="text-stone-400 text-xs uppercase tracking-[0.24em]">Monthly comparison</div><h2 class="mt-2 text-2xl font-black text-white">This month vs previous</h2></div><span class="report-chip--gold badge-pill text-xs font-semibold">+9% strength</span></div><div class="mt-5 space-y-4"><div><div class="flex items-center justify-between text-sm mb-2"><span class="text-stone-300">Weight</span><span class="text-emerald-300">-1.8 kg</span></div><div class="muscle-track"><div class="muscle-fill" style="width:72%"></div></div></div><div><div class="flex items-center justify-between text-sm mb-2"><span class="text-stone-300">Calories</span><span class="text-emerald-300">+12%</span></div><div class="muscle-track"><div class="muscle-fill" style="width:84%"></div></div></div><div><div class="flex items-center justify-between text-sm mb-2"><span class="text-stone-300">Workouts</span><span class="text-emerald-300">+4 sessions</span></div><div class="muscle-track"><div class="muscle-fill" style="width:78%"></div></div></div><div><div class="flex items-center justify-between text-sm mb-2"><span class="text-stone-300">Consistency</span><span class="text-emerald-300">+7%</span></div><div class="muscle-track"><div class="muscle-fill" style="width:94%"></div></div></div></div></div>
+        </section>
+
+        <section class="grid xl:grid-cols-12 gap-6 mb-6">
+          <div class="xl:col-span-4 report-card rounded-[2rem] p-5 md:p-6"><div class="flex items-center justify-between gap-3 flex-wrap"><div><div class="text-stone-400 text-xs uppercase tracking-[0.24em]">Chart 2</div><h3 class="mt-2 text-2xl font-black text-white">Workout frequency</h3></div><span class="report-chip badge-pill text-xs text-stone-300">6 weeks</span></div><div class="mt-5 chart-frame rounded-[1.5rem] border border-white/8 bg-black/25 p-4"><svg viewBox="0 0 360 240" class="w-full h-56" role="img" aria-label="Workout frequency chart"><g fill="rgba(255,255,255,0.08)"><rect x="28" y="36" width="44" height="162" rx="12"/><rect x="96" y="20" width="44" height="178" rx="12"/><rect x="164" y="6" width="44" height="192" rx="12"/><rect x="232" y="28" width="44" height="170" rx="12"/><rect x="300" y="0" width="44" height="198" rx="12"/></g><g fill="#f5b041"><rect x="28" y="118" width="44" height="80" rx="12"/><rect x="96" y="98" width="44" height="100" rx="12"/><rect x="164" y="80" width="44" height="118" rx="12"/><rect x="232" y="50" width="44" height="148" rx="12"/><rect x="300" y="36" width="44" height="162" rx="12"/></g><g fill="#9ca3aa" font-size="11" font-family="Poppins, sans-serif"><text x="34" y="218">W1</text><text x="102" y="218">W2</text><text x="170" y="218">W3</text><text x="238" y="218">W4</text><text x="306" y="218">W5</text></g></svg></div></div>
+          <div class="xl:col-span-4 report-card rounded-[2rem] p-5 md:p-6"><div class="flex items-center justify-between gap-3 flex-wrap"><div><div class="text-stone-400 text-xs uppercase tracking-[0.24em]">Chart 3</div><h3 class="mt-2 text-2xl font-black text-white">Calories burned</h3></div><span class="report-chip badge-pill text-xs text-stone-300">Daily avg 427</span></div><div class="mt-5 chart-frame rounded-[1.5rem] border border-white/8 bg-black/25 p-4"><svg viewBox="0 0 360 240" class="w-full h-56" role="img" aria-label="Calories chart"><g fill="rgba(255,255,255,0.08)"><rect x="24" y="66" width="34" height="132" rx="10"/><rect x="74" y="54" width="34" height="144" rx="10"/><rect x="124" y="82" width="34" height="116" rx="10"/><rect x="174" y="40" width="34" height="158" rx="10"/><rect x="224" y="72" width="34" height="126" rx="10"/><rect x="274" y="28" width="34" height="170" rx="10"/><rect x="324" y="58" width="12" height="140" rx="6"/></g><g fill="#f5b041"><rect x="24" y="120" width="34" height="78" rx="10"/><rect x="74" y="104" width="34" height="94" rx="10"/><rect x="124" y="128" width="34" height="70" rx="10"/><rect x="174" y="86" width="34" height="112" rx="10"/><rect x="224" y="118" width="34" height="80" rx="10"/><rect x="274" y="66" width="34" height="132" rx="10"/><rect x="324" y="104" width="12" height="94" rx="6"/></g><g fill="#9ca3aa" font-size="11" font-family="Poppins, sans-serif"><text x="22" y="216">1</text><text x="72" y="216">2</text><text x="122" y="216">3</text><text x="172" y="216">4</text><text x="222" y="216">5</text><text x="272" y="216">6</text><text x="322" y="216">7</text></g></svg></div></div>
+          <div class="xl:col-span-4 report-card rounded-[2rem] p-5 md:p-6"><div class="flex items-center justify-between gap-3 flex-wrap"><div><div class="text-stone-400 text-xs uppercase tracking-[0.24em]">Chart 4</div><h3 class="mt-2 text-2xl font-black text-white">Strength progress</h3></div><span class="report-chip--gold badge-pill text-xs font-semibold">+9% total</span></div><div class="mt-5 chart-frame rounded-[1.5rem] border border-white/8 bg-black/25 p-4 space-y-4"><div class="space-y-3"><div><div class="flex items-center justify-between text-sm mb-2"><span class="text-stone-300">Squat</span><span class="text-white font-semibold">92%</span></div><div class="muscle-track"><div class="muscle-fill report-bar" style="width:92%"></div></div></div><div><div class="flex items-center justify-between text-sm mb-2"><span class="text-stone-300">Bench press</span><span class="text-white font-semibold">85%</span></div><div class="muscle-track"><div class="muscle-fill report-bar" style="width:85%"></div></div></div><div><div class="flex items-center justify-between text-sm mb-2"><span class="text-stone-300">Deadlift</span><span class="text-white font-semibold">88%</span></div><div class="muscle-track"><div class="muscle-fill report-bar" style="width:88%"></div></div></div><div><div class="flex items-center justify-between text-sm mb-2"><span class="text-stone-300">Row</span><span class="text-white font-semibold">79%</span></div><div class="muscle-track"><div class="muscle-fill report-bar" style="width:79%"></div></div></div></div></div></div>
+        </section>
+
+        <section class="grid xl:grid-cols-12 gap-6 mb-6">
+          <div class="xl:col-span-7 report-card rounded-[2rem] p-5 md:p-6"><div class="flex items-center justify-between gap-3 flex-wrap"><div><div class="text-stone-400 text-xs uppercase tracking-[0.24em]">Muscle groups trained</div><h2 class="mt-2 text-2xl font-black text-white">Monthly training volume</h2></div><span class="report-chip badge-pill text-xs text-stone-300">24 sessions</span></div><div class="mt-5 space-y-4"><div class="muscle-row"><div class="text-stone-300 font-medium">Chest</div><div class="muscle-track"><div class="muscle-fill" style="width:84%"></div></div><div class="text-gold font-semibold">84%</div></div><div class="muscle-row"><div class="text-stone-300 font-medium">Back</div><div class="muscle-track"><div class="muscle-fill" style="width:79%"></div></div><div class="text-gold font-semibold">79%</div></div><div class="muscle-row"><div class="text-stone-300 font-medium">Legs</div><div class="muscle-track"><div class="muscle-fill" style="width:91%"></div></div><div class="text-gold font-semibold">91%</div></div><div class="muscle-row"><div class="text-stone-300 font-medium">Shoulders</div><div class="muscle-track"><div class="muscle-fill" style="width:67%"></div></div><div class="text-gold font-semibold">67%</div></div><div class="muscle-row"><div class="text-stone-300 font-medium">Core</div><div class="muscle-track"><div class="muscle-fill" style="width:58%"></div></div><div class="text-gold font-semibold">58%</div></div><div class="muscle-row"><div class="text-stone-300 font-medium">Arms</div><div class="muscle-track"><div class="muscle-fill" style="width:73%"></div></div><div class="text-gold font-semibold">73%</div></div></div></div>
+
+          <div class="xl:col-span-5 report-card rounded-[2rem] p-5 md:p-6"><div class="flex items-center justify-between gap-3 flex-wrap"><div><div class="text-stone-400 text-xs uppercase tracking-[0.24em]">AI insights</div><h2 class="mt-2 text-2xl font-black text-white">Smart monthly analysis</h2></div><span class="report-chip--gold badge-pill text-xs font-semibold">AI Insights</span></div><div class="mt-5 space-y-4"><div class="rounded-[1.4rem] border border-white/8 bg-white/3 p-4"><div class="text-white font-semibold">1. Your consistency is excellent</div><p class="mt-2 text-sm text-stone-300">You held 94% monthly adherence, a level that supports fat loss while preserving lean mass.</p></div><div class="rounded-[1.4rem] border border-white/8 bg-white/3 p-4"><div class="text-white font-semibold">2. Best performance window</div><p class="mt-2 text-sm text-stone-300">Your strongest training output appears between 6:00 PM and 8:00 PM, which is ideal for compound sessions.</p></div><div class="rounded-[1.4rem] border border-white/8 bg-white/3 p-4"><div class="text-white font-semibold">3. Recovery day is recommended</div><p class="mt-2 text-sm text-stone-300">Adding active recovery after leg day can improve weekly quality and reduce cumulative fatigue.</p></div></div></div>
+        </section>
+
+        <section class="grid xl:grid-cols-12 gap-6 mb-8">
+          <div class="xl:col-span-7 report-card rounded-[2rem] p-5 md:p-6"><div class="flex items-center justify-between gap-3 flex-wrap"><div><div class="text-stone-400 text-xs uppercase tracking-[0.24em]">Monthly badges</div><h2 class="mt-2 text-2xl font-black text-white">Badges & Highlights</h2></div><span class="report-chip badge-pill text-xs text-stone-300">6 badges</span></div><div class="mt-5 flex flex-wrap gap-3"><span class="report-chip--gold badge-pill text-sm font-semibold">🏅 10+ day streak</span><span class="report-chip--gold badge-pill text-sm font-semibold">🔥 20+ Workout Club</span><span class="report-chip--gold badge-pill text-sm font-semibold">⚡ Personal Best</span><span class="report-chip badge-pill text-sm text-stone-300">💪 Advanced strength</span><span class="report-chip badge-pill text-sm text-stone-300">🧠 Smart adherence</span><span class="report-chip badge-pill text-sm text-stone-300">📈 Ongoing progress</span></div></div>
+
+          <div class="xl:col-span-5 report-card rounded-[2rem] p-5 md:p-6"><div class="flex items-center justify-between gap-3 flex-wrap"><div><div class="text-stone-400 text-xs uppercase tracking-[0.24em]">Final summary</div><h2 class="mt-2 text-2xl font-black text-white">This month at a glance</h2></div><span class="report-chip--gold badge-pill text-xs font-semibold">Review ready</span></div><div class="mt-5 space-y-3 text-sm text-stone-300"><div class="flex items-center justify-between rounded-2xl border border-white/8 bg-white/3 px-4 py-3"><span>Total weight change</span><span class="text-emerald-300 font-semibold">-1.8 kg</span></div><div class="flex items-center justify-between rounded-2xl border border-white/8 bg-white/3 px-4 py-3"><span>Strength progress</span><span class="text-emerald-300 font-semibold">+9%</span></div><div class="flex items-center justify-between rounded-2xl border border-white/8 bg-white/3 px-4 py-3"><span>Best streak</span><span class="text-gold font-semibold">11 days</span></div><div class="flex items-center justify-between rounded-2xl border border-white/8 bg-white/3 px-4 py-3"><span>Monthly consistency</span><span class="text-emerald-300 font-semibold">94%</span></div></div></div>
+        </section>
+
+        <footer class="pb-6 text-center text-xs text-stone-500">This report uses sample data only and is ready to print or save as PDF.</footer>
+      </div>
+    </main>
+  </div>
+
+  <script src="assets/js/components.js"></script>
+  <script>
+    Components.init();
+    document.getElementById('downloadReportBtn')?.addEventListener('click', () => window.print());
+  </script>
+</body>
+</html>
