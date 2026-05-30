@@ -53,6 +53,32 @@ const Components = (function () {
     return link;
   };
 
+  const injectPremiumFonts = () => {
+    if (!document.head) return;
+    if (!document.head.querySelector('link[data-goldtech-fonts="premium-preconnect-google"]')) {
+      const preconnectGoogle = document.createElement('link');
+      preconnectGoogle.rel = 'preconnect';
+      preconnectGoogle.href = 'https://fonts.googleapis.com';
+      preconnectGoogle.setAttribute('data-goldtech-fonts', 'premium-preconnect-google');
+      document.head.appendChild(preconnectGoogle);
+    }
+    if (!document.head.querySelector('link[data-goldtech-fonts="premium-preconnect-gstatic"]')) {
+      const preconnectGstatic = document.createElement('link');
+      preconnectGstatic.rel = 'preconnect';
+      preconnectGstatic.href = 'https://fonts.gstatic.com';
+      preconnectGstatic.crossOrigin = 'anonymous';
+      preconnectGstatic.setAttribute('data-goldtech-fonts', 'premium-preconnect-gstatic');
+      document.head.appendChild(preconnectGstatic);
+    }
+    if (!document.head.querySelector('link[data-goldtech-fonts="premium-stylesheet"]')) {
+      const fontSheet = document.createElement('link');
+      fontSheet.rel = 'stylesheet';
+      fontSheet.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Sora:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap';
+      fontSheet.setAttribute('data-goldtech-fonts', 'premium-stylesheet');
+      document.head.appendChild(fontSheet);
+    }
+  };
+
   const syncThemeColor = (theme) => {
     const resolved = theme === 'light' ? 'light' : 'dark';
     ensureMeta('theme-color', PWA_THEME_COLORS[resolved]);
@@ -860,6 +886,7 @@ const Components = (function () {
   };
 
   function init() {
+    injectPremiumFonts();
     applyTheme(getPreferredTheme());
     syncSidebarState();
     injectTimerNav();
