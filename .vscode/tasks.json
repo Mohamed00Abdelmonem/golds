@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Normalize Arabic HTML encoding",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$root = Join-Path (Get-Location) 'arabic'; Get-ChildItem -Path $root -Filter *.html | ForEach-Object { $text = [System.IO.File]::ReadAllText($_.FullName); $fixed = [System.Text.Encoding]::UTF8.GetString([System.Text.Encoding]::GetEncoding(28591).GetBytes($text)); [System.IO.File]::WriteAllText($_.FullName, $fixed, (New-Object System.Text.UTF8Encoding($false))) }"
+			],
+			"isBackground": false,
+			"group": "build"
+		}
+	]
+}
