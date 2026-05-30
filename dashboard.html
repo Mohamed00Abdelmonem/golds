@@ -12,6 +12,43 @@
     body{font-family:Poppins,system-ui;background:linear-gradient(180deg,#070708,#0f0f10);color:#fff}
     .glass{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.015));border:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(8px)}
     .fast-trans{transition:all 180ms}
+    .ladder-stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+    .ladder-stat-card{
+      position:relative;
+      isolation:isolate;
+      padding:1.05rem 0.9rem;
+      border-radius:1.1rem;
+      border:1px solid rgba(255,255,255,0.1);
+      background:linear-gradient(165deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02));
+      box-shadow:0 14px 30px rgba(0,0,0,0.34);
+      text-align:center;
+      overflow:hidden;
+    }
+    .ladder-stat-card::before,
+    .ladder-stat-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:inherit;
+      z-index:-1;
+      pointer-events:none;
+    }
+    .ladder-stat-card::before{
+      transform:translateY(7px) scale(0.98);
+      background:rgba(255,255,255,0.035);
+      opacity:.65;
+    }
+    .ladder-stat-card::after{
+      transform:translateY(13px) scale(0.96);
+      background:rgba(0,0,0,0.2);
+      opacity:.7;
+    }
+    .ladder-stat-label{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:#a1a1aa;font-weight:800}
+    .ladder-stat-value{margin-top:.45rem;font-size:2rem;line-height:1.05;font-weight:900;color:#ffd400}
+    .ladder-stat-note{margin-top:.28rem;font-size:.76rem;color:#c5c5c5;font-weight:600}
+    @media (max-width:640px){
+      .ladder-stats-grid{grid-template-columns:1fr}
+    }
   </style>
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
@@ -65,26 +102,26 @@
             <div class="flex items-center justify-between mb-6"><div><div class="text-stone-400 text-xs font-bold uppercase">Welcome back</div><div class="text-white font-black text-3xl"></div></div><div class="text-right"><div class="text-gold font-bold">Gold Elite</div><div class="text-stone-400 text-xs">Valid until May 2027</div></div></div>
             
             <!-- Quick Stats -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-              <div class="glass p-4 rounded-xl text-center">
-                <div class="text-stone-400 text-xs font-bold uppercase">Current Streak</div>
-                <div class="text-2xl font-black text-gold mt-2">47 days</div>
-                <div class="text-stone-500 text-xs mt-1"> Amazing consistency</div>
+            <div class="ladder-stats-grid">
+              <div class="ladder-stat-card">
+                <div class="ladder-stat-label">Current Streak</div>
+                <div class="ladder-stat-value">55 days</div>
+                <div class="ladder-stat-note">Amazing consistency</div>
               </div>
-              <div class="glass p-4 rounded-xl text-center">
-                <div class="text-stone-400 text-xs font-bold uppercase">Workouts This Week</div>
-                <div class="text-2xl font-black text-gold mt-2">4/5</div>
-                <div class="text-stone-500 text-xs mt-1">On track!</div>
+              <div class="ladder-stat-card">
+                <div class="ladder-stat-label">Workouts This Week</div>
+                <div class="ladder-stat-value">4/5</div>
+                <div class="ladder-stat-note">On track!</div>
               </div>
-              <div class="glass p-4 rounded-xl text-center">
-                <div class="text-stone-400 text-xs font-bold uppercase">Calories Burned Today</div>
-                <div class="text-2xl font-black text-gold mt-2">1,420 kcal</div>
-                <div class="text-stone-500 text-xs mt-1">+180 vs yesterday</div>
+              <div class="ladder-stat-card">
+                <div class="ladder-stat-label">Calories Burned Today</div>
+                <div class="ladder-stat-value">1,420 kcal</div>
+                <div class="ladder-stat-note">+180 vs yesterday</div>
               </div>
-              <div class="glass p-4 rounded-xl text-center">
-                <div class="text-stone-400 text-xs font-bold uppercase">Body Fat %</div>
-                <div class="text-2xl font-black text-gold mt-2">17.2%</div>
-                <div class="text-stone-500 text-xs mt-1">-0.8% this month</div>
+              <div class="ladder-stat-card">
+                <div class="ladder-stat-label">Body Fat %</div>
+                <div class="ladder-stat-value">22.2%</div>
+                <div class="ladder-stat-note">-0.8% this month</div>
               </div>
             </div>
           </div>

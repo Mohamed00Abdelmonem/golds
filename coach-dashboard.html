@@ -18,17 +18,87 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css" />
   <style>
+    .coach-app{max-width:1200px;margin:0 auto}
+    .coach-stack{display:flex;flex-direction:column;gap:1rem}
+    .coach-rail{display:flex;gap:.85rem;overflow-x:auto;padding:.1rem .15rem .4rem;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+    .coach-rail::-webkit-scrollbar{display:none}
+    .coach-rail .coach-dashboard-card{min-width:220px;flex:0 0 220px}
+    .coach-section-title{font-size:1.25rem;line-height:1.2;font-weight:900}
+    .coach-subtle{font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:#a1a1aa}
     .coach-dashboard-grid{display:grid;gap:1.5rem}
     .coach-mobile-two{grid-template-columns:repeat(2,minmax(0,1fr))}
     .coach-mobile-three{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .coach-shell-card{position:relative;overflow:hidden}
-    .coach-shell-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,176,65,0.08),transparent 30%);pointer-events:none;opacity:.85}
-    .coach-chip{display:inline-flex;align-items:center;gap:.45rem;border-radius:9999px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);padding:.45rem .75rem;font-size:.75rem}
-    .coach-chip.is-active{border-color:rgba(245,176,65,.28);background:rgba(245,176,65,.1);color:#f5b041}
-    .coach-dropdown{box-shadow:0 24px 60px rgba(0,0,0,.36)}
+    .coach-shell-card{
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.1);
+      background:
+        linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.015)),
+        rgba(16,16,17,.9);
+      box-shadow:0 22px 46px rgba(0,0,0,.35);
+    }
+    .coach-shell-card::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at top right,rgba(255,212,0,.12),transparent 34%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .coach-shell-card::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(135deg,rgba(255,255,255,0.04),transparent 36%);
+      pointer-events:none;
+      opacity:.85;
+    }
+    .coach-shell-card > *{position:relative;z-index:1}
+    .coach-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:.45rem;
+      border-radius:9999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05);
+      padding:.45rem .82rem;
+      font-size:.75rem;
+      font-weight:700;
+      transition:all .22s ease;
+    }
+    .coach-chip:hover{transform:translateY(-1px);background:rgba(255,255,255,.08)}
+    .coach-chip.is-active{
+      border-color:rgba(255,212,0,.45);
+      background:linear-gradient(180deg,rgba(255,241,115,.22),rgba(255,212,0,.16));
+      color:#ffd400;
+      box-shadow:0 8px 18px rgba(255,212,0,.14);
+    }
+    .coach-dashboard-card{
+      border:1px solid rgba(255,255,255,.1) !important;
+      background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.015)) !important;
+      box-shadow:0 16px 32px rgba(0,0,0,.3);
+    }
+    .coach-top-grid .coach-dashboard-card:nth-child(odd){transform:translateY(2px)}
+    .coach-top-grid .coach-dashboard-card:nth-child(even){transform:translateY(-1px)}
+    .coach-list-card{
+      border-color:rgba(255,255,255,.12) !important;
+      background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) !important;
+      box-shadow:0 12px 24px rgba(0,0,0,.2);
+      transition:all .22s ease;
+    }
+    .coach-list-card:hover{
+      transform:translateY(-2px);
+      border-color:rgba(255,212,0,.22) !important;
+      box-shadow:0 18px 34px rgba(0,0,0,.28);
+    }
+    .coach-dropdown{
+      box-shadow:0 28px 70px rgba(0,0,0,.42);
+      backdrop-filter:blur(16px) saturate(130%);
+      -webkit-backdrop-filter:blur(16px) saturate(130%);
+    }
     .coach-scrollbar::-webkit-scrollbar{height:8px;width:8px}
     .coach-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:9999px}
-    .coach-status-dot{width:.5rem;height:.5rem;border-radius:9999px;background:var(--gold);box-shadow:0 0 16px rgba(245,176,65,.35)}
+    .coach-status-dot{width:.5rem;height:.5rem;border-radius:9999px;background:var(--gold);box-shadow:0 0 16px rgba(255,212,0,.4)}
     .assistant-panel{backdrop-filter:blur(14px) saturate(120%)}
     .skeleton{position:relative;overflow:hidden;background:rgba(255,255,255,.035)}
     .skeleton::before{content:'';position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);animation:sweep 1.25s infinite}
@@ -37,19 +107,104 @@
       .coach-mobile-two,.coach-mobile-three{grid-template-columns:1fr !important}
       .coach-dashboard-grid{gap:1rem}
       .coach-dashboard-card{padding:1rem !important}
-      .coach-top-grid.grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+      .coach-top-grid.grid{grid-template-columns:1fr !important}
       .coach-mobile-two.grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
       .coach-mobile-three.grid{grid-template-columns:repeat(3,minmax(0,1fr)) !important}
-      .coach-list-card{flex-direction:column;align-items:flex-start}
-      .coach-list-card .text-right{align-self:flex-end;text-align:right}
+      main{padding:0.85rem !important}
+      main{padding-bottom:6.2rem !important}
+      header{top:.45rem !important;border-radius:1rem !important;padding:.65rem .7rem !important}
+      #page-main{display:flex;flex-direction:column;gap:1rem}
+      .coach-shell-card,.coach-dashboard-card{border-radius:1.1rem !important}
+      .coach-shell-card{padding:1rem !important}
+      .coach-shell-card h2{font-size:1.7rem;line-height:1.1}
+      .coach-shell-card h3{font-size:1.08rem;line-height:1.25}
+      .coach-shell-card .tracking-\[0\.22em\]{letter-spacing:.14em}
+      .coach-actions-grid{
+        display:flex !important;
+        flex-wrap:nowrap !important;
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
+        scrollbar-width:none;
+        padding-bottom:.15rem;
+      }
+      .coach-actions-grid::-webkit-scrollbar{display:none}
+      .coach-actions-grid .coach-chip{flex:0 0 auto}
+      .coach-list-card{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+        gap:.7rem;
+        padding:.9rem !important;
+      }
+      .coach-list-card .min-w-0{width:100%}
+      .coach-list-card .flex-wrap{justify-content:center}
+      .coach-list-card .grid{
+        width:100%;
+        display:grid !important;
+        grid-template-columns:1fr;
+        gap:.5rem !important;
+      }
+      .coach-list-card .coach-chip{
+        justify-content:center;
+        font-size:.72rem;
+        padding:.42rem .55rem;
+        width:100%;
+      }
+      .coach-shell-card .grid[class*="grid-cols-2"],
+      .coach-shell-card .grid[class*="grid-cols-3"],
+      .coach-progress-grid,
+      .coach-analytics-grid,
+      .coach-gamify-grid{
+        grid-template-columns:1fr !important;
+      }
+      .coach-shell-card .rounded-2xl.border.border-white\/8.bg-black\/25.p-3,
+      .coach-shell-card .rounded-2xl.border.border-white\/8.bg-white\/3.p-3{
+        padding:.75rem !important;
+      }
+      .coach-shell-card .h-44{height:10rem !important}
+      .coach-shell-card .h-36{height:9rem !important}
+      .coach-shell-card .text-2xl{font-size:1.38rem !important}
+      .coach-shell-card .text-xl{font-size:1.02rem !important}
+      .coach-rail .coach-dashboard-card{min-width:86vw;flex-basis:86vw}
+      #memberSearch{font-size:.92rem;padding-top:.72rem;padding-bottom:.72rem}
+      #memberList{gap:.75rem !important}
+      .coach-shell-card button.bg-gold{width:100%}
       .coach-members-empty{width:100%}
-      .coach-assistant-trigger{width:auto}
+      .coach-assistant-trigger{
+        position:fixed !important;
+        right:.8rem !important;
+        left:auto !important;
+        bottom:calc(env(safe-area-inset-bottom) + .8rem) !important;
+        width:auto !important;
+        min-width:3rem !important;
+        padding:.75rem .95rem !important;
+        border-radius:9999px !important;
+        z-index:60 !important;
+      }
+      #assistantPanel{
+        right:.75rem !important;
+        left:.75rem !important;
+        width:auto !important;
+        bottom:calc(env(safe-area-inset-bottom) + 4.25rem) !important;
+        z-index:60 !important;
+      }
       .coach-dropdown{width:min(22rem,calc(100vw - 1rem))}
+    }
+    @media (max-width: 1024px){
+      .coach-dashboard-grid{grid-template-columns:1fr !important;gap:1rem !important}
+      .coach-dashboard-grid > aside{order:-1}
+      .coach-dashboard-grid > aside,
+      .coach-dashboard-grid > div{display:flex;flex-direction:column;gap:1rem}
+      .coach-progress-grid,
+      .coach-analytics-grid{grid-template-columns:1fr !important;gap:1rem !important}
     }
     @media (max-width: 420px){
       .coach-top-grid.grid{grid-template-columns:1fr !important}
       .coach-mobile-two.grid,.coach-mobile-three.grid,.coach-progress-grid.grid,.coach-analytics-grid.grid,.coach-gamify-grid.grid{grid-template-columns:1fr !important}
       .coach-actions-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+      .coach-rail .coach-dashboard-card{min-width:92vw;flex-basis:92vw}
+      .coach-assistant-trigger{right:.55rem !important;left:auto !important;bottom:calc(env(safe-area-inset-bottom) + .65rem) !important;text-align:center}
+      #assistantPanel{right:.55rem !important;left:.55rem !important;width:auto !important;bottom:calc(env(safe-area-inset-bottom) + 4.1rem) !important}
     }
   </style>
 </head>
@@ -125,18 +280,18 @@
         </div>
       </header>
 
-      <div id="page-main" class="space-y-6">
-        <section data-skeleton class="grid coach-top-grid grid-cols-2 xl:grid-cols-7 gap-4">
+      <div id="page-main" class="coach-app coach-stack">
+        <section data-skeleton class="coach-rail">
           <div class="skeleton rounded-2xl h-28"></div>
           <div class="skeleton rounded-2xl h-28"></div>
           <div class="skeleton rounded-2xl h-28"></div>
           <div class="skeleton rounded-2xl h-28"></div>
           <div class="skeleton rounded-2xl h-28"></div>
-          <div class="skeleton rounded-2xl h-28 hidden xl:block"></div>
-          <div class="skeleton rounded-2xl h-28 hidden xl:block"></div>
+          <div class="skeleton rounded-2xl h-28"></div>
+          <div class="skeleton rounded-2xl h-28"></div>
         </section>
 
-        <section class="grid coach-top-grid grid-cols-2 xl:grid-cols-7 gap-4" aria-label="Dashboard overview">
+        <section class="coach-rail" aria-label="Dashboard overview">
           <article class="glass rounded-[1.5rem] p-4 coach-dashboard-card hover-lift fast-trans"><div class="text-stone-400 text-xs uppercase tracking-[0.22em]">Total Members</div><div class="mt-3 text-3xl font-black text-white">248</div><div class="mt-2 text-xs text-emerald-300">+14 this month</div></article>
           <article class="glass rounded-[1.5rem] p-4 coach-dashboard-card hover-lift fast-trans"><div class="text-stone-400 text-xs uppercase tracking-[0.22em]">Active Today</div><div class="mt-3 text-3xl font-black text-white">184</div><div class="mt-2 text-xs text-emerald-300">74% engagement</div></article>
           <article class="glass rounded-[1.5rem] p-4 coach-dashboard-card hover-lift fast-trans"><div class="text-stone-400 text-xs uppercase tracking-[0.22em]">Pending Check-ins</div><div class="mt-3 text-3xl font-black text-white">19</div><div class="mt-2 text-xs text-rose-300">7 need follow-up</div></article>
@@ -146,7 +301,7 @@
           <article class="glass rounded-[1.5rem] p-4 coach-dashboard-card hover-lift fast-trans"><div class="text-stone-400 text-xs uppercase tracking-[0.22em]">PT Revenue</div><div class="mt-3 text-3xl font-black text-white">$12.4k</div><div class="mt-2 text-xs text-emerald-300">+9.8%</div></article>
         </section>
 
-        <div class="grid xl:grid-cols-12 gap-6 coach-dashboard-grid">
+        <div class="grid xl:grid-cols-12 gap-5 coach-dashboard-grid">
           <div class="xl:col-span-8 space-y-6">
             <section class="glass rounded-[2rem] p-5 md:p-6 coach-shell-card">
               <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
