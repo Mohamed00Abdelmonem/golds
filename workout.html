@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>GoldTech Fitness — Workout Program</title>
+  <title>GoldTech Fitness â€” Workout Program</title>
 
   <!-- Tailwind CDN + config (matches dashboard) -->
   <script>
@@ -154,6 +154,33 @@
       border:1px solid rgba(255,212,0,0.4) !important;
       box-shadow:0 10px 24px rgba(255,212,0,0.22);
     }
+
+    /* ===== MOBILE BOTTOM NAV ===== */
+    .mobile-bottom-nav,.mobile-bottom-sheet{display:none}
+    @media (max-width:767px){
+      body{padding-bottom:0 !important}
+      #page-main{padding-bottom:calc(6.5rem + env(safe-area-inset-bottom)) !important}
+      .mobile-bottom-nav{display:flex;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(1rem + env(safe-area-inset-bottom));z-index:999;width:calc(100% - 2.5rem);max-width:420px;padding:0;background:transparent;pointer-events:none}
+      .mobile-bottom-nav__inner{pointer-events:auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0.3rem;width:100%;border-radius:9999px;padding:0.45rem;background:rgba(15,15,17,0.85);border:1px solid rgba(255,255,255,0.08);box-shadow:0 16px 36px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.05);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%)}
+      .mobile-bottom-nav__item{display:flex;flex-direction:column;align-items:center;justify-content:center;width:3rem;height:3rem;border-radius:9999px;color:#a1a1aa;transition:all 280ms cubic-bezier(0.34,1.56,0.64,1);border:none;cursor:pointer;position:relative;text-decoration:none}
+      .mobile-bottom-nav__item svg{width:1.45rem;height:1.45rem;transition:transform 200ms}
+      .mobile-bottom-nav__item:active svg{transform:scale(0.85)}
+      .mobile-bottom-nav__item::after{content:'';position:absolute;bottom:0.3rem;width:4px;height:4px;border-radius:50%;background:#f5b041;opacity:0;transform:scale(0);transition:all 250ms cubic-bezier(0.34,1.56,0.64,1)}
+      .mobile-bottom-nav__item.is-active::after{opacity:1;transform:scale(1)}
+      .mobile-bottom-nav__item.is-active{background:rgba(255,212,0,0.12);color:#ffd400;box-shadow:0 4px 16px rgba(255,212,0,0.15),inset 0 0 0 1px rgba(255,212,0,0.25);transform:translateY(-2px)}
+      .mobile-bottom-nav__item.more-active{background:rgba(255,212,0,0.2);color:#ffd400}
+      .mobile-bottom-sheet{display:block;position:fixed;inset:0;z-index:1000;opacity:0;pointer-events:none;transition:opacity 220ms ease}
+      .mobile-bottom-sheet.is-open{opacity:1;pointer-events:auto}
+      .mobile-bottom-sheet__scrim{position:absolute;inset:0;background:rgba(0,0,0,.62);backdrop-filter:blur(10px)}
+      .mobile-bottom-sheet__panel{position:absolute;left:0;right:0;bottom:0;transform:translateY(100%);transition:transform 260ms cubic-bezier(.2,.9,.2,1);border-radius:1.5rem 1.5rem 0 0;background:linear-gradient(180deg,rgba(16,16,18,.98),rgba(10,10,12,.98));border:1px solid rgba(255,255,255,0.08);box-shadow:0 -28px 80px rgba(0,0,0,.5);padding-bottom:calc(1rem + env(safe-area-inset-bottom));max-height:min(82vh,42rem);display:flex;flex-direction:column}
+      .mobile-bottom-sheet.is-open .mobile-bottom-sheet__panel{transform:translateY(0)}
+      .mobile-bottom-sheet__handle{width:3.25rem;height:.28rem;border-radius:999px;background:rgba(255,255,255,.18);margin:0.7rem auto 0}
+      .mobile-bottom-sheet__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.65rem;padding:0 1rem 1rem;overflow:auto}
+      .mobile-bottom-sheet__link{display:flex;min-height:3.9rem;align-items:center;gap:0.8rem;border-radius:1.1rem;padding:0.85rem 0.9rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:#e5e7eb;font-size:.9rem;font-weight:600;transition:all 180ms;text-decoration:none}
+      .mobile-bottom-sheet__link:hover{background:rgba(255,255,255,.08)}
+      .mobile-bottom-sheet__link.is-active{background:rgba(245,176,65,.14);border-color:rgba(245,176,65,.24);color:#fff}
+      .mobile-bottom-sheet__close{display:inline-flex;align-items:center;justify-content:center;min-height:2.75rem;min-width:2.75rem;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#e5e7eb}
+    }
   </style>
 </head>
 <body class="antialiased text-sm">
@@ -189,22 +216,22 @@
               <li><a href="profile.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Profile</span></a></li>
         </ul>
       </nav>
-    <div class="pt-3 border-t border-white/6 text-sm"><div class="text-stone-400">Active Membership</div><div class="mt-2 flex items-center justify-between"><div><div class="text-white font-semibold">Gold Elite</div><div class="text-stone-400 text-xs">Valid until May 2027</div></div><div class="bg-gradient-to-br from-[#2a2a2a]/80 to-[#161616]/60 p-2 rounded-lg text-gold">●</div></div></div>
+    <div class="pt-3 border-t border-white/6 text-sm"><div class="text-stone-400">Active Membership</div><div class="mt-2 flex items-center justify-between"><div><div class="text-white font-semibold">Gold Elite</div><div class="text-stone-400 text-xs">Valid until May 2027</div></div><div class="bg-gradient-to-br from-[#2a2a2a]/80 to-[#161616]/60 p-2 rounded-lg text-gold">â—</div></div></div>
   </aside>
 
   <main class="flex-1 overflow-y-auto overflow-x-hidden safe-bottom" id="page-main">
     <header class="sticky top-0 z-30 glass rounded-0 md:rounded-2xl mb-0 md:mb-6 flex items-center justify-between fast-trans overflow-x-hidden">
       <div class="flex items-center gap-2 md:gap-4 flex-1">
         <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-white/6 transition-colors" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16" stroke-width="1.6" stroke-linecap="round"/></svg></button>
-        <div class="hidden md:flex items-center gap-4 flex-1 min-w-0"><h1 class="text-white font-extrabold truncate">Push Pull Legs — Program</h1><div class="text-stone-400 text-sm hidden lg:block">Follow and track today's session</div></div>
+        <div class="hidden md:flex items-center gap-4 flex-1 min-w-0"><h1 class="text-white font-extrabold truncate">Push Pull Legs â€” Program</h1><div class="text-stone-400 text-sm hidden lg:block">Follow and track today's session</div></div>
         <div class="md:hidden flex-1 text-center">
           <h1 class="text-white font-bold text-sm">Workout</h1>
         </div>
       </div>
       <div class="flex items-center gap-4">
-        <button id="languageToggle" class="hidden md:flex p-2 rounded-lg hover:bg-white/6 transition-colors items-center gap-2" aria-label="Toggle language"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 8h14M5 8a9 9 0 0 0 0 8M5 8a9 9 0 0 1 14 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-lang-text class="text-stone-400 text-sm">العربية</span></button>
+        <button id="languageToggle" class="hidden md:flex p-2 rounded-lg hover:bg-white/6 transition-colors items-center gap-2" aria-label="Toggle language"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 8h14M5 8a9 9 0 0 0 0 8M5 8a9 9 0 0 1 14 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-lang-text class="text-stone-400 text-sm">Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©</span></button>
         <div class="relative hidden sm:flex items-center"><label for="search" class="sr-only">Search workouts</label><input id="search" class="glass rounded-xl px-3 py-2 pl-10 pr-3 bg-transparent text-white placeholder:opacity-60 fast-trans" style="width:clamp(150px,25vw,400px)" data-i18n="header.search" placeholder="Search exercises, machines, coaches" /></div>
-        <div class="flex items-center gap-3"><div class="text-right"><div class="text-white font-semibold">Mohamed</div><div class="text-stone-400 text-xs">عضو • Gold Elite</div></div><button id="profileBtn" class="rounded-full bg-gradient-to-br from-[#151515] to-[#0f0f0f] p-1"><img src="assets/img/user.png" alt="avatar" class="w-10 h-10 rounded-full object-cover border border-white/6"/></button></div>
+        <div class="flex items-center gap-3"><div class="text-right"><div class="text-white font-semibold">Mohamed</div><div class="text-stone-400 text-xs">Ø¹Ø¶Ùˆ â€¢ Gold Elite</div></div><button id="profileBtn" class="rounded-full bg-gradient-to-br from-[#151515] to-[#0f0f0f] p-1"><img src="assets/img/user.png" alt="avatar" class="w-10 h-10 rounded-full object-cover border border-white/6"/></button></div>
       </div>
     </header>
 
@@ -217,8 +244,8 @@
           <div class="flex flex-col" style="gap:var(--gap)">
             <div>
               <div class="text-stone-400 uppercase tracking-widest">Program</div>
-              <h1 class="text-white font-extrabold text-white leading-tight">Push Pull Legs — Push Day</h1>
-              <div style="margin-top:clamp(0.25rem,1vw,0.5rem)" class="text-stone-400">Day 5 • Focus: Chest & Shoulders</div>
+              <h1 class="text-white font-extrabold text-white leading-tight">Push Pull Legs â€” Push Day</h1>
+              <div style="margin-top:clamp(0.25rem,1vw,0.5rem)" class="text-stone-400">Day 5 â€¢ Focus: Chest & Shoulders</div>
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-4 md:flex md:items-center md:flex-wrap" style="gap:var(--gap)">
@@ -269,7 +296,7 @@
                 <div class="flex flex-col justify-between">
                   <div class="min-w-0">
                     <div class="text-white font-semibold truncate">Barbell Bench Press</div>
-                    <div class="text-stone-400 mt-0.5 line-clamp-1" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Target: Chest • Sets: 4 • Reps: 6-8</div>
+                    <div class="text-stone-400 mt-0.5 line-clamp-1" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Target: Chest â€¢ Sets: 4 â€¢ Reps: 6-8</div>
                   </div>
                   
                   <!-- Mobile: stacked layout, Desktop: inline -->
@@ -333,7 +360,7 @@
                 <div class="flex flex-col justify-between">
                   <div class="min-w-0">
                     <div class="text-white font-semibold truncate">Bent-over Barbell Row</div>
-                    <div class="text-stone-400 mt-0.5 line-clamp-1" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Target: Back • Sets: 4 • Reps: 6-8</div>
+                    <div class="text-stone-400 mt-0.5 line-clamp-1" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Target: Back â€¢ Sets: 4 â€¢ Reps: 6-8</div>
                   </div>
                   
                   <div class="mt-2 md:mt-3 flex flex-col md:flex-row md:items-center md:justify-between" style="gap:clamp(0.375rem,1vw,0.75rem)">
@@ -369,7 +396,7 @@
                 <div class="flex flex-col justify-between">
                   <div class="min-w-0">
                     <div class="text-white font-semibold truncate">Standing Overhead Press</div>
-                    <div class="text-stone-400 mt-0.5 line-clamp-1" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Target: Shoulders • Sets: 4 • Reps: 6</div>
+                    <div class="text-stone-400 mt-0.5 line-clamp-1" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Target: Shoulders â€¢ Sets: 4 â€¢ Reps: 6</div>
                   </div>
                   
                   <div class="mt-2 md:mt-3 flex flex-col md:flex-row md:items-center md:justify-between" style="gap:clamp(0.375rem,1vw,0.75rem)">
@@ -406,7 +433,7 @@
           <div class="flex flex-col md:flex-row md:items-center md:justify-between" style="gap:clamp(0.5rem,1.5vw,1rem)">
             <div>
               <div class="text-stone-400">Workout Tracker</div>
-              <div class="text-white font-extrabold">Push Day • In Progress</div>
+              <div class="text-white font-extrabold">Push Day â€¢ In Progress</div>
             </div>
             <div class="text-stone-400" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">12:34</div>
           </div>
@@ -472,7 +499,7 @@
         <!-- QR Machine Training Panel -->
         <div class="glass hover-lift fast-trans" style="border-radius:clamp(0.5rem,2vw,1rem); padding:var(--card-pad); margin-top:clamp(0.75rem,2vw,1rem)">
           <div class="flex flex-col md:flex-row md:items-center md:justify-between" style="gap:var(--gap); margin-bottom:clamp(0.5rem,1.5vw,0.75rem)">
-            <div><div class="text-stone-400">Machine Trainer</div><div class="text-white font-extrabold">Scan machine • Model X9</div></div>
+            <div><div class="text-stone-400">Machine Trainer</div><div class="text-white font-extrabold">Scan machine â€¢ Model X9</div></div>
             <div class="text-stone-400" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">M-231</div>
           </div>
           <div class="text-stone-400" style="margin-bottom:clamp(0.5rem,1.5vw,0.75rem)">Scan the QR on the machine to auto-load guided sets and safety tips.</div>
@@ -588,7 +615,7 @@
 
   function updateRestPanel(card, secondsLeft) {
     if (restCountdownEl) restCountdownEl.textContent = formatRestLabel(secondsLeft);
-    if (activeExerciseLabelEl) activeExerciseLabelEl.textContent = card ? `${card.dataset.name} • Rest ${card.dataset.restLabel}` : 'Tap Start';
+    if (activeExerciseLabelEl) activeExerciseLabelEl.textContent = card ? `${card.dataset.name} â€¢ Rest ${card.dataset.restLabel}` : 'Tap Start';
 
     const restBar = document.getElementById('restTimeBar');
     if (restBar) {
@@ -666,8 +693,8 @@
   const exerciseData = {
     'Push Day': [
       { name: 'Barbell Bench Press', target: 'Chest', sets: 4, reps: '6-8', rest: '90s', weight: 80, image: 'assets/img/exercises/img1.png', instructions: 'Lie flat on bench, grip slightly wider than shoulder. Lower bar to chest under control, pause briefly, and press up explosively.', mistakes: ['Flared elbows', 'Bouncing off chest'], safety: ['Use spotter for heavy sets', 'Control tempo'], machine: 'M-231' },
-      { name: 'Incline Dumbbell Press', target: 'Upper Chest', sets: 4, reps: '8-10', rest: '90s', weight: 35, image: 'assets/img/exercises/exersice.png', instructions: 'Set bench to 45° angle, press dumbbells upward and inward in controlled motion.', mistakes: ['Dropping dumbbells', 'Uneven press'], safety: ['Secure dumbbells grip', 'No swinging'], machine: 'N/A' },
-      { name: 'Tricep Dips', target: 'Triceps', sets: 3, reps: '8-12', rest: '60s', weight: 'Bodyweight', image: 'assets/img/exercises/exersice5.png', instructions: 'Use parallel bars, lower body until elbows are 90°, then press back up explosively.', mistakes: ['Excessive forward lean', 'Incomplete range'], safety: ['Use dip belt for weight', 'Maintain upright posture'], machine: 'M-245' },
+      { name: 'Incline Dumbbell Press', target: 'Upper Chest', sets: 4, reps: '8-10', rest: '90s', weight: 35, image: 'assets/img/exercises/exersice.png', instructions: 'Set bench to 45Â° angle, press dumbbells upward and inward in controlled motion.', mistakes: ['Dropping dumbbells', 'Uneven press'], safety: ['Secure dumbbells grip', 'No swinging'], machine: 'N/A' },
+      { name: 'Tricep Dips', target: 'Triceps', sets: 3, reps: '8-12', rest: '60s', weight: 'Bodyweight', image: 'assets/img/exercises/exersice5.png', instructions: 'Use parallel bars, lower body until elbows are 90Â°, then press back up explosively.', mistakes: ['Excessive forward lean', 'Incomplete range'], safety: ['Use dip belt for weight', 'Maintain upright posture'], machine: 'M-245' },
       { name: 'Lateral Raises', target: 'Shoulders', sets: 3, reps: '12-15', rest: '45s', weight: 15, image: 'assets/img/exercises/excersice4.png', instructions: 'Stand with dumbbells at sides, raise arms to shoulder height with slight bend.', mistakes: ['Jerky movements', 'Too heavy weight'], safety: ['Controlled tempo', 'No momentum'], machine: 'N/A' }
     ],
     'Pull Day': [
@@ -716,7 +743,7 @@
         <div class="exercise-head mt-3">
           <div class="min-w-0">
             <div class="exercise-name text-white truncate">${ex.name}</div>
-            <div class="text-stone-400 mt-1" style="font-size:clamp(0.7rem,1.6vw,0.82rem)">Target: ${ex.target} • ${ex.reps} reps</div>
+            <div class="text-stone-400 mt-1" style="font-size:clamp(0.7rem,1.6vw,0.82rem)">Target: ${ex.target} â€¢ ${ex.reps} reps</div>
           </div>
           <div class="text-right">
             <div class="text-white font-bold">${ex.weight}${typeof ex.weight === 'string' ? '' : ' kg'}</div>
@@ -976,14 +1003,107 @@
   document.getElementById('mobileMenuBtn')?.addEventListener('click', ()=>{ document.querySelector('aside')?.classList.toggle('hidden'); });
 
   // End workout
-  document.getElementById('endWorkout').addEventListener('click', ()=>{ if(timer) { clearInterval(timer); timer = null; } stopRestTimer(); resetWorkoutSession(); showAchievement('Workout Complete','+300 XP • Streak +1'); updateCounts(); });
+  document.getElementById('endWorkout').addEventListener('click', ()=>{ if(timer) { clearInterval(timer); timer = null; } stopRestTimer(); resetWorkoutSession(); showAchievement('Workout Complete','+300 XP â€¢ Streak +1'); updateCounts(); });
 
   updateRestPanel(null, 0);
 </script>
 
-<!-- Comments: This page reuses visual system from index.html. Replace media src and integrate real APIs as needed. -->
+<!-- ===== PREMIUM MOBILE BOTTOM NAV ===== -->
+  <nav id="mobileBottomNav" class="mobile-bottom-nav" aria-label="Mobile navigation">
+    <div class="mobile-bottom-nav__inner">
+      <a href="landing.html" data-mobile-nav-link class="mobile-bottom-nav__item" aria-label="Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </a>
+      <a href="dashboard.html" data-mobile-nav-link class="mobile-bottom-nav__item" aria-label="Dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+          <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+          <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+          <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+        </svg>
+      </a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="13" r="6.2" />
+          <path d="M12 6.8V4.6" />
+          <path d="M12.1 4.7c1.2-1.9 3.2-2.2 4.5-1.8-.9 2-2.5 3-4.4 3" />
+          <path d="M9.2 13h5.6" />
+        </svg>
+      </a>
+      <a href="profile.html" data-mobile-nav-link class="mobile-bottom-nav__item" aria-label="Profile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+      </a>
+      <button id="mobileMoreBtn" type="button" class="mobile-bottom-nav__item" aria-controls="mobileMoreSheet" aria-expanded="false" aria-label="More navigation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+          <circle cx="19" cy="12" r="1.5" fill="currentColor"/>
+          <circle cx="5" cy="12" r="1.5" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobileMoreSheet" class="mobile-bottom-sheet" aria-hidden="true">
+    <div class="mobile-bottom-sheet__scrim" data-mobile-more-close></div>
+    <section class="mobile-bottom-sheet__panel" role="dialog" aria-modal="true" aria-label="More navigation">
+      <div class="mobile-bottom-sheet__handle"></div>
+      <div class="flex items-center justify-between gap-3 px-4 pt-3 pb-4">
+        <div>
+          <div class="text-xs uppercase tracking-[0.24em] text-stone-400">More</div>
+          <div class="mt-1 text-lg font-black text-white">Navigation</div>
+        </div>
+        <button type="button" class="mobile-bottom-sheet__close" data-mobile-more-close aria-label="Close more navigation">
+          <svg viewBox="0 0 24 24" fill="none" class="w-5 h-5" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="mobile-bottom-sheet__grid">
+        <a href="programs.html" data-mobile-more-link class="mobile-bottom-sheet__link">Programs</a>
+        <a href="workout.html" data-mobile-more-link class="mobile-bottom-sheet__link is-active">Workouts</a>
+        <a href="classes.html" data-mobile-more-link class="mobile-bottom-sheet__link">Classes</a>
+        <a href="coaches.html" data-mobile-more-link class="mobile-bottom-sheet__link">Coaches</a>
+        <a href="community.html" data-mobile-more-link class="mobile-bottom-sheet__link">Community</a>
+        <a href="blogs.html" data-mobile-more-link class="mobile-bottom-sheet__link">Blogs</a>
+        <a href="inbody.html" data-mobile-more-link class="mobile-bottom-sheet__link">InBody</a>
+        <a href="machines.html" data-mobile-more-link class="mobile-bottom-sheet__link">Machines</a>
+        <a href="smart-test.html" data-mobile-more-link class="mobile-bottom-sheet__link">Smart Test</a>
+        <a href="achievements.html" data-mobile-more-link class="mobile-bottom-sheet__link">Achievements</a>
+        <a href="store.html" data-mobile-more-link class="mobile-bottom-sheet__link">Store</a>
+        <a href="membership.html" data-mobile-more-link class="mobile-bottom-sheet__link">Membership</a>
+        <a href="notifications.html" data-mobile-more-link class="mobile-bottom-sheet__link">Notifications</a>
+        <a href="ai-coach.html" data-mobile-more-link class="mobile-bottom-sheet__link">AI Coach</a>
+        <a href="timer.html" data-mobile-more-link class="mobile-bottom-sheet__link">Timer</a>
+        <a href="settings.html" data-mobile-more-link class="mobile-bottom-sheet__link">Settings</a>
+        <a href="support.html" data-mobile-more-link class="mobile-bottom-sheet__link">Support</a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (function(){
+      var mq = window.matchMedia('(max-width: 767px)');
+      var bottomSheet = document.getElementById('mobileMoreSheet');
+      var moreButton = document.getElementById('mobileMoreBtn');
+      var closeButtons = document.querySelectorAll('[data-mobile-more-close]');
+      var moreLinks = document.querySelectorAll('[data-mobile-more-link]');
+      function openSheet(){if(!mq.matches||!bottomSheet||!moreButton)return;bottomSheet.classList.add('is-open');bottomSheet.setAttribute('aria-hidden','false');moreButton.classList.add('more-active');moreButton.setAttribute('aria-expanded','true');}
+      function closeSheet(){if(!bottomSheet||!moreButton)return;bottomSheet.classList.remove('is-open');bottomSheet.setAttribute('aria-hidden','true');moreButton.classList.remove('more-active');moreButton.setAttribute('aria-expanded','false');}
+      if(moreButton)moreButton.addEventListener('click',function(e){e.preventDefault();bottomSheet&&bottomSheet.classList.contains('is-open')?closeSheet():openSheet();});
+      closeButtons.forEach(function(b){b.addEventListener('click',closeSheet);});
+      moreLinks.forEach(function(l){l.addEventListener('click',closeSheet);});
+      window.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet();});
+      mq.addEventListener('change',function(){if(!mq.matches)closeSheet();});
+    })();
+  </script>
+  <!-- ===== END MOBILE BOTTOM NAV ===== -->
 
 </body>
 </html>
+
+
 
 

@@ -1,409 +1,1053 @@
 ﻿<!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Dashboard — GoldTech</title>
-  <script>tailwind.config = { theme: { extend: { colors: { gold: { DEFAULT: '#f5b041' } }, fontFamily: { display:['Poppins','Inter','system-ui','sans-serif'] } } } }</script>
+  <script>tailwind.config = { theme: { extend: { colors: { gold: { DEFAULT: '#f5b041' } }, fontFamily: { display: ['Poppins', 'Inter', 'system-ui', 'sans-serif'] } } } }</script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <script src="assets/js/i18n.js" defer></script>
   <style>
-    body{font-family:Poppins,system-ui;background:linear-gradient(180deg,#070708,#0f0f10);color:#fff}
-    .glass{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.015));border:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(8px)}
-    .fast-trans{transition:all 180ms}
-    .ladder-stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
-    .ladder-stat-card{
-      position:relative;
-      isolation:isolate;
-      padding:1.05rem 0.9rem;
-      border-radius:1.1rem;
-      border:1px solid rgba(255,255,255,0.1);
-      background:linear-gradient(165deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02));
-      box-shadow:0 14px 30px rgba(0,0,0,0.34);
-      text-align:center;
-      overflow:hidden;
+    body {
+      font-family: Poppins, system-ui;
+      background: linear-gradient(180deg, #070708, #0f0f10);
+      color: #fff
     }
+
+    .glass {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.015));
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(8px)
+    }
+
+    .fast-trans {
+      transition: all 180ms
+    }
+
+    .ladder-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem
+    }
+
+    .ladder-stat-card {
+      position: relative;
+      isolation: isolate;
+      padding: 1.05rem 0.9rem;
+      border-radius: 1.1rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.34);
+      text-align: center;
+      overflow: hidden;
+    }
+
     .ladder-stat-card::before,
-    .ladder-stat-card::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      border-radius:inherit;
-      z-index:-1;
-      pointer-events:none;
+    .ladder-stat-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      z-index: -1;
+      pointer-events: none;
     }
-    .ladder-stat-card::before{
-      transform:translateY(7px) scale(0.98);
-      background:rgba(255,255,255,0.035);
-      opacity:.65;
+
+    .ladder-stat-card::before {
+      transform: translateY(7px) scale(0.98);
+      background: rgba(255, 255, 255, 0.035);
+      opacity: .65;
     }
-    .ladder-stat-card::after{
-      transform:translateY(13px) scale(0.96);
-      background:rgba(0,0,0,0.2);
-      opacity:.7;
+
+    .ladder-stat-card::after {
+      transform: translateY(13px) scale(0.96);
+      background: rgba(0, 0, 0, 0.2);
+      opacity: .7;
     }
-    .ladder-stat-label{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:#a1a1aa;font-weight:800}
-    .ladder-stat-value{margin-top:.45rem;font-size:2rem;line-height:1.05;font-weight:900;color:#ffd400}
-    .ladder-stat-note{margin-top:.28rem;font-size:.76rem;color:#c5c5c5;font-weight:600}
-    @media (max-width:640px){
-      .ladder-stats-grid{grid-template-columns:1fr}
+
+    .ladder-stat-label {
+      font-size: .68rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #a1a1aa;
+      font-weight: 800
+    }
+
+    .ladder-stat-value {
+      margin-top: .45rem;
+      font-size: 2rem;
+      line-height: 1.05;
+      font-weight: 900;
+      color: #ffd400
+    }
+
+    .ladder-stat-note {
+      margin-top: .28rem;
+      font-size: .76rem;
+      color: #c5c5c5;
+      font-weight: 600
+    }
+
+    .mobile-bottom-nav,
+    .mobile-bottom-sheet {
+      display: none
+    }
+
+    @media (max-width:640px) {
+      .ladder-stats-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media (max-width:767px) {
+
+      html,
+      body {
+        overflow: hidden;
+        height: 100vh;
+        height: 100dvh;
+      }
+
+      body {
+        padding-bottom: 0 !important
+      }
+
+      .dashboard-topbar {
+        display: none !important
+      }
+
+      .dashboard-main {
+        padding: 1rem !important;
+        padding-bottom: calc(6.5rem + env(safe-area-inset-bottom)) !important;
+        overflow-y: auto !important;
+        height: 100vh;
+        height: 100dvh
+      }
+
+      .mobile-bottom-nav {
+        display: flex;
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: calc(1rem + env(safe-area-inset-bottom));
+        z-index: 999;
+        width: calc(100% - 2.5rem);
+        max-width: 420px;
+        padding: 0;
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        pointer-events: none
+      }
+
+      .mobile-bottom-nav__inner {
+        pointer-events: auto;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 0.3rem;
+        width: 100%;
+        border-radius: 9999px;
+        padding: 0.45rem;
+        background: rgba(15, 15, 17, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(24px) saturate(140%);
+        -webkit-backdrop-filter: blur(24px) saturate(140%)
+      }
+
+      .mobile-bottom-nav__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 9999px;
+        color: #a1a1aa;
+        transition: all 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
+        border: none;
+        cursor: pointer;
+        position: relative
+      }
+
+      .mobile-bottom-nav__item svg {
+        width: 1.45rem;
+        height: 1.45rem;
+        transition: transform 200ms
+      }
+
+      .mobile-bottom-nav__item:active svg {
+        transform: scale(0.85)
+      }
+
+      .mobile-bottom-nav__item::after {
+        content: '';
+        position: absolute;
+        bottom: 0.45rem;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--gold);
+        opacity: 0;
+        transform: scale(0);
+        transition: all 250ms cubic-bezier(0.34, 1.56, 0.64, 1)
+      }
+
+      .mobile-bottom-nav__item.is-active::after {
+        opacity: 1;
+        transform: scale(1)
+      }
+
+      .mobile-bottom-nav__item.is-active {
+        background: rgba(255, 212, 0, 0.12);
+        color: var(--gold);
+        box-shadow: 0 4px 16px rgba(255, 212, 0, 0.15), inset 0 0 0 1px rgba(255, 212, 0, 0.25);
+        transform: translateY(-2px)
+      }
+
+      .mobile-bottom-nav__item.more-active {
+        background: rgba(255, 212, 0, 0.2);
+        color: var(--gold)
+      }
+
+      .mobile-bottom-sheet {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 220ms ease
+      }
+
+      .mobile-bottom-sheet.is-open {
+        opacity: 1;
+        pointer-events: auto
+      }
+
+      .mobile-bottom-sheet__scrim {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, .62);
+        backdrop-filter: blur(10px)
+      }
+
+      .mobile-bottom-sheet__panel {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transform: translateY(100%);
+        transition: transform 260ms cubic-bezier(.2, .9, .2, 1);
+        border-radius: 1.5rem 1.5rem 0 0;
+        background: linear-gradient(180deg, rgba(16, 16, 18, .98), rgba(10, 10, 12, .98));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 -28px 80px rgba(0, 0, 0, .5);
+        padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+        max-height: min(82vh, 42rem);
+        display: flex;
+        flex-direction: column
+      }
+
+      .mobile-bottom-sheet.is-open .mobile-bottom-sheet__panel {
+        transform: translateY(0)
+      }
+
+      .mobile-bottom-sheet__handle {
+        width: 3.25rem;
+        height: .28rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, .18);
+        margin: 0.7rem auto 0
+      }
+
+      .mobile-bottom-sheet__grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.65rem;
+        padding: 0 1rem 1rem;
+        overflow: auto
+      }
+
+      .mobile-bottom-sheet__link {
+        display: flex;
+        min-height: 3.9rem;
+        align-items: center;
+        gap: 0.8rem;
+        border-radius: 1.1rem;
+        padding: 0.85rem 0.9rem;
+        background: rgba(255, 255, 255, .04);
+        border: 1px solid rgba(255, 255, 255, .08);
+        color: #e5e7eb;
+        font-size: .9rem;
+        font-weight: 600;
+        transition: all 180ms
+      }
+
+      .mobile-bottom-sheet__link:hover {
+        background: rgba(255, 255, 255, .08)
+      }
+
+      .mobile-bottom-sheet__link.is-active {
+        background: rgba(245, 176, 65, .14);
+        border-color: rgba(245, 176, 65, .24);
+        color: #fff
+      }
+
+      .mobile-bottom-sheet__close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 2.75rem;
+        min-width: 2.75rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, .06);
+        border: 1px solid rgba(255, 255, 255, .08);
+        color: #e5e7eb
+      }
     }
   </style>
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
+
 <body class="antialiased">
   <div id="shell-root" class="app-shell min-h-screen flex">
     <div class="shell-overlay"></div>
-    <aside class="app-sidebar hidden md:flex flex-col w-72 p-5 gap-6 glass rounded-2xl sticky top-6 m-6 h-[calc(100vh-48px)] overflow-hidden">
+    <aside
+      class="app-sidebar hidden md:flex flex-col w-72 p-5 gap-6 glass rounded-2xl sticky top-6 m-6 h-[calc(100vh-48px)] overflow-hidden">
       <a href="landing.html" class="flex items-center gap-3 sidebar-brand">
-        <div class="sidebar-brand-icon rounded-xl p-2 bg-gradient-to-br from-[#1b1b1d] to-[#111112]"><img src="assets/golds-logo.png" alt="Golds logo" class="w-9 h-9 object-contain"/></div>
-        <div class="sidebar-brand-text"><div class="text-white font-semibold text-lg">GoldTech</div><div class="sidebar-meta text-stone-400 text-xs uppercase tracking-widest">Smart Fitness OS</div></div>
+        <div class="sidebar-brand-icon rounded-xl p-2 bg-gradient-to-br from-[#1b1b1d] to-[#111112]"><img
+            src="assets/golds-logo.png" alt="Golds logo" class="w-9 h-9 object-contain" /></div>
+        <div class="sidebar-brand-text">
+          <div class="text-white font-semibold text-lg">GoldTech</div>
+          <div class="sidebar-meta text-stone-400 text-xs uppercase tracking-widest">Smart Fitness OS</div>
+        </div>
       </a>
       <nav aria-label="Primary" class="flex-1 overflow-y-auto pr-1">
         <ul class="space-y-1 text-sm">
-              <li><a href="landing.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Home</span></a></li>
-              <li><a href="dashboard.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Dashboard</span></a></li>
-              <li><a href="programs.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Programs</span></a></li>
-              <li><a href="workout.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Workouts</span></a></li>
-              <li><a href="classes.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Classes</span></a></li>
-              <li><a href="coaches.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Coaches</span></a></li>
-              <li><a href="community.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Community</span></a></li>
-              <li><a href="blogs.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Blogs</span></a></li>
-              <li><a href="crowd.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Crowd</span></a></li>
-              <li><a href="inbody.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">InBody</span></a></li>
-              <li><a href="machines.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Machines</span></a></li>
-              <li><a href="nutrition.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Nutrition</span></a></li>
-              <li><a href="smart-test.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Smart Test</span></a></li>
-              <li><a href="achievements.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Achievements</span></a></li>
-              <li><a href="store.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Store</span></a></li>
-              <li><a href="membership.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Membership</span></a></li>
-              <li><a href="notifications.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Notifications</span></a></li>
-              <li><a href="reviews.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Reviews</span></a></li>
-              <li><a href="ai-coach.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">AI Coach</span></a></li>
-              <li><a href="settings.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Settings</span></a></li>
-              <li><a href="support.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Support</span></a></li>
-              <li><a href="profile.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Profile</span></a></li>
+          <li><a href="landing.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Home</span></a></li>
+          <li><a href="dashboard.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Dashboard</span></a></li>
+          <li><a href="programs.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Programs</span></a></li>
+          <li><a href="workout.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Workouts</span></a></li>
+          <li><a href="classes.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Classes</span></a></li>
+          <li><a href="coaches.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Coaches</span></a></li>
+          <li><a href="community.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Community</span></a></li>
+          <li><a href="blogs.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Blogs</span></a></li>
+          <li><a href="crowd.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Crowd</span></a></li>
+          <li><a href="inbody.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">InBody</span></a></li>
+          <li><a href="machines.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Machines</span></a></li>
+          <li><a href="nutrition.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Nutrition</span></a></li>
+          <li><a href="smart-test.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Smart Test</span></a></li>
+          <li><a href="achievements.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Achievements</span></a></li>
+          <li><a href="store.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Store</span></a></li>
+          <li><a href="membership.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Membership</span></a></li>
+          <li><a href="notifications.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Notifications</span></a></li>
+          <li><a href="reviews.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Reviews</span></a></li>
+          <li><a href="ai-coach.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">AI Coach</span></a></li>
+          <li><a href="settings.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Settings</span></a></li>
+          <li><a href="support.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Support</span></a></li>
+          <li><a href="profile.html" data-nav-link
+              class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
+                class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
+                class="sidebar-label">Profile</span></a></li>
         </ul>
       </nav>
-      <div class="sidebar-footer pt-3 border-t border-white/6 text-sm"><div class="text-stone-400">Active Membership</div><div class="mt-2 flex items-center justify-between"><div><div class="text-white font-semibold">Gold Elite</div><div class="text-stone-400 text-xs">Valid until May 2027</div></div><div class="bg-gradient-to-br from-[#2a2a2a]/80 to-[#161616]/60 p-2 rounded-lg text-gold">&#9679;</div></div></div>
+      <div class="sidebar-footer pt-3 border-t border-white/6 text-sm">
+        <div class="text-stone-400">Active Membership</div>
+        <div class="mt-2 flex items-center justify-between">
+          <div>
+            <div class="text-white font-semibold">Gold Elite</div>
+            <div class="text-stone-400 text-xs">Valid until May 2027</div>
+          </div>
+          <div class="bg-gradient-to-br from-[#2a2a2a]/80 to-[#161616]/60 p-2 rounded-lg text-gold">&#9679;</div>
+        </div>
+      </div>
     </aside>
-    <main class="flex-1 p-5 md:p-8 overflow-y-auto safe-bottom">
-      <header class="sticky top-6 z-30 glass rounded-2xl p-3 md:p-4 mb-6 flex items-center justify-between fast-trans backdrop-blur-xl">
-        <div class="flex items-center gap-3 md:gap-4"><button id="mobileMenuBtn" class="md:hidden p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16" stroke-width="1.6" stroke-linecap="round"/></svg></button><button id="sidebarToggle" class="hidden md:inline-flex sidebar-toggle p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle sidebar" aria-pressed="false"><svg class="w-5 h-5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="hidden md:flex items-center gap-4"><h1 class="text-white font-extrabold text-lg">Member Dashboard</h1><div class="text-stone-400 text-sm">Premium smart gym platform</div></div></div>
-        <div class="flex items-center gap-2 sm:gap-3"><button id="languageToggle" class="hidden sm:inline-flex p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring gap-2" aria-label="Toggle language"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 8h14M5 8a9 9 0 0 0 0 8M5 8a9 9 0 0 1 14 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span data-lang-text class="hidden md:inline text-stone-400 text-sm">العربية</span></button><button id="themeToggle" class="hidden sm:inline-flex p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle theme" aria-pressed="false"><span data-theme-icon="dark" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-theme-icon="light" class="hidden" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="relative hidden sm:flex items-center"><label for="search" class="sr-only">Search</label><input id="search" class="glass rounded-xl px-3 py-2 pl-10 pr-3 w-48 sm:w-64 bg-transparent text-white placeholder:opacity-60 fast-trans focus-visible-ring text-base" placeholder="Search"/><svg class="absolute left-3 w-4 h-4 text-stone-400" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.2"/></svg></div><a href="profile.html" class="flex items-center gap-2 sm:gap-3 rounded-2xl bg-white/3 px-2 sm:px-3 py-2 min-h-[44px] hover:bg-white/6 fast-trans"><div class="text-right hidden sm:block"><div class="text-white font-semibold text-sm">Mohamed</div><div class="text-stone-400 text-xs">Gold Elite</div></div><img src="assets/img/user.png" alt="avatar" class="w-10 h-10 rounded-full object-cover border border-white/6"/></a></div>
+    <main class="dashboard-main flex-1 p-5 md:p-8 overflow-y-auto safe-bottom">
+      <header
+        class="dashboard-topbar sticky top-6 z-30 glass rounded-2xl p-3 md:p-4 mb-6 flex items-center justify-between fast-trans backdrop-blur-xl">
+        <div class="flex items-center gap-3 md:gap-4"><button id="mobileMenuBtn"
+            class="md:hidden p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring"
+            aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M4 7h16M4 12h16M4 17h16" stroke-width="1.6" stroke-linecap="round" />
+            </svg></button><button id="sidebarToggle"
+            class="hidden md:inline-flex sidebar-toggle p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring"
+            aria-label="Toggle sidebar" aria-pressed="false"><svg class="w-5 h-5 transition-transform duration-200"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M9 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg></button>
+          <div class="hidden md:flex items-center gap-4">
+            <h1 class="text-white font-extrabold text-lg">Member Dashboard</h1>
+            <div class="text-stone-400 text-sm">Premium smart gym platform</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 sm:gap-3"><button id="languageToggle"
+            class="hidden sm:inline-flex p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring gap-2"
+            aria-label="Toggle language"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M5 8h14M5 8a9 9 0 0 0 0 8M5 8a9 9 0 0 1 14 0" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" />
+            </svg><span data-lang-text class="hidden md:inline text-stone-400 text-sm">العربية</span></button><button
+            id="themeToggle"
+            class="hidden sm:inline-flex p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring"
+            aria-label="Toggle theme" aria-pressed="false"><span data-theme-icon="dark" aria-hidden="true"><svg
+                class="w-5 h-5" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5" />
+                <path
+                  d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"
+                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              </svg></span><span data-theme-icon="light" class="hidden" aria-hidden="true"><svg class="w-5 h-5"
+                viewBox="0 0 24 24" fill="none">
+                <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg></span></button>
+          <div class="relative hidden sm:flex items-center"><label for="search" class="sr-only">Search</label><input
+              id="search"
+              class="glass rounded-xl px-3 py-2 pl-10 pr-3 w-48 sm:w-64 bg-transparent text-white placeholder:opacity-60 fast-trans focus-visible-ring text-base"
+              placeholder="Search" /><svg class="absolute left-3 w-4 h-4 text-stone-400" viewBox="0 0 24 24" fill="none"
+              aria-hidden="true">
+              <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+              <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.2" />
+            </svg></div><a href="profile.html"
+            class="flex items-center gap-2 sm:gap-3 rounded-2xl bg-white/3 px-2 sm:px-3 py-2 min-h-[44px] hover:bg-white/6 fast-trans">
+            <div class="text-right hidden sm:block">
+              <div class="text-white font-semibold text-sm">Mohamed</div>
+              <div class="text-stone-400 text-xs">Gold Elite</div>
+            </div><img src="assets/img/user.png" alt="avatar"
+              class="w-10 h-10 rounded-full object-cover border border-white/6" />
+          </a>
+        </div>
       </header>
       <div id="page-main">
-      <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <!-- Main Content -->
-        <div class="lg:col-span-8 space-y-6">
-          <!-- Welcome Card -->
-          <div class="glass rounded-2xl p-8 fast-trans">
-            <div class="flex items-center justify-between mb-6"><div><div class="text-stone-400 text-xs font-bold uppercase">Welcome back</div><div class="text-white font-black text-3xl"></div></div><div class="text-right"><div class="text-gold font-bold">Gold Elite</div><div class="text-stone-400 text-xs">Valid until May 2027</div></div></div>
-            
-            <!-- Quick Stats -->
-            <div class="ladder-stats-grid">
-              <div class="ladder-stat-card">
-                <div class="ladder-stat-label">Current Streak</div>
-                <div class="ladder-stat-value">55 days</div>
-                <div class="ladder-stat-note">Amazing consistency</div>
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Main Content -->
+          <div class="lg:col-span-8 space-y-6">
+            <!-- Welcome Card -->
+            <div class="glass rounded-2xl p-8 fast-trans">
+              <div class="flex items-center justify-between mb-6">
+                <div>
+                  <div class="text-stone-400 text-xs font-bold uppercase">Welcome back</div>
+                  <div class="text-white font-black text-3xl"></div>
+                </div>
+                <div class="text-right">
+                  <div class="text-gold font-bold">Gold Elite</div>
+                  <div class="text-stone-400 text-xs">Valid until May 2027</div>
+                </div>
               </div>
-              <div class="ladder-stat-card">
-                <div class="ladder-stat-label">Workouts This Week</div>
-                <div class="ladder-stat-value">4/5</div>
-                <div class="ladder-stat-note">On track!</div>
-              </div>
-              <div class="ladder-stat-card">
-                <div class="ladder-stat-label">Calories Burned Today</div>
-                <div class="ladder-stat-value">1,420 kcal</div>
-                <div class="ladder-stat-note">+180 vs yesterday</div>
-              </div>
-              <div class="ladder-stat-card">
-                <div class="ladder-stat-label">Body Fat %</div>
-                <div class="ladder-stat-value">22.2%</div>
-                <div class="ladder-stat-note">-0.8% this month</div>
+
+              <!-- Quick Stats -->
+              <div class="ladder-stats-grid">
+                <div class="ladder-stat-card">
+                  <div class="ladder-stat-label">Current Streak</div>
+                  <div class="ladder-stat-value">55 days</div>
+                  <div class="ladder-stat-note">Amazing consistency</div>
+                </div>
+                <div class="ladder-stat-card">
+                  <div class="ladder-stat-label">Workouts This Week</div>
+                  <div class="ladder-stat-value">4/5</div>
+                  <div class="ladder-stat-note">On track!</div>
+                </div>
+                <div class="ladder-stat-card">
+                  <div class="ladder-stat-label">Calories Burned Today</div>
+                  <div class="ladder-stat-value">1,420 kcal</div>
+                  <div class="ladder-stat-note">+180 vs yesterday</div>
+                </div>
+                <div class="ladder-stat-card">
+                  <div class="ladder-stat-label">Body Fat %</div>
+                  <div class="ladder-stat-value">22.2%</div>
+                  <div class="ladder-stat-note">-0.8% this month</div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Today's Workout -->
-          <div class="glass rounded-2xl p-6 fast-trans">
-            <div class="flex items-center justify-between mb-4"><div><div class="text-stone-400 text-xs font-bold uppercase">Today's Plan</div><div class="text-white font-black text-xl">Chest & Triceps</div></div><div class="text-stone-400 text-sm">18:30 • Session</div></div>
-            <div class="space-y-2 mb-4">
-              <div class="flex items-center gap-3"><input type="checkbox" class="rounded" /><span class="text-stone-300">Barbell Bench Press • 4x6-8 reps</span></div>
-              <div class="flex items-center gap-3"><input type="checkbox" checked class="rounded" /><span class="text-stone-300 line-through">Incline Dumbbell Press • 3x8-10 reps</span></div>
-              <div class="flex items-center gap-3"><input type="checkbox" class="rounded" /><span class="text-stone-300">Tricep Rope Pushdown • 3x12-15 reps</span></div>
+            <!-- Today's Workout -->
+            <div id="progress" class="glass rounded-2xl p-6 fast-trans scroll-mt-24">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <div class="text-stone-400 text-xs font-bold uppercase">Today's Plan</div>
+                  <div class="text-white font-black text-xl">Chest & Triceps</div>
+                </div>
+                <div class="text-stone-400 text-sm">18:30 • Session</div>
+              </div>
+              <div class="space-y-2 mb-4">
+                <div class="flex items-center gap-3"><input type="checkbox" class="rounded" /><span
+                    class="text-stone-300">Barbell Bench Press • 4x6-8 reps</span></div>
+                <div class="flex items-center gap-3"><input type="checkbox" checked class="rounded" /><span
+                    class="text-stone-300 line-through">Incline Dumbbell Press • 3x8-10 reps</span></div>
+                <div class="flex items-center gap-3"><input type="checkbox" class="rounded" /><span
+                    class="text-stone-300">Tricep Rope Pushdown • 3x12-15 reps</span></div>
+              </div>
+              <a href="workout.html"
+                class="bg-gold text-black px-4 py-2 rounded-lg font-semibold inline-block hover:scale-105 fast-trans">Start
+                Workout</a>
             </div>
-            <a href="workout.html" class="bg-gold text-black px-4 py-2 rounded-lg font-semibold inline-block hover:scale-105 fast-trans">Start Workout</a>
-          </div>
 
-          <!-- Recent Activity -->
-          <div class="glass rounded-2xl p-6 fast-trans">
-            <div class="text-stone-400 text-xs font-bold uppercase mb-4">Recent Activity</div>
-            <div class="space-y-3">
-              <div class="flex items-center justify-between p-3 glass rounded-lg"><div><div class="font-semibold">Pull Day Completed</div><div class="text-stone-400 text-xs">1,650 kcal • 62 min</div></div><div class="text-gold text-sm"></div></div>
-              <div class="flex items-center justify-between p-3 glass rounded-lg"><div><div class="font-semibold">InBody Scan Completed</div><div class="text-stone-400 text-xs">Apr 26 • Body Comp Update</div></div><div class="text-gold text-sm"></div></div>
-              <div class="flex items-center justify-between p-3 glass rounded-lg"><div><div class="font-semibold">Achieved: 10 Day Streak</div><div class="text-stone-400 text-xs">Apr 25 • Badge unlocked</div></div><div class="text-gold text-sm"></div></div>
-            </div>
-          </div>
-
-          <!-- Progress Chart Section -->
-          <div class="glass rounded-2xl p-6 fast-trans">
-            <div class="text-stone-400 text-xs font-bold uppercase mb-4">Body Metrics - Last 12 Weeks</div>
-            <div class="grid gap-4 md:grid-cols-2">
-              <article class="rounded-2xl bg-black/20 p-4 md:p-5 shadow-lg shadow-black/20">
-                <div class="flex items-start justify-between gap-3">
+            <!-- Recent Activity -->
+            <div class="glass rounded-2xl p-6 fast-trans">
+              <div class="text-stone-400 text-xs font-bold uppercase mb-4">Recent Activity</div>
+              <div class="space-y-3">
+                <div class="flex items-center justify-between p-3 glass rounded-lg">
                   <div>
-                    <div class="text-sm font-semibold text-white">Weight Progress</div>
-                    <div class="mt-1 text-xs text-stone-400">Trend photo and change summary</div>
+                    <div class="font-semibold">Pull Day Completed</div>
+                    <div class="text-stone-400 text-xs">1,650 kcal • 62 min</div>
                   </div>
-                  <span class="rounded-full bg-white/5 px-2.5 py-1 text-[11px] text-stone-300">-3.3 kg</span>
+                  <div class="text-gold text-sm"></div>
                 </div>
-                <div class="mt-4 overflow-hidden rounded-xl bg-black/40 aspect-[4/3] flex items-center justify-center p-2">
-                  <img src="https://metro.co.uk/wp-content/uploads/2026/01/SEI_280395101-ca42.jpg?quality=90&strip=all&w=646" alt="Weight Progress Preview" width="646" height="430" class="h-full w-full object-contain object-center"/>
-                </div>
-                <div class="mt-3 flex items-center justify-between text-xs text-stone-400">
-                  <span>80.5kg → 77.2kg</span>
-                  <span class="text-emerald-300">Lean down</span>
-                </div>
-              </article>
-
-              <article class="rounded-2xl bg-black/20 p-4 md:p-5 shadow-lg shadow-black/20">
-                <div class="flex items-start justify-between gap-3">
+                <div class="flex items-center justify-between p-3 glass rounded-lg">
                   <div>
-                    <div class="text-sm font-semibold text-white">Muscle Mass Gain</div>
-                    <div class="mt-1 text-xs text-stone-400">Progress photo and growth summary</div>
+                    <div class="font-semibold">InBody Scan Completed</div>
+                    <div class="text-stone-400 text-xs">Apr 26 • Body Comp Update</div>
                   </div>
-                  <span class="rounded-full bg-emerald-400/10 px-2.5 py-1 text-[11px] text-emerald-300">+2.6 kg</span>
+                  <div class="text-gold text-sm"></div>
                 </div>
-                <div class="mt-4 overflow-hidden rounded-xl bg-black/40 aspect-[4/3] flex items-center justify-center p-2">
-                  <img src="https://preview.redd.it/7-weeks-out-6ft-200lbs-npc-natural-v0-g1khcn1mgiwg1.png?width=640&crop=smart&auto=webp&s=8d60404987f6aa62859f2325ebf5533f1fbfcc43" alt="Muscle Mass Preview" width="640" height="480" class="h-full w-full object-contain object-center"/>
+                <div class="flex items-center justify-between p-3 glass rounded-lg">
+                  <div>
+                    <div class="font-semibold">Achieved: 10 Day Streak</div>
+                    <div class="text-stone-400 text-xs">Apr 25 • Badge unlocked</div>
+                  </div>
+                  <div class="text-gold text-sm"></div>
                 </div>
-                <div class="mt-3 flex items-center justify-between text-xs text-stone-400">
-                  <span>58.2kg → 60.8kg</span>
-                  <span class="text-gold">Muscle gain</span>
-                </div>
-              </article>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Sidebar -->
-        <aside class="lg:col-span-4 space-y-6">
-          <!-- InBody Section -->
-          <div class="glass rounded-2xl p-6 fast-trans">
-            <div class="text-stone-400 text-xs font-bold uppercase mb-3">Last InBody Scan</div>
-            <div class="text-2xl font-black mb-4">Apr 26 @ 14:30</div>
-            <div class="space-y-2 text-sm">
-              <div class="flex justify-between"><span class="text-stone-400">Body Fat %</span><span class="text-gold font-bold">17.2%</span></div>
-              <div class="flex justify-between"><span class="text-stone-400">Muscle Mass</span><span class="text-gold font-bold">60.8 kg</span></div>
-              <div class="flex justify-between"><span class="text-stone-400">Bone Mass</span><span class="text-gold font-bold">3.2 kg</span></div>
-              <div class="flex justify-between"><span class="text-stone-400">BMI</span><span class="text-gold font-bold">23.4</span></div>
-            </div>
-            <button class="w-full mt-4 glass px-4 py-2 rounded-lg text-sm font-semibold hover:bg-white/10 fast-trans">Schedule Scan</button>
-          </div>
-
-          <!-- Upcoming Sessions -->
-          <div class="glass rounded-2xl p-6 fast-trans">
-            <div class="text-stone-400 text-xs font-bold uppercase mb-3">Next Coaching Session</div>
-            <div class="text-white font-black mb-3">Friday 18:00</div>
-            <div class="flex items-center gap-3 mb-4">
-              <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=80&auto=format&fit=crop" class="w-12 h-12 rounded-lg object-cover" alt="Coach">
-              <div><div class="font-semibold text-sm">Malik Grant</div><div class="text-stone-400 text-xs">Performance Coach</div></div>
-            </div>
-            <button class="w-full bg-gold text-black px-4 py-2 rounded-lg text-sm font-semibold hover:scale-105 fast-trans">Join Session</button>
-          </div>
-
-          <!-- Quick Links -->
-          <div class="glass rounded-2xl p-6 fast-trans">
-            <div class="text-stone-400 text-xs font-bold uppercase mb-3">Quick Links</div>
-            <div class="space-y-2 text-sm">
-              <a href="machines.html" class="block glass px-3 py-2 rounded-lg hover:bg-white/10 fast-trans">View Machines</a>
-              <a href="nutrition.html" class="block glass px-3 py-2 rounded-lg hover:bg-white/10 fast-trans">Meal Planning</a>
-              <a href="store.html" class="block glass px-3 py-2 rounded-lg hover:bg-white/10 fast-trans">Shop Store</a>
-            </div>
-          </div>
-        </aside>
-      </section>
-
-      <section class="mt-6 glass rounded-[1.5rem] p-4 md:p-6 simple-leaderboard reveal">
-        <div class="flex items-start justify-between gap-4 flex-col md:flex-row md:items-center">
-          <div>
-            <h2 class="text-2xl font-black text-white">Community Leaderboard</h2>
-            <p class="mt-1 text-sm text-stone-400">Simple weekly rankings and active challenges — responsive for all screens.</p>
-          </div>
-          <div class="mt-3 md:mt-0 flex gap-2">
-            <button class="rounded-full bg-white/5 px-3 py-1 text-xs text-stone-200">Weekly</button>
-            <button class="rounded-full bg-white/5 px-3 py-1 text-xs text-stone-200">Monthly</button>
-          </div>
-        </div>
-
-        <div class="mt-4 grid gap-4 md:grid-cols-3 items-start">
-          <!-- Top 3 compact podium -->
-          <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-3 items-stretch">
-            <div class="podium-card flex flex-col items-center gap-2 p-3 rounded-lg bg-black/20 text-center">
-              <div class="text-sm text-stone-400">2</div>
-              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=96&auto=format&fit=crop" alt="silver" class="w-16 h-16 rounded-full object-cover mx-auto"/>
-              <div class="font-semibold text-white">Sara Ahmed</div>
-              <div class="text-xs text-stone-400">11,920 XP</div>
-            </div>
-            <div class="podium-card flex flex-col items-center gap-2 p-3 rounded-lg bg-black/25 text-center">
-              <div class="text-sm text-gold font-black">1</div>
-              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=96&auto=format&fit=crop" alt="gold" class="w-20 h-20 rounded-full object-cover mx-auto border-2 border-gold"/>
-              <div class="font-semibold text-white">Malik Grant</div>
-              <div class="text-xs text-stone-400">12,480 XP</div>
-            </div>
-            <div class="podium-card flex flex-col items-center gap-2 p-3 rounded-lg bg-black/20 text-center">
-              <div class="text-sm text-stone-400">3</div>
-              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=96&auto=format&fit=crop" alt="bronze" class="w-16 h-16 rounded-full object-cover mx-auto"/>
-              <div class="font-semibold text-white">Omar Saleh</div>
-              <div class="text-xs text-stone-400">11,100 XP</div>
-            </div>
-          </div>
-
-          <!-- Challenges compact list -->
-          <div class="challenge-list p-3 rounded-lg bg-white/3">
-            <div class="flex items-center justify-between">
-              <div>
-                <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">Challenges</div>
-                <h3 class="mt-1 font-black text-white">Active & Quick</h3>
-              </div>
-              <span class="text-xs text-stone-400">3 active</span>
-            </div>
-
-            <ul class="mt-3 space-y-3 text-sm text-stone-400">
-              <li class="flex items-center justify-between">
-                <div>
-                  <div class="font-semibold text-white">7-Day Burn Sprint</div>
-                  <div class="text-xs">Complete 6 workouts • 1,000 XP</div>
-                </div>
-                <button class="ml-3 rounded-full bg-gold px-3 py-1 text-xs font-semibold text-black">Join</button>
-              </li>
-              <li class="flex items-center justify-between">
-                <div>
-                  <div class="font-semibold text-white">Step Count</div>
-                  <div class="text-xs">Hit 80,000 steps • Recovery Badge</div>
-                </div>
-                <button class="ml-3 rounded-full border border-white/8 bg-white/5 px-3 py-1 text-xs text-stone-200">View</button>
-              </li>
-              <li class="flex items-center justify-between">
-                <div>
-                  <div class="font-semibold text-white">Workout Streak</div>
-                  <div class="text-xs">14-day streak • Streak Master</div>
-                </div>
-                <button class="ml-3 rounded-full border border-white/8 bg-white/5 px-3 py-1 text-xs text-stone-200">Join</button>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Compact users strip -->
-        <div class="mt-4 overflow-x-auto py-2">
-          <div class="flex gap-3 w-max">
-            <div class="user-chip glass rounded-xl p-2 flex items-center gap-3">
-              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=64&auto=format&fit=crop" alt="avatar" class="w-10 h-10 rounded-full object-cover"/>
-              <div>
-                <div class="font-semibold text-white text-sm">Malik Grant</div>
-                <div class="text-xs text-stone-400">12,480 XP</div>
               </div>
             </div>
-            <div class="user-chip glass rounded-xl p-2 flex items-center gap-3">
-              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=64&auto=format&fit=crop" alt="avatar" class="w-10 h-10 rounded-full object-cover"/>
-              <div>
-                <div class="font-semibold text-white text-sm">Sara Ahmed</div>
+
+            <!-- Progress Chart Section -->
+            <div class="glass rounded-2xl p-6 fast-trans">
+              <div class="text-stone-400 text-xs font-bold uppercase mb-4">Body Metrics - Last 12 Weeks</div>
+              <div class="grid gap-4 md:grid-cols-2">
+                <article class="rounded-2xl bg-black/20 p-4 md:p-5 shadow-lg shadow-black/20">
+                  <div class="flex items-start justify-between gap-3">
+                    <div>
+                      <div class="text-sm font-semibold text-white">Weight Progress</div>
+                      <div class="mt-1 text-xs text-stone-400">Trend photo and change summary</div>
+                    </div>
+                    <span class="rounded-full bg-white/5 px-2.5 py-1 text-[11px] text-stone-300">-3.3 kg</span>
+                  </div>
+                  <div
+                    class="mt-4 overflow-hidden rounded-xl bg-black/40 aspect-[4/3] flex items-center justify-center p-2">
+                    <img
+                      src="https://metro.co.uk/wp-content/uploads/2026/01/SEI_280395101-ca42.jpg?quality=90&strip=all&w=646"
+                      alt="Weight Progress Preview" width="646" height="430"
+                      class="h-full w-full object-contain object-center" />
+                  </div>
+                  <div class="mt-3 flex items-center justify-between text-xs text-stone-400">
+                    <span>80.5kg → 77.2kg</span>
+                    <span class="text-emerald-300">Lean down</span>
+                  </div>
+                </article>
+
+                <article class="rounded-2xl bg-black/20 p-4 md:p-5 shadow-lg shadow-black/20">
+                  <div class="flex items-start justify-between gap-3">
+                    <div>
+                      <div class="text-sm font-semibold text-white">Muscle Mass Gain</div>
+                      <div class="mt-1 text-xs text-stone-400">Progress photo and growth summary</div>
+                    </div>
+                    <span class="rounded-full bg-emerald-400/10 px-2.5 py-1 text-[11px] text-emerald-300">+2.6 kg</span>
+                  </div>
+                  <div
+                    class="mt-4 overflow-hidden rounded-xl bg-black/40 aspect-[4/3] flex items-center justify-center p-2">
+                    <img
+                      src="https://preview.redd.it/7-weeks-out-6ft-200lbs-npc-natural-v0-g1khcn1mgiwg1.png?width=640&crop=smart&auto=webp&s=8d60404987f6aa62859f2325ebf5533f1fbfcc43"
+                      alt="Muscle Mass Preview" width="640" height="480"
+                      class="h-full w-full object-contain object-center" />
+                  </div>
+                  <div class="mt-3 flex items-center justify-between text-xs text-stone-400">
+                    <span>58.2kg → 60.8kg</span>
+                    <span class="text-gold">Muscle gain</span>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Sidebar -->
+          <aside class="lg:col-span-4 space-y-6">
+            <!-- InBody Section -->
+            <div class="glass rounded-2xl p-6 fast-trans">
+              <div class="text-stone-400 text-xs font-bold uppercase mb-3">Last InBody Scan</div>
+              <div class="text-2xl font-black mb-4">Apr 26 @ 14:30</div>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between"><span class="text-stone-400">Body Fat %</span><span
+                    class="text-gold font-bold">17.2%</span></div>
+                <div class="flex justify-between"><span class="text-stone-400">Muscle Mass</span><span
+                    class="text-gold font-bold">60.8 kg</span></div>
+                <div class="flex justify-between"><span class="text-stone-400">Bone Mass</span><span
+                    class="text-gold font-bold">3.2 kg</span></div>
+                <div class="flex justify-between"><span class="text-stone-400">BMI</span><span
+                    class="text-gold font-bold">23.4</span></div>
+              </div>
+              <button
+                class="w-full mt-4 glass px-4 py-2 rounded-lg text-sm font-semibold hover:bg-white/10 fast-trans">Schedule
+                Scan</button>
+            </div>
+
+            <!-- Upcoming Sessions -->
+            <div class="glass rounded-2xl p-6 fast-trans">
+              <div class="text-stone-400 text-xs font-bold uppercase mb-3">Next Coaching Session</div>
+              <div class="text-white font-black mb-3">Friday 18:00</div>
+              <div class="flex items-center gap-3 mb-4">
+                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=80&auto=format&fit=crop"
+                  class="w-12 h-12 rounded-lg object-cover" alt="Coach">
+                <div>
+                  <div class="font-semibold text-sm">Malik Grant</div>
+                  <div class="text-stone-400 text-xs">Performance Coach</div>
+                </div>
+              </div>
+              <button
+                class="w-full bg-gold text-black px-4 py-2 rounded-lg text-sm font-semibold hover:scale-105 fast-trans">Join
+                Session</button>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="glass rounded-2xl p-6 fast-trans">
+              <div class="text-stone-400 text-xs font-bold uppercase mb-3">Quick Links</div>
+              <div class="space-y-2 text-sm">
+                <a href="machines.html" class="block glass px-3 py-2 rounded-lg hover:bg-white/10 fast-trans">View
+                  Machines</a>
+                <a href="nutrition.html" class="block glass px-3 py-2 rounded-lg hover:bg-white/10 fast-trans">Meal
+                  Planning</a>
+                <a href="store.html" class="block glass px-3 py-2 rounded-lg hover:bg-white/10 fast-trans">Shop
+                  Store</a>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="mt-6 glass rounded-[1.5rem] p-4 md:p-6 simple-leaderboard reveal">
+          <div class="flex items-start justify-between gap-4 flex-col md:flex-row md:items-center">
+            <div>
+              <h2 class="text-2xl font-black text-white">Community Leaderboard</h2>
+              <p class="mt-1 text-sm text-stone-400">Simple weekly rankings and active challenges — responsive for all
+                screens.</p>
+            </div>
+            <div class="mt-3 md:mt-0 flex gap-2">
+              <button class="rounded-full bg-white/5 px-3 py-1 text-xs text-stone-200">Weekly</button>
+              <button class="rounded-full bg-white/5 px-3 py-1 text-xs text-stone-200">Monthly</button>
+            </div>
+          </div>
+
+          <div class="mt-4 grid gap-4 md:grid-cols-3 items-start">
+            <!-- Top 3 compact podium -->
+            <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-3 items-stretch">
+              <div class="podium-card flex flex-col items-center gap-2 p-3 rounded-lg bg-black/20 text-center">
+                <div class="text-sm text-stone-400">2</div>
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=96&auto=format&fit=crop"
+                  alt="silver" class="w-16 h-16 rounded-full object-cover mx-auto" />
+                <div class="font-semibold text-white">Sara Ahmed</div>
                 <div class="text-xs text-stone-400">11,920 XP</div>
               </div>
-            </div>
-            <div class="user-chip glass rounded-xl p-2 flex items-center gap-3">
-              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=64&auto=format&fit=crop" alt="avatar" class="w-10 h-10 rounded-full object-cover"/>
-              <div>
-                <div class="font-semibold text-white text-sm">Omar Saleh</div>
+              <div class="podium-card flex flex-col items-center gap-2 p-3 rounded-lg bg-black/25 text-center">
+                <div class="text-sm text-gold font-black">1</div>
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=96&auto=format&fit=crop"
+                  alt="gold" class="w-20 h-20 rounded-full object-cover mx-auto border-2 border-gold" />
+                <div class="font-semibold text-white">Malik Grant</div>
+                <div class="text-xs text-stone-400">12,480 XP</div>
+              </div>
+              <div class="podium-card flex flex-col items-center gap-2 p-3 rounded-lg bg-black/20 text-center">
+                <div class="text-sm text-stone-400">3</div>
+                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=96&auto=format&fit=crop"
+                  alt="bronze" class="w-16 h-16 rounded-full object-cover mx-auto" />
+                <div class="font-semibold text-white">Omar Saleh</div>
                 <div class="text-xs text-stone-400">11,100 XP</div>
               </div>
             </div>
-            <div class="user-chip glass rounded-xl p-2 flex items-center gap-3">
-              <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?q=80&w=64&auto=format&fit=crop" alt="avatar" class="w-10 h-10 rounded-full object-cover"/>
-              <div>
-                <div class="font-semibold text-white text-sm">Noah Carter</div>
-                <div class="text-xs text-stone-400">8,970 XP</div>
+
+            <!-- Challenges compact list -->
+            <div class="challenge-list p-3 rounded-lg bg-white/3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-stone-400 text-xs uppercase tracking-[0.18em]">Challenges</div>
+                  <h3 class="mt-1 font-black text-white">Active & Quick</h3>
+                </div>
+                <span class="text-xs text-stone-400">3 active</span>
+              </div>
+
+              <ul class="mt-3 space-y-3 text-sm text-stone-400">
+                <li class="flex items-center justify-between">
+                  <div>
+                    <div class="font-semibold text-white">7-Day Burn Sprint</div>
+                    <div class="text-xs">Complete 6 workouts • 1,000 XP</div>
+                  </div>
+                  <button class="ml-3 rounded-full bg-gold px-3 py-1 text-xs font-semibold text-black">Join</button>
+                </li>
+                <li class="flex items-center justify-between">
+                  <div>
+                    <div class="font-semibold text-white">Step Count</div>
+                    <div class="text-xs">Hit 80,000 steps • Recovery Badge</div>
+                  </div>
+                  <button
+                    class="ml-3 rounded-full border border-white/8 bg-white/5 px-3 py-1 text-xs text-stone-200">View</button>
+                </li>
+                <li class="flex items-center justify-between">
+                  <div>
+                    <div class="font-semibold text-white">Workout Streak</div>
+                    <div class="text-xs">14-day streak • Streak Master</div>
+                  </div>
+                  <button
+                    class="ml-3 rounded-full border border-white/8 bg-white/5 px-3 py-1 text-xs text-stone-200">Join</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Compact users strip -->
+          <div class="mt-4 overflow-x-auto py-2">
+            <div class="flex gap-3 w-max">
+              <div class="user-chip glass rounded-xl p-2 flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=64&auto=format&fit=crop"
+                  alt="avatar" class="w-10 h-10 rounded-full object-cover" />
+                <div>
+                  <div class="font-semibold text-white text-sm">Malik Grant</div>
+                  <div class="text-xs text-stone-400">12,480 XP</div>
+                </div>
+              </div>
+              <div class="user-chip glass rounded-xl p-2 flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=64&auto=format&fit=crop"
+                  alt="avatar" class="w-10 h-10 rounded-full object-cover" />
+                <div>
+                  <div class="font-semibold text-white text-sm">Sara Ahmed</div>
+                  <div class="text-xs text-stone-400">11,920 XP</div>
+                </div>
+              </div>
+              <div class="user-chip glass rounded-xl p-2 flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=64&auto=format&fit=crop"
+                  alt="avatar" class="w-10 h-10 rounded-full object-cover" />
+                <div>
+                  <div class="font-semibold text-white text-sm">Omar Saleh</div>
+                  <div class="text-xs text-stone-400">11,100 XP</div>
+                </div>
+              </div>
+              <div class="user-chip glass rounded-xl p-2 flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?q=80&w=64&auto=format&fit=crop"
+                  alt="avatar" class="w-10 h-10 rounded-full object-cover" />
+                <div>
+                  <div class="font-semibold text-white text-sm">Noah Carter</div>
+                  <div class="text-xs text-stone-400">8,970 XP</div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Analytics: momentum sparkline & weekly activity bars -->
-        <div class="mt-4 grid gap-4 md:grid-cols-2 items-stretch">
-          <article class="glass rounded-lg p-4 bg-white/3">
-            <div class="text-stone-400 text-xs uppercase">Ranking Momentum</div>
-            <h4 class="mt-1 font-black text-white">User XP trend</h4>
-            <svg viewBox="0 0 240 60" class="mt-3 w-full h-16" aria-hidden="true">
-              <path d="M0 46 L30 38 L60 28 L90 34 L120 18 L150 24 L180 12 L210 20 L240 8" stroke="#f5b041" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
-              <path d="M0 46 L30 38 L60 28 L90 34 L120 18 L150 24 L180 12 L210 20 L240 8 L240 60 L0 60 Z" fill="rgba(245,176,65,0.08)"/>
-            </svg>
-            <div class="mt-3 grid grid-cols-2 gap-2 text-xs text-stone-400">
-              <div class="rounded-xl bg-black/20 p-2">
-                <div class="text-white font-semibold">Malik</div>
-                <div>12,480 XP</div>
+          <!-- Analytics: momentum sparkline & weekly activity bars -->
+          <div class="mt-4 grid gap-4 md:grid-cols-2 items-stretch">
+            <article class="glass rounded-lg p-4 bg-white/3">
+              <div class="text-stone-400 text-xs uppercase">Ranking Momentum</div>
+              <h4 class="mt-1 font-black text-white">User XP trend</h4>
+              <svg viewBox="0 0 240 60" class="mt-3 w-full h-16" aria-hidden="true">
+                <path d="M0 46 L30 38 L60 28 L90 34 L120 18 L150 24 L180 12 L210 20 L240 8" stroke="#f5b041"
+                  stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
+                <path d="M0 46 L30 38 L60 28 L90 34 L120 18 L150 24 L180 12 L210 20 L240 8 L240 60 L0 60 Z"
+                  fill="rgba(245,176,65,0.08)" />
+              </svg>
+              <div class="mt-3 grid grid-cols-2 gap-2 text-xs text-stone-400">
+                <div class="rounded-xl bg-black/20 p-2">
+                  <div class="text-white font-semibold">Malik</div>
+                  <div>12,480 XP</div>
+                </div>
+                <div class="rounded-xl bg-black/20 p-2">
+                  <div class="text-white font-semibold">Sara</div>
+                  <div>11,920 XP</div>
+                </div>
               </div>
-              <div class="rounded-xl bg-black/20 p-2">
-                <div class="text-white font-semibold">Sara</div>
-                <div>11,920 XP</div>
-              </div>
-            </div>
-          </article>
+            </article>
 
-          <article class="glass rounded-lg p-4 bg-white/3">
-            <div class="text-stone-400 text-xs uppercase">User Activity</div>
-            <h4 class="mt-1 font-black text-white">Top members</h4>
-            <div class="mt-3 flex items-end gap-3 h-28">
-              <div class="flex-1 text-center">
-                <div class="mx-auto w-6 rounded-t-md bg-gold bar" data-height="78" style="height:78%"></div>
-                <div class="mt-2 text-xs text-white">Malik</div>
-                <div class="text-[11px] text-stone-400">12.4k XP</div>
+            <article class="glass rounded-lg p-4 bg-white/3">
+              <div class="text-stone-400 text-xs uppercase">User Activity</div>
+              <h4 class="mt-1 font-black text-white">Top members</h4>
+              <div class="mt-3 flex items-end gap-3 h-28">
+                <div class="flex-1 text-center">
+                  <div class="mx-auto w-6 rounded-t-md bg-gold bar" data-height="78" style="height:78%"></div>
+                  <div class="mt-2 text-xs text-white">Malik</div>
+                  <div class="text-[11px] text-stone-400">12.4k XP</div>
+                </div>
+                <div class="flex-1 text-center">
+                  <div class="mx-auto w-6 rounded-t-md bg-gold bar" data-height="72" style="height:72%"></div>
+                  <div class="mt-2 text-xs text-white">Sara</div>
+                  <div class="text-[11px] text-stone-400">11.9k XP</div>
+                </div>
+                <div class="flex-1 text-center">
+                  <div class="mx-auto w-6 rounded-t-md bg-gold bar" data-height="66" style="height:66%"></div>
+                  <div class="mt-2 text-xs text-white">Omar</div>
+                  <div class="text-[11px] text-stone-400">11.1k XP</div>
+                </div>
+                <div class="flex-1 text-center">
+                  <div class="mx-auto w-6 rounded-t-md bg-gold bar" data-height="58" style="height:58%"></div>
+                  <div class="mt-2 text-xs text-white">Noah</div>
+                  <div class="text-[11px] text-stone-400">8.9k XP</div>
+                </div>
               </div>
-              <div class="flex-1 text-center">
-                <div class="mx-auto w-6 rounded-t-md bg-gold bar" data-height="72" style="height:72%"></div>
-                <div class="mt-2 text-xs text-white">Sara</div>
-                <div class="text-[11px] text-stone-400">11.9k XP</div>
-              </div>
-              <div class="flex-1 text-center">
-                <div class="mx-auto w-6 rounded-t-md bg-gold bar" data-height="66" style="height:66%"></div>
-                <div class="mt-2 text-xs text-white">Omar</div>
-                <div class="text-[11px] text-stone-400">11.1k XP</div>
-              </div>
-              <div class="flex-1 text-center">
-                <div class="mx-auto w-6 rounded-t-md bg-gold bar" data-height="58" style="height:58%"></div>
-                <div class="mt-2 text-xs text-white">Noah</div>
-                <div class="text-[11px] text-stone-400">8.9k XP</div>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-      
-     
-    
-      </div>
-      
+            </article>
+          </div>
     </main>
+  </div>
+
+  <nav id="mobileBottomNav" class="mobile-bottom-nav md:hidden" aria-label="Mobile navigation">
+    <div class="mobile-bottom-nav__inner">
+      <!-- Home → landing.html -->
+      <a href="landing.html" data-mobile-nav-link class="mobile-bottom-nav__item" aria-label="Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
+      </a>
+      <!-- Dashboard -->
+      <a href="dashboard.html" data-mobile-nav-link class="mobile-bottom-nav__item is-active" aria-current="page"
+        aria-label="Dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="7" height="7" rx="1.5" />
+          <rect x="14" y="3" width="7" height="7" rx="1.5" />
+          <rect x="14" y="14" width="7" height="7" rx="1.5" />
+          <rect x="3" y="14" width="7" height="7" rx="1.5" />
+        </svg>
+      </a>
+      <!-- Progress -->
+      <a href="#progress" data-mobile-nav-link class="mobile-bottom-nav__item" aria-label="Progress">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+        </svg>
+      </a>
+                  <!-- Nutrition -->
+      <a href="nutrition.html" data-mobile-nav-link class="mobile-bottom-nav__item" aria-label="Nutrition">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M16.4 13.4c0 3.7-2.2 6.1-4.9 6.1s-4.9-2.4-4.9-6.1c0-2.9 1.7-4.8 4-4.8.9 0 1.6.3 2.2.8.6-.5 1.3-.8 2.2-.8 2.3 0 4 1.9 4 4.8Z" />
+          <path d="M12 8.2V5.7" />
+          <path d="M12.1 5.8c.9-1.8 2.7-2.5 4.2-2.3-.5 2.1-2 3.2-4 3.3" />
+          <path d="M9.8 13.3h4.4" />
+        </svg>
+      </a>
+      <!-- More -->
+      <button id="mobileMoreBtn" type="button" class="mobile-bottom-nav__item" aria-controls="mobileMoreSheet"
+        aria-expanded="false" aria-label="More navigation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+          <circle cx="19" cy="12" r="1.5" fill="currentColor" />
+          <circle cx="5" cy="12" r="1.5" fill="currentColor" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobileMoreSheet" class="mobile-bottom-sheet md:hidden" aria-hidden="true">
+    <div class="mobile-bottom-sheet__scrim" data-mobile-more-close></div>
+    <section class="mobile-bottom-sheet__panel" role="dialog" aria-modal="true" aria-label="More navigation">
+      <div class="mobile-bottom-sheet__handle"></div>
+      <div class="flex items-center justify-between gap-3 px-4 pt-3 pb-4">
+        <div>
+          <div class="text-xs uppercase tracking-[0.24em] text-stone-400">More</div>
+          <div class="mt-1 text-lg font-black text-white">Secondary navigation</div>
+        </div>
+        <button type="button" class="mobile-bottom-sheet__close" data-mobile-more-close
+          aria-label="Close more navigation">
+          <svg viewBox="0 0 24 24" fill="none" class="w-5 h-5" aria-hidden="true">
+            <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-bottom-sheet__grid" id="mobileMoreLinks">
+        <a href="programs.html" data-mobile-more-link class="mobile-bottom-sheet__link">Programs</a>
+        <a href="workout.html" data-mobile-more-link class="mobile-bottom-sheet__link">Workouts</a>
+        <a href="classes.html" data-mobile-more-link class="mobile-bottom-sheet__link">Classes</a>
+        <a href="coaches.html" data-mobile-more-link class="mobile-bottom-sheet__link">Coaches</a>
+        <a href="community.html" data-mobile-more-link class="mobile-bottom-sheet__link">Community</a>
+        <a href="blogs.html" data-mobile-more-link class="mobile-bottom-sheet__link">Blogs</a>
+        <a href="crowd.html" data-mobile-more-link class="mobile-bottom-sheet__link">Crowd</a>
+        <a href="inbody.html" data-mobile-more-link class="mobile-bottom-sheet__link">InBody</a>
+        <a href="machines.html" data-mobile-more-link class="mobile-bottom-sheet__link">Machines</a>
+        <a href="smart-test.html" data-mobile-more-link class="mobile-bottom-sheet__link">Smart Test</a>
+        <a href="achievements.html" data-mobile-more-link class="mobile-bottom-sheet__link">Achievements</a>
+        <a href="store.html" data-mobile-more-link class="mobile-bottom-sheet__link">Store</a>
+        <a href="membership.html" data-mobile-more-link class="mobile-bottom-sheet__link">Membership</a>
+        <a href="notifications.html" data-mobile-more-link class="mobile-bottom-sheet__link">Notifications</a>
+        <a href="reviews.html" data-mobile-more-link class="mobile-bottom-sheet__link">Reviews</a>
+        <a href="ai-coach.html" data-mobile-more-link class="mobile-bottom-sheet__link">AI Coach</a>
+        <a href="settings.html" data-mobile-more-link class="mobile-bottom-sheet__link">Settings</a>
+        <a href="support.html" data-mobile-more-link class="mobile-bottom-sheet__link">Support</a>
+        <a href="profile.html" data-mobile-more-link class="mobile-bottom-sheet__link">Profile</a>
+      </div>
+    </section>
   </div>
   <script src="assets/js/components.js"></script>
   <script>
     Components.init();
+    (function () {
+      const mq = window.matchMedia('(max-width: 767px)');
+      const bottomNav = document.getElementById('mobileBottomNav');
+      const bottomSheet = document.getElementById('mobileMoreSheet');
+      const moreButton = document.getElementById('mobileMoreBtn');
+      const closeButtons = document.querySelectorAll('[data-mobile-more-close]');
+      const homeLink = bottomNav?.querySelector('a[href="landing.html"]');
+      const dashboardLink = bottomNav?.querySelector('a[href="dashboard.html"]');
+      const progressLink = bottomNav?.querySelector('a[href="#progress"]');
+      const nutritionLink = bottomNav?.querySelector('a[href="nutrition.html"]');
+      const navLinks = bottomNav ? bottomNav.querySelectorAll('[data-mobile-nav-link]') : [];
+      const moreLinks = document.querySelectorAll('[data-mobile-more-link]');
+      const progressSection = document.getElementById('progress');
+
+      const setActive = (key) => {
+        navLinks.forEach((link) => link.classList.remove('is-active'));
+        if (key === 'home') homeLink?.classList.add('is-active');
+        if (key === 'dashboard') dashboardLink?.classList.add('is-active');
+        if (key === 'progress') progressLink?.classList.add('is-active');
+        if (key === 'nutrition') nutritionLink?.classList.add('is-active');
+      };
+
+      const openSheet = () => {
+        if (!mq.matches || !bottomSheet || !moreButton) return;
+        bottomSheet.classList.add('is-open');
+        bottomSheet.setAttribute('aria-hidden', 'false');
+        moreButton.classList.add('more-active');
+        moreButton.setAttribute('aria-expanded', 'true');
+      };
+
+      const closeSheet = () => {
+        if (!bottomSheet || !moreButton) return;
+        bottomSheet.classList.remove('is-open');
+        bottomSheet.setAttribute('aria-hidden', 'true');
+        moreButton.classList.remove('more-active');
+        moreButton.setAttribute('aria-expanded', 'false');
+      };
+
+      bottomNav?.addEventListener('click', (event) => {
+        const target = event.target.closest('a[href], button');
+        if (!target || !mq.matches) return;
+        if (target === moreButton) {
+          event.preventDefault();
+          bottomSheet?.classList.contains('is-open') ? closeSheet() : openSheet();
+          return;
+        }
+        if (target.matches('a[href="#progress"]')) {
+          event.preventDefault();
+          progressSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setActive('progress');
+          closeSheet();
+          return;
+        }
+        if (target.matches('a[href="nutrition.html"]')) setActive('nutrition');
+        else if (target.matches('a[href="dashboard.html"]')) setActive('dashboard');
+        closeSheet();
+      });
+
+      closeButtons.forEach((button) => button.addEventListener('click', closeSheet));
+      bottomSheet?.addEventListener('click', (event) => {
+        if (event.target === bottomSheet) closeSheet();
+      });
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeSheet();
+      });
+      moreLinks.forEach((link) => link.addEventListener('click', closeSheet));
+
+      if (progressSection) {
+        const dashboardMain = document.querySelector('.dashboard-main');
+        const progressObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!mq.matches) return;
+            if (entry.isIntersecting) setActive('progress');
+            else if ((dashboardMain ? dashboardMain.scrollTop : window.scrollY) < 180) setActive('dashboard');
+          });
+        }, { root: dashboardMain, threshold: 0.45 });
+        progressObserver.observe(progressSection);
+      }
+
+      const syncMobileNav = () => {
+        if (!mq.matches) {
+          closeSheet();
+          navLinks.forEach((link) => link.classList.remove('is-active'));
+          return;
+        }
+        if (window.location.hash === '#progress') setActive('progress');
+        else if (window.location.pathname.endsWith('nutrition.html')) setActive('nutrition');
+        else setActive('dashboard');
+      };
+
+      mq.addEventListener?.('change', syncMobileNav);
+      window.addEventListener('hashchange', syncMobileNav);
+      syncMobileNav();
+    })();
   </script>
   <script>
     // Simple bar animation for weekly activity (lightweight, no libs)
-    (function(){
+    (function () {
       const bars = document.querySelectorAll('.simple-leaderboard .bar');
-      if(!bars || !bars.length) return;
-      bars.forEach((b,i)=>{
+      if (!bars || !bars.length) return;
+      bars.forEach((b, i) => {
         const target = b.getAttribute('data-height') || 0;
         b.style.height = '2%';
-        setTimeout(()=>{ b.style.transition = 'height 700ms cubic-bezier(.2,.9,.2,1)'; b.style.height = target + '%'; }, 80 + i*80);
+        setTimeout(() => { b.style.transition = 'height 700ms cubic-bezier(.2,.9,.2,1)'; b.style.height = target + '%'; }, 80 + i * 80);
       });
     })();
   </script>
 </body>
+
 </html>
+
+
+
+
 
 

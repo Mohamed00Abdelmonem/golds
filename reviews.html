@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -8,7 +8,35 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css" />
-</head>
+  <style id="mobile-nav-styles">
+    .mobile-bottom-nav,.mobile-bottom-sheet{display:none}
+    @media (max-width:767px){
+      html,body{overflow:hidden;height:100vh;height:100dvh}
+      body{padding-bottom:0 !important}
+      .app-shell{height:100dvh;overflow:hidden}
+      main.flex-1{overflow-y:auto !important;padding-bottom:calc(6.5rem + env(safe-area-inset-bottom)) !important}
+      .mobile-bottom-nav{display:flex;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(1rem + env(safe-area-inset-bottom));z-index:999;width:calc(100% - 2.5rem);max-width:420px;padding:0;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;pointer-events:none}
+      .mobile-bottom-nav__inner{pointer-events:auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0.3rem;width:100%;border-radius:9999px;padding:0.45rem;background:rgba(15,15,17,0.85);border:1px solid rgba(255,255,255,0.08);box-shadow:0 16px 36px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.05);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%)}
+      .mobile-bottom-nav__item{display:flex;flex-direction:column;align-items:center;justify-content:center;width:3rem;height:3rem;border-radius:9999px;color:#a1a1aa;transition:all 280ms cubic-bezier(0.34,1.56,0.64,1);border:none;cursor:pointer;position:relative;text-decoration:none}
+      .mobile-bottom-nav__item svg{width:1.45rem;height:1.45rem;transition:transform 200ms}
+      .mobile-bottom-nav__item:active svg{transform:scale(0.85)}
+      .mobile-bottom-nav__item::after{content:'';position:absolute;bottom:0.3rem;width:4px;height:4px;border-radius:50%;background:var(--gold,#f5b041);opacity:0;transform:scale(0);transition:all 250ms cubic-bezier(0.34,1.56,0.64,1)}
+      .mobile-bottom-nav__item.is-active::after{opacity:1;transform:scale(1)}
+      .mobile-bottom-nav__item.is-active{background:rgba(255,212,0,0.12);color:var(--gold,#f5b041);box-shadow:0 4px 16px rgba(255,212,0,0.15),inset 0 0 0 1px rgba(255,212,0,0.25);transform:translateY(-2px)}
+      .mobile-bottom-nav__item.more-active{background:rgba(255,212,0,0.2);color:var(--gold,#f5b041)}
+      .mobile-bottom-sheet{display:block;position:fixed;inset:0;z-index:1000;opacity:0;pointer-events:none;transition:opacity 220ms ease}
+      .mobile-bottom-sheet.is-open{opacity:1;pointer-events:auto}
+      .mobile-bottom-sheet__scrim{position:absolute;inset:0;background:rgba(0,0,0,.62);backdrop-filter:blur(10px)}
+      .mobile-bottom-sheet__panel{position:absolute;left:0;right:0;bottom:0;transform:translateY(100%);transition:transform 260ms cubic-bezier(.2,.9,.2,1);border-radius:1.5rem 1.5rem 0 0;background:linear-gradient(180deg,rgba(16,16,18,.98),rgba(10,10,12,.98));border:1px solid rgba(255,255,255,0.08);box-shadow:0 -28px 80px rgba(0,0,0,.5);padding-bottom:calc(1rem + env(safe-area-inset-bottom));max-height:min(82vh,42rem);display:flex;flex-direction:column}
+      .mobile-bottom-sheet.is-open .mobile-bottom-sheet__panel{transform:translateY(0)}
+      .mobile-bottom-sheet__handle{width:3.25rem;height:.28rem;border-radius:999px;background:rgba(255,255,255,.18);margin:0.7rem auto 0}
+      .mobile-bottom-sheet__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.65rem;padding:0 1rem 1rem;overflow:auto}
+      .mobile-bottom-sheet__link{display:flex;min-height:3.9rem;align-items:center;gap:0.8rem;border-radius:1.1rem;padding:0.85rem 0.9rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:#e5e7eb;font-size:.9rem;font-weight:600;transition:all 180ms;text-decoration:none}
+      .mobile-bottom-sheet__link:hover{background:rgba(255,255,255,.08)}
+      .mobile-bottom-sheet__link.is-active{background:rgba(245,176,65,.14);border-color:rgba(245,176,65,.24);color:#fff}
+      .mobile-bottom-sheet__close{display:inline-flex;align-items:center;justify-content:center;min-height:2.75rem;min-width:2.75rem;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#e5e7eb}
+    }
+  </style></head>
 <body class="antialiased">
   <div id="shell-root" class="app-shell min-h-screen flex">
     <div class="shell-overlay"></div>
@@ -197,5 +225,133 @@
     openReviewFormBtn?.addEventListener('click', showReviewForm);
     closeReviewFormBtn?.addEventListener('click', hideReviewForm);
   </script>
+
+  <!-- ===== PREMIUM MOBILE BOTTOM NAV ===== -->
+  <nav id="mobileBottomNav" class="mobile-bottom-nav md:hidden" aria-label="Mobile navigation">
+    <div class="mobile-bottom-nav__inner">
+      <!-- Home -->
+      <a href="landing.html" data-mobile-nav-link class="mobile-bottom-nav__item" aria-label="Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </a>
+      <!-- Dashboard -->
+      <a href="dashboard.html" data-mobile-nav-link class="mobile-bottom-nav__item" aria-label="Dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+          <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+          <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+          <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+        </svg>
+      </a>
+                  <!-- Nutrition -->
+      <a href="nutrition.html" data-mobile-nav-link class="mobile-bottom-nav__item" aria-label="Nutrition">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M16.4 13.4c0 3.7-2.2 6.1-4.9 6.1s-4.9-2.4-4.9-6.1c0-2.9 1.7-4.8 4-4.8.9 0 1.6.3 2.2.8.6-.5 1.3-.8 2.2-.8 2.3 0 4 1.9 4 4.8Z" />
+          <path d="M12 8.2V5.7" />
+          <path d="M12.1 5.8c.9-1.8 2.7-2.5 4.2-2.3-.5 2.1-2 3.2-4 3.3" />
+          <path d="M9.8 13.3h4.4" />
+        </svg>
+      </a>
+      <!-- More -->
+      <button id="mobileMoreBtn" type="button" class="mobile-bottom-nav__item" aria-controls="mobileMoreSheet" aria-expanded="false" aria-label="More navigation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+          <circle cx="19" cy="12" r="1.5" fill="currentColor"/>
+          <circle cx="5" cy="12" r="1.5" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobileMoreSheet" class="mobile-bottom-sheet md:hidden" aria-hidden="true">
+    <div class="mobile-bottom-sheet__scrim" data-mobile-more-close></div>
+    <section class="mobile-bottom-sheet__panel" role="dialog" aria-modal="true" aria-label="More navigation">
+      <div class="mobile-bottom-sheet__handle"></div>
+      <div class="flex items-center justify-between gap-3 px-4 pt-3 pb-4">
+        <div>
+          <div class="text-xs uppercase tracking-[0.24em] text-stone-400">More</div>
+          <div class="mt-1 text-lg font-black text-white">Navigation</div>
+        </div>
+        <button type="button" class="mobile-bottom-sheet__close" data-mobile-more-close aria-label="Close more navigation">
+          <svg viewBox="0 0 24 24" fill="none" class="w-5 h-5" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="mobile-bottom-sheet__grid" id="mobileMoreLinks">
+        <a href="programs.html" data-mobile-more-link class="mobile-bottom-sheet__link">Programs</a>
+        <a href="workout.html" data-mobile-more-link class="mobile-bottom-sheet__link">Workouts</a>
+        <a href="classes.html" data-mobile-more-link class="mobile-bottom-sheet__link">Classes</a>
+        <a href="coaches.html" data-mobile-more-link class="mobile-bottom-sheet__link">Coaches</a>
+        <a href="community.html" data-mobile-more-link class="mobile-bottom-sheet__link">Community</a>
+        <a href="blogs.html" data-mobile-more-link class="mobile-bottom-sheet__link">Blogs</a>
+        <a href="crowd.html" data-mobile-more-link class="mobile-bottom-sheet__link">Crowd</a>
+        <a href="inbody.html" data-mobile-more-link class="mobile-bottom-sheet__link">InBody</a>
+        <a href="machines.html" data-mobile-more-link class="mobile-bottom-sheet__link">Machines</a>
+        <a href="smart-test.html" data-mobile-more-link class="mobile-bottom-sheet__link">Smart Test</a>
+        <a href="achievements.html" data-mobile-more-link class="mobile-bottom-sheet__link">Achievements</a>
+        <a href="store.html" data-mobile-more-link class="mobile-bottom-sheet__link">Store</a>
+        <a href="membership.html" data-mobile-more-link class="mobile-bottom-sheet__link">Membership</a>
+        <a href="notifications.html" data-mobile-more-link class="mobile-bottom-sheet__link">Notifications</a>
+        <a href="reviews.html" data-mobile-more-link class="mobile-bottom-sheet__link">Reviews</a>
+        <a href="ai-coach.html" data-mobile-more-link class="mobile-bottom-sheet__link">AI Coach</a>
+        <a href="smart-attendance.html" data-mobile-more-link class="mobile-bottom-sheet__link">Attendance</a>
+        <a href="timer.html" data-mobile-more-link class="mobile-bottom-sheet__link">Timer</a>
+        <a href="report.html" data-mobile-more-link class="mobile-bottom-sheet__link">Report</a>
+        <a href="settings.html" data-mobile-more-link class="mobile-bottom-sheet__link">Settings</a>
+        <a href="support.html" data-mobile-more-link class="mobile-bottom-sheet__link">Support</a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (function(){
+      var mq = window.matchMedia('(max-width: 767px)');
+      var bottomNav = document.getElementById('mobileBottomNav');
+      var bottomSheet = document.getElementById('mobileMoreSheet');
+      var moreButton = document.getElementById('mobileMoreBtn');
+      var closeButtons = document.querySelectorAll('[data-mobile-more-close]');
+      var moreLinks = document.querySelectorAll('[data-mobile-more-link]');
+      var curPage = location.pathname.split('/').pop() || 'index.html';
+
+      function openSheet(){
+        if(!mq.matches||!bottomSheet||!moreButton)return;
+        bottomSheet.classList.add('is-open');
+        bottomSheet.setAttribute('aria-hidden','false');
+        moreButton.classList.add('more-active');
+        moreButton.setAttribute('aria-expanded','true');
+      }
+      function closeSheet(){
+        if(!bottomSheet||!moreButton)return;
+        bottomSheet.classList.remove('is-open');
+        bottomSheet.setAttribute('aria-hidden','true');
+        moreButton.classList.remove('more-active');
+        moreButton.setAttribute('aria-expanded','false');
+      }
+
+      if(moreButton) moreButton.addEventListener('click',function(e){
+        e.preventDefault();
+        bottomSheet&&bottomSheet.classList.contains('is-open')?closeSheet():openSheet();
+      });
+      closeButtons.forEach(function(b){b.addEventListener('click',closeSheet);});
+      moreLinks.forEach(function(l){l.addEventListener('click',closeSheet);});
+      window.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet();});
+
+      // Mark current page active link in sheet
+      var sheetLinks = document.querySelectorAll('[data-mobile-more-link]');
+      sheetLinks.forEach(function(l){
+        if(l.getAttribute('href')===curPage) l.classList.add('is-active');
+      });
+
+      mq.addEventListener('change',function(){if(!mq.matches)closeSheet();});
+    })();
+  </script>
+  <!-- ===== END MOBILE BOTTOM NAV ===== -->
 </body>
 </html>
+
+
+
+
+
+
