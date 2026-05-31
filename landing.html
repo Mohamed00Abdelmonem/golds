@@ -9,22 +9,41 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
       :root{--radius:28px}
-      body{font-family:Inter,system-ui,Arial,sans-serif;background:#ffffff;color:#0f172a}
+      html{scroll-behavior:smooth}
+      body{font-family:Inter,system-ui,Arial,sans-serif;background:
+        radial-gradient(circle at top left,rgba(212,175,55,.12),transparent 28%),
+        radial-gradient(circle at top right,rgba(15,23,42,.05),transparent 24%),
+        linear-gradient(180deg,#fbfbfc 0%,#f5f7fb 100%);color:#0f172a}
       .card{border-radius:var(--radius);box-shadow:0 18px 50px rgba(15,23,42,0.06)}
-      .mockup{border-radius:32px;box-shadow:0 30px 80px rgba(2,6,23,0.08);overflow:hidden}
-      .mockup-frame{width:320px;height:680px;border-radius:36px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.3);background:#fff}
-      .glass{background:rgba(255,255,255,0.8);backdrop-filter:blur(6px)}
+      .glass{background:rgba(255,255,255,0.84);backdrop-filter:blur(14px)}
       .hover-lift{transition:transform .28s cubic-bezier(.2,.9,.2,1),box-shadow .28s}
       .hover-lift:hover{transform:translateY(-6px);box-shadow:0 28px 60px rgba(2,6,23,0.08)}
-      @media (prefers-color-scheme: dark){body{background:#070708;color:#fff}.glass{background:rgba(10,10,12,0.6)}}
-      @media (max-width:768px){.hero-grid{grid-template-columns:1fr!important}.mockup-frame{width:260px;height:540px}}
+      .hero-panel{box-shadow:0 26px 80px rgba(2,6,23,.12)}
+      .carousel-slide{opacity:0;transform:scale(.98) translateY(10px);transition:opacity .5s ease,transform .5s ease;pointer-events:none}
+      .carousel-slide.is-active{opacity:1;transform:scale(1) translateY(0);pointer-events:auto}
+      .carousel-dot{transition:all .25s ease}
+      .carousel-dot.is-active{width:2rem;background:#d4af37}
+      .safe-area-bottom{padding-bottom:calc(1rem + env(safe-area-inset-bottom))}
+      @media (prefers-color-scheme: dark){body{background:#070708;color:#fff}.glass{background:rgba(10,10,12,0.68)}}
+      @media (max-width:1024px){.hero-grid{grid-template-columns:1fr!important}.hero-copy{order:2}.hero-media{order:1}}
+      @media (max-width:768px){
+        .hero-grid{gap:1.25rem!important}
+        .mobile-stack{flex-direction:column;align-items:flex-start}
+        .mobile-full{width:100%}
+        .mobile-tight{padding-left:1rem;padding-right:1rem}
+        .carousel-shell{width:100%;max-width:24rem}
+      }
+      @media (prefers-reduced-motion: reduce){
+        html{scroll-behavior:auto}
+        .carousel-slide,.hover-lift,.carousel-dot{transition:none}
+      }
     </style>
   </head>
   <body>
     <!-- Nav -->
-    <header class="sticky top-0 bg-gray-900 text-white z-40 border-b border-gray-800">
-      <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="landing.html" class="flex items-center gap-3">
+    <header class="sticky top-0 z-40 border-b border-white/10 bg-gray-950/90 text-white shadow-[0_16px_40px_rgba(2,6,23,.28)] backdrop-blur-md">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between gap-3">
+        <a href="landing.html" class="flex items-center gap-3 min-h-[44px]">
           <img src="assets/golds-logo.png" alt="Golds logo" class="w-10 h-10 object-contain" />
           <span class="font-bold text-lg text-amber-400">Golds</span>
         </a>
@@ -35,43 +54,132 @@
           <a href="#pricing" class="hover:text-white">Pricing</a>
         </nav>
         <div class="hidden md:flex items-center gap-3">
-          <a href="login.html" class="text-sm text-gray-200 hover:text-white">Sign in</a>
-          <a href="register.html" class="px-4 py-2 rounded-full bg-amber-400 text-black shadow-sm text-sm">Get started</a>
+          <a href="login.html" class="inline-flex items-center justify-center min-h-[44px] px-4 text-sm text-gray-200 hover:text-white">Sign in</a>
+          <a href="login.html" class="inline-flex items-center justify-center min-h-[44px] px-5 rounded-full bg-amber-400 text-black shadow-sm text-sm font-semibold">Log in</a>
         </div>
-        <a href="register.html" class="md:hidden px-3 py-2 rounded-full bg-amber-400 text-black">Register</a>
-        <button id="mobileToggle" class="md:hidden text-white">☰</button>
+        <a href="login.html" class="md:hidden inline-flex items-center justify-center min-h-[44px] px-4 rounded-full bg-amber-400 text-black text-sm font-semibold">Log in</a>
+        <button id="mobileToggle" class="md:hidden inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded-full border border-white/10 text-white">☰</button>
       </div>
     </header>
 
     <!-- Hero -->
-    <main class="max-w-6xl mx-auto px-6 py-12">
-      <section class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center hero-grid">
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10 lg:py-12 mobile-tight">
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center hero-grid">
         <!-- Copy -->
-        <div class="lg:col-span-7">
-          <h1 class="text-4xl md:text-5xl font-extrabold leading-tight text-amber-400">Personalized training powered by intelligence.</h1>
-          <p class="mt-4 text-lg text-gray-600 max-w-xl">Elevate blends AI coaching, progress analytics and beautifully designed programs to help you train smarter and see real progress — without the clutter.</p>
+        <div class="lg:col-span-7 hero-copy text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-4 py-2 text-xs font-semibold tracking-[0.2em] text-amber-700 uppercase">
+            Smart training for every day
+          </div>
+          <h1 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.02] tracking-tight text-gray-950">Personalized training powered by intelligence.</h1>
+          <p class="mt-4 text-base sm:text-lg text-gray-600 max-w-2xl mx-auto lg:mx-0">Elevate blends AI coaching, progress analytics and beautifully designed programs to help you train smarter and see real progress without the clutter.</p>
 
-          <div class="mt-8 flex flex-wrap gap-3">
-            <a href="register.html" class="inline-flex items-center px-5 py-3 bg-brand text-white rounded-full shadow hover:shadow-lg">Start free trial</a>
-            <a href="#features" class="inline-flex items-center px-4 py-3 border rounded-full text-sm">See features</a>
+          <div class="mt-8 flex flex-col sm:flex-row sm:flex-wrap gap-3 justify-center lg:justify-start mobile-stack">
+            <a href="register.html" class="inline-flex items-center justify-center min-h-[44px] px-5 py-3 bg-brand text-white rounded-full shadow hover:shadow-lg mobile-full sm:w-auto font-semibold">Start free trial</a>
+            <a href="#features" class="inline-flex items-center justify-center min-h-[44px] px-5 py-3 border border-gray-200 bg-white/70 rounded-full text-sm font-semibold text-gray-700 mobile-full sm:w-auto">See features</a>
+          </div>
+
+          <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl mx-auto lg:mx-0">
+            <div class="card glass p-4 text-left">
+              <div class="text-xs uppercase tracking-[0.18em] text-gray-400">Programs</div>
+              <div class="mt-2 text-2xl font-black text-gray-950">120+</div>
+              <div class="text-sm text-gray-500">Training paths and challenges</div>
+            </div>
+            <div class="card glass p-4 text-left">
+              <div class="text-xs uppercase tracking-[0.18em] text-gray-400">Coaches</div>
+              <div class="mt-2 text-2xl font-black text-gray-950">1:1</div>
+              <div class="text-sm text-gray-500">Support when you need it</div>
+            </div>
+            <div class="card glass p-4 text-left">
+              <div class="text-xs uppercase tracking-[0.18em] text-gray-400">Results</div>
+              <div class="mt-2 text-2xl font-black text-gray-950">24/7</div>
+              <div class="text-sm text-gray-500">Progress tracked in real time</div>
+            </div>
           </div>
 
           <!-- Quick Access / Search -->
-          <div class="mt-8 card p-4 max-w-xl glass">
-            <div class="flex items-center gap-3">
+          <div class="mt-8 card p-4 sm:p-5 max-w-2xl mx-auto lg:mx-0 glass border border-white/50">
+            <div class="flex flex-col sm:flex-row sm:items-center gap-3">
               <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/></svg>
-              <input class="flex-1 bg-transparent outline-none" placeholder="Search workouts, programs, coaches" />
-              <button class="px-3 py-2 bg-brand text-white rounded-full">Explore</button>
+              <input class="flex-1 min-h-[44px] w-full bg-transparent outline-none text-sm sm:text-base" placeholder="Search workouts, programs, coaches" />
+              <button class="inline-flex items-center justify-center min-h-[44px] px-4 py-2 bg-brand text-white rounded-full font-semibold">Explore</button>
             </div>
-            
           </div>
         </div>
 
         <!-- Mockup -->
-        <div class="lg:col-span-5 flex justify-center">
-          <div class="mockup hover-lift">
-            <div class="mockup-frame">
-              <img src="assets/img/landing/1.png" alt="app screenshot" class="w-full h-full object-cover" />
+        <div class="lg:col-span-5 flex justify-center hero-media">
+          <div class="carousel-shell w-full max-w-[28rem]">
+            <div class="relative overflow-hidden rounded-[2rem] bg-gray-950 p-3 sm:p-4 hero-panel">
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,175,55,.24),transparent_40%),linear-gradient(180deg,rgba(255,255,255,.08),transparent_32%)]"></div>
+              <div class="relative overflow-hidden rounded-[1.65rem] border border-white/10 bg-gray-900/80 p-3 sm:p-4">
+                <div class="flex items-center justify-between gap-3 text-white/80 text-xs sm:text-sm">
+                  <div class="font-semibold tracking-[0.16em] uppercase text-amber-300">Live preview</div>
+                  <div class="inline-flex items-center gap-2 rounded-full bg-white/8 px-3 py-1">
+                    <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+                    Mobile first
+                  </div>
+                </div>
+
+                <div class="relative mt-4 aspect-[9/16] sm:aspect-[4/5] overflow-hidden rounded-[1.5rem] bg-black/30">
+                  <div class="carousel-slide is-active absolute inset-0" data-carousel-slide>
+                    <img src="assets/img/landing/1.png" alt="Golds app dashboard preview" class="h-full w-full object-cover" />
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-4 sm:p-5 text-white">
+                      <div class="text-xs uppercase tracking-[0.18em] text-amber-300">Today</div>
+                      <div class="mt-1 text-xl font-bold">Daily check-in</div>
+                      <div class="mt-2 flex flex-wrap gap-2 text-xs">
+                        <span class="rounded-full bg-white/10 px-3 py-1">85% adherence</span>
+                        <span class="rounded-full bg-white/10 px-3 py-1">4 sessions this week</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="carousel-slide absolute inset-0" data-carousel-slide>
+                    <img src="assets/img/landing/2.png" alt="Strength program preview" class="h-full w-full object-cover" />
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-4 sm:p-5 text-white">
+                      <div class="text-xs uppercase tracking-[0.18em] text-amber-300">Programs</div>
+                      <div class="mt-1 text-xl font-bold">Strength cycles</div>
+                      <div class="mt-2 flex flex-wrap gap-2 text-xs">
+                        <span class="rounded-full bg-white/10 px-3 py-1">4-12 weeks</span>
+                        <span class="rounded-full bg-white/10 px-3 py-1">Progressive overload</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="carousel-slide absolute inset-0" data-carousel-slide>
+                    <img src="assets/img/landing/3.png" alt="Recovery and mobility preview" class="h-full w-full object-cover" />
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-4 sm:p-5 text-white">
+                      <div class="text-xs uppercase tracking-[0.18em] text-amber-300">Recovery</div>
+                      <div class="mt-1 text-xl font-bold">Mobility flow</div>
+                      <div class="mt-2 flex flex-wrap gap-2 text-xs">
+                        <span class="rounded-full bg-white/10 px-3 py-1">15 minutes</span>
+                        <span class="rounded-full bg-white/10 px-3 py-1">Low impact</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button type="button" class="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-gray-900 shadow-lg hover:bg-white" data-carousel-prev aria-label="Previous slide">‹</button>
+                  <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-gray-900 shadow-lg hover:bg-white" data-carousel-next aria-label="Next slide">›</button>
+
+                  <div class="absolute inset-x-0 bottom-4 flex justify-center gap-2 px-4">
+                    <button type="button" class="carousel-dot is-active h-2.5 w-8 rounded-full bg-amber-400" data-carousel-dot aria-label="Show slide 1"></button>
+                    <button type="button" class="carousel-dot h-2.5 w-2.5 rounded-full bg-white/40" data-carousel-dot aria-label="Show slide 2"></button>
+                    <button type="button" class="carousel-dot h-2.5 w-2.5 rounded-full bg-white/40" data-carousel-dot aria-label="Show slide 3"></button>
+                  </div>
+                </div>
+
+                <div class="mt-4 grid grid-cols-3 gap-3 text-white/80 text-xs sm:text-sm">
+                  <div class="rounded-2xl border border-white/10 bg-white/5 p-3">
+                    <div class="font-semibold text-white">Adaptive</div>
+                    <div class="mt-1">Plans that change with you</div>
+                  </div>
+                  <div class="rounded-2xl border border-white/10 bg-white/5 p-3">
+                    <div class="font-semibold text-white">Smart</div>
+                    <div class="mt-1">AI-driven workout guidance</div>
+                  </div>
+                  <div class="rounded-2xl border border-white/10 bg-white/5 p-3">
+                    <div class="font-semibold text-white">Simple</div>
+                    <div class="mt-1">Track progress in one place</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -79,7 +187,7 @@
 
       <!-- Categories / Featured -->
       <section id="categories" class="mt-12 grid gap-6 lg:grid-cols-3">
-        <div class="lg:col-span-2 card p-6">
+        <div class="lg:col-span-2 card p-6 sm:p-7 glass border border-white/60">
           <div class="flex items-start gap-4">
             <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-amber-400 to-brand text-black grid place-items-center font-bold">AI</div>
             <div>
@@ -90,11 +198,11 @@
         </div>
 
         <div class="grid grid-cols-2 gap-4">
-          <div class="card overflow-hidden">
+          <div class="card overflow-hidden glass border border-white/60">
             <img src="assets/img/landing/2.png" alt="strength" class="w-full h-36 object-cover" />
             <div class="p-4"><div class="font-semibold">Strength</div><div class="text-xs text-gray-500">4–12 week plans</div></div>
           </div>
-          <div class="card overflow-hidden">
+          <div class="card overflow-hidden glass border border-white/60">
             <img src="assets/img/landing/3.png" alt="recovery" class="w-full h-36 object-cover" />
             <div class="p-4"><div class="font-semibold">Recovery</div><div class="text-xs text-gray-500">Daily mobility routines</div></div>
           </div>
@@ -103,15 +211,15 @@
 
       <!-- Features -->
       <section id="features" class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="card p-6 hover-lift">
+        <div class="card p-6 glass border border-white/60 hover-lift">
           <div class="font-bold text-xl text-amber-400">Personalized</div>
           <p class="mt-2 text-gray-600">Training that adapts to you.</p>
         </div>
-        <div class="card p-6 hover-lift">
+        <div class="card p-6 glass border border-white/60 hover-lift">
           <div class="font-bold text-xl text-amber-400">Coach Insights</div>
           <p class="mt-2 text-gray-600">Science-backed guidance after every session.</p>
         </div>
-        <div class="card p-6 hover-lift">
+        <div class="card p-6 glass border border-white/60 hover-lift">
           <div class="font-bold text-xl text-amber-400">Nutrition</div>
           <p class="mt-2 text-gray-600">Simple, goal-aligned nutrition plans.</p>
         </div>
@@ -119,17 +227,17 @@
 
       <!-- Testimonials -->
       <section id="testimonials" class="mt-12">
-        <h2 class="text-2xl font-bold">What users say</h2>
+        <h2 class="text-2xl font-bold text-center lg:text-left">What users say</h2>
         <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="card p-5">
+          <div class="card p-5 glass border border-white/60">
             <p>"I finally have a plan that understands me — the progress speaks for itself."</p>
             <div class="mt-3 font-semibold">— Amelia</div>
           </div>
-          <div class="card p-5">
+          <div class="card p-5 glass border border-white/60">
             <p>"Beautiful UI and practical coaching — I actually stick to it."</p>
             <div class="mt-3 font-semibold">— Malik</div>
           </div>
-          <div class="card p-5">
+          <div class="card p-5 glass border border-white/60">
             <p>"The AI recommendations feel like working with a great coach."</p>
             <div class="mt-3 font-semibold">— Sara</div>
           </div>
@@ -141,16 +249,16 @@
         <div class="max-w-2xl mx-auto">
           <h3 class="text-2xl font-bold">Ready to get started?</h3>
           <p class="mt-3 text-gray-600">Try the full experience with a free trial — cancel anytime.</p>
-          <div class="mt-6 flex justify-center gap-4">
-            <a href="register.html" class="px-6 py-3 bg-brand text-white rounded-full">Start free trial</a>
-            <a href="#" class="px-6 py-3 border rounded-full">Contact sales</a>
+          <div class="mt-6 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+            <a href="register.html" class="inline-flex items-center justify-center min-h-[44px] px-6 py-3 bg-brand text-white rounded-full font-semibold">Start free trial</a>
+            <a href="#" class="inline-flex items-center justify-center min-h-[44px] px-6 py-3 border border-gray-200 rounded-full bg-white/70 font-semibold text-gray-700">Contact sales</a>
           </div>
         </div>
       </section>
 
       <!-- Footer -->
-      <footer class="mt-16 border-t pt-8 pb-12 text-sm text-gray-600">
-        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <footer class="mt-16 border-t pt-8 pb-12 text-sm text-gray-600 safe-area-bottom">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
             <div class="font-bold">Golds</div>
               <div class="mt-2 text-xs text-gray-500">Premium fitness experience</div>
@@ -185,7 +293,55 @@
     </main>
 
     <script>
-      // small mobile toggle placeholder
+      const slides = Array.from(document.querySelectorAll('[data-carousel-slide]'));
+      const dots = Array.from(document.querySelectorAll('[data-carousel-dot]'));
+      const prevButton = document.querySelector('[data-carousel-prev]');
+      const nextButton = document.querySelector('[data-carousel-next]');
+      let activeIndex = 0;
+      let autoplayTimer;
+
+      const renderSlide = (nextIndex) => {
+        activeIndex = (nextIndex + slides.length) % slides.length;
+        slides.forEach((slide, index) => slide.classList.toggle('is-active', index === activeIndex));
+        dots.forEach((dot, index) => {
+          const isActive = index === activeIndex;
+          dot.classList.toggle('is-active', isActive);
+          dot.classList.toggle('w-8', isActive);
+          dot.classList.toggle('w-2.5', !isActive);
+          dot.classList.toggle('bg-amber-400', isActive);
+          dot.classList.toggle('bg-white/40', !isActive);
+        });
+      };
+
+      const startAutoplay = () => {
+        stopAutoplay();
+        autoplayTimer = window.setInterval(() => renderSlide(activeIndex + 1), 4200);
+      };
+
+      const stopAutoplay = () => {
+        if (autoplayTimer) {
+          window.clearInterval(autoplayTimer);
+        }
+      };
+
+      dots.forEach((dot, index) => dot.addEventListener('click', () => {
+        renderSlide(index);
+        startAutoplay();
+      }));
+
+      prevButton?.addEventListener('click', () => {
+        renderSlide(activeIndex - 1);
+        startAutoplay();
+      });
+
+      nextButton?.addEventListener('click', () => {
+        renderSlide(activeIndex + 1);
+        startAutoplay();
+      });
+
+      renderSlide(0);
+      startAutoplay();
+
       document.getElementById('mobileToggle')?.addEventListener('click', () => alert('Open mobile menu'));
     </script>
   </body>
