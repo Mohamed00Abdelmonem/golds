@@ -232,7 +232,6 @@ const Components = (function () {
     const isArabicPage = window.location.pathname.includes('/arabic/');
     const label = isArabicPage ? 'المؤقت' : 'Timer';
     const sidebarLinks = document.querySelectorAll('aside.app-sidebar nav ul');
-    const mobileNavs = document.querySelectorAll('nav#mobileNav');
 
     sidebarLinks.forEach((list) => {
       if (list.querySelector('a[href="timer.html"]')) return;
@@ -254,24 +253,6 @@ const Components = (function () {
 
       list.appendChild(timerItem);
     });
-
-    mobileNavs.forEach((nav) => {
-      if (nav.querySelector('a[href="timer.html"]')) return;
-
-      const timerLink = document.createElement('a');
-      timerLink.setAttribute('href', 'timer.html');
-      timerLink.setAttribute('data-mobile-nav-link', '');
-      timerLink.className = 'flex flex-col items-center gap-1 text-stone-400';
-      timerLink.innerHTML = '<span class="w-2 h-2 rounded-full bg-white/30"></span><div class="text-xs">' + label + '</div>';
-
-      const profileLink = nav.querySelector('a[href="profile.html"]');
-      if (profileLink) {
-        profileLink.before(timerLink);
-        return;
-      }
-
-      nav.appendChild(timerLink);
-    });
   };
 
   const injectCoachDashboardNav = () => {
@@ -279,7 +260,6 @@ const Components = (function () {
     const label = isArabicPage ? 'لوحة المدرب' : 'Coach Dashboard';
     const href = isArabicPage ? '../coach-dashboard.html' : 'coach-dashboard.html';
     const sidebarLinks = document.querySelectorAll('aside.app-sidebar nav ul');
-    const mobileNavs = document.querySelectorAll('nav#mobileNav');
 
     sidebarLinks.forEach((list) => {
       if (list.querySelector(`a[href="${href}"]`)) return;
@@ -295,24 +275,6 @@ const Components = (function () {
 
       list.appendChild(coachItem);
     });
-
-    mobileNavs.forEach((nav) => {
-      if (nav.querySelector(`a[href="${href}"]`)) return;
-
-      const coachLink = document.createElement('a');
-      coachLink.setAttribute('href', href);
-      coachLink.setAttribute('data-mobile-nav-link', '');
-      coachLink.className = 'flex flex-col items-center gap-1 text-stone-400';
-      coachLink.innerHTML = '<span class="w-2 h-2 rounded-full bg-white/30"></span><div class="text-xs">' + label + '</div>';
-
-      const profileLink = nav.querySelector('a[href="profile.html"]');
-      if (profileLink) {
-        profileLink.before(coachLink);
-        return;
-      }
-
-      nav.appendChild(coachLink);
-    });
   };
 
   const injectAttendanceNav = () => {
@@ -320,7 +282,6 @@ const Components = (function () {
     const label = isArabicPage ? 'الحضور الذكي' : 'Smart Attendance';
     const href = isArabicPage ? '../smart-attendance.html' : 'smart-attendance.html';
     const sidebarLinks = document.querySelectorAll('aside.app-sidebar nav ul');
-    const mobileNavs = document.querySelectorAll('nav#mobileNav');
 
     sidebarLinks.forEach((list) => {
       if (list.querySelector(`a[href="${href}"]`)) return;
@@ -336,24 +297,6 @@ const Components = (function () {
 
       list.appendChild(attendanceItem);
     });
-
-    mobileNavs.forEach((nav) => {
-      if (nav.querySelector(`a[href="${href}"]`)) return;
-
-      const attendanceLink = document.createElement('a');
-      attendanceLink.setAttribute('href', href);
-      attendanceLink.setAttribute('data-mobile-nav-link', '');
-      attendanceLink.className = 'flex flex-col items-center gap-1 text-stone-400';
-      attendanceLink.innerHTML = '<span class="w-2 h-2 rounded-full bg-white/30"></span><div class="text-xs">' + label + '</div>';
-
-      const profileLink = nav.querySelector('a[href="profile.html"]');
-      if (profileLink) {
-        profileLink.before(attendanceLink);
-        return;
-      }
-
-      nav.appendChild(attendanceLink);
-    });
   };
 
   const injectAiCoachNav = () => {
@@ -361,7 +304,6 @@ const Components = (function () {
     const label = isArabicPage ? 'AI Coach' : 'AI Coach';
     const href = isArabicPage ? '../ai-coach.html' : 'ai-coach.html';
     const sidebarLinks = document.querySelectorAll('aside.app-sidebar nav ul');
-    const mobileNavs = document.querySelectorAll('nav#mobileNav');
 
     sidebarLinks.forEach((list) => {
       if (list.querySelector(`a[href="${href}"]`)) return;
@@ -377,24 +319,6 @@ const Components = (function () {
 
       list.appendChild(aiItem);
     });
-
-    mobileNavs.forEach((nav) => {
-      if (nav.querySelector(`a[href="${href}"]`)) return;
-
-      const aiLink = document.createElement('a');
-      aiLink.setAttribute('href', href);
-      aiLink.setAttribute('data-mobile-nav-link', '');
-      aiLink.className = 'flex flex-col items-center gap-1 text-stone-400';
-      aiLink.innerHTML = '<span class="w-2 h-2 rounded-full bg-white/30"></span><div class="text-xs">' + label + '</div>';
-
-      const profileLink = nav.querySelector('a[href="profile.html"]');
-      if (profileLink) {
-        profileLink.before(aiLink);
-        return;
-      }
-
-      nav.appendChild(aiLink);
-    });
   };
 
   const injectNutritionVoiceNav = () => {
@@ -402,7 +326,6 @@ const Components = (function () {
     const label = isArabicPage ? 'Voice Nutrition' : 'Nutrition Voice';
     const href = isArabicPage ? '../nutrition-voice.html' : 'nutrition-voice.html';
     const sidebarLinks = document.querySelectorAll('aside.app-sidebar nav ul');
-    const mobileNavs = document.querySelectorAll('nav#mobileNav');
 
     sidebarLinks.forEach((list) => {
       if (list.querySelector(`a[href="${href}"]`)) return;
@@ -423,30 +346,6 @@ const Components = (function () {
       }
 
       list.appendChild(voiceItem);
-    });
-
-    mobileNavs.forEach((nav) => {
-      if (nav.querySelector(`a[href="${href}"]`)) return;
-
-      const voiceLink = document.createElement('a');
-      voiceLink.setAttribute('href', href);
-      voiceLink.setAttribute('data-mobile-nav-link', '');
-      voiceLink.className = 'flex flex-col items-center gap-1 text-stone-400';
-      voiceLink.innerHTML = '<span class="w-2 h-2 rounded-full bg-white/30"></span><div class="text-xs">' + label + '</div>';
-
-      const nutritionMobileLink = nav.querySelector('a[href="nutrition.html"]');
-      if (nutritionMobileLink) {
-        nutritionMobileLink.after(voiceLink);
-        return;
-      }
-
-      const profileLink = nav.querySelector('a[href="profile.html"]');
-      if (profileLink) {
-        profileLink.before(voiceLink);
-        return;
-      }
-
-      nav.appendChild(voiceLink);
     });
   };
 
@@ -476,26 +375,62 @@ const Components = (function () {
     const inner = nav.querySelector('.mobile-bottom-nav__inner');
     if (!inner) return;
 
-    const ensureLink = (href, ariaLabel, svgHtml) => {
-      if (inner.querySelector(`a[href="${href}"]`)) return;
-      const a = document.createElement('a');
-      a.setAttribute('href', href);
-      a.setAttribute('data-mobile-nav-link', '');
-      a.className = 'mobile-bottom-nav__item';
-      a.setAttribute('aria-label', ariaLabel);
-      a.innerHTML = svgHtml;
+    const moreButton = inner.querySelector('#mobileMoreBtn');
+    const canonicalLinks = [
+      {
+        href: 'landing.html',
+        ariaLabel: 'Home',
+        svgHtml: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+      },
+      {
+        href: 'dashboard.html',
+        ariaLabel: 'Dashboard',
+        svgHtml: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>',
+      },
+      {
+        href: 'workout.html',
+        ariaLabel: 'Workout',
+        svgHtml: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L5 14h6l-1 8 9-12h-6l0-8z"/></svg>',
+      },
+    ];
 
-      // Insert before the More button if present, otherwise append
-      const moreBtn = inner.querySelector('#mobileMoreBtn');
-      if (moreBtn) inner.insertBefore(a, moreBtn);
-      else inner.appendChild(a);
-    };
+    inner.querySelectorAll('a[data-mobile-nav-link]').forEach((link) => {
+      const href = link.getAttribute('href') || '';
+      if (!canonicalLinks.some((item) => item.href === href)) {
+        link.remove();
+      }
+    });
 
-    const workoutSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h3v4H4zM17 10h3v4h-3z"/><path d="M7 12h10"/><path d="M9 9v6M15 9v6"/></svg>';
-    const nutritionSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v10"/><path d="M16 3v10"/><path d="M4 21h16"/></svg>';
+    canonicalLinks.forEach(({ href, ariaLabel, svgHtml }) => {
+      let link = inner.querySelector(`a[href="${href}"]`);
+      if (!link) {
+        link = document.createElement('a');
+        link.setAttribute('href', href);
+        link.setAttribute('data-mobile-nav-link', '');
+        link.className = 'mobile-bottom-nav__item';
+        link.setAttribute('aria-label', ariaLabel);
+        link.innerHTML = svgHtml;
+      } else {
+        link.className = 'mobile-bottom-nav__item';
+        link.setAttribute('aria-label', ariaLabel);
+        if (!link.querySelector('svg')) link.innerHTML = svgHtml;
+      }
 
-    ensureLink('workout.html', 'Workout', workoutSvg);
-    ensureLink('nutrition.html', 'Nutrition', nutritionSvg);
+      if (moreButton) inner.insertBefore(link, moreButton);
+      else inner.appendChild(link);
+    });
+
+    if (!moreButton) {
+      const button = document.createElement('button');
+      button.id = 'mobileMoreBtn';
+      button.type = 'button';
+      button.className = 'mobile-bottom-nav__item';
+      button.setAttribute('aria-controls', 'mobileMoreSheet');
+      button.setAttribute('aria-expanded', 'false');
+      button.setAttribute('aria-label', 'More navigation');
+      button.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/><circle cx="5" cy="12" r="1.5" fill="currentColor"/></svg>';
+      inner.appendChild(button);
+    }
   };
 
   const initRevealObserver = () => {
@@ -918,13 +853,21 @@ const Components = (function () {
     injectPremiumFonts();
     applyTheme(getPreferredTheme());
     syncSidebarState();
-    injectTimerNav();
-    injectCoachDashboardNav();
-    injectAttendanceNav();
-    injectAiCoachNav();
-    injectNutritionVoiceNav();
-    ensureEssentialMobileLinks();
-    highlightActiveNav();
+    const runMobileNavSetup = () => {
+      injectTimerNav();
+      injectCoachDashboardNav();
+      injectAttendanceNav();
+      injectAiCoachNav();
+      injectNutritionVoiceNav();
+      ensureEssentialMobileLinks();
+      highlightActiveNav();
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', runMobileNavSetup, { once: true });
+    } else {
+      runMobileNavSetup();
+    }
     initRevealObserver();
     initProgressPhotos();
     initLeaderboardChallenges();

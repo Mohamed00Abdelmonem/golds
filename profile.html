@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Member Profile — GoldTech</title>
+  <title>Member Profile ï¿½ GoldTech</title>
   <script>tailwind.config={theme:{extend:{colors:{gold:{DEFAULT:'#f5b041'}},fontFamily:{display:['Poppins','Inter','system-ui','sans-serif']}}}}</script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
@@ -136,7 +136,7 @@
             <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,176,65,0.16),transparent_35%)]"></div>
             <div class="relative flex flex-col items-center text-center">
               <img src="assets/img/user.png" alt="Profile" class="w-36 h-36 rounded-full object-cover border border-white/10 shadow-[0_0_40px_rgba(245,176,65,.18)]">
-              <p class="mt-4 text-stone-300">Premium smart gym member • 4 month streak</p>
+              <p class="mt-4 text-stone-300">Premium smart gym member ï¿½ 4 month streak</p>
               <a href="report.html" class="mt-5 report-cta px-5 py-3 font-semibold">Monthly Report</a>
               <div class="mt-4 inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/3 px-4 py-2 text-sm text-stone-200">
                 <span class="h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_16px_rgba(74,222,128,0.35)]"></span>
@@ -469,7 +469,7 @@
 
         emptyEl.classList.add('hidden');
         detailEl.textContent = iso;
-        detailMetaEl.textContent = `${entry.title} • ${entry.duration} • ${entry.calories}`;
+        detailMetaEl.textContent = `${entry.title} ï¿½ ${entry.duration} ï¿½ ${entry.calories}`;
         detailListEl.innerHTML = entry.exercises
           .map((item) => `<div class="flex items-center justify-between rounded-2xl border border-white/8 bg-white/3 px-4 py-2 text-sm text-stone-200"><span>${item}</span><span class="text-xs text-stone-400">Completed</span></div>`)
           .join('');
@@ -554,7 +554,7 @@
         </svg>
       </a>
                   <!-- Nutrition -->
-      <a href="workout.html" data-mobile-nav-link class="mobile-bottom-nav__item"  aria-label="Workout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h3v4H4zM17 10h3v4h-3z"/><path d="M7 12h10"/><path d="M9 9v6M15 9v6"/></svg></a>
+      <a href="workout.html" data-mobile-nav-link class="mobile-bottom-nav__item"  aria-label="Workout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L5 14h6l-1 8 9-12h-6l0-8z"/></svg></a>
       <!-- More -->
       <button id="mobileMoreBtn" type="button" class="mobile-bottom-nav__item" aria-controls="mobileMoreSheet" aria-expanded="false" aria-label="More navigation">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
