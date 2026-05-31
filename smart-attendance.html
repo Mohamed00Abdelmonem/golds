@@ -1,9 +1,9 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Smart Attendance � GoldTech</title>
+  <title>Smart Attendance  GoldTech</title>
   <script>tailwind.config = { theme: { extend: { colors: { gold: { DEFAULT: '#f5b041' } }, fontFamily: { display:['Poppins','Inter','system-ui','sans-serif'] } } } }</script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
@@ -626,7 +626,7 @@
 
       svg.push(cells.join(''));
       svg.push(`<text x="160" y="340" text-anchor="middle" fill="#f5b041" font-family="Poppins,Arial,sans-serif" font-size="24" font-weight="700">${escapeXml(member.name)}</text>`);
-      svg.push(`<text x="160" y="366" text-anchor="middle" fill="#d4d4d8" font-family="Poppins,Arial,sans-serif" font-size="14">${escapeXml(member.code)} � ${escapeXml(member.tier)}</text>`);
+      svg.push(`<text x="160" y="366" text-anchor="middle" fill="#d4d4d8" font-family="Poppins,Arial,sans-serif" font-size="14">${escapeXml(member.code)}  ${escapeXml(member.tier)}</text>`);
       svg.push(`<text x="160" y="392" text-anchor="middle" fill="#8a8a91" font-family="Poppins,Arial,sans-serif" font-size="12">${escapeXml(token)}</text>`);
       svg.push('</svg>');
       return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg.join(''))}`;
@@ -702,7 +702,7 @@
     const addFeedItem = (text) => {
       const item = document.createElement('div');
       item.className = 'rounded-2xl border border-white/8 bg-white/5 px-3 py-3 text-sm text-stone-300';
-      item.textContent = `${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} � ${text}`;
+      item.textContent = `${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}  ${text}`;
       els.activityFeed.prepend(item);
       while (els.activityFeed.children.length > 5) {
         els.activityFeed.removeChild(els.activityFeed.lastElementChild);
@@ -1013,6 +1013,7 @@
   <!-- ===== END MOBILE BOTTOM NAV ===== -->
 </body>
 </html>
+
 
 
 
