@@ -1,9 +1,9 @@
-ï»¿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Nutrition â€” GoldTech</title>
+  <title>Nutrition — GoldTech</title>
   <script>tailwind.config = { theme: { extend: { colors: { gold: { DEFAULT: '#f5b041' } }, fontFamily: { display:['Poppins','Inter','system-ui','sans-serif'] } } } }</script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="assets/css/style.css" />
@@ -15,8 +15,8 @@
       body{padding-bottom:0 !important}
       .app-shell{height:100dvh;overflow:hidden}
       main.flex-1{overflow-y:auto !important;padding-bottom:calc(6.5rem + env(safe-area-inset-bottom)) !important}
-      .mobile-bottom-nav{display:flex;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(1rem + env(safe-area-inset-bottom));z-index:999;width:calc(100% - 2.5rem);max-width:420px;padding:0;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;pointer-events:none}
-      .mobile-bottom-nav__inner{pointer-events:auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0.3rem;width:100%;border-radius:9999px;padding:0.45rem;background:rgba(15,15,17,0.85);border:1px solid rgba(255,255,255,0.08);box-shadow:0 16px 36px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.05);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%)}
+      .mobile-bottom-nav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:999;width:100%;padding:0;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;pointer-events:none}
+      .mobile-bottom-nav__inner{pointer-events:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0.3rem;width:100%;border-radius:0;padding:0.45rem 0.75rem;background:rgba(15,15,17,0.85);border-top:1px solid rgba(255,255,255,0.08);box-shadow:0 -8px 24px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.05);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%)}
       .mobile-bottom-nav__item{display:flex;flex-direction:column;align-items:center;justify-content:center;width:3rem;height:3rem;border-radius:9999px;color:#a1a1aa;transition:all 280ms cubic-bezier(0.34,1.56,0.64,1);border:none;cursor:pointer;position:relative;text-decoration:none}
       .mobile-bottom-nav__item svg{width:1.45rem;height:1.45rem;transition:transform 200ms}
       .mobile-bottom-nav__item:active svg{transform:scale(0.85)}
@@ -58,7 +58,7 @@
               <li><a href="crowd.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Crowd</span></a></li>
               <li><a href="inbody.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">InBody</span></a></li>
               <li><a href="machines.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Machines</span></a></li>
-              <li><a href="nutrition.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Nutrition</span></a></li>
+              <li></li>
               <li><a href="smart-test.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Smart Test</span></a></li>
               <li><a href="achievements.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Achievements</span></a></li>
               <li><a href="store.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Store</span></a></li>
@@ -72,10 +72,7 @@
       <div class="sidebar-footer pt-3 border-t border-white/6 text-sm"><div class="text-stone-400">Active Membership</div><div class="mt-2 flex items-center justify-between"><div><div class="text-white font-semibold">Gold Elite</div><div class="text-stone-400 text-xs">Valid until May 2027</div></div><div class="bg-gradient-to-br from-[#2a2a2a]/80 to-[#161616]/60 p-2 rounded-lg text-gold">&#9679;</div></div></div>
     </aside>
     <main class="flex-1 p-5 md:p-8 overflow-y-auto safe-bottom">
-      <header class="sticky top-6 z-30 glass rounded-2xl p-3 md:p-4 mb-6 flex items-center justify-between fast-trans backdrop-blur-xl">
-        <div class="flex items-center gap-3 md:gap-4"><button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16" stroke-width="1.6" stroke-linecap="round"/></svg></button><button id="sidebarToggle" class="hidden md:inline-flex sidebar-toggle p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle sidebar" aria-pressed="false"><svg class="w-5 h-5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="hidden md:flex items-center gap-4"><h1 class="text-white font-extrabold text-lg">Nutrition</h1><div class="text-stone-400 text-sm">Premium smart gym platform</div></div></div>
-        <div class="flex items-center gap-3"><button id="themeToggle" class="hidden sm:inline-flex p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle theme" aria-pressed="false"><span data-theme-icon="dark" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-theme-icon="light" class="hidden" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="relative hidden sm:flex items-center"><label for="search" class="sr-only">Search</label><input id="search" class="glass rounded-xl px-3 py-2 pl-10 pr-3 w-64 bg-transparent text-white placeholder:opacity-60 fast-trans focus-visible-ring" placeholder="Search"/><svg class="absolute left-3 w-4 h-4 text-stone-400" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.2"/></svg></div><a href="profile.html" class="flex items-center gap-3 rounded-2xl bg-white/3 px-3 py-2 hover:bg-white/6 fast-trans"><div class="text-right hidden sm:block"><div class="text-white font-semibold">Mohamed</div><div class="text-stone-400 text-xs">Gold Elite</div></div><img src="assets/img/user.png" alt="avatar" class="w-10 h-10 rounded-full object-cover border border-white/6"/></a></div>
-      </header>
+      
       <div id="page-main">
       <div class="space-y-8">
         <div class="glass rounded-3xl p-8">
@@ -165,7 +162,7 @@
                 <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=80&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover" alt="Breakfast">
                 <div>
                   <div class="font-bold text-lg">Breakfast</div>
-                  <div class="text-stone-400 text-sm">Oatmeal, eggs, berries â€¢ 7:30 AM</div>
+                  <div class="text-stone-400 text-sm">Oatmeal, eggs, berries • 7:30 AM</div>
                 </div>
               </div>
               <div class="text-right">
@@ -179,7 +176,7 @@
                 <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=80&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover" alt="Snack">
                 <div>
                   <div class="font-bold text-lg">Snack</div>
-                  <div class="text-stone-400 text-sm">Protein shake, banana â€¢ 10:30 AM</div>
+                  <div class="text-stone-400 text-sm">Protein shake, banana • 10:30 AM</div>
                 </div>
               </div>
               <div class="text-right">
@@ -193,7 +190,7 @@
                 <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=80&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover" alt="Lunch">
                 <div>
                   <div class="font-bold text-lg">Lunch</div>
-                  <div class="text-stone-400 text-sm">Grilled chicken, rice, broccoli â€¢ 1:00 PM</div>
+                  <div class="text-stone-400 text-sm">Grilled chicken, rice, broccoli • 1:00 PM</div>
                 </div>
               </div>
               <div class="text-right">
@@ -207,7 +204,7 @@
                 <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=80&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover" alt="Dinner">
                 <div>
                   <div class="font-bold text-lg">Dinner</div>
-                  <div class="text-stone-400 text-sm">Salmon, sweet potato, veggies â€¢ 6:30 PM</div>
+                  <div class="text-stone-400 text-sm">Salmon, sweet potato, veggies • 6:30 PM</div>
                 </div>
               </div>
               <div class="text-right">
@@ -225,7 +222,7 @@
           <h2 class="text-2xl font-black mb-6">Daily Hydration</h2>
           <div class="text-center mb-6">
             <div class="text-6xl font-black text-sky-400">2.2L</div>
-            <div class="text-stone-400 mt-2">Consumed today â€¢ 2.5L goal</div>
+            <div class="text-stone-400 mt-2">Consumed today • 2.5L goal</div>
           </div>
           <div class="flex gap-2 justify-between">
             <div class="flex-1 h-32 bg-sky-400/20 rounded-lg border-2 border-sky-400/50 flex items-end justify-center pb-4">
@@ -252,12 +249,12 @@
           <div class="grid md:grid-cols-2 gap-4">
             <div class="glass rounded-xl p-6 border border-gold/30 cursor-pointer hover:bg-gold/5 fast-trans">
               <div class="font-bold text-lg text-gold mb-2">Muscle Building Plan</div>
-              <div class="text-stone-400 text-sm mb-4">2,200 kcal â€¢ High protein â€¢ CURRENT</div>
-              <button class="text-gold text-sm font-semibold">View Details â†’</button>
+              <div class="text-stone-400 text-sm mb-4">2,200 kcal • High protein • CURRENT</div>
+              <button class="text-gold text-sm font-semibold">View Details ?</button>
             </div>
             <div class="glass rounded-xl p-6 border border-white/10 cursor-pointer hover:bg-white/5 fast-trans">
               <div class="font-bold text-lg mb-2">Fat Loss Plan</div>
-              <div class="text-stone-400 text-sm mb-4">1,800 kcal â€¢ Cardio friendly</div>
+              <div class="text-stone-400 text-sm mb-4">1,800 kcal • Cardio friendly</div>
               <button class="text-stone-300 text-sm font-semibold">Switch Plan</button>
             </div>
           </div>
@@ -309,28 +306,28 @@
             <div>
               <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
                 <div class="font-bold">Calories</div>
-                <div class="text-sm text-stone-300">Target: 2200 kcal â€¢ Consumed: 1890 kcal â€¢ <span class="text-rose-400">Difference: -310 kcal</span></div>
+                <div class="text-sm text-stone-300">Target: 2200 kcal • Consumed: 1890 kcal • <span class="text-rose-400">Difference: -310 kcal</span></div>
               </div>
               <div class="h-3 bg-white/10 rounded-full overflow-hidden"><div class="h-full rounded-full bg-rose-400" style="width: 86%;"></div></div>
             </div>
             <div>
               <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
                 <div class="font-bold">Protein</div>
-                <div class="text-sm text-stone-300">Target: 180g â€¢ Consumed: 165g â€¢ <span class="text-amber-300">Difference: -15g</span></div>
+                <div class="text-sm text-stone-300">Target: 180g • Consumed: 165g • <span class="text-amber-300">Difference: -15g</span></div>
               </div>
               <div class="h-3 bg-white/10 rounded-full overflow-hidden"><div class="h-full rounded-full bg-amber-300" style="width: 92%;"></div></div>
             </div>
             <div>
               <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
                 <div class="font-bold">Carbs</div>
-                <div class="text-sm text-stone-300">Target: 230g â€¢ Consumed: 185g â€¢ <span class="text-rose-400">Difference: -45g</span></div>
+                <div class="text-sm text-stone-300">Target: 230g • Consumed: 185g • <span class="text-rose-400">Difference: -45g</span></div>
               </div>
               <div class="h-3 bg-white/10 rounded-full overflow-hidden"><div class="h-full rounded-full bg-rose-400" style="width: 80%;"></div></div>
             </div>
             <div>
               <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
                 <div class="font-bold">Fat</div>
-                <div class="text-sm text-stone-300">Target: 60g â€¢ Consumed: 52g â€¢ <span class="text-amber-300">Difference: -8g</span></div>
+                <div class="text-sm text-stone-300">Target: 60g • Consumed: 52g • <span class="text-amber-300">Difference: -8g</span></div>
               </div>
               <div class="h-3 bg-white/10 rounded-full overflow-hidden"><div class="h-full rounded-full bg-amber-300" style="width: 87%;"></div></div>
             </div>
@@ -399,20 +396,20 @@
           <h2 class="text-2xl font-black mb-6">Today's Nutrition Plan</h2>
           <div class="space-y-4">
             <div class="glass rounded-xl p-5 border border-white/10">
-              <div class="flex items-center justify-between gap-3 mb-3"><div class="font-bold text-lg text-gold">Breakfast</div><div class="text-xs text-stone-400">520 kcal â€¢ P:35g â€¢ C:62g â€¢ F:12g</div></div>
-              <ul class="text-sm text-stone-300 space-y-1"><li>â€¢ Oats</li><li>â€¢ Banana</li><li>â€¢ Whey Protein</li></ul>
+              <div class="flex items-center justify-between gap-3 mb-3"><div class="font-bold text-lg text-gold">Breakfast</div><div class="text-xs text-stone-400">520 kcal • P:35g • C:62g • F:12g</div></div>
+              <ul class="text-sm text-stone-300 space-y-1"><li>• Oats</li><li>• Banana</li><li>• Whey Protein</li></ul>
             </div>
             <div class="glass rounded-xl p-5 border border-white/10">
-              <div class="flex items-center justify-between gap-3 mb-3"><div class="font-bold text-lg text-gold">Lunch</div><div class="text-xs text-stone-400">690 kcal â€¢ P:58g â€¢ C:72g â€¢ F:14g</div></div>
-              <ul class="text-sm text-stone-300 space-y-1"><li>â€¢ Rice</li><li>â€¢ Chicken Breast</li><li>â€¢ Salad</li></ul>
+              <div class="flex items-center justify-between gap-3 mb-3"><div class="font-bold text-lg text-gold">Lunch</div><div class="text-xs text-stone-400">690 kcal • P:58g • C:72g • F:14g</div></div>
+              <ul class="text-sm text-stone-300 space-y-1"><li>• Rice</li><li>• Chicken Breast</li><li>• Salad</li></ul>
             </div>
             <div class="glass rounded-xl p-5 border border-white/10">
-              <div class="flex items-center justify-between gap-3 mb-3"><div class="font-bold text-lg text-gold">Snack</div><div class="text-xs text-stone-400">280 kcal â€¢ P:20g â€¢ C:21g â€¢ F:11g</div></div>
-              <ul class="text-sm text-stone-300 space-y-1"><li>â€¢ Greek Yogurt</li><li>â€¢ Almonds</li></ul>
+              <div class="flex items-center justify-between gap-3 mb-3"><div class="font-bold text-lg text-gold">Snack</div><div class="text-xs text-stone-400">280 kcal • P:20g • C:21g • F:11g</div></div>
+              <ul class="text-sm text-stone-300 space-y-1"><li>• Greek Yogurt</li><li>• Almonds</li></ul>
             </div>
             <div class="glass rounded-xl p-5 border border-white/10">
-              <div class="flex items-center justify-between gap-3 mb-3"><div class="font-bold text-lg text-gold">Dinner</div><div class="text-xs text-stone-400">610 kcal â€¢ P:52g â€¢ C:45g â€¢ F:18g</div></div>
-              <ul class="text-sm text-stone-300 space-y-1"><li>â€¢ Eggs</li><li>â€¢ Bread</li><li>â€¢ Cottage Cheese</li></ul>
+              <div class="flex items-center justify-between gap-3 mb-3"><div class="font-bold text-lg text-gold">Dinner</div><div class="text-xs text-stone-400">610 kcal • P:52g • C:45g • F:18g</div></div>
+              <ul class="text-sm text-stone-300 space-y-1"><li>• Eggs</li><li>• Bread</li><li>• Cottage Cheese</li></ul>
             </div>
           </div>
         </div>
@@ -533,7 +530,7 @@
         if (!file) return;
         const url = URL.createObjectURL(file);
         previewImage.src = url;
-        previewMeta.textContent = `${file.name} â€¢ ${(file.size / 1024).toFixed(1)} KB`;
+        previewMeta.textContent = `${file.name} • ${(file.size / 1024).toFixed(1)} KB`;
         preview.classList.remove('hidden');
       });
     })();
@@ -577,14 +574,7 @@
         </svg>
       </a>
             <!-- Nutrition -->
-      <a href="nutrition.html" data-mobile-nav-link class="mobile-bottom-nav__item" aria-label="Nutrition">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M16.4 13.4c0 3.7-2.2 6.1-4.9 6.1s-4.9-2.4-4.9-6.1c0-2.9 1.7-4.8 4-4.8.9 0 1.6.3 2.2.8.6-.5 1.3-.8 2.2-.8 2.3 0 4 1.9 4 4.8Z" />
-          <path d="M12 8.2V5.7" />
-          <path d="M12.1 5.8c.9-1.8 2.7-2.5 4.2-2.3-.5 2.1-2 3.2-4 3.3" />
-          <path d="M9.8 13.3h4.4" />
-        </svg>
-      </a>
+      <a href="workout.html" data-mobile-nav-link class="mobile-bottom-nav__item"  aria-label="Workout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h3v4H4zM17 10h3v4h-3z"/><path d="M7 12h10"/><path d="M9 9v6M15 9v6"/></svg></a>
       <!-- More -->
       <button id="mobileMoreBtn" type="button" class="mobile-bottom-nav__item" aria-controls="mobileMoreSheet" aria-expanded="false" aria-label="More navigation">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -680,6 +670,9 @@
   <!-- ===== END MOBILE BOTTOM NAV ===== -->
 </body>
 </html>
+
+
+
 
 
 

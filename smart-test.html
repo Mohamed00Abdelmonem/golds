@@ -1,9 +1,9 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Smart Test — Fitness Assessment</title>
+  <title>Smart Test � Fitness Assessment</title>
   <script>tailwind.config = { theme: { extend: { colors: { gold: { DEFAULT: '#f5b041' } }, fontFamily: { display:['Poppins','Inter','system-ui','sans-serif'] } } } }</script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
@@ -25,8 +25,8 @@
       body{padding-bottom:0 !important}
       .app-shell{height:100dvh;overflow:hidden}
       main.flex-1{overflow-y:auto !important;padding-bottom:calc(6.5rem + env(safe-area-inset-bottom)) !important}
-      .mobile-bottom-nav{display:flex;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(1rem + env(safe-area-inset-bottom));z-index:999;width:calc(100% - 2.5rem);max-width:420px;padding:0;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;pointer-events:none}
-      .mobile-bottom-nav__inner{pointer-events:auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0.3rem;width:100%;border-radius:9999px;padding:0.45rem;background:rgba(15,15,17,0.85);border:1px solid rgba(255,255,255,0.08);box-shadow:0 16px 36px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.05);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%)}
+      .mobile-bottom-nav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:999;width:100%;padding:0;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;pointer-events:none}
+      .mobile-bottom-nav__inner{pointer-events:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0.3rem;width:100%;border-radius:0;padding:0.45rem 0.75rem;background:rgba(15,15,17,0.85);border-top:1px solid rgba(255,255,255,0.08);box-shadow:0 -8px 24px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.05);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%)}
       .mobile-bottom-nav__item{display:flex;flex-direction:column;align-items:center;justify-content:center;width:3rem;height:3rem;border-radius:9999px;color:#a1a1aa;transition:all 280ms cubic-bezier(0.34,1.56,0.64,1);border:none;cursor:pointer;position:relative;text-decoration:none}
       .mobile-bottom-nav__item svg{width:1.45rem;height:1.45rem;transition:transform 200ms}
       .mobile-bottom-nav__item:active svg{transform:scale(0.85)}
@@ -67,7 +67,7 @@
               <li><a href="crowd.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Crowd</span></a></li>
               <li><a href="inbody.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">InBody</span></a></li>
               <li><a href="machines.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Machines</span></a></li>
-              <li><a href="nutrition.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Nutrition</span></a></li>
+              <li></li>
               <li><a href="achievements.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Achievements</span></a></li>
               <li><a href="store.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Store</span></a></li>
               <li><a href="membership.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Membership</span></a></li>
@@ -80,10 +80,7 @@
       <div class="sidebar-footer pt-3 border-t border-white/6 text-sm"><div class="text-stone-400">Active Membership</div><div class="mt-2 flex items-center justify-between"><div><div class="text-white font-semibold">Gold Elite</div><div class="text-stone-400 text-xs">Valid until May 2027</div></div><div class="bg-gradient-to-br from-[#2a2a2a]/80 to-[#161616]/60 p-2 rounded-lg text-gold">&#9679;</div></div></div>
     </aside>
     <main class="flex-1 p-5 md:p-8 overflow-y-auto safe-bottom">
-      <header class="sticky top-6 z-30 glass rounded-2xl p-3 md:p-4 mb-6 flex items-center justify-between fast-trans backdrop-blur-xl">
-        <div class="flex items-center gap-3 md:gap-4"><button id="mobileMenuBtn" class="md:hidden p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16" stroke-width="1.6" stroke-linecap="round"/></svg></button><button id="sidebarToggle" class="hidden md:inline-flex sidebar-toggle p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle sidebar" aria-pressed="false"><svg class="w-5 h-5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="hidden md:flex items-center gap-4"><h1 class="text-white font-extrabold text-lg">Smart Test</h1><div class="text-stone-400 text-sm">AI-Powered Fitness Assessment</div></div></div>
-        <div class="flex items-center gap-2 sm:gap-3"><button id="themeToggle" class="hidden sm:inline-flex p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle theme" aria-pressed="false"><span data-theme-icon="dark" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-theme-icon="light" class="hidden" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><a href="profile.html" class="flex items-center gap-2 sm:gap-3 rounded-2xl bg-white/3 px-2 sm:px-3 py-2 min-h-[44px] hover:bg-white/6 fast-trans"><div class="text-right hidden sm:block"><div class="text-white font-semibold text-sm">Mohamed</div><div class="text-stone-400 text-xs">Gold Elite</div></div><img src="assets/img/user.png" alt="avatar" class="w-10 h-10 rounded-full object-cover border border-white/6"/></a></div>
-      </header>
+      
       <div id="page-main">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <!-- Form Section -->
@@ -95,7 +92,7 @@
               </h2>
               
               <div class="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3 text-stone-300 text-xs">
-                <strong>💡 For best results:</strong> Add your waist measurement (required for accurate body fat estimation). Height/weight in cm/kg. All measurements in centimeters.
+                <strong>?? For best results:</strong> Add your waist measurement (required for accurate body fat estimation). Height/weight in cm/kg. All measurements in centimeters.
               </div>
               
               <form id="smartTestForm" class="space-y-5">
@@ -188,7 +185,7 @@
                 </div>
 
                 <button type="submit" class="w-full bg-gradient-to-r from-gold to-amber-400 hover:from-amber-400 hover:to-amber-500 text-black px-6 py-3 sm:py-4 min-h-[48px] rounded-lg font-bold text-base transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-gold/40 flex items-center justify-center gap-2">
-                  <span>🚀 Generate Assessment</span>
+                  <span>?? Generate Assessment</span>
                 </button>
               </form>
             </div>
@@ -200,7 +197,7 @@
               <!-- Body Metrics -->
               <div class="glass rounded-2xl p-6 border border-white/10 result-section">
                 <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <span class="text-2xl">📏</span> Body Metrics
+                  <span class="text-2xl">??</span> Body Metrics
                 </h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                   <div class="metric-card rounded-lg p-4 text-center border">
@@ -229,7 +226,7 @@
               <!-- Calorie Needs -->
               <div class="glass rounded-2xl p-6 border border-white/10 result-section">
                 <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <span class="text-2xl">🔥</span> Daily Calorie Needs
+                  <span class="text-2xl">??</span> Daily Calorie Needs
                 </h3>
                 <div class="space-y-4">
                   <div class="p-4 bg-white/3 rounded-lg border border-gold/20">
@@ -255,7 +252,7 @@
               <!-- Macronutrients -->
               <div class="glass rounded-2xl p-6 border border-white/10 result-section">
                 <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <span class="text-2xl">🥗</span> Recommended Macros
+                  <span class="text-2xl">??</span> Recommended Macros
                 </h3>
                 <div id="macroResults" class="space-y-4"></div>
               </div>
@@ -263,7 +260,7 @@
               <!-- Workout Split -->
               <div class="glass rounded-2xl p-6 border border-white/10 result-section">
                 <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <span class="text-2xl">💪</span> Best Workout Split
+                  <span class="text-2xl">??</span> Best Workout Split
                 </h3>
                 <div class="p-4 bg-white/3 rounded-lg border border-white/5 text-stone-300 text-sm leading-relaxed" id="splitResult">--</div>
               </div>
@@ -271,7 +268,7 @@
               <!-- Cardio & Timeline -->
               <div class="glass rounded-2xl p-6 border border-white/10 result-section">
                 <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <span class="text-2xl">🏃</span> Recommended Training
+                  <span class="text-2xl">??</span> Recommended Training
                 </h3>
                 <div class="space-y-3">
                   <div class="p-3 bg-white/3 rounded-lg border border-white/5">
@@ -288,7 +285,7 @@
               <!-- Personalized Advice -->
               <div class="glass rounded-2xl p-6 border border-white/10 result-section">
                 <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <span class="text-2xl">⭐</span> Personalized Advice
+                  <span class="text-2xl">?</span> Personalized Advice
                 </h3>
                 <div class="space-y-3 text-stone-300 text-sm leading-relaxed" id="adviceResult">--</div>
               </div>
@@ -296,7 +293,7 @@
               <!-- Strengths & Weaknesses -->
               <div class="glass rounded-2xl p-6 border border-white/10 result-section">
                 <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <span class="text-2xl">🎯</span> Analysis
+                  <span class="text-2xl">??</span> Analysis
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div class="p-4 bg-green-500/10 rounded-lg border border-green-500/20">
@@ -317,7 +314,7 @@
               <!-- Action Plan -->
               <div class="glass rounded-2xl p-6 border border-white/10 result-section bg-gradient-to-r from-gold/10 to-amber-500/10 border-gold/30">
                 <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <span class="text-2xl">📋</span> Your Action Plan
+                  <span class="text-2xl">??</span> Your Action Plan
                 </h3>
                 <div class="space-y-2 text-stone-300 text-sm" id="actionPlanResult">--</div>
               </div>
@@ -328,7 +325,7 @@
             </div>
 
             <div id="emptyState" class="glass rounded-2xl p-12 text-center border border-white/10">
-              <div class="text-6xl mb-4">🔍</div>
+              <div class="text-6xl mb-4">??</div>
               <h3 class="text-xl font-bold text-white mb-2">Fill in your body data</h3>
               <p class="text-stone-400 text-sm">Complete the form to get your personalized fitness assessment</p>
             </div>
@@ -367,7 +364,7 @@
       // Validate data integrity
       const validation = validateBodyData(age, height, weight, gender, waist, chest, arm, thigh);
       if (!validation.isValid) {
-        alert('⚠️ ' + validation.message);
+        alert('?? ' + validation.message);
         return;
       }
 
@@ -412,9 +409,9 @@
       document.getElementById('bodyFatValue').textContent = bodyFatDisplay;
       
       // Show confidence and note
-      const confidenceIndicator = bodyFatConfidence >= 80 ? '✓ High confidence' : 
-                                  bodyFatConfidence >= 60 ? '⚠ Moderate confidence' : 
-                                  '⚠ Low confidence - add measurements';
+      const confidenceIndicator = bodyFatConfidence >= 80 ? '? High confidence' : 
+                                  bodyFatConfidence >= 60 ? '? Moderate confidence' : 
+                                  '? Low confidence - add measurements';
       
       const bodyFatStatusDiv = document.getElementById('bodyFatStatus');
       bodyFatStatusDiv.innerHTML = getBodyFatStatus(bodyFat, gender) + '<br><span class="text-xs text-stone-500 mt-1 inline-block">' + confidenceIndicator + ' ' + bodyFatNote + '</span>';
@@ -709,25 +706,25 @@
     }
 
     function getBMIStatus(bmi) {
-      if (bmi < 18.5) return '🟦 Underweight';
-      if (bmi < 25) return '🟩 Normal';
-      if (bmi < 30) return '🟨 Overweight';
-      return '🟥 Obese';
+      if (bmi < 18.5) return '?? Underweight';
+      if (bmi < 25) return '?? Normal';
+      if (bmi < 30) return '?? Overweight';
+      return '?? Obese';
     }
 
     function getBodyFatStatus(bf, gender) {
       if (gender === 'male') {
-        if (bf < 10) return '🟢 Essential Fat - Lean & Defined';
-        if (bf < 15) return '🟢 Athlete Level - Very Fit';
-        if (bf < 20) return '🟩 Fitness Level - Healthy';
-        if (bf < 25) return '🟨 Acceptable - Good';
-        return '🟥 High - Consider fat loss plan';
+        if (bf < 10) return '?? Essential Fat - Lean & Defined';
+        if (bf < 15) return '?? Athlete Level - Very Fit';
+        if (bf < 20) return '?? Fitness Level - Healthy';
+        if (bf < 25) return '?? Acceptable - Good';
+        return '?? High - Consider fat loss plan';
       } else {
-        if (bf < 15) return '🟢 Essential Fat - Lean & Defined';
-        if (bf < 20) return '🟢 Athlete Level - Very Fit';
-        if (bf < 25) return '🟩 Fitness Level - Healthy';
-        if (bf < 30) return '🟨 Acceptable - Good';
-        return '🟥 High - Consider fat loss plan';
+        if (bf < 15) return '?? Essential Fat - Lean & Defined';
+        if (bf < 20) return '?? Athlete Level - Very Fit';
+        if (bf < 25) return '?? Fitness Level - Healthy';
+        if (bf < 30) return '?? Acceptable - Good';
+        return '?? High - Consider fat loss plan';
       }
     }
 
@@ -743,21 +740,21 @@
 
     function getWorkoutSplit(days, goal) {
       const splits = {
-        3: 'Full Body (3x/week) - Mon/Wed/Fri\n→ Compound focus, great for beginners',
-        4: 'Upper/Lower (4x/week)\n→ 2x Upper, 2x Lower\n→ Ideal for muscle building',
-        5: 'Push/Pull/Legs (5x/week)\n→ Chest+Shoulders / Back+Biceps / Quads+Hamstrings\n→ Popular split for intermediates',
-        6: 'Push/Pull/Legs (6x/week) + 1 rest\n→ Higher frequency, advanced programming'
+        3: 'Full Body (3x/week) - Mon/Wed/Fri\n? Compound focus, great for beginners',
+        4: 'Upper/Lower (4x/week)\n? 2x Upper, 2x Lower\n? Ideal for muscle building',
+        5: 'Push/Pull/Legs (5x/week)\n? Chest+Shoulders / Back+Biceps / Quads+Hamstrings\n? Popular split for intermediates',
+        6: 'Push/Pull/Legs (6x/week) + 1 rest\n? Higher frequency, advanced programming'
       };
       return splits[days] || 'Upper/Lower Split';
     }
 
     function getCardioRecommendation(goal, activity) {
       if (goal === 'fat_loss') {
-        return '150-200 min/week moderate cardio or 75-100 min/week HIIT\n→ 30-40 min sessions, 5x per week\n→ Mix steady-state & high-intensity work';
+        return '150-200 min/week moderate cardio or 75-100 min/week HIIT\n? 30-40 min sessions, 5x per week\n? Mix steady-state & high-intensity work';
       } else if (goal === 'muscle_gain') {
-        return '150 min/week moderate cardio\n→ Light to moderate pace\n→ 3-4x per week for active recovery\n→ Keep intensity low to preserve muscle';
+        return '150 min/week moderate cardio\n? Light to moderate pace\n? 3-4x per week for active recovery\n? Keep intensity low to preserve muscle';
       } else {
-        return '150 min/week moderate cardio\n→ 30 min sessions, 5x per week\n→ Or 75 min/week HIIT\n→ Your choice of activity';
+        return '150 min/week moderate cardio\n? 30 min sessions, 5x per week\n? Or 75 min/week HIIT\n? Your choice of activity';
       }
     }
 
@@ -801,52 +798,52 @@
 
       // BMI Analysis
       if (bmi < 18.5) {
-        strengths.push('✓ Lean physique');
-        improvements.push('→ Focus on building muscle mass');
+        strengths.push('? Lean physique');
+        improvements.push('? Focus on building muscle mass');
       } else if (bmi < 25) {
-        strengths.push('✓ Healthy weight range');
+        strengths.push('? Healthy weight range');
       } else if (bmi < 30) {
-        improvements.push('→ Moderate weight management suggested');
+        improvements.push('? Moderate weight management suggested');
       } else {
-        improvements.push('→ Weight loss should be priority');
+        improvements.push('? Weight loss should be priority');
       }
       
       // Body Fat Analysis
       if (bodyFat < 15 && bmi < 25) {
-        strengths.push('✓ Excellent body composition');
+        strengths.push('? Excellent body composition');
       } else if (bodyFat < 20 && bmi < 30) {
-        strengths.push('✓ Good body composition');
+        strengths.push('? Good body composition');
       } else if (bodyFat >= 25) {
-        improvements.push('→ Body fat reduction recommended');
+        improvements.push('? Body fat reduction recommended');
       }
       
       // Body Type
-      strengths.push(`✓ ${bodyType.name} morphology`);
+      strengths.push(`? ${bodyType.name} morphology`);
       
       // Age-related insights
       if (age < 25) {
-        strengths.push('✓ Prime age for muscle building');
+        strengths.push('? Prime age for muscle building');
       } else if (age < 40) {
-        strengths.push('✓ Strong recovery capacity');
+        strengths.push('? Strong recovery capacity');
       } else if (age >= 40) {
-        improvements.push('→ Focus on recovery & joint health');
+        improvements.push('? Focus on recovery & joint health');
       }
 
       // Goal-specific analysis
       if (goal === 'fat_loss') {
         if (bodyFat > 20) {
-          improvements.push('→ Significant fat loss opportunity available');
+          improvements.push('? Significant fat loss opportunity available');
         } else {
-          improvements.push('→ Tight deficit needed for further loss');
+          improvements.push('? Tight deficit needed for further loss');
         }
       } else if (goal === 'muscle_gain') {
         if (bodyFat > 25) {
-          improvements.push('→ Consider slight cut first for better gains');
+          improvements.push('? Consider slight cut first for better gains');
         } else {
-          strengths.push('✓ Good starting point for bulk');
+          strengths.push('? Good starting point for bulk');
         }
       } else {
-        strengths.push('✓ Maintenance-focused approach chosen');
+        strengths.push('? Maintenance-focused approach chosen');
       }
 
       document.getElementById('strengthsList').innerHTML = strengths.map(s => `<li>${s}</li>`).join('');
@@ -859,32 +856,32 @@
       if (goal === 'fat_loss') {
         const deficitRange = bodyFat > 30 ? '400-600' : '300-500';
         advice = `
-          <p>🎯 <strong>Primary Focus:</strong> Create a consistent caloric deficit of ${deficitRange} cal/day while preserving muscle mass with resistance training and adequate protein.</p>
-          <p>💡 <strong>Key Strategy:</strong> High protein intake (prioritize muscle preservation). Combine strength training with moderate-intensity cardio 3-4x per week.</p>
-          <p>⚡ <strong>Realistic Timeline:</strong> Expect 0.5-1 kg/week fat loss. Slow progress is sustainable progress—rushing leads to muscle loss.</p>
-          <p>📊 <strong>Metrics to Track:</strong> Weight weekly, progress photos bi-weekly, body measurements monthly. The scale doesn't show everything.</p>
+          <p>?? <strong>Primary Focus:</strong> Create a consistent caloric deficit of ${deficitRange} cal/day while preserving muscle mass with resistance training and adequate protein.</p>
+          <p>?? <strong>Key Strategy:</strong> High protein intake (prioritize muscle preservation). Combine strength training with moderate-intensity cardio 3-4x per week.</p>
+          <p>? <strong>Realistic Timeline:</strong> Expect 0.5-1 kg/week fat loss. Slow progress is sustainable progress�rushing leads to muscle loss.</p>
+          <p>?? <strong>Metrics to Track:</strong> Weight weekly, progress photos bi-weekly, body measurements monthly. The scale doesn't show everything.</p>
         `;
       } else if (goal === 'muscle_gain') {
         const surplusRange = bmi > 25 ? '250-400' : '300-500';
         advice = `
-          <p>🎯 <strong>Primary Focus:</strong> Eat in a caloric surplus of ${surplusRange} cal/day with high protein to support muscle protein synthesis.</p>
-          <p>💡 <strong>Key Strategy:</strong> Progressive overload is CRITICAL—aim for strength gains each week. Compound movements are your foundation (squat, deadlift, bench, rows).</p>
-          <p>⚡ <strong>Expected Gain:</strong> 0.25-0.5 kg/week. Plan on gaining some fat—this is normal on a bulk. Recomposition becomes slower with experience.</p>
-          <p>📊 <strong>Advanced Tip:</strong> If starting overweight, prioritize strength gains over pure calorie surplus (body recomposition is possible).</p>
+          <p>?? <strong>Primary Focus:</strong> Eat in a caloric surplus of ${surplusRange} cal/day with high protein to support muscle protein synthesis.</p>
+          <p>?? <strong>Key Strategy:</strong> Progressive overload is CRITICAL�aim for strength gains each week. Compound movements are your foundation (squat, deadlift, bench, rows).</p>
+          <p>? <strong>Expected Gain:</strong> 0.25-0.5 kg/week. Plan on gaining some fat�this is normal on a bulk. Recomposition becomes slower with experience.</p>
+          <p>?? <strong>Advanced Tip:</strong> If starting overweight, prioritize strength gains over pure calorie surplus (body recomposition is possible).</p>
         `;
       } else {
         advice = `
-          <p>🎯 <strong>Primary Focus:</strong> Maintain current weight while improving body composition through progressive strength training and adequate protein.</p>
-          <p>💡 <strong>Key Strategy:</strong> Body recomposition is your goal—aim to gain muscle while losing fat simultaneously. This requires consistent training + good nutrition.</p>
-          <p>⚡ <strong>Timeline:</strong> Progress is slower than dedicated bulks/cuts, but the visual results are excellent. Focus on what the mirror shows, not the scale.</p>
-          <p>📊 <strong>Success Metric:</strong> Strength gains + better physique composition. Expect 0.25-0.5kg muscle gain and 0.25-0.5kg fat loss monthly.</p>
+          <p>?? <strong>Primary Focus:</strong> Maintain current weight while improving body composition through progressive strength training and adequate protein.</p>
+          <p>?? <strong>Key Strategy:</strong> Body recomposition is your goal�aim to gain muscle while losing fat simultaneously. This requires consistent training + good nutrition.</p>
+          <p>? <strong>Timeline:</strong> Progress is slower than dedicated bulks/cuts, but the visual results are excellent. Focus on what the mirror shows, not the scale.</p>
+          <p>?? <strong>Success Metric:</strong> Strength gains + better physique composition. Expect 0.25-0.5kg muscle gain and 0.25-0.5kg fat loss monthly.</p>
         `;
       }
 
       if (days < 4) {
-        advice += `<p>📅 <strong>Training Frequency Suggestion:</strong> Your ${days}x/week split works for maintenance. Consider adding 1-2 days if you want to accelerate progress.</p>`;
+        advice += `<p>?? <strong>Training Frequency Suggestion:</strong> Your ${days}x/week split works for maintenance. Consider adding 1-2 days if you want to accelerate progress.</p>`;
       } else if (days >= 5) {
-        advice += `<p>📅 <strong>Training Frequency:</strong> ${days}x/week is solid for your goals. Ensure adequate recovery (sleep, nutrition, stress management).</p>`;
+        advice += `<p>?? <strong>Training Frequency:</strong> ${days}x/week is solid for your goals. Ensure adequate recovery (sleep, nutrition, stress management).</p>`;
       }
 
       document.getElementById('adviceResult').innerHTML = advice;
@@ -894,31 +891,31 @@
       let plan = `
         <div class="space-y-3">
           <div class="flex gap-3">
-            <span class="text-gold font-bold">1️⃣</span>
+            <span class="text-gold font-bold">1??</span>
             <div>
               <strong>Daily Nutrition:</strong> Consume ${calories} calories with ${macros.protein}g protein, ${macros.carbs}g carbs, ${macros.fats}g fats
             </div>
           </div>
           <div class="flex gap-3">
-            <span class="text-gold font-bold">2️⃣</span>
+            <span class="text-gold font-bold">2??</span>
             <div>
               <strong>Training:</strong> Follow a ${days}-day split with emphasis on ${goal === 'fat_loss' ? 'compound movements + cardio' : goal === 'muscle_gain' ? 'progressive overload' : 'strength gains'}
             </div>
           </div>
           <div class="flex gap-3">
-            <span class="text-gold font-bold">3️⃣</span>
+            <span class="text-gold font-bold">3??</span>
             <div>
               <strong>Tracking:</strong> Monitor weight weekly & take progress photos bi-weekly
             </div>
           </div>
           <div class="flex gap-3">
-            <span class="text-gold font-bold">4️⃣</span>
+            <span class="text-gold font-bold">4??</span>
             <div>
               <strong>Consistency:</strong> Stick to the plan for at least 8-12 weeks before major adjustments
             </div>
           </div>
           <div class="flex gap-3">
-            <span class="text-gold font-bold">5️⃣</span>
+            <span class="text-gold font-bold">5??</span>
             <div>
               <strong>Recovery:</strong> Get 7-9 hours sleep, manage stress, and stay hydrated
             </div>
@@ -956,14 +953,7 @@
         </svg>
       </a>
                   <!-- Nutrition -->
-      <a href="nutrition.html" data-mobile-nav-link class="mobile-bottom-nav__item" aria-label="Nutrition">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M16.4 13.4c0 3.7-2.2 6.1-4.9 6.1s-4.9-2.4-4.9-6.1c0-2.9 1.7-4.8 4-4.8.9 0 1.6.3 2.2.8.6-.5 1.3-.8 2.2-.8 2.3 0 4 1.9 4 4.8Z" />
-          <path d="M12 8.2V5.7" />
-          <path d="M12.1 5.8c.9-1.8 2.7-2.5 4.2-2.3-.5 2.1-2 3.2-4 3.3" />
-          <path d="M9.8 13.3h4.4" />
-        </svg>
-      </a>
+      <a href="workout.html" data-mobile-nav-link class="mobile-bottom-nav__item"  aria-label="Workout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h3v4H4zM17 10h3v4h-3z"/><path d="M7 12h10"/><path d="M9 9v6M15 9v6"/></svg></a>
       <!-- More -->
       <button id="mobileMoreBtn" type="button" class="mobile-bottom-nav__item" aria-controls="mobileMoreSheet" aria-expanded="false" aria-label="More navigation">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1059,6 +1049,10 @@
   <!-- ===== END MOBILE BOTTOM NAV ===== -->
 </body>
 </html>
+
+
+
+
 
 
 

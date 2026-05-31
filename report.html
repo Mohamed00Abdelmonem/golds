@@ -1,10 +1,10 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Monthly Report â€” GoldTech</title>
+  <title>Monthly Report — GoldTech</title>
   <script>tailwind.config = { theme: { extend: { colors: { gold: { DEFAULT: '#f5b041' } }, fontFamily: { display: ['Poppins', 'Inter', 'system-ui', 'sans-serif'] } } } }</script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
@@ -242,12 +242,11 @@
       .mobile-bottom-nav {
         display: flex;
         position: fixed;
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: calc(1rem + env(safe-area-inset-bottom));
+        left: 0;
+        right: 0;
+        bottom: 0;
         z-index: 999;
-        width: calc(100% - 2.5rem);
-        max-width: 420px;
+        width: 100%;
         padding: 0;
         background: transparent;
         backdrop-filter: none;
@@ -258,14 +257,14 @@
       .mobile-bottom-nav__inner {
         pointer-events: auto;
         display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 0.3rem;
         width: 100%;
-        border-radius: 9999px;
-        padding: 0.45rem;
+        border-radius: 0;
+        padding: 0.45rem 0.75rem;
         background: rgba(15, 15, 17, 0.85);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.05);
         backdrop-filter: blur(24px) saturate(140%);
         -webkit-backdrop-filter: blur(24px) saturate(140%)
       }
@@ -474,47 +473,7 @@
     </aside>
 
     <main class="flex-1 p-4 md:p-8 overflow-y-auto safe-bottom">
-      <header
-        class="sticky top-6 z-30 glass rounded-2xl p-3 md:p-4 mb-6 flex items-center justify-between fast-trans backdrop-blur-xl">
-        <div class="flex items-center gap-3 md:gap-4">
-          <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-white/3 focus-visible-ring"
-            aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M4 7h16M4 12h16M4 17h16" stroke-width="1.6" stroke-linecap="round" />
-            </svg></button>
-          <button id="sidebarToggle"
-            class="hidden md:inline-flex sidebar-toggle p-2 rounded-lg bg-white/3 focus-visible-ring"
-            aria-label="Toggle sidebar" aria-pressed="false"><svg class="w-5 h-5 transition-transform duration-200"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M9 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-            </svg></button>
-          <div class="hidden md:flex items-center gap-4">
-            <h1 class="text-white font-extrabold text-lg">Monthly Fitness Report</h1>
-            <div class="text-stone-400 text-sm">GoldTech Smart Fitness OS</div>
-          </div>
-        </div>
-        <div class="flex items-center gap-3">
-          <button id="themeToggle" class="hidden sm:inline-flex p-2 rounded-lg bg-white/3 focus-visible-ring"
-            aria-label="Toggle theme" aria-pressed="false"><span data-theme-icon="dark" aria-hidden="true"><svg
-                class="w-5 h-5" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5" />
-                <path
-                  d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"
-                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-              </svg></span><span data-theme-icon="light" class="hidden" aria-hidden="true"><svg class="w-5 h-5"
-                viewBox="0 0 24 24" fill="none">
-                <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.5"
-                  stroke-linecap="round" stroke-linejoin="round" />
-              </svg></span></button>
-          <a href="profile.html"
-            class="flex items-center gap-3 rounded-2xl bg-white/3 px-3 py-2 hover:bg-white/6 fast-trans">
-            <div class="text-right hidden sm:block">
-              <div class="text-white font-semibold">Mohamed</div>
-              <div class="text-stone-400 text-xs">Gold Elite</div>
-            </div><img src="assets/img/user.png" alt="avatar"
-              class="w-10 h-10 rounded-full object-cover border border-white/6" />
-          </a>
-        </div>
-      </header>
+      
 
       <div id="page-main" class="report-page">
         <section class="report-card rounded-[2rem] p-5 md:p-8 mb-6 overflow-hidden">
@@ -546,7 +505,7 @@
                   <div class="space-y-1">
                     <div class="text-stone-400 text-xs uppercase tracking-[0.24em]">User profile</div>
                     <div class="text-2xl font-black text-white">Mohamed Ali</div>
-                    <div class="text-stone-300 text-sm">Gold Elite â€¢ 4 month streak</div>
+                    <div class="text-stone-300 text-sm">Gold Elite • 4 month streak</div>
                     <div class="flex flex-wrap gap-2 pt-1"><span
                         class="report-chip badge-pill text-xs text-stone-300">Goal: Body recomposition</span><span
                         class="report-chip badge-pill text-xs text-stone-300">Last check-in: May 28, 2026</span></div>
@@ -898,12 +857,12 @@
                 <h2 class="mt-2 text-2xl font-black text-white">Badges & Highlights</h2>
               </div><span class="report-chip badge-pill text-xs text-stone-300">6 badges</span>
             </div>
-            <div class="mt-5 flex flex-wrap gap-3"><span class="report-chip--gold badge-pill text-sm font-semibold">ðŸ…
-                10+ day streak</span><span class="report-chip--gold badge-pill text-sm font-semibold">ðŸ”¥ 20+ Workout
-                Club</span><span class="report-chip--gold badge-pill text-sm font-semibold">âš¡ Personal Best</span><span
-                class="report-chip badge-pill text-sm text-stone-300">ðŸ’ª Advanced strength</span><span
-                class="report-chip badge-pill text-sm text-stone-300">ðŸ§  Smart adherence</span><span
-                class="report-chip badge-pill text-sm text-stone-300">ðŸ“ˆ Ongoing progress</span></div>
+            <div class="mt-5 flex flex-wrap gap-3"><span class="report-chip--gold badge-pill text-sm font-semibold">🏅
+                10+ day streak</span><span class="report-chip--gold badge-pill text-sm font-semibold">🔥 20+ Workout
+                Club</span><span class="report-chip--gold badge-pill text-sm font-semibold">⚡ Personal Best</span><span
+                class="report-chip badge-pill text-sm text-stone-300">💪 Advanced strength</span><span
+                class="report-chip badge-pill text-sm text-stone-300">🧠 Smart adherence</span><span
+                class="report-chip badge-pill text-sm text-stone-300">📈 Ongoing progress</span></div>
           </div>
 
           <div class="xl:col-span-5 report-card rounded-[2rem] p-5 md:p-6">
@@ -960,14 +919,7 @@
         </svg>
       </a>
                   <!-- Nutrition -->
-      <a href="nutrition.html" data-mobile-nav-link class="mobile-bottom-nav__item" aria-label="Nutrition">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M16.4 13.4c0 3.7-2.2 6.1-4.9 6.1s-4.9-2.4-4.9-6.1c0-2.9 1.7-4.8 4-4.8.9 0 1.6.3 2.2.8.6-.5 1.3-.8 2.2-.8 2.3 0 4 1.9 4 4.8Z" />
-          <path d="M12 8.2V5.7" />
-          <path d="M12.1 5.8c.9-1.8 2.7-2.5 4.2-2.3-.5 2.1-2 3.2-4 3.3" />
-          <path d="M9.8 13.3h4.4" />
-        </svg>
-      </a>
+      <a href="workout.html" data-mobile-nav-link class="mobile-bottom-nav__item"  aria-label="Workout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h3v4H4zM17 10h3v4h-3z"/><path d="M7 12h10"/><path d="M9 9v6M15 9v6"/></svg></a>
       <!-- More -->
       <button id="mobileMoreBtn" type="button" class="mobile-bottom-nav__item" aria-controls="mobileMoreSheet"
         aria-expanded="false" aria-label="More navigation">
@@ -1069,6 +1021,9 @@
 </body>
 
 </html>
+
+
+
 
 
 

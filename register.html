@@ -1,400 +1,131 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Create Account — GoldTech</title>
-  <script>tailwind.config = { theme: { extend: { colors: { gold: { DEFAULT: '#f5b041' } }, fontFamily: { display:['Poppins','Inter','system-ui','sans-serif'] } } } }</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body{font-family:Poppins,system-ui;background:linear-gradient(180deg,#060607,#0d0d0e);color:#fff;transition:background 200ms ease}
-    body[data-theme="light"]{background:linear-gradient(180deg,#f7f8fb,#eef2f7)}
-    .glass{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.015));border:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(8px)}
-    body[data-theme="light"] .glass{background:linear-gradient(180deg,rgba(255,255,255,0.78),rgba(255,255,255,0.6));border-color:rgba(15,23,42,0.08)}
+    body {
+      font-family: Poppins, system-ui, sans-serif;
+      background: linear-gradient(180deg, #070708, #121215);
+    }
 
-    .auth-shell{
-      position:relative;
-      overflow:hidden;
+    .mobile-bottom-nav {
+      display: none;
     }
-    .auth-shell::before,
-    .auth-shell::after{
-      content:"";
-      position:absolute;
-      inset:auto;
-      border-radius:999px;
-      filter:blur(24px);
-      pointer-events:none;
-      opacity:.55;
-    }
-    .auth-shell::before{
-      width:16rem;
-      height:16rem;
-      top:-4rem;
-      right:-4rem;
-      background:rgba(245,176,65,.15);
-    }
-    .auth-shell::after{
-      width:20rem;
-      height:20rem;
-      left:-6rem;
-      bottom:-8rem;
-      background:rgba(255,255,255,.04);
-    }
-    .auth-grid{
-      display:grid;
-      grid-template-columns:1.1fr .9fr;
-      gap:1.5rem;
-      align-items:center;
-    }
-    .auth-panel{
-      position:relative;
-      min-height:100%;
-      padding:1.5rem;
-      border-radius:1.5rem;
-      background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.015));
-      border:1px solid rgba(255,255,255,0.06);
-      overflow:hidden;
-    }
-    body[data-theme="light"] .auth-panel{
-      background:linear-gradient(180deg,rgba(255,255,255,0.92),rgba(255,255,255,0.72));
-      border-color:rgba(15,23,42,0.08);
-    }
-    .auth-panel::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:radial-gradient(circle at top right,rgba(245,176,65,.18),transparent 35%),
-                 radial-gradient(circle at bottom left,rgba(255,255,255,.08),transparent 30%);
-      pointer-events:none;
-    }
-    .auth-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:.5rem;
-      padding:.5rem .75rem;
-      border-radius:999px;
-      background:rgba(245,176,65,.12);
-      color:#f8d48c;
-      font-size:.75rem;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-    body[data-theme="light"] .auth-badge{
-      color:#9a6a12;
-      background:rgba(245,176,65,.18);
-    }
-    .auth-card{
-      position:relative;
-      z-index:1;
-      background:linear-gradient(180deg,rgba(18,18,19,.96),rgba(11,11,12,.96));
-      border:1px solid rgba(255,255,255,.06);
-      box-shadow:0 24px 90px rgba(0,0,0,.35);
-    }
-    body[data-theme="light"] .auth-card{
-      background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(247,248,251,.96));
-      border-color:rgba(15,23,42,.08);
-      box-shadow:0 24px 90px rgba(15,23,42,.08);
-    }
-    .auth-input{
-      width:100%;
-      border-radius:.9rem;
-      border:1px solid rgba(255,255,255,.08);
-      background:rgba(255,255,255,.03);
-      padding:.95rem 1rem;
-      color:inherit;
-      transition:border-color 180ms ease,box-shadow 180ms ease,transform 180ms ease,background 180ms ease;
-      min-height:44px;
-      font-size:1rem;
-    }
-    .auth-input::placeholder{color:rgba(255,255,255,.35)}
-    body[data-theme="light"] .auth-input{
-      border-color:rgba(15,23,42,.08);
-      background:rgba(255,255,255,.86);
-    }
-    body[data-theme="light"] .auth-input::placeholder{color:rgba(15,23,42,.42)}
-    .auth-input:focus{
-      outline:none;
-      border-color:rgba(245,176,65,.65);
-      box-shadow:0 0 0 4px rgba(245,176,65,.14);
-      transform:translateY(-1px);
-    }
-    .auth-button{
-      min-height:48px;
-      border-radius:1rem;
-      background:linear-gradient(135deg,#f5b041,#ffd27a);
-      color:#121212;
-      font-weight:700;
-      box-shadow:0 16px 35px rgba(245,176,65,.25);
-      transition:transform 180ms ease,box-shadow 180ms ease,filter 180ms ease;
-    }
-    .auth-button:hover{
-      transform:translateY(-1px);
-      box-shadow:0 20px 42px rgba(245,176,65,.32);
-      filter:saturate(1.03);
-    }
-    .auth-feature{
-      display:flex;
-      gap:.75rem;
-      align-items:flex-start;
-      padding:.9rem 1rem;
-      border-radius:1rem;
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(255,255,255,.06);
-    }
-    body[data-theme="light"] .auth-feature{
-      background:rgba(255,255,255,.72);
-      border-color:rgba(15,23,42,.06);
-    }
-    @media (max-width: 768px) {
-      .auth-grid{
-        grid-template-columns:1fr;
+
+    @media (max-width: 767px) {
+      body {
+        padding-bottom: 5.5rem;
       }
-      .auth-panel{
-        padding:1.25rem;
-      }
-    }
-    
-    /* Mobile header improvements */
-    @media (max-width: 640px) {
-      header {
-        border-radius: 0;
-        margin: 0;
-        padding: 0.75rem;
-        gap: 0.5rem;
-      }
-      main {
-        padding: 0;
-        margin-top: -1rem;
-      }
-      #page-main {
-        padding-top: 4rem;
-      }
-      .app-sidebar {
-        display: none !important;
-      }
-      .shell-overlay {
-        display: none !important;
-      }
-    }
-    
-    /* Mobile menu button styles */
-    #backBtn, #mobileMenuBtn {
-      transition: all 200ms ease;
-    }
-    #backBtn:hover, #mobileMenuBtn:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-    
-    /* Mobile sidebar overlay */
-    .shell-overlay.opacity-100 {
-      background: rgba(0, 0, 0, 0.5);
-      pointer-events: auto;
-    }
-    
-    /* Sidebar mobile animation */
-    @media (max-width: 768px) {
-      .app-sidebar.show-mobile {
-        display: flex !important;
+
+      .mobile-bottom-nav {
+        display: flex;
         position: fixed;
         left: 0;
-        top: 0;
-        width: 70vw;
-        max-width: 18rem;
-        height: 100vh;
-        z-index: 40;
-        margin: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 999;
+        width: 100%;
+      }
+
+      .mobile-bottom-nav__inner {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.3rem;
+        width: 100%;
         border-radius: 0;
-        animation: slideInLeft 250ms ease;
+        padding: 0.45rem 0.75rem;
+        margin-bottom: 0;
+        background: rgba(15, 15, 17, 0.85);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(24px) saturate(140%);
+        -webkit-backdrop-filter: blur(24px) saturate(140%);
+      }
+
+      .mobile-bottom-nav__item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 9999px;
+        color: #a1a1aa;
+        transition: all 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+
+      .mobile-bottom-nav__item.is-active {
+        background: rgba(255, 212, 0, 0.12);
+        color: #f5b041;
+        box-shadow: 0 4px 16px rgba(255, 212, 0, 0.15), inset 0 0 0 1px rgba(255, 212, 0, 0.25);
+      }
+
+      .mobile-bottom-nav__item svg {
+        width: 1.45rem;
+        height: 1.45rem;
       }
     }
   </style>
-  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
-<body class="antialiased">
-  <div id="shell-root" class="app-shell min-h-screen flex">
-    <div class="shell-overlay"></div>
-    <aside class="app-sidebar hidden md:flex flex-col w-72 p-5 gap-6 glass rounded-2xl sticky top-6 m-6 h-[calc(100vh-48px)] overflow-hidden">
-      <a href="landing.html" class="flex items-center gap-3 sidebar-brand">
-        <div class="sidebar-brand-icon rounded-xl p-2 bg-gradient-to-br from-[#1b1b1d] to-[#111112]"><img src="assets/golds-logo.png" alt="Golds logo" class="w-9 h-9 object-contain"/></div>
-        <div class="sidebar-brand-text"><div class="text-white font-semibold text-lg">GoldTech</div><div class="sidebar-meta text-stone-400 text-xs uppercase tracking-widest">Smart Fitness OS</div></div>
+<body class="min-h-screen text-white flex items-center justify-center p-4">
+  <main class="w-full max-w-md rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 sm:p-8 shadow-2xl">
+    <h1 class="text-2xl font-bold mb-6 text-center">Create Account</h1>
+
+    <form class="space-y-4" action="#" method="post">
+      <div>
+        <label for="name" class="block text-sm text-stone-300 mb-1">Full Name</label>
+        <input id="name" name="name" type="text" required class="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 outline-none focus:border-amber-400" placeholder="Enter your full name" />
+      </div>
+
+      <div>
+        <label for="email" class="block text-sm text-stone-300 mb-1">Email</label>
+        <input id="email" name="email" type="email" required class="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 outline-none focus:border-amber-400" placeholder="Enter your email" />
+      </div>
+
+      <div>
+        <label for="password" class="block text-sm text-stone-300 mb-1">Password</label>
+        <input id="password" name="password" type="password" required class="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 outline-none focus:border-amber-400" placeholder="Create password" />
+      </div>
+
+      <div>
+        <label for="confirmPassword" class="block text-sm text-stone-300 mb-1">Confirm Password</label>
+        <input id="confirmPassword" name="confirmPassword" type="password" required class="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 outline-none focus:border-amber-400" placeholder="Confirm password" />
+      </div>
+
+      <button type="submit" class="w-full rounded-xl bg-amber-400 text-black font-semibold py-3 hover:bg-amber-300 transition">
+        Register
+      </button>
+    </form>
+  </main>
+
+  <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+    <div class="mobile-bottom-nav__inner">
+      <a href="landing.html" class="mobile-bottom-nav__item" aria-label="Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M3 11.5 12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-8.5Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
       </a>
-      <nav aria-label="Primary" class="flex-1 overflow-y-auto pr-1">
-        <ul class="space-y-1 text-sm">
-              <li><a href="landing.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Home</span></a></li>
-              <li><a href="dashboard.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Dashboard</span></a></li>
-              <li><a href="programs.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Programs</span></a></li>
-              <li><a href="workout.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Workouts</span></a></li>
-              <li><a href="classes.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Classes</span></a></li>
-              <li><a href="coaches.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Coaches</span></a></li>
-              <li><a href="community.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Community</span></a></li>
-              <li><a href="blogs.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Blogs</span></a></li>
-              <li><a href="crowd.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Crowd</span></a></li>
-              <li><a href="inbody.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">InBody</span></a></li>
-              <li><a href="machines.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Machines</span></a></li>
-              <li><a href="nutrition.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Nutrition</span></a></li>
-              <li><a href="smart-test.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Smart Test</span></a></li>
-              <li><a href="achievements.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Achievements</span></a></li>
-              <li><a href="store.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Store</span></a></li>
-              <li><a href="membership.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Membership</span></a></li>
-              <li><a href="notifications.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Notifications</span></a></li>
-              <li><a href="settings.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Settings</span></a></li>
-              <li><a href="support.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Support</span></a></li>
-              <li><a href="profile.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Profile</span></a></li>
-        </ul>
-      </nav>
-      <div class="sidebar-footer pt-3 border-t border-white/6 text-sm"><div class="text-stone-400">Active Membership</div><div class="mt-2 flex items-center justify-between"><div><div class="text-white font-semibold">Gold Elite</div><div class="text-stone-400 text-xs">Valid until May 2027</div></div><div class="bg-gradient-to-br from-[#2a2a2a]/80 to-[#161616]/60 p-2 rounded-lg text-gold">&#9679;</div></div></div>
-    </aside>
-    <main class="flex-1 p-0 md:p-8 overflow-y-auto safe-bottom">
-      <header class="sticky top-0 z-30 glass rounded-0 md:rounded-2xl p-3 md:p-4 md:m-6 mb-6 flex items-center justify-between fast-trans backdrop-blur-xl">
-        <div class="flex items-center gap-2 md:gap-4 flex-1">
-          <button id="backBtn" class="md:hidden p-2 rounded-lg hover:bg-white/6 focus-visible-ring transition-colors" aria-label="Go back"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-          <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-white/6 focus-visible-ring transition-colors" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16" stroke-width="1.6" stroke-linecap="round"/></svg></button>
-          <button id="sidebarToggle" class="hidden md:inline-flex sidebar-toggle p-2 rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle sidebar" aria-pressed="false"><svg class="w-5 h-5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <div class="hidden md:flex items-center gap-4 flex-1">
-            <h1 class="text-white font-extrabold break-words" style="font-size:clamp(1rem,2.6vw,1.25rem);line-height:1.05;">Create Account — GoldTech</h1>
-            <div class="text-stone-400 text-sm">Premium smart gym platform</div>
-          </div>
-          <div class="md:hidden flex-1 text-center">
-            <h1 class="text-white font-bold text-base">Register</h1>
-          </div>
-        </div>
-        <div class="flex items-center gap-2 md:gap-3">
-          <button id="themeToggle" class="p-2 rounded-lg hover:bg-white/6 focus-visible-ring transition-colors" aria-label="Toggle theme" aria-pressed="false"><span data-theme-icon="dark" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-theme-icon="light" class="hidden" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
-          <div class="relative hidden sm:flex items-center">
-            <label for="search" class="sr-only">Search</label>
-            <input id="search" class="glass rounded-xl px-3 py-2 pl-10 pr-3 w-40 md:w-64 bg-transparent text-white placeholder:opacity-60 text-sm fast-trans focus-visible-ring" placeholder="Search"/>
-            <svg class="absolute left-3 w-4 h-4 text-stone-400" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.2"/></svg>
-          </div>
-          <a href="profile.html" class="hidden sm:flex items-center gap-2 md:gap-3 rounded-2xl hover:bg-white/6 px-2 md:px-3 py-2 fast-trans focus-visible-ring">
-            <div class="text-right hidden md:block">
-              <div class="text-white font-semibold text-sm">Mohamed</div>
-              <div class="text-stone-400 text-xs">Gold Elite</div>
-            </div>
-            <img src="assets/img/user.png" alt="avatar" class="w-9 md:w-10 h-9 md:h-10 rounded-full object-cover border border-white/6"/>
-          </a>
-        </div>
-      </header>
-      <div id="page-main" class="md:p-0">
-      <div class="auth-shell flex items-center justify-center min-h-screen md:min-h-[70vh] p-4 sm:p-6 md:p-8">
-        <div class="w-full max-w-6xl auth-grid">
-          <section class="auth-panel glass">
-            <div class="relative z-10 flex flex-col gap-6">
-              <div class="flex items-center gap-4">
-                <div class="w-16 h-16 rounded-2xl bg-white/6 border border-white/10 flex items-center justify-center shadow-lg shadow-black/20">
-                  <img src="assets/golds-logo.png" alt="GoldTech logo" class="w-11 h-11 object-contain" />
-                </div>
-                <div>
-                  <div class="auth-badge">Smart fitness club</div>
-                  <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold leading-tight">Build your GoldTech profile</h2>
-                  <p class="mt-2 text-stone-400 text-sm sm:text-base max-w-lg">Create an account to unlock workouts, attendance, InBody insights, and member-only tools.</p>
-                </div>
-              </div>
-
-              <div class="grid gap-3 sm:grid-cols-2">
-                <div class="auth-feature">
-                  <div class="w-10 h-10 rounded-xl bg-gold/15 text-gold flex items-center justify-center font-bold">01</div>
-                  <div>
-                    <div class="font-semibold text-white">Fast onboarding</div>
-                    <p class="text-xs text-stone-400 mt-1">Join in under a minute with your club details.</p>
-                  </div>
-                </div>
-                <div class="auth-feature">
-                  <div class="w-10 h-10 rounded-xl bg-gold/15 text-gold flex items-center justify-center font-bold">02</div>
-                  <div>
-                    <div class="font-semibold text-white">Premium access</div>
-                    <p class="text-xs text-stone-400 mt-1">Get a personalized space for training and progress.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="rounded-2xl border border-white/8 bg-black/20 p-4 sm:p-5">
-                <div class="text-xs uppercase tracking-[0.3em] text-stone-500">What you get</div>
-                <div class="mt-3 grid gap-2 text-sm text-stone-300">
-                  <div>• Training programs and class booking</div>
-                  <div>• Attendance, membership, and smart test tools</div>
-                  <div>• Nutrition, progress tracking, and community features</div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="auth-card glass rounded-3xl p-5 sm:p-6 md:p-8">
-            <div class="flex items-center gap-3 mb-6">
-              <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
-                <img src="assets/golds-logo.png" alt="GoldTech logo" class="w-8 h-8 object-contain" />
-              </div>
-              <div>
-                <div class="text-white font-semibold text-lg">Create your account</div>
-                <div class="text-stone-400 text-xs sm:text-sm">Join GoldTech and access premium club tools</div>
-              </div>
-            </div>
-
-            <form class="grid gap-4">
-              <label class="grid gap-2 text-stone-300 text-sm font-medium">Full name
-                <input type="text" required class="auth-input" placeholder="Enter your full name" />
-              </label>
-              <label class="grid gap-2 text-stone-300 text-sm font-medium">Email
-                <input type="email" required class="auth-input" placeholder="name@example.com" />
-              </label>
-              <label class="grid gap-2 text-stone-300 text-sm font-medium">Password
-                <input type="password" required class="auth-input" placeholder="Create a secure password" />
-              </label>
-              <label class="grid gap-2 text-stone-300 text-sm font-medium">Membership code (optional)
-                <input type="text" class="auth-input" placeholder="e.g. CLUB-GOLD" />
-              </label>
-              <div class="flex items-start gap-3 rounded-2xl border border-white/8 bg-white/3 p-4 text-sm text-stone-400">
-                <input id="terms" type="checkbox" class="mt-1 h-4 w-4 accent-[#f5b041]" checked />
-                <label for="terms" class="leading-6">I agree to the GoldTech terms and confirm my details are accurate.</label>
-              </div>
-              <button class="auth-button px-4 py-3.5 sm:py-4 mt-1">Create Account</button>
-            </form>
-
-            <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm">
-              <div class="text-stone-400">Already registered? <a href="login.html" class="text-white font-semibold hover:text-gold">Sign in</a></div>
-              <div class="text-xs text-stone-500">Secure registration powered by GoldTech</div>
-            </div>
-          </section>
-        </div>
-      </div>
-    
-      </div>
-      
-  </div>
-  <script src="assets/js/components.js"></script>
-  <script>
-    // Back button handler
-    const backBtn = document.getElementById('backBtn');
-    if (backBtn) {
-      backBtn.addEventListener('click', () => {
-        if (window.history.length > 1) {
-          window.history.back();
-        } else {
-          window.location.href = 'landing.html';
-        }
-      });
-    }
-
-    // Theme toggle
-    const themeToggle = document.getElementById('themeToggle');
-    const syncTheme = () => {
-      const theme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
-      document.body.dataset.theme = theme;
-      localStorage.setItem('goldtech.theme', theme);
-      if(themeToggle){
-        themeToggle.querySelector('[data-theme-icon="light"]')?.classList.toggle('hidden', theme !== 'light');
-        themeToggle.querySelector('[data-theme-icon="dark"]')?.classList.toggle('hidden', theme === 'light');
-        themeToggle.setAttribute('aria-pressed', String(theme === 'light'));
-      }
-    };
-    syncTheme();
-    themeToggle?.addEventListener('click', () => {
-      document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
-      syncTheme();
-    });
-    
-    Components.init();
-  </script>
+      <a href="dashboard.html" class="mobile-bottom-nav__item" aria-label="Dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <rect x="3" y="3" width="8" height="8" rx="2" stroke-width="1.6" />
+          <rect x="13" y="3" width="8" height="5" rx="2" stroke-width="1.6" />
+          <rect x="13" y="10" width="8" height="11" rx="2" stroke-width="1.6" />
+          <rect x="3" y="13" width="8" height="8" rx="2" stroke-width="1.6" />
+        </svg>
+      </a>
+      <a href="workout.html" class="mobile-bottom-nav__item"  aria-label="Workout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h3v4H4zM17 10h3v4h-3z"/><path d="M7 12h10"/><path d="M9 9v6M15 9v6"/></svg></a>
+      <a href="profile.html" class="mobile-bottom-nav__item" aria-label="More navigation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+          <circle cx="19" cy="12" r="1.5" fill="currentColor" />
+          <circle cx="5" cy="12" r="1.5" fill="currentColor" />
+        </svg>
+      </a>
+    </div>
+  </nav>
 </body>
 </html>
 

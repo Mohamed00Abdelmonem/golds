@@ -1,9 +1,9 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Group Classes — Fitness Programs</title>
+  <title>Group Classes � Fitness Programs</title>
   <script>tailwind.config = { theme: { extend: { colors: { gold: { DEFAULT: '#f5b041' } }, fontFamily: { display:['Poppins','Inter','system-ui','sans-serif'] } } } }</script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
@@ -44,8 +44,8 @@
       body{padding-bottom:0 !important}
       .app-shell{height:100dvh;overflow:hidden}
       main.flex-1{overflow-y:auto !important;padding-bottom:calc(6.5rem + env(safe-area-inset-bottom)) !important}
-      .mobile-bottom-nav{display:flex;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(1rem + env(safe-area-inset-bottom));z-index:999;width:calc(100% - 2.5rem);max-width:420px;padding:0;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;pointer-events:none}
-      .mobile-bottom-nav__inner{pointer-events:auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0.3rem;width:100%;border-radius:9999px;padding:0.45rem;background:rgba(15,15,17,0.85);border:1px solid rgba(255,255,255,0.08);box-shadow:0 16px 36px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.05);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%)}
+      .mobile-bottom-nav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:999;width:100%;padding:0;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;pointer-events:none}
+      .mobile-bottom-nav__inner{pointer-events:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0.3rem;width:100%;border-radius:0;padding:0.45rem 0.75rem;background:rgba(15,15,17,0.85);border-top:1px solid rgba(255,255,255,0.08);box-shadow:0 -8px 24px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.05);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%)}
       .mobile-bottom-nav__item{display:flex;flex-direction:column;align-items:center;justify-content:center;width:3rem;height:3rem;border-radius:9999px;color:#a1a1aa;transition:all 280ms cubic-bezier(0.34,1.56,0.64,1);border:none;cursor:pointer;position:relative;text-decoration:none}
       .mobile-bottom-nav__item svg{width:1.45rem;height:1.45rem;transition:transform 200ms}
       .mobile-bottom-nav__item:active svg{transform:scale(0.85)}
@@ -87,7 +87,7 @@
               <li><a href="crowd.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Crowd</span></a></li>
               <li><a href="inbody.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">InBody</span></a></li>
               <li><a href="machines.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Machines</span></a></li>
-              <li><a href="nutrition.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Nutrition</span></a></li>
+              <li></li>
               <li><a href="smart-test.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Smart Test</span></a></li>
               <li><a href="achievements.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Achievements</span></a></li>
               <li><a href="store.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Store</span></a></li>
@@ -99,7 +99,7 @@
         </ul></nav>
       <div class="mt-auto pt-4 border-t border-white/5">
         <button onclick="Components.toggleTheme()" class="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg hover:bg-white/5 transition-colors text-stone-400 hover:text-white">
-          <span id="themeIcon">🌙</span><span class="text-sm">Theme</span>
+          <span id="themeIcon">??</span><span class="text-sm">Theme</span>
         </button>
       </div>
     </aside>
@@ -408,11 +408,11 @@
           <div class="p-4">
             <h4 class="text-lg font-bold text-white mb-1">${cls.name}</h4>
             <div class="flex items-center gap-2 mb-3">
-              <span class="coach-badge">👨‍🏫 ${cls.coach}</span>
+              <span class="coach-badge">????? ${cls.coach}</span>
             </div>
             <div class="space-y-2 text-sm text-stone-400 mb-4">
-              <p>⏱️ ${cls.duration} • ${cls.times[0]}</p>
-              <p>👥 ${cls.enrolled}/${cls.capacity} participants</p>
+              <p>?? ${cls.duration} � ${cls.times[0]}</p>
+              <p>?? ${cls.enrolled}/${cls.capacity} participants</p>
             </div>
             <p class="text-stone-300 text-sm mb-4">${cls.description.substring(0, 80)}...</p>
             <button onclick="openModal(${cls.id})" class="w-full bg-gold/20 hover:bg-gold/30 text-gold font-semibold py-2 rounded-lg transition-all shadow-[0_10px_24px_rgba(245,176,65,0.06)] hover:shadow-[0_14px_30px_rgba(245,176,65,0.12)]">
@@ -494,12 +494,12 @@
           <div>
             <p class="text-stone-400 text-sm mb-3">Benefits</p>
             <ul class="space-y-2">
-              ${cls.benefits.map(benefit => `<li class="text-white flex items-center gap-2"><span class="text-gold">✓</span> ${benefit}</li>`).join('')}
+              ${cls.benefits.map(benefit => `<li class="text-white flex items-center gap-2"><span class="text-gold">?</span> ${benefit}</li>`).join('')}
             </ul>
           </div>
 
           <div class="flex items-center gap-2 text-sm text-stone-300">
-            <span>👥 ${cls.enrolled}/${cls.capacity} members enrolled</span>
+            <span>?? ${cls.enrolled}/${cls.capacity} members enrolled</span>
           </div>
 
           <div class="pt-4 border-t border-white/10 flex gap-3">
@@ -572,14 +572,7 @@
         </svg>
       </a>
                   <!-- Nutrition -->
-      <a href="nutrition.html" data-mobile-nav-link class="mobile-bottom-nav__item" aria-label="Nutrition">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M16.4 13.4c0 3.7-2.2 6.1-4.9 6.1s-4.9-2.4-4.9-6.1c0-2.9 1.7-4.8 4-4.8.9 0 1.6.3 2.2.8.6-.5 1.3-.8 2.2-.8 2.3 0 4 1.9 4 4.8Z" />
-          <path d="M12 8.2V5.7" />
-          <path d="M12.1 5.8c.9-1.8 2.7-2.5 4.2-2.3-.5 2.1-2 3.2-4 3.3" />
-          <path d="M9.8 13.3h4.4" />
-        </svg>
-      </a>
+      <a href="workout.html" data-mobile-nav-link class="mobile-bottom-nav__item"  aria-label="Workout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h3v4H4zM17 10h3v4h-3z"/><path d="M7 12h10"/><path d="M9 9v6M15 9v6"/></svg></a>
       <!-- More -->
       <button id="mobileMoreBtn" type="button" class="mobile-bottom-nav__item" aria-controls="mobileMoreSheet" aria-expanded="false" aria-label="More navigation">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -675,6 +668,9 @@
   <!-- ===== END MOBILE BOTTOM NAV ===== -->
 </body>
 </html>
+
+
+
 
 
 

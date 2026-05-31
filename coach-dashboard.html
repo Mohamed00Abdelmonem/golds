@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -214,8 +214,8 @@
       body{padding-bottom:0 !important}
       .app-shell{height:100dvh;overflow:hidden}
       main.flex-1{overflow-y:auto !important;padding-bottom:calc(6.5rem + env(safe-area-inset-bottom)) !important}
-      .mobile-bottom-nav{display:flex;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(1rem + env(safe-area-inset-bottom));z-index:999;width:calc(100% - 2.5rem);max-width:420px;padding:0;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;pointer-events:none}
-      .mobile-bottom-nav__inner{pointer-events:auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0.3rem;width:100%;border-radius:9999px;padding:0.45rem;background:rgba(15,15,17,0.85);border:1px solid rgba(255,255,255,0.08);box-shadow:0 16px 36px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.05);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%)}
+      .mobile-bottom-nav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:999;width:100%;padding:0;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;pointer-events:none}
+      .mobile-bottom-nav__inner{pointer-events:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0.3rem;width:100%;border-radius:0;padding:0.45rem 0.75rem;background:rgba(15,15,17,0.85);border-top:1px solid rgba(255,255,255,0.08);box-shadow:0 -8px 24px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.05);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%)}
       .mobile-bottom-nav__item{display:flex;flex-direction:column;align-items:center;justify-content:center;width:3rem;height:3rem;border-radius:9999px;color:#a1a1aa;transition:all 280ms cubic-bezier(0.34,1.56,0.64,1);border:none;cursor:pointer;position:relative;text-decoration:none}
       .mobile-bottom-nav__item svg{width:1.45rem;height:1.45rem;transition:transform 200ms}
       .mobile-bottom-nav__item:active svg{transform:scale(0.85)}
@@ -252,7 +252,7 @@
           <li><a href="coaches.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Coaches</span></a></li>
           <li><a href="community.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Community</span></a></li>
           <li><a href="inbody.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">InBody</span></a></li>
-          <li><a href="nutrition.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Nutrition</span></a></li>
+          <li></li>
           <li><a href="settings.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Settings</span></a></li>
           <li><a href="support.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Support</span></a></li>
         </ul>
@@ -261,52 +261,7 @@
     </aside>
 
     <main class="flex-1 p-5 md:p-8 overflow-y-auto safe-bottom overflow-x-hidden">
-      <header class="sticky top-6 z-40 glass rounded-2xl p-3 md:p-4 mb-6 flex items-center justify-between fast-trans backdrop-blur-xl">
-        <div class="flex items-center gap-3 md:gap-4 min-w-0">
-          <button id="mobileMenuBtn" class="md:hidden p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring" aria-label="Open menu"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16" stroke-width="1.6" stroke-linecap="round"/></svg></button>
-          <button id="sidebarToggle" class="hidden md:inline-flex sidebar-toggle p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle sidebar" aria-pressed="false"><svg class="w-5 h-5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 6l6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <div class="min-w-0 hidden md:block"><h1 class="text-white font-extrabold text-lg">Coach Dashboard</h1><div class="text-stone-400 text-sm truncate">AI-powered command center for performance, plans, and client management</div></div>
-        </div>
-        <div class="flex items-center gap-2 sm:gap-3">
-          <button id="themeToggle" class="hidden sm:inline-flex p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring" aria-label="Toggle theme" aria-pressed="false"><span data-theme-icon="dark" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-theme-icon="light" class="hidden" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
-
-          <div class="relative">
-            <button type="button" data-dropdown-btn="notifications" class="relative p-2 min-h-[44px] min-w-[44px] rounded-lg bg-white/3 focus-visible-ring" aria-label="Notifications" aria-expanded="false">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2Zm6-6V11a6 6 0 1 0-12 0v5l-2 2v1h16v-1l-2-2Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-rose-400 shadow-[0_0_10px_rgba(251,113,133,.35)]"></span>
-            </button>
-            <div data-dropdown-panel="notifications" class="hidden absolute right-0 mt-3 w-[min(24rem,calc(100vw-1rem))] rounded-2xl border border-white/8 bg-[#101011]/95 coach-dropdown">
-              <div class="p-4 border-b border-white/8 flex items-center justify-between"><div><div class="text-white font-semibold">Coach alerts</div><div class="text-xs text-stone-400">3 new updates</div></div><span class="coach-chip is-active">Live</span></div>
-              <div class="p-3 space-y-2 max-h-96 overflow-y-auto coach-scrollbar">
-                <div class="rounded-2xl border border-white/8 bg-white/3 p-3"><div class="font-semibold text-white">Mia missed a workout</div><div class="text-xs text-stone-400 mt-1">Push follow-up with a recovery plan.</div></div>
-                <div class="rounded-2xl border border-white/8 bg-white/3 p-3"><div class="font-semibold text-white">Chris hit a milestone</div><div class="text-xs text-stone-400 mt-1">+2.1 kg muscle gain this month.</div></div>
-                <div class="rounded-2xl border border-white/8 bg-white/3 p-3"><div class="font-semibold text-white">Session starts in 20 min</div><div class="text-xs text-stone-400 mt-1">PT availability window is filling up.</div></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="relative">
-            <button type="button" data-dropdown-btn="profile" class="flex items-center gap-2 sm:gap-3 rounded-2xl bg-white/3 px-2 sm:px-3 py-2 min-h-[44px] hover:bg-white/6 fast-trans focus-visible-ring" aria-label="Profile menu" aria-expanded="false">
-              <div class="hidden sm:block text-right">
-                <div class="text-white font-semibold text-sm">Coach Ava</div>
-                <div class="text-stone-400 text-xs">Head Performance Coach</div>
-              </div>
-              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=96&auto=format&fit=crop" alt="Coach avatar" class="w-10 h-10 rounded-full object-cover border border-white/10"/>
-            </button>
-            <div data-dropdown-panel="profile" class="hidden absolute right-0 mt-3 w-[min(18rem,calc(100vw-1rem))] rounded-2xl border border-white/8 bg-[#101011]/95 coach-dropdown">
-              <div class="p-4 border-b border-white/8">
-                <div class="text-white font-semibold">Coach Ava</div>
-                <div class="text-xs text-stone-400">Elite Performance Coach</div>
-              </div>
-              <div class="p-2 text-sm text-stone-200">
-                <a href="coach.html" class="block rounded-xl px-3 py-2 hover:bg-white/5">Coach profile</a>
-                <a href="settings.html" class="block rounded-xl px-3 py-2 hover:bg-white/5">Account settings</a>
-                <a href="support.html" class="block rounded-xl px-3 py-2 hover:bg-white/5">Support</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      
 
       <div id="page-main" class="coach-app coach-stack">
         <section data-skeleton class="coach-rail">
@@ -619,14 +574,7 @@
         </svg>
       </a>
                   <!-- Nutrition -->
-      <a href="nutrition.html" data-mobile-nav-link class="mobile-bottom-nav__item" aria-label="Nutrition">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M16.4 13.4c0 3.7-2.2 6.1-4.9 6.1s-4.9-2.4-4.9-6.1c0-2.9 1.7-4.8 4-4.8.9 0 1.6.3 2.2.8.6-.5 1.3-.8 2.2-.8 2.3 0 4 1.9 4 4.8Z" />
-          <path d="M12 8.2V5.7" />
-          <path d="M12.1 5.8c.9-1.8 2.7-2.5 4.2-2.3-.5 2.1-2 3.2-4 3.3" />
-          <path d="M9.8 13.3h4.4" />
-        </svg>
-      </a>
+      <a href="workout.html" data-mobile-nav-link class="mobile-bottom-nav__item"  aria-label="Workout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h3v4H4zM17 10h3v4h-3z"/><path d="M7 12h10"/><path d="M9 9v6M15 9v6"/></svg></a>
       <!-- More -->
       <button id="mobileMoreBtn" type="button" class="mobile-bottom-nav__item" aria-controls="mobileMoreSheet" aria-expanded="false" aria-label="More navigation">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -722,6 +670,10 @@
   <!-- ===== END MOBILE BOTTOM NAV ===== -->
 </body>
 </html>
+
+
+
+
 
 
 

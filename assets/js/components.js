@@ -469,6 +469,35 @@ const Components = (function () {
     });
   };
 
+  // Ensure essential mobile bottom nav links exist (prevents other pages/scripts from removing them)
+  const ensureEssentialMobileLinks = () => {
+    const nav = document.getElementById('mobileBottomNav') || document.querySelector('nav.mobile-bottom-nav');
+    if (!nav) return;
+    const inner = nav.querySelector('.mobile-bottom-nav__inner');
+    if (!inner) return;
+
+    const ensureLink = (href, ariaLabel, svgHtml) => {
+      if (inner.querySelector(`a[href="${href}"]`)) return;
+      const a = document.createElement('a');
+      a.setAttribute('href', href);
+      a.setAttribute('data-mobile-nav-link', '');
+      a.className = 'mobile-bottom-nav__item';
+      a.setAttribute('aria-label', ariaLabel);
+      a.innerHTML = svgHtml;
+
+      // Insert before the More button if present, otherwise append
+      const moreBtn = inner.querySelector('#mobileMoreBtn');
+      if (moreBtn) inner.insertBefore(a, moreBtn);
+      else inner.appendChild(a);
+    };
+
+    const workoutSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h3v4H4zM17 10h3v4h-3z"/><path d="M7 12h10"/><path d="M9 9v6M15 9v6"/></svg>';
+    const nutritionSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v10"/><path d="M16 3v10"/><path d="M4 21h16"/></svg>';
+
+    ensureLink('workout.html', 'Workout', workoutSvg);
+    ensureLink('nutrition.html', 'Nutrition', nutritionSvg);
+  };
+
   const initRevealObserver = () => {
     const nodes = document.querySelectorAll('[data-reveal], .reveal');
     if (!nodes.length) return;
@@ -894,6 +923,7 @@ const Components = (function () {
     injectAttendanceNav();
     injectAiCoachNav();
     injectNutritionVoiceNav();
+    ensureEssentialMobileLinks();
     highlightActiveNav();
     initRevealObserver();
     initProgressPhotos();
