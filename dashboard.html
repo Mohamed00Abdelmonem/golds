@@ -89,6 +89,222 @@
       font-weight: 600
     }
 
+    .profile-header-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem 1rem;
+      border-radius: 1.15rem;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.32);
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      transition: transform 220ms ease, opacity 220ms ease;
+      will-change: transform, opacity;
+    }
+
+    .profile-header-card.is-hidden {
+      transform: translateY(-120%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .profile-header-avatar {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 9999px;
+      object-fit: cover;
+      border: 1px solid rgba(245, 176, 65, 0.5);
+      box-shadow: 0 0 0 4px rgba(245, 176, 65, 0.08);
+      flex: none;
+    }
+
+    .profile-header-bell {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 9999px;
+      color: #f5b041;
+      background: rgba(245, 176, 65, 0.1);
+      border: 1px solid rgba(245, 176, 65, 0.18);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      flex: none;
+    }
+
+    .profile-header-name {
+      font-size: 1rem;
+      line-height: 1.2;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .profile-header-subtitle {
+      margin-top: 0.2rem;
+      font-size: 0.72rem;
+      line-height: 1.1;
+      letter-spacing: 0.04em;
+      color: #a1a1aa;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .progress-feature-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(220px, 0.85fr);
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem;
+      border-radius: 1.15rem;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.34);
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+    }
+
+    .progress-feature-media {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1rem;
+      min-height: 13rem;
+      background: radial-gradient(circle at top, rgba(245, 176, 65, 0.14), rgba(0, 0, 0, 0.2));
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .progress-feature-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .progress-feature-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 9999px;
+      background: rgba(245, 176, 65, 0.1);
+      border: 1px solid rgba(245, 176, 65, 0.18);
+      color: #ffd79a;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .progress-feature-title {
+      margin-top: 0.75rem;
+      font-size: 1.35rem;
+      line-height: 1.15;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .progress-feature-copy {
+      margin-top: 0.45rem;
+      color: #c5c5c5;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .progress-feature-content {
+      min-width: 0;
+    }
+
+    .progress-feature-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.7rem;
+      margin-top: 1rem;
+    }
+
+    .progress-feature-metric {
+      padding: 0.8rem 0.85rem;
+      border-radius: 0.95rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .progress-feature-metric-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #a1a1aa;
+      font-weight: 800;
+    }
+
+    .progress-feature-metric-value {
+      margin-top: 0.3rem;
+      font-size: 1rem;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .progress-feature-metric-value.gold {
+      color: #f5b041;
+    }
+
+    .progress-feature-actions {
+      display: flex;
+      gap: 0.65rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .progress-feature-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.6rem;
+      padding: 0.7rem 1rem;
+      border-radius: 0.9rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+      transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
+    }
+
+    .progress-feature-button.primary {
+      background: linear-gradient(135deg, #f5b041, #ffd36b);
+      color: #0b0b0c;
+      box-shadow: 0 10px 24px rgba(245, 176, 65, 0.22);
+    }
+
+    .progress-feature-button.secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #f3f4f6;
+    }
+
+    .progress-feature-button:hover {
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 1024px) {
+      .progress-feature-card {
+        grid-template-columns: 1fr;
+      }
+
+      .progress-feature-media {
+        min-height: 12rem;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .progress-feature-card {
+        grid-template-columns: 1fr;
+      }
+
+      .progress-feature-metrics {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .mobile-bottom-nav,
     .mobile-bottom-sheet {
       display: none
@@ -424,153 +640,64 @@
       </div>
     </aside>
     <main class="dashboard-main flex-1 p-5 md:p-8 overflow-y-auto safe-bottom">
+      <header id="profileHeader" class="profile-header-card sticky top-5 z-20 mb-5">
+        <div class="flex items-center gap-3 min-w-0">
+          <img src="assets/img/user.png" alt="User profile avatar" class="profile-header-avatar" />
+          <div class="min-w-0">
+            <div class="profile-header-name truncate">Mohamed</div>
+            <div class="profile-header-subtitle truncate">Fitness Enthusiast</div>
+          </div>
+        </div>
+        <button type="button" class="profile-header-bell" aria-label="Notifications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="w-5 h-5" aria-hidden="true">
+            <path d="M15 17h5l-1.4-1.4A2 2 0 0 1 18 14.2V11a6 6 0 1 0-12 0v3.2a2 2 0 0 1-.6 1.4L4 17h5" />
+            <path d="M10 17a2 2 0 0 0 4 0" />
+          </svg>
+        </button>
+      </header>
+      <br>
+      <section class="progress-feature-card mt-8 md:mt-10 mb-5">
+        <div class="progress-feature-media">
+          <img src="assets/img/dashboard/banner-dashboard.png" alt="Workout progress banner" />
+        </div>
+        <div class="progress-feature-content">
+          <div class="progress-feature-kicker">Featured Progress</div>
+          <h2 class="progress-feature-title">Weekly fat-loss sprint is on track</h2>
+          <p class="progress-feature-copy">Keep your momentum with today’s focused workout, recovery check, and calorie target.</p>
+
+          <div class="progress-feature-metrics">
+            <div class="progress-feature-metric">
+              <div class="progress-feature-metric-label">Workout</div>
+              <div class="progress-feature-metric-value">Upper Body</div>
+            </div>
+            <div class="progress-feature-metric">
+              <div class="progress-feature-metric-label">Streak</div>
+              <div class="progress-feature-metric-value gold">55 Days</div>
+            </div>
+            <div class="progress-feature-metric">
+              <div class="progress-feature-metric-label">Goal</div>
+              <div class="progress-feature-metric-value">320 / 450 kcal</div>
+            </div>
+          </div>
+
+          <div class="progress-feature-actions">
+            <a href="workout.html" class="progress-feature-button primary">Resume Workout</a>
+            <a href="inbody.html" class="progress-feature-button secondary">View Progress</a>
+          </div>
+        </div>
+      </section>
       <div id="page-main">
         <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <!-- Main Content -->
-          <div class="lg:col-span-8 space-y-6">
-            <!-- Welcome Card -->
-            <div class="glass rounded-2xl p-8 fast-trans">
-              <div class="flex items-center justify-between mb-6">
-                <div>
-                  <div class="text-stone-400 text-xs font-bold uppercase">Welcome back</div>
-                  <div class="text-white font-black text-3xl"></div>
-                </div>
-                <div class="text-right">
-                  <div class="text-gold font-bold">Gold Elite</div>
-                  <div class="text-stone-400 text-xs">Valid until May 2027</div>
-                </div>
-              </div>
-
-              <!-- Quick Stats -->
-              <div class="ladder-stats-grid">
-                <div class="ladder-stat-card">
-                  <div class="ladder-stat-label">Current Streak</div>
-                  <div class="ladder-stat-value">55 days</div>
-                  <div class="ladder-stat-note">Amazing consistency</div>
-                </div>
-                <div class="ladder-stat-card">
-                  <div class="ladder-stat-label">Workouts This Week</div>
-                  <div class="ladder-stat-value">4/5</div>
-                  <div class="ladder-stat-note">On track!</div>
-                </div>
-                <div class="ladder-stat-card">
-                  <div class="ladder-stat-label">Calories Burned Today</div>
-                  <div class="ladder-stat-value">320 kcal</div>
-                  <div class="ladder-stat-note">+180 vs yesterday</div>
-                </div>
-                <div class="ladder-stat-card">
-                  <div class="ladder-stat-label">Body Fat %</div>
-                  <div class="ladder-stat-value">22.2%</div>
-                  <div class="ladder-stat-note">-0.8% this month</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Today's Workout -->
-            <div id="progress" class="glass rounded-2xl p-6 fast-trans scroll-mt-24">
-              <div class="flex items-center justify-between mb-4">
-                <div>
-                  <div class="text-stone-400 text-xs font-bold uppercase">Today's Plan</div>
-                  <div class="text-white font-black text-xl">Chest & Triceps</div>
-                </div>
-                <div class="text-stone-400 text-sm">18:30  Session</div>
-              </div>
-              <div class="space-y-2 mb-4">
-                <div class="flex items-center gap-3"><input type="checkbox" class="rounded" /><span
-                    class="text-stone-300">Barbell Bench Press  4x6-8 reps</span></div>
-                <div class="flex items-center gap-3"><input type="checkbox" checked class="rounded" /><span
-                    class="text-stone-300 line-through">Incline Dumbbell Press  3x8-10 reps</span></div>
-                <div class="flex items-center gap-3"><input type="checkbox" class="rounded" /><span
-                    class="text-stone-300">Tricep Rope Pushdown  3x12-15 reps</span></div>
-              </div>
-              <a href="workout.html"
-                class="bg-gold text-black px-4 py-2 rounded-lg font-semibold inline-block hover:scale-105 fast-trans">Start
-                Workout</a>
-            </div>
-
-            <!-- Recent Activity -->
-            <div class="glass rounded-2xl p-6 fast-trans">
-              <div class="text-stone-400 text-xs font-bold uppercase mb-4">Recent Activity</div>
-              <div class="space-y-3">
-                <div class="flex items-center justify-between p-3 glass rounded-lg">
-                  <div>
-                    <div class="font-semibold">Pull Day Completed</div>
-                    <div class="text-stone-400 text-xs">1,650 kcal  62 min</div>
-                  </div>
-                  <div class="text-gold text-sm"></div>
-                </div>
-                <div class="flex items-center justify-between p-3 glass rounded-lg">
-                  <div>
-                    <div class="font-semibold">InBody Scan Completed</div>
-                    <div class="text-stone-400 text-xs">Apr 26  Body Comp Update</div>
-                  </div>
-                  <div class="text-gold text-sm"></div>
-                </div>
-                <div class="flex items-center justify-between p-3 glass rounded-lg">
-                  <div>
-                    <div class="font-semibold">Achieved: 10 Day Streak</div>
-                    <div class="text-stone-400 text-xs">Apr 25  Badge unlocked</div>
-                  </div>
-                  <div class="text-gold text-sm"></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Progress Chart Section -->
-            <div class="glass rounded-2xl p-6 fast-trans">
-              <div class="text-stone-400 text-xs font-bold uppercase mb-4">Body Metrics - Last 12 Weeks</div>
-              <div class="grid gap-4 md:grid-cols-2">
-                <article class="rounded-2xl bg-black/20 p-4 md:p-5 shadow-lg shadow-black/20">
-                  <div class="flex items-start justify-between gap-3">
-                    <div>
-                      <div class="text-sm font-semibold text-white">Weight Progress</div>
-                      <div class="mt-1 text-xs text-stone-400">Trend photo and change summary</div>
-                    </div>
-                    <span class="rounded-full bg-white/5 px-2.5 py-1 text-[11px] text-stone-300">-3.3 kg</span>
-                  </div>
-                  <div
-                    class="mt-4 overflow-hidden rounded-xl bg-black/40 aspect-[4/3] flex items-center justify-center p-2">
-                    <img
-                      src="https://metro.co.uk/wp-content/uploads/2026/01/SEI_280395101-ca42.jpg?quality=90&strip=all&w=646"
-                      alt="Weight Progress Preview" width="646" height="430"
-                      class="h-full w-full object-contain object-center" />
-                  </div>
-                  <div class="mt-3 flex items-center justify-between text-xs text-stone-400">
-                    <span>80.5kg ? 77.2kg</span>
-                    <span class="text-emerald-300">Lean down</span>
-                  </div>
-                </article>
-
-                <article class="rounded-2xl bg-black/20 p-4 md:p-5 shadow-lg shadow-black/20">
-                  <div class="flex items-start justify-between gap-3">
-                    <div>
-                      <div class="text-sm font-semibold text-white">Muscle Mass Gain</div>
-                      <div class="mt-1 text-xs text-stone-400">Progress photo and growth summary</div>
-                    </div>
-                    <span class="rounded-full bg-emerald-400/10 px-2.5 py-1 text-[11px] text-emerald-300">+2.6 kg</span>
-                  </div>
-                  <div
-                    class="mt-4 overflow-hidden rounded-xl bg-black/40 aspect-[4/3] flex items-center justify-center p-2">
-                    <img
-                      src="https://preview.redd.it/7-weeks-out-6ft-200lbs-npc-natural-v0-g1khcn1mgiwg1.png?width=640&crop=smart&auto=webp&s=8d60404987f6aa62859f2325ebf5533f1fbfcc43"
-                      alt="Muscle Mass Preview" width="640" height="480"
-                      class="h-full w-full object-contain object-center" />
-                  </div>
-                  <div class="mt-3 flex items-center justify-between text-xs text-stone-400">
-                    <span>58.2kg ? 60.8kg</span>
-                    <span class="text-gold">Muscle gain</span>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
+        
 
           <!-- Right Sidebar -->
           <aside class="lg:col-span-4 space-y-6">
             <!-- InBody Section -->
             <div class="glass rounded-2xl p-6 fast-trans">
               <div class="text-stone-400 text-xs font-bold uppercase mb-3">Last InBody Scan</div>
-              <div class="text-2xl font-black mb-4">Apr 26 @ 14:30</div>
+              <div class="text-2xl font-black mb-4">Apr 26 / 2:30</div>
               <div class="space-y-2 text-sm">
                 <div class="flex justify-between"><span class="text-stone-400">Body Fat %</span><span
                     class="text-gold font-bold">17.2%</span></div>
@@ -591,10 +718,10 @@
               <div class="text-stone-400 text-xs font-bold uppercase mb-3">Next Coaching Session</div>
               <div class="text-white font-black mb-3">Friday 18:00</div>
               <div class="flex items-center gap-3 mb-4">
-                <img src="assets/img/coaches/1.png"
+                <img src="assets/img/user.png"
                   class="w-12 h-12 rounded-lg object-cover" alt="Coach">
                 <div>
-                  <div class="font-semibold text-sm">Malik Grant</div>
+                  <div class="font-semibold text-sm">Mohamed</div>
                   <div class="text-stone-400 text-xs">Performance Coach</div>
                 </div>
               </div>
@@ -958,6 +1085,7 @@
       const bottomSheet = document.getElementById('mobileMoreSheet');
       const moreButton = document.getElementById('mobileMoreBtn');
       const closeButtons = document.querySelectorAll('[data-mobile-more-close]');
+      const profileHeader = document.getElementById('profileHeader');
       const homeLink = bottomNav?.querySelector('a[href="landing.html"]');
       const dashboardLink = bottomNav?.querySelector('a[href="dashboard.html"]');
       const progressLink = bottomNav?.querySelector('a[href="#progress"]');
@@ -1042,9 +1170,26 @@
         else setActive('dashboard');
       };
 
+      const dashboardMain = document.querySelector('.dashboard-main');
+      let lastScrollTop = dashboardMain ? dashboardMain.scrollTop : window.scrollY;
+
+      const syncProfileHeader = () => {
+        const currentScrollTop = dashboardMain ? dashboardMain.scrollTop : window.scrollY;
+        const scrollingDown = currentScrollTop > lastScrollTop;
+
+        if (currentScrollTop < 24 || !scrollingDown) profileHeader?.classList.remove('is-hidden');
+        else profileHeader?.classList.add('is-hidden');
+
+        lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+      };
+
+      dashboardMain?.addEventListener('scroll', syncProfileHeader, { passive: true });
+      window.addEventListener('scroll', syncProfileHeader, { passive: true });
+
       mq.addEventListener?.('change', syncMobileNav);
       window.addEventListener('hashchange', syncMobileNav);
       syncMobileNav();
+      syncProfileHeader();
     })();
   </script>
   <script>
