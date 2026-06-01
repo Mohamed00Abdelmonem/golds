@@ -2,7 +2,7 @@
   "name": "GoldTech",
   "short_name": "GoldTech",
   "description": "Premium smart gym platform for training, coaching, and progress tracking.",
-  "start_url": "landing.html",
+  "start_url": "./landing.html",
   "scope": "./",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],

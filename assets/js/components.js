@@ -105,7 +105,35 @@ const Components = (function () {
     if (!('serviceWorker' in navigator)) return;
 
     try {
-      await navigator.serviceWorker.register(SERVICE_WORKER_URL, { scope: APP_ROOT_URL.pathname, updateViaCache: 'none' });
+      const registration = await navigator.serviceWorker.register(SERVICE_WORKER_URL, { scope: APP_ROOT_URL.pathname, updateViaCache: 'none' });
+      await registration.update();
+
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing) return;
+        refreshing = true;
+        window.location.reload();
+      });
+
+      const promptWaitingWorker = () => {
+        if (registration.waiting) {
+          registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+        }
+      };
+
+      if (registration.waiting) {
+        promptWaitingWorker();
+      }
+
+      registration.addEventListener('updatefound', () => {
+        const newWorker = registration.installing;
+        if (!newWorker) return;
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            promptWaitingWorker();
+          }
+        });
+      });
     } catch {
       // Silent fallback for unsupported hosts or file:// previews.
     }

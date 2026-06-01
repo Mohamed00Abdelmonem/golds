@@ -1,64 +1,35 @@
-const CACHE_NAME = 'goldtech-pwa-v2';
-const CORE_ASSETS = [
-  'https://cdn.tailwindcss.com',
-  'https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap',
-  'landing.html',
-  'index.html',
-  'offline.html',
+const SW_VERSION = 'v2026-06-01-1';
+const CACHE_PREFIX = 'goldtech-pwa';
+const SHELL_CACHE = `${CACHE_PREFIX}-shell-${SW_VERSION}`;
+const RUNTIME_CACHE = `${CACHE_PREFIX}-runtime-${SW_VERSION}`;
+const OFFLINE_URL = 'offline.html';
+
+const SHELL_ASSETS = [
+  OFFLINE_URL,
   'manifest.json',
   'assets/css/style.css',
   'assets/js/components.js',
   'assets/js/i18n.js',
   'assets/golds-logo.png',
-  'assets/logo-app.png',
-  'achievements.html',
-  'blog-details.html',
-  'blogs.html',
-  'classes.html',
-  'coach-dashboard.html',
-  'coach.html',
-  'coaches.html',
-  'community.html',
-  'crowd.html',
-  'dashboard.html',
-  'exercise.html',
-  'inbody.html',
-  'login.html',
-  'machines.html',
-  'membership.html',
-  'notifications.html',
-  'nutrition.html',
-  'product.html',
-  'profile.html',
-  'programs.html',
-  'qr.html',
-  'register.html',
-  'settings.html',
-  'smart-attendance.html',
-  'smart-test.html',
-  'store.html',
-  'stories.html',
-  'support.html',
-  'timer.html',
-  'workout.html'
+  'assets/logo-app.png'
 ];
 
-const addToCache = async (cache, request) => {
-  try {
-    const response = await fetch(request);
-    if (response && (response.ok || response.type === 'opaque')) {
-      await cache.put(request, response.clone());
-    }
-    return response;
-  } catch {
-    return null;
+const isSameOrigin = (url) => url.origin === self.location.origin;
+const isHtmlRequest = (request) => request.mode === 'navigate' || request.destination === 'document';
+const isCriticalAsset = (request) => ['script', 'style'].includes(request.destination);
+
+const putIfCacheable = async (cache, request, response) => {
+  if (!response) return response;
+  if (response.ok || response.type === 'opaque') {
+    await cache.put(request, response.clone());
   }
+  return response;
 };
 
 self.addEventListener('install', (event) => {
   event.waitUntil((async () => {
-    const cache = await caches.open(CACHE_NAME);
-    await Promise.all(CORE_ASSETS.map((asset) => addToCache(cache, asset)));
+    const cache = await caches.open(SHELL_CACHE);
+    await cache.addAll(SHELL_ASSETS);
     await self.skipWaiting();
   })());
 });
@@ -66,40 +37,58 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
-    await Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)));
+    await Promise.all(
+      keys
+        .filter((key) => key.startsWith(CACHE_PREFIX) && key !== SHELL_CACHE && key !== RUNTIME_CACHE)
+        .map((key) => caches.delete(key))
+    );
     await self.clients.claim();
   })());
+});
+
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
-  const isNavigation = event.request.mode === 'navigate';
+  const requestUrl = new URL(event.request.url);
+  const sameOrigin = isSameOrigin(requestUrl);
 
-  if (isNavigation) {
+  // Network-first for HTML, JS and CSS prevents stale app shells after deployment.
+  if (sameOrigin && (isHtmlRequest(event.request) || isCriticalAsset(event.request))) {
     event.respondWith((async () => {
+      const cacheName = isHtmlRequest(event.request) ? SHELL_CACHE : RUNTIME_CACHE;
+      const cache = await caches.open(cacheName);
       try {
-        const networkResponse = await fetch(event.request);
-        const cache = await caches.open(CACHE_NAME);
-        cache.put(event.request, networkResponse.clone());
-        return networkResponse;
+        const networkResponse = await fetch(event.request, { cache: 'no-store' });
+        return await putIfCacheable(cache, event.request, networkResponse);
       } catch {
-        const cachedPage = await caches.match(event.request, { ignoreSearch: true });
-        if (cachedPage) return cachedPage;
-        return caches.match('offline.html');
+        const cached = await cache.match(event.request);
+        if (cached) return cached;
+        if (isHtmlRequest(event.request)) {
+          return (await caches.match(OFFLINE_URL)) || Response.error();
+        }
+        return Response.error();
       }
     })());
     return;
   }
 
+  // Cache-first for non-critical assets keeps offline support fast.
   event.respondWith((async () => {
-    const cache = await caches.open(CACHE_NAME);
-    const cachedResponse = await cache.match(event.request, { ignoreSearch: true });
-    if (cachedResponse) return cachedResponse;
+    const cache = await caches.open(RUNTIME_CACHE);
+    const cached = await cache.match(event.request);
+    if (cached) return cached;
 
-    const networkResponse = await addToCache(cache, event.request);
-    if (networkResponse) return networkResponse;
-
-    return cachedResponse || Response.error();
+    try {
+      const networkResponse = await fetch(event.request);
+      return await putIfCacheable(cache, event.request, networkResponse);
+    } catch {
+      return Response.error();
+    }
   })());
 });
