@@ -4,7 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Golds • Premium Fitness Experience</title>
-    <script>tailwind.config = { theme: { extend: { colors: { brand: { DEFAULT: '#d4af37' } }, borderRadius: { 'lg-xl': '28px' }, boxShadow: { 'soft-lg': '0 18px 50px rgba(2,6,23,0.08)' } } } }</script>
+    <meta name="theme-color" content="#070708" />
+    <meta name="application-name" content="GoldTech" />
+    <meta name="apple-mobile-web-app-title" content="GoldTech" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="assets/logo-app.png" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/logo-app.png" />
+    <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { theme: { extend: { colors: { brand: { DEFAULT: '#d4af37' } }, borderRadius: { 'lg-xl': '28px' }, boxShadow: { 'soft-lg': '0 18px 50px rgba(2,6,23,0.08)' } } } }</script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -224,6 +233,7 @@
       </footer>
     </main>
 
+    <script src="assets/js/components.js"></script>
     <script>
       const slides = Array.from(document.querySelectorAll('[data-carousel-slide]'));
       const dots = Array.from(document.querySelectorAll('[data-carousel-dot]'));

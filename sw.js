@@ -1,4 +1,4 @@
-const CACHE_NAME = 'goldtech-pwa-v1';
+const CACHE_NAME = 'goldtech-pwa-v2';
 const CORE_ASSETS = [
   'https://cdn.tailwindcss.com',
   'https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap',
@@ -9,6 +9,7 @@ const CORE_ASSETS = [
   'assets/css/style.css',
   'assets/js/components.js',
   'assets/js/i18n.js',
+  'assets/golds-logo.png',
   'assets/logo-app.png',
   'achievements.html',
   'blog-details.html',
@@ -39,37 +40,7 @@ const CORE_ASSETS = [
   'stories.html',
   'support.html',
   'timer.html',
-  'workout.html',
-  'arabic/achievements.html',
-  'arabic/blog-details.html',
-  'arabic/blogs.html',
-  'arabic/classes.html',
-  'arabic/coach.html',
-  'arabic/coaches.html',
-  'arabic/community.html',
-  'arabic/crowd.html',
-  'arabic/dashboard.html',
-  'arabic/exercise.html',
-  'arabic/inbody.html',
-  'arabic/index.html',
-  'arabic/landing.html',
-  'arabic/login.html',
-  'arabic/machines.html',
-  'arabic/membership.html',
-  'arabic/notifications.html',
-  'arabic/nutrition.html',
-  'arabic/product.html',
-  'arabic/profile.html',
-  'arabic/programs.html',
-  'arabic/qr.html',
-  'arabic/register.html',
-  'arabic/settings.html',
-  'arabic/smart-test.html',
-  'arabic/store.html',
-  'arabic/stories.html',
-  'arabic/support.html',
-  'arabic/timer.html',
-  'arabic/workout.html'
+  'workout.html'
 ];
 
 const addToCache = async (cache, request) => {
@@ -87,7 +58,7 @@ const addToCache = async (cache, request) => {
 self.addEventListener('install', (event) => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_NAME);
-    await cache.addAll(CORE_ASSETS);
+    await Promise.all(CORE_ASSETS.map((asset) => addToCache(cache, asset)));
     await self.skipWaiting();
   })());
 });
@@ -103,8 +74,6 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
-  const requestUrl = new URL(event.request.url);
-  const isSameOrigin = requestUrl.origin === self.location.origin;
   const isNavigation = event.request.mode === 'navigate';
 
   if (isNavigation) {
@@ -122,8 +91,6 @@ self.addEventListener('fetch', (event) => {
     })());
     return;
   }
-
-  if (!isSameOrigin) return;
 
   event.respondWith((async () => {
     const cache = await caches.open(CACHE_NAME);

@@ -2,8 +2,12 @@
 const Components = (function () {
   const STORAGE_KEY = 'goldtech.sidebarCollapsed';
   const THEME_KEY = 'goldtech.theme';
-  const MANIFEST_PATH = 'manifest.json';
-  const APP_ICON_PATH = 'assets/logo-app.png';
+  const COMPONENTS_SCRIPT_URL = document.currentScript?.src || new URL('assets/js/components.js', window.location.href).href;
+  const APP_ROOT_URL = new URL('../../', COMPONENTS_SCRIPT_URL);
+  const resolveAppUrl = (path) => new URL(path, APP_ROOT_URL).href;
+  const MANIFEST_URL = resolveAppUrl('manifest.json');
+  const APP_ICON_URL = resolveAppUrl('assets/logo-app.png');
+  const SERVICE_WORKER_URL = resolveAppUrl('sw.js');
   const PWA_THEME_COLORS = {
     dark: '#070708',
     light: '#f7f8fb',
@@ -86,9 +90,9 @@ const Components = (function () {
   };
 
   const injectPwaAssets = () => {
-    ensureLink('manifest', MANIFEST_PATH, { type: 'application/manifest+json' });
-    ensureLink('icon', APP_ICON_PATH, { type: 'image/png' });
-    ensureLink('apple-touch-icon', APP_ICON_PATH);
+    ensureLink('manifest', MANIFEST_URL, { type: 'application/manifest+json' });
+    ensureLink('icon', APP_ICON_URL, { type: 'image/png' });
+    ensureLink('apple-touch-icon', APP_ICON_URL);
     ensureMeta('application-name', 'GoldTech');
     ensureMeta('apple-mobile-web-app-title', 'GoldTech');
     ensureMeta('apple-mobile-web-app-capable', 'yes');
@@ -101,7 +105,7 @@ const Components = (function () {
     if (!('serviceWorker' in navigator)) return;
 
     try {
-      await navigator.serviceWorker.register('sw.js', { scope: './' });
+      await navigator.serviceWorker.register(SERVICE_WORKER_URL, { scope: APP_ROOT_URL.pathname, updateViaCache: 'none' });
     } catch {
       // Silent fallback for unsupported hosts or file:// previews.
     }
@@ -124,7 +128,7 @@ const Components = (function () {
     splash.innerHTML = `
       <div class="app-splash__card">
         <div class="app-splash__logo-wrap" aria-hidden="true">
-          <img src="${APP_ICON_PATH}" alt="" />
+          <img src="${APP_ICON_URL}" alt="" />
         </div>
         <div class="app-splash__title">GoldTech</div>
         <div class="app-splash__subtitle">SMART FITNESS OS</div>
