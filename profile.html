@@ -411,37 +411,90 @@
       };
 
       const seedData = {
-        [toISO(year, month, 3)]: {
-          title: 'Upper body strength',
-          duration: '62 min',
-          calories: '480 kcal',
-          exercises: ['Bench press 4x6', 'Incline DB press 3x10', 'Seated row 3x12', 'Tricep rope 3x12'],
-        },
-        [toISO(year, month, 8)]: {
-          title: 'Lower body power',
-          duration: '55 min',
-          calories: '510 kcal',
-          exercises: ['Back squat 5x5', 'RDL 3x8', 'Walking lunge 3x12', 'Calf raise 4x15'],
-        },
-        [toISO(year, month, 15)]: {
-          title: 'Pull focus',
-          duration: '58 min',
-          calories: '450 kcal',
-          exercises: ['Deadlift 4x4', 'Lat pulldown 3x10', 'Face pull 3x15', 'Bicep curl 3x12'],
-        },
-        [toISO(year, month, 21)]: {
-          title: 'Conditioning + core',
-          duration: '42 min',
-          calories: '390 kcal',
-          exercises: ['Rowing intervals 6x1m', 'Plank 3x45s', 'Hanging knee raise 3x12', 'Farmer carry 4x30m'],
-        },
+        [toISO(year, month, 3)]: [
+          {
+            title: 'Upper body strength',
+            duration: '62 min',
+            calories: '480 kcal',
+            time: '07:10 PM',
+            note: 'Bench volume stayed strong and the last two sets felt easier.',
+            exercises: ['Bench press 4x6', 'Incline DB press 3x10', 'Seated row 3x12', 'Tricep rope 3x12'],
+          },
+        ],
+        [toISO(year, month, 8)]: [
+          {
+            title: 'Lower body power',
+            duration: '55 min',
+            calories: '510 kcal',
+            time: '06:40 PM',
+            note: 'Squat speed improved and all working sets were completed cleanly.',
+            exercises: ['Back squat 5x5', 'RDL 3x8', 'Walking lunge 3x12', 'Calf raise 4x15'],
+          },
+        ],
+        [toISO(year, month, 15)]: [
+          {
+            title: 'Pull focus',
+            duration: '58 min',
+            calories: '450 kcal',
+            time: '07:25 PM',
+            note: 'Added a small load increase on deadlifts without losing form.',
+            exercises: ['Deadlift 4x4', 'Lat pulldown 3x10', 'Face pull 3x15', 'Bicep curl 3x12'],
+          },
+          {
+            title: 'Mobility reset',
+            duration: '18 min',
+            calories: '90 kcal',
+            time: '09:10 PM',
+            note: 'Quick recovery session after the main lift.',
+            exercises: ['Thoracic rotations', 'Hamstring stretch', 'Band pull-aparts', 'Breathing drills'],
+          },
+        ],
+        [toISO(year, month, 21)]: [
+          {
+            title: 'Conditioning + core',
+            duration: '42 min',
+            calories: '390 kcal',
+            time: '06:55 PM',
+            note: 'Intervals held the same pace across all rounds.',
+            exercises: ['Rowing intervals 6x1m', 'Plank 3x45s', 'Hanging knee raise 3x12', 'Farmer carry 4x30m'],
+          },
+        ],
+      };
+
+      const normalizeHistory = (data) => {
+        if (!data || typeof data !== 'object') return {};
+
+        return Object.entries(data).reduce((acc, [date, value]) => {
+          const sessions = Array.isArray(value) ? value : value ? [value] : [];
+          const cleaned = sessions.filter((session) => session && typeof session === 'object');
+
+          if (cleaned.length) {
+            acc[date] = cleaned;
+          }
+
+          return acc;
+        }, {});
+      };
+
+      const mergeHistory = (baseHistory, fallbackHistory) => {
+        const merged = { ...fallbackHistory };
+
+        Object.entries(baseHistory).forEach(([date, sessions]) => {
+          const currentSessions = Array.isArray(merged[date]) ? merged[date] : [];
+          merged[date] = [...currentSessions, ...sessions];
+        });
+
+        return merged;
       };
 
       const loadData = () => {
         const stored = localStorage.getItem(storageKey);
         if (stored) {
           try {
-            return JSON.parse(stored);
+            const storedHistory = normalizeHistory(JSON.parse(stored));
+            const mergedHistory = mergeHistory(storedHistory, seedData);
+            localStorage.setItem(storageKey, JSON.stringify(mergedHistory));
+            return mergedHistory;
           } catch {
             return { ...seedData };
           }
@@ -458,8 +511,8 @@
       };
 
       const renderDetails = (iso) => {
-        const entry = workouts[iso];
-        if (!entry) {
+        const sessions = workouts[iso] || [];
+        if (!sessions.length) {
           detailEl.textContent = iso;
           detailMetaEl.textContent = 'No session logged.';
           detailListEl.innerHTML = '';
@@ -469,9 +522,24 @@
 
         emptyEl.classList.add('hidden');
         detailEl.textContent = iso;
-        detailMetaEl.textContent = `${entry.title}  ${entry.duration}  ${entry.calories}`;
-        detailListEl.innerHTML = entry.exercises
-          .map((item) => `<div class="flex items-center justify-between rounded-2xl border border-white/8 bg-white/3 px-4 py-2 text-sm text-stone-200"><span>${item}</span><span class="text-xs text-stone-400">Completed</span></div>`)
+        detailMetaEl.textContent = `${sessions.length} workout session${sessions.length === 1 ? '' : 's'} logged`;
+        detailListEl.innerHTML = sessions
+          .map((entry, index) => {
+            const exercises = Array.isArray(entry.exercises) ? entry.exercises : [];
+            return `
+              <article class="rounded-2xl border border-white/8 bg-white/3 p-4 text-sm text-stone-200">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <div class="text-base font-bold text-white">${entry.title || `Session ${index + 1}`}</div>
+                    <div class="mt-1 text-xs text-stone-400">${[entry.time, entry.duration, entry.calories].filter(Boolean).join(' • ')}</div>
+                  </div>
+                  <div class="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-gold">${index + 1}</div>
+                </div>
+                ${entry.note ? `<p class="mt-3 text-sm text-stone-300">${entry.note}</p>` : ''}
+                ${exercises.length ? `<div class="mt-4 flex flex-wrap gap-2">${exercises.map((item) => `<span class="rounded-full border border-white/8 bg-black/20 px-3 py-1 text-xs text-stone-300">${item}</span>`).join('')}</div>` : ''}
+              </article>
+            `;
+          })
           .join('');
       };
 
@@ -523,9 +591,12 @@
         }
 
         const defaultIso = toISO(today.getFullYear(), today.getMonth(), today.getDate());
-        const defaultButton = gridEl.querySelector(`[data-date="${defaultIso}"]`);
+        const fallbackIso = Object.keys(workouts).sort().find((date) => workouts[date]?.length) || defaultIso;
+        const defaultButton = gridEl.querySelector(`[data-date="${fallbackIso}"]`);
         if (defaultButton) {
           defaultButton.classList.add('is-selected');
+          renderDetails(fallbackIso);
+        } else {
           renderDetails(defaultIso);
         }
       };
