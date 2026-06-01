@@ -15,16 +15,19 @@
       html,body{overflow:hidden;height:100vh;height:100dvh}
       body{padding-bottom:0 !important}
       .app-shell{height:100dvh;overflow:hidden}
-      main.flex-1{overflow-y:auto !important;padding-bottom:calc(6.5rem + env(safe-area-inset-bottom)) !important}
+      main.flex-1{overflow-y:auto !important;padding-bottom:calc(6.9rem + env(safe-area-inset-bottom)) !important}
       .mobile-bottom-nav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:999;width:100%;padding:0;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;pointer-events:none}
-      .mobile-bottom-nav__inner{pointer-events:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0.3rem;width:100%;border-radius:0;padding:0.45rem 0.75rem;background:rgba(15,15,17,0.85);border-top:1px solid rgba(255,255,255,0.08);box-shadow:0 -8px 24px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.05);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%)}
-      .mobile-bottom-nav__item{display:flex;flex-direction:column;align-items:center;justify-content:center;width:3rem;height:3rem;border-radius:9999px;color:#a1a1aa;transition:all 280ms cubic-bezier(0.34,1.56,0.64,1);border:none;cursor:pointer;position:relative;text-decoration:none}
+      .mobile-bottom-nav__inner{pointer-events:auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0.65rem;width:100%;border-radius:0;padding:0.6rem 1.1rem 0.8rem;background:rgba(15,15,17,0.85);border-top:1px solid rgba(255,255,255,0.08);box-shadow:0 -8px 24px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.05);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%);position:relative}
+      .mobile-bottom-nav__item{display:flex;flex-direction:column;align-items:center;justify-content:center;width:3rem;height:3rem;border-radius:9999px;color:#a1a1aa;transition:all 280ms cubic-bezier(0.34,1.56,0.64,1);border:none;cursor:pointer;position:relative;text-decoration:none;justify-self:center}
       .mobile-bottom-nav__item svg{width:1.45rem;height:1.45rem;transition:transform 200ms}
       .mobile-bottom-nav__item:active svg{transform:scale(0.85)}
       .mobile-bottom-nav__item::after{content:'';position:absolute;bottom:0.3rem;width:4px;height:4px;border-radius:50%;background:var(--gold,#f5b041);opacity:0;transform:scale(0);transition:all 250ms cubic-bezier(0.34,1.56,0.64,1)}
       .mobile-bottom-nav__item.is-active::after{opacity:1;transform:scale(1)}
       .mobile-bottom-nav__item.is-active{background:rgba(255,212,0,0.12);color:var(--gold,#f5b041);box-shadow:0 4px 16px rgba(255,212,0,0.15),inset 0 0 0 1px rgba(255,212,0,0.25);transform:translateY(-2px)}
       .mobile-bottom-nav__item.more-active{background:rgba(255,212,0,0.2);color:var(--gold,#f5b041)}
+      .mobile-bottom-nav__signup{pointer-events:auto;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;width:3.1rem;height:3.1rem;border-radius:9999px;background:linear-gradient(180deg,#ffe48f 0%,#ffd24e 55%,#f5b041 100%);color:#111;box-shadow:0 8px 20px rgba(245,176,65,0.34),0 0 0 1px rgba(255,243,204,0.45),inset 0 1px 0 rgba(255,255,255,0.35);border:1px solid rgba(255,255,255,0.16);text-decoration:none;transition:transform 220ms cubic-bezier(0.34,1.56,0.64,1),box-shadow 220ms ease,background 180ms ease;z-index:2}
+      .mobile-bottom-nav__signup svg{width:1.45rem;height:1.45rem}
+      .mobile-bottom-nav__signup:active{transform:translate(-50%,-50%) scale(0.96)}
       .mobile-bottom-sheet{display:block;position:fixed;inset:0;z-index:1000;opacity:0;pointer-events:none;transition:opacity 220ms ease}
       .mobile-bottom-sheet.is-open{opacity:1;pointer-events:auto}
       .mobile-bottom-sheet__scrim{position:absolute;inset:0;background:rgba(0,0,0,.62);backdrop-filter:blur(10px)}
@@ -224,12 +227,19 @@
       <a href="dashboard.html" data-mobile-nav-link class="mobile-bottom-nav__item" aria-label="Dashboard">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
       </a>
+       <a href="dashboard.html" data-mobile-nav-link class="mobile-bottom-nav__item" aria-label="Dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+      </a>
       <a href="workout.html" data-mobile-nav-link class="mobile-bottom-nav__item" aria-label="Workout">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L5 14h6l-1 8 9-12h-6l0-8z"/></svg>
       </a>
+      
       <button id="mobileMoreBtn" type="button" class="mobile-bottom-nav__item" aria-controls="mobileMoreSheet" aria-expanded="false" aria-label="More navigation">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/><circle cx="5" cy="12" r="1.5" fill="currentColor"/></svg>
       </button>
+      <a href="register.html" class="mobile-bottom-nav__signup" aria-label="Sign up">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </a>
     </div>
   </nav>
 
