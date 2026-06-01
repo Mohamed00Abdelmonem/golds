@@ -7,8 +7,10 @@
 
   <!-- Tailwind CDN + config (matches dashboard) -->
   <script>
-    tailwind.config = {
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = {
       theme: { extend: { colors: { gold: { DEFAULT: '#f5b041' } }, fontFamily: { display:['Poppins','Inter','system-ui','sans-serif'] } } }
+    };
     </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
@@ -318,7 +320,7 @@
                   </div>
                   <div class="flex flex-wrap items-center" style="margin-top:clamp(0.5rem,1vw,0.75rem); gap:clamp(0.25rem,1vw,0.5rem)">
                     <button class="glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)" data-action="qr">Scan QR</button>
-                    <button id="watchMachine" class="tutorial-btn glass rounded-lg" data-video="assets/img/posts/post1video.mp4" data-title="Machine Tutorial" data-subtitle="Model X9" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Watch Tutorial</button>
+                    <button id="watchMachine" class="tutorial-btn glass rounded-lg" data-video="assets/videos/Back.mp4" data-title="Machine Tutorial" data-subtitle="Model X9" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Watch Tutorial</button>
                     <div class="text-stone-400 ml-auto" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Machine: M-231</div>
                   </div>
                 </div>
@@ -492,7 +494,7 @@
           <div class="text-stone-400" style="margin-bottom:clamp(0.5rem,1.5vw,0.75rem)">Scan the QR on the machine to auto-load guided sets and safety tips.</div>
           <div class="flex gap-2 flex-wrap">
             <button id="scanMachine" class="bg-gradient-to-br from-[#2b2b2b] to-[#0f0f0f] text-gold rounded-lg font-semibold" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.75rem,2vw,1rem)">Scan QR</button>
-            <button id="watchMachine" class="tutorial-btn glass rounded-lg" data-video="assets/img/posts/post1video.mp4" data-title="Machine Tutorial" data-subtitle="Model X9" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.75rem,2vw,1rem)">Watch Tutorial</button>
+            <button id="watchMachine" class="tutorial-btn glass rounded-lg" data-video="assets/videos/Back.mp4" data-title="Machine Tutorial" data-subtitle="Model X9" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.75rem,2vw,1rem)">Watch Tutorial</button>
           </div>
         </div>
 
@@ -521,7 +523,7 @@
 <!-- Tutorial modal (reused) -->
 <div id="tutorialModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50" style="padding:clamp(0.75rem,2vw,1rem)">
   <div class="w-full glass relative max-h-[90vh] overflow-y-auto flex flex-col items-stretch justify-center" style="border-radius:clamp(0.5rem,2vw,1rem); padding:clamp(0.75rem,2vw,1rem); max-width:clamp(280px,90vw,800px);">
-    <button id="closeTutorial" class="absolute p-1 rounded-md bg-white/4" style="right:clamp(0.5rem,1.5vw,0.75rem); top:clamp(0.5rem,1.5vw,0.75rem); font-size:clamp(1rem,2vw,1.25rem)">\u2715</button>
+    <button id="closeTutorial" type="button" class="absolute p-1 rounded-md bg-white/4" style="right:clamp(0.5rem,1.5vw,0.75rem); top:clamp(0.5rem,1.5vw,0.75rem); font-size:clamp(1rem,2vw,1.25rem)">×</button>
     <div class="text-white font-bold pr-8" style="font-size:clamp(1rem,3vw,1.25rem)">Exercise Tutorial</div>
     <div class="text-stone-400" style="margin-top:clamp(0.25rem,0.75vw,0.5rem); font-size:clamp(0.75rem,1.8vw,0.875rem)">Video and pointers</div>
     <div class="mt-3 md:mt-4 bg-black rounded-lg overflow-hidden" style="flex:1; width:100%; max-height:calc(90vh - 160px); display:flex; align-items:center; justify-content:center">
@@ -567,6 +569,51 @@
     if (target.includes('back') || target.includes('lat') || target.includes('rear delt') || target.includes('biceps')) return 'assets/videos/Back.mp4';
     if (target.includes('quads') || target.includes('hamstring') || target.includes('glute') || target.includes('leg')) return 'assets/videos/bush2.mp4';
     return 'assets/videos/Back.mp4';
+  }
+
+  function openTutorialModal(src, title, subtitle) {
+    const modal = document.getElementById('tutorialModal');
+    const videoEl = modal.querySelector('video');
+    const playerWrap = videoEl.parentElement;
+    const sourceEl = videoEl.querySelector('source');
+    const existingIframe = playerWrap.querySelector('iframe');
+
+    modal.querySelector('.text-white.font-bold') && (modal.querySelector('.text-white.font-bold').textContent = title || 'Exercise Tutorial');
+    modal.querySelector('.text-stone-400') && (modal.querySelector('.text-stone-400').textContent = subtitle || 'Video and pointers');
+
+    if (existingIframe) existingIframe.remove();
+    videoEl.style.display = 'block';
+    videoEl.setAttribute('controls', '');
+    videoEl.setAttribute('playsinline', '');
+    videoEl.setAttribute('webkit-playsinline', '');
+    if (sourceEl) sourceEl.src = src || 'assets/videos/Back.mp4';
+    try {
+      videoEl.currentTime = 0;
+      videoEl.load();
+      videoEl.play().catch(() => {});
+    } catch (error) {}
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    if (window.innerWidth <= 640) modal.classList.add('mobile'); else modal.classList.remove('mobile');
+  }
+
+  function closeTutorialModal() {
+    const modal = document.getElementById('tutorialModal');
+    const videoEl = modal.querySelector('video');
+    const playerWrap = videoEl.parentElement;
+    const sourceEl = videoEl.querySelector('source');
+
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    modal.classList.remove('mobile');
+
+    try { videoEl.pause(); } catch (error) {}
+    try { videoEl.currentTime = 0; } catch (error) {}
+    if (sourceEl) sourceEl.src = '';
+    const existingIframe = playerWrap.querySelector('iframe');
+    if (existingIframe) existingIframe.remove();
+    videoEl.style.display = 'block';
   }
 
   function parseRestSeconds(restValue) {
@@ -756,7 +803,9 @@
             <div class="glass rounded-lg" style="padding:clamp(0.5rem,1.5vw,0.75rem)"><div class="text-stone-400">Safety tips</div><ul class="text-stone-400" style="margin-top:clamp(0.25rem,0.75vw,0.5rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">${ex.safety.map(s => `<li>${s}</li>`).join('')}</ul></div>
           </div>
           <div class="exercise-detail-video-wrap glass rounded-lg overflow-hidden" style="margin-top:clamp(0.5rem,1vw,0.75rem)">
-            <video class="exercise-detail-video w-full object-contain bg-black" muted playsinline loop preload="none" style="max-height:clamp(10rem,30vw,14rem)"></video>
+            <video class="exercise-detail-video w-full object-contain bg-black" muted playsinline webkit-playsinline controls preload="metadata" poster="${ex.image}" style="max-height:clamp(10rem,30vw,14rem)">
+              <source src="assets/videos/Back.mp4" type="video/mp4" />
+            </video>
           </div>
           <div class="flex flex-wrap items-center" style="margin-top:clamp(0.5rem,1vw,0.75rem); gap:clamp(0.25rem,1vw,0.5rem)">
             <button class="glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)" data-action="qr">Scan QR</button>
@@ -876,45 +925,35 @@
     // Tutorial buttons (supports local mp4 or YouTube URLs)
     document.querySelectorAll('.tutorial-btn').forEach(b => {
       b.addEventListener('click', () => {
-        const modal = document.getElementById('tutorialModal');
-        const videoEl = modal.querySelector('video');
-        const playerWrap = videoEl.parentElement;
-        const src = b.dataset.video || '';
+        const src = b.dataset.video || 'assets/videos/Back.mp4';
         const title = b.dataset.title || 'Exercise Tutorial';
         const subtitle = b.dataset.subtitle || 'Video and pointers';
 
-        modal.querySelector('.text-white.font-bold') && (modal.querySelector('.text-white.font-bold').textContent = title);
-        modal.querySelector('.text-stone-400') && (modal.querySelector('.text-stone-400').textContent = subtitle);
-
-        // remove existing iframe if any
-        const existingIframe = playerWrap.querySelector('iframe');
         if (/youtube\.com|youtu\.be/.test(src)) {
-          // ensure video element is hidden
-          videoEl.style.display = 'none';
+          const modal = document.getElementById('tutorialModal');
+          const videoEl = modal.querySelector('video');
+          const playerWrap = videoEl.parentElement;
+          const existingIframe = playerWrap.querySelector('iframe');
           if (existingIframe) existingIframe.remove();
+          videoEl.style.display = 'none';
           let videoId = '';
-          try { const u = new URL(src); if (u.searchParams.get('v')) videoId = u.searchParams.get('v'); else videoId = u.pathname.split('/').pop(); } catch(e){ videoId = src.split('/').pop(); }
+          try { const u = new URL(src); if (u.searchParams.get('v')) videoId = u.searchParams.get('v'); else videoId = u.pathname.split('/').pop(); } catch (error) { videoId = src.split('/').pop(); }
           const iframe = document.createElement('iframe');
           iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`);
           iframe.setAttribute('allow', 'autoplay; encrypted-media; fullscreen');
           iframe.setAttribute('allowfullscreen', '');
           iframe.className = 'w-full h-full';
           iframe.style.border = '0';
+          modal.querySelector('.text-white.font-bold') && (modal.querySelector('.text-white.font-bold').textContent = title);
+          modal.querySelector('.text-stone-400') && (modal.querySelector('.text-stone-400').textContent = subtitle);
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
           playerWrap.appendChild(iframe);
-        } else {
-          // local video file
-          if (existingIframe) existingIframe.remove();
-          videoEl.style.display = 'block';
-          const sourceEl = videoEl.querySelector('source');
-          if (sourceEl) sourceEl.src = src;
-          try { videoEl.load(); videoEl.play().catch(()=>{}); } catch(e){}
+          if (window.innerWidth <= 640) modal.classList.add('mobile'); else modal.classList.remove('mobile');
+          return;
         }
 
-        // mobile bottom-sheet toggle
-        if (window.innerWidth <= 640) modal.classList.add('mobile'); else modal.classList.remove('mobile');
-
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
+        openTutorialModal(src, title, subtitle);
       });
     });
   }
@@ -970,20 +1009,10 @@
   });
 
   // Tutorial modal
-  document.getElementById('closeTutorial').addEventListener('click', ()=>{
-    const modal = document.getElementById('tutorialModal');
-    const videoEl = modal.querySelector('video');
-    const playerWrap = videoEl.parentElement;
-    // hide modal
-    modal.classList.add('hidden'); modal.classList.remove('flex');
-    modal.classList.remove('mobile');
-    // stop and clear native video
-    try { videoEl.pause(); } catch(e){}
-    const sourceEl = videoEl.querySelector('source'); if (sourceEl) sourceEl.src = '';
-    // remove any iframe embeds
-    const existingIframe = playerWrap.querySelector('iframe'); if (existingIframe) existingIframe.remove();
-    // ensure video element visible for next use
-    videoEl.style.display = 'block';
+  document.getElementById('closeTutorial').addEventListener('click', closeTutorialModal);
+
+  document.getElementById('tutorialModal').addEventListener('click', (event) => {
+    if (event.target.id === 'tutorialModal') closeTutorialModal();
   });
 
   // Mobile menu toggle
