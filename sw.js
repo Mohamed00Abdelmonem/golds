@@ -1,7 +1,7 @@
-const SW_VERSION = 'v2026-06-01-1';
+const APP_VERSION = 'v2026-06-02-1';
 const CACHE_PREFIX = 'goldtech-pwa';
-const SHELL_CACHE = `${CACHE_PREFIX}-shell-${SW_VERSION}`;
-const RUNTIME_CACHE = `${CACHE_PREFIX}-runtime-${SW_VERSION}`;
+const SHELL_CACHE = `${CACHE_PREFIX}-shell-${APP_VERSION}`;
+const RUNTIME_CACHE = `${CACHE_PREFIX}-runtime-${APP_VERSION}`;
 const OFFLINE_URL = 'offline.html';
 
 const SHELL_ASSETS = [
@@ -16,14 +16,22 @@ const SHELL_ASSETS = [
 
 const isSameOrigin = (url) => url.origin === self.location.origin;
 const isHtmlRequest = (request) => request.mode === 'navigate' || request.destination === 'document';
-const isCriticalAsset = (request) => ['script', 'style'].includes(request.destination);
+const isCacheableResponse = (response) => response && (response.ok || response.type === 'opaque');
 
 const putIfCacheable = async (cache, request, response) => {
-  if (!response) return response;
-  if (response.ok || response.type === 'opaque') {
+  if (isCacheableResponse(response)) {
     await cache.put(request, response.clone());
   }
   return response;
+};
+
+const clearOldCaches = async () => {
+  const keys = await caches.keys();
+  await Promise.all(
+    keys
+      .filter((key) => key.startsWith(CACHE_PREFIX) && key !== SHELL_CACHE && key !== RUNTIME_CACHE)
+      .map((key) => caches.delete(key))
+  );
 };
 
 self.addEventListener('install', (event) => {
@@ -36,12 +44,7 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
   event.waitUntil((async () => {
-    const keys = await caches.keys();
-    await Promise.all(
-      keys
-        .filter((key) => key.startsWith(CACHE_PREFIX) && key !== SHELL_CACHE && key !== RUNTIME_CACHE)
-        .map((key) => caches.delete(key))
-    );
+    await clearOldCaches();
     await self.clients.claim();
   })());
 });
@@ -58,36 +61,19 @@ self.addEventListener('fetch', (event) => {
   const requestUrl = new URL(event.request.url);
   const sameOrigin = isSameOrigin(requestUrl);
 
-  // Network-first for HTML, JS and CSS prevents stale app shells after deployment.
-  if (sameOrigin && (isHtmlRequest(event.request) || isCriticalAsset(event.request))) {
-    event.respondWith((async () => {
-      const cacheName = isHtmlRequest(event.request) ? SHELL_CACHE : RUNTIME_CACHE;
-      const cache = await caches.open(cacheName);
-      try {
-        const networkResponse = await fetch(event.request, { cache: 'no-store' });
-        return await putIfCacheable(cache, event.request, networkResponse);
-      } catch {
-        const cached = await cache.match(event.request);
-        if (cached) return cached;
-        if (isHtmlRequest(event.request)) {
-          return (await caches.match(OFFLINE_URL)) || Response.error();
-        }
-        return Response.error();
-      }
-    })());
-    return;
-  }
+  if (!sameOrigin) return;
 
-  // Cache-first for non-critical assets keeps offline support fast.
   event.respondWith((async () => {
     const cache = await caches.open(RUNTIME_CACHE);
-    const cached = await cache.match(event.request);
-    if (cached) return cached;
-
     try {
-      const networkResponse = await fetch(event.request);
+      const networkResponse = await fetch(event.request, { cache: 'no-store' });
       return await putIfCacheable(cache, event.request, networkResponse);
     } catch {
+      const cached = await cache.match(event.request);
+      if (cached) return cached;
+      if (isHtmlRequest(event.request)) {
+        return (await caches.match(OFFLINE_URL)) || Response.error();
+      }
       return Response.error();
     }
   })());

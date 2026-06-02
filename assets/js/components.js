@@ -107,6 +107,9 @@ const Components = (function () {
     try {
       const registration = await navigator.serviceWorker.register(SERVICE_WORKER_URL, { scope: APP_ROOT_URL.pathname, updateViaCache: 'none' });
       await registration.update();
+      const refreshUpdateCheck = () => {
+        registration.update().catch(() => {});
+      };
 
       let refreshing = false;
       navigator.serviceWorker.addEventListener('controllerchange', () => {
@@ -134,6 +137,14 @@ const Components = (function () {
           }
         });
       });
+
+      window.addEventListener('focus', refreshUpdateCheck);
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          refreshUpdateCheck();
+        }
+      });
+      window.setInterval(refreshUpdateCheck, 60 * 60 * 1000);
     } catch {
       // Silent fallback for unsupported hosts or file:// previews.
     }
