@@ -1,4 +1,4 @@
-const APP_VERSION = 'v2026-06-02-1';
+const APP_VERSION = 'v2026-06-02-2';
 const CACHE_PREFIX = 'goldtech-pwa';
 const SHELL_CACHE = `${CACHE_PREFIX}-shell-${APP_VERSION}`;
 const RUNTIME_CACHE = `${CACHE_PREFIX}-runtime-${APP_VERSION}`;
