@@ -16,6 +16,8 @@ const SHELL_ASSETS = [
 
 const isSameOrigin = (url) => url.origin === self.location.origin;
 const isHtmlRequest = (request) => request.mode === 'navigate' || request.destination === 'document';
+const isCriticalAsset = (request) => ['script', 'style'].includes(request.destination);
+const isManifestRequest = (url) => url.pathname.endsWith('/manifest.json') || url.pathname.endsWith('manifest.json');
 const isCacheableResponse = (response) => response && (response.ok || response.type === 'opaque');
 
 const putIfCacheable = async (cache, request, response) => {
@@ -63,17 +65,35 @@ self.addEventListener('fetch', (event) => {
 
   if (!sameOrigin) return;
 
+  // Keep app code fresh after deploys, but let non-critical assets stay fast.
+  if (isHtmlRequest(event.request) || isCriticalAsset(event.request) || isManifestRequest(requestUrl)) {
+    event.respondWith((async () => {
+      const cacheName = isHtmlRequest(event.request) ? SHELL_CACHE : RUNTIME_CACHE;
+      const cache = await caches.open(cacheName);
+      try {
+        const networkResponse = await fetch(event.request, { cache: 'no-store' });
+        return await putIfCacheable(cache, event.request, networkResponse);
+      } catch {
+        const cached = await cache.match(event.request);
+        if (cached) return cached;
+        if (isHtmlRequest(event.request)) {
+          return (await caches.match(OFFLINE_URL)) || Response.error();
+        }
+        return Response.error();
+      }
+    })());
+    return;
+  }
+
   event.respondWith((async () => {
     const cache = await caches.open(RUNTIME_CACHE);
+    const cached = await cache.match(event.request);
+    if (cached) return cached;
+
     try {
-      const networkResponse = await fetch(event.request, { cache: 'no-store' });
+      const networkResponse = await fetch(event.request);
       return await putIfCacheable(cache, event.request, networkResponse);
     } catch {
-      const cached = await cache.match(event.request);
-      if (cached) return cached;
-      if (isHtmlRequest(event.request)) {
-        return (await caches.match(OFFLINE_URL)) || Response.error();
-      }
       return Response.error();
     }
   })());
