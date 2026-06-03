@@ -538,18 +538,18 @@
 <script>
   // Exercise data organized by category
   const muscleVideoMap = {
-    chest: { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780494952/post1video_qokfax.mp4', label: 'Active: Chest', focus: 'Push pattern' },
-    'upper chest': { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780494952/post1video_qokfax.mp4', label: 'Active: Upper Chest', focus: 'Push pattern' },
-    shoulders: { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780494952/post1video_qokfax.mp4', label: 'Active: Shoulders', focus: 'Pressing' },
-    shoulder: { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780494952/post1video_qokfax.mp4', label: 'Active: Shoulder', focus: 'Pressing' },
-    triceps: { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780494952/post1video_qokfax.mp4', label: 'Active: Triceps', focus: 'Push pattern' },
-    back: { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780494952/post1video_qokfax.mp4', label: 'Active: Back', focus: 'Pull pattern' },
-    lats: { src: 'assets/videos/Back.mp4', label: 'Active: Lats', focus: 'Pull pattern' },
-    'rear delts': { src: 'assets/videos/Back.mp4', label: 'Active: Rear Delts', focus: 'Pull pattern' },
-    biceps: { src: 'assets/videos/Back.mp4', label: 'Active: Biceps', focus: 'Pull pattern' },
-    'quads & glutes': { src: 'assets/videos/bush2.mp4', label: 'Active: Legs', focus: 'Lower body' },
-    quads: { src: 'assets/videos/bush2.mp4', label: 'Active: Legs', focus: 'Lower body' },
-    hamstrings: { src: 'assets/videos/bush2.mp4', label: 'Active: Legs', focus: 'Lower body' }
+    chest: { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495622/bush2_rlkjzu.mp4', label: 'Active: Chest', focus: 'Push pattern' },
+    'upper chest': { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495622/bush2_rlkjzu.mp4', label: 'Active: Upper Chest', focus: 'Push pattern' },
+    shoulders: { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495622/bush2_rlkjzu.mp4', label: 'Active: Shoulders', focus: 'Pressing' },
+    shoulder: { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495622/bush2_rlkjzu.mp4', label: 'Active: Shoulder', focus: 'Pressing' },
+    triceps: { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495622/bush2_rlkjzu.mp4', label: 'Active: Triceps', focus: 'Push pattern' },
+    back: { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495622/bush2_rlkjzu.mp4', label: 'Active: Back', focus: 'Pull pattern' },
+    lats: { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495622/bush2_rlkjzu.mp4', label: 'Active: Lats', focus: 'Pull pattern' },
+    'rear delts': { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495622/bush2_rlkjzu.mp4', label: 'Active: Rear Delts', focus: 'Pull pattern' },
+    biceps: { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495622/bush2_rlkjzu.mp4', label: 'Active: Biceps', focus: 'Pull pattern' },
+    'quads & glutes': { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495622/bush2_rlkjzu.mp4', label: 'Active: Legs', focus: 'Lower body' },
+    quads: { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495622/bush2_rlkjzu.mp4', label: 'Active: Legs', focus: 'Lower body' },
+    hamstrings: { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495622/bush2_rlkjzu.mp4', label: 'Active: Legs', focus: 'Lower body' }
   };
 
   function setMuscleVisualization(exercise) {
@@ -568,9 +568,9 @@
 
   function getDetailVideo(exercise) {
     const target = (exercise.target || '').toLowerCase();
-    if (target.includes('back') || target.includes('lat') || target.includes('rear delt') || target.includes('biceps')) return 'assets/videos/Back.mp4';
-    if (target.includes('quads') || target.includes('hamstring') || target.includes('glute') || target.includes('leg')) return 'assets/videos/bush2.mp4';
-    return 'assets/videos/Back.mp4';
+    if (target.includes('back') || target.includes('lat') || target.includes('rear delt') || target.includes('biceps')) return 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495645/Back_xndmi1.mp4';
+    if (target.includes('quads') || target.includes('hamstring') || target.includes('glute') || target.includes('leg')) return 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495622/bush2_rlkjzu.mp4';
+    return 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495645/Back_xndmi1.mp4';
   }
 
   function openTutorialModal(src, title, subtitle) {
@@ -588,7 +588,7 @@
     videoEl.setAttribute('controls', '');
     videoEl.setAttribute('playsinline', '');
     videoEl.setAttribute('webkit-playsinline', '');
-    if (sourceEl) sourceEl.src = src || 'assets/videos/Back.mp4';
+    if (sourceEl) sourceEl.src = src || 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495645/Back_xndmi1.mp4';
     try {
       videoEl.currentTime = 0;
       videoEl.load();
@@ -806,7 +806,7 @@
           </div>
           <div class="exercise-detail-video-wrap glass rounded-lg overflow-hidden" style="margin-top:clamp(0.5rem,1vw,0.75rem)">
             <video class="exercise-detail-video w-full object-contain bg-black" muted playsinline webkit-playsinline controls preload="metadata" poster="${ex.image}" style="max-height:clamp(10rem,30vw,14rem)">
-              <source src="assets/videos/Back.mp4" type="video/mp4" />
+              <source src="https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495645/Back_xndmi1.mp4" type="video/mp4" />
             </video>
           </div>
           <div class="flex flex-wrap items-center" style="margin-top:clamp(0.5rem,1vw,0.75rem); gap:clamp(0.25rem,1vw,0.5rem)">
@@ -927,7 +927,7 @@
     // Tutorial buttons (supports local mp4 or YouTube URLs)
     document.querySelectorAll('.tutorial-btn').forEach(b => {
       b.addEventListener('click', () => {
-        const src = b.dataset.video || 'assets/videos/Back.mp4';
+        const src = b.dataset.video || 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495645/Back_xndmi1.mp4';
         const title = b.dataset.title || 'Exercise Tutorial';
         const subtitle = b.dataset.subtitle || 'Video and pointers';
 
