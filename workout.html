@@ -496,7 +496,7 @@
           <div class="text-stone-400" style="margin-bottom:clamp(0.5rem,1.5vw,0.75rem)">Scan the QR on the machine to auto-load guided sets and safety tips.</div>
           <div class="flex gap-2 flex-wrap">
             <button id="scanMachine" class="bg-gradient-to-br from-[#2b2b2b] to-[#0f0f0f] text-gold rounded-lg font-semibold" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.75rem,2vw,1rem)">Scan QR</button>
-            <button id="watchMachine" class="tutorial-btn glass rounded-lg" data-video="assets/videos/Back.mp4" data-title="Machine Tutorial" data-subtitle="Model X9" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.75rem,2vw,1rem)">Watch Tutorial</button>
+            <button id="watchMachine" class="tutorial-btn glass rounded-lg" data-video="https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780494952/post1video_qokfax.mp4" data-title="Machine Tutorial" data-subtitle="Model X9" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.75rem,2vw,1rem)">Watch Tutorial</button>
           </div>
         </div>
 
@@ -538,12 +538,12 @@
 <script>
   // Exercise data organized by category
   const muscleVideoMap = {
-    chest: { src: 'assets/videos/bush2.mp4', label: 'Active: Chest', focus: 'Push pattern' },
-    'upper chest': { src: 'assets/videos/bush2.mp4', label: 'Active: Upper Chest', focus: 'Push pattern' },
-    shoulders: { src: 'assets/videos/bush2.mp4', label: 'Active: Shoulders', focus: 'Pressing' },
-    shoulder: { src: 'assets/videos/bush2.mp4', label: 'Active: Shoulder', focus: 'Pressing' },
-    triceps: { src: 'assets/videos/bush2.mp4', label: 'Active: Triceps', focus: 'Push pattern' },
-    back: { src: 'assets/videos/Back.mp4', label: 'Active: Back', focus: 'Pull pattern' },
+    chest: { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780494952/post1video_qokfax.mp4', label: 'Active: Chest', focus: 'Push pattern' },
+    'upper chest': { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780494952/post1video_qokfax.mp4', label: 'Active: Upper Chest', focus: 'Push pattern' },
+    shoulders: { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780494952/post1video_qokfax.mp4', label: 'Active: Shoulders', focus: 'Pressing' },
+    shoulder: { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780494952/post1video_qokfax.mp4', label: 'Active: Shoulder', focus: 'Pressing' },
+    triceps: { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780494952/post1video_qokfax.mp4', label: 'Active: Triceps', focus: 'Push pattern' },
+    back: { src: 'https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780494952/post1video_qokfax.mp4', label: 'Active: Back', focus: 'Pull pattern' },
     lats: { src: 'assets/videos/Back.mp4', label: 'Active: Lats', focus: 'Pull pattern' },
     'rear delts': { src: 'assets/videos/Back.mp4', label: 'Active: Rear Delts', focus: 'Pull pattern' },
     biceps: { src: 'assets/videos/Back.mp4', label: 'Active: Biceps', focus: 'Pull pattern' },
@@ -811,7 +811,7 @@
           </div>
           <div class="flex flex-wrap items-center" style="margin-top:clamp(0.5rem,1vw,0.75rem); gap:clamp(0.25rem,1vw,0.5rem)">
             <button class="glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)" data-action="qr">Scan QR</button>
-            <button class="tutorial-btn glass rounded-lg" data-video="${ex.video || ('assets/img/posts/post' + (idx+1) + 'video.mp4')}" data-title="${ex.name}" data-subtitle="${ex.target}" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Watch Tutorial</button>
+            <button class="tutorial-btn glass rounded-lg" data-video="${ex.video || ('assets/img/posts/post1video.mp4')}" data-title="${ex.name}" data-subtitle="${ex.target}" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Watch Tutorial</button>
             <div class="text-stone-400 ml-auto" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Machine: ${ex.machine}</div>
           </div>
         </div>
