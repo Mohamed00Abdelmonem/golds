@@ -1,6 +1,6 @@
 {
-  "name": "GoldTech",
-  "short_name": "GoldTech",
+  "name": "Golds",
+  "short_name": "Golds",
   "description": "Premium smart gym platform for training, coaching, and progress tracking.",
   "start_url": "./landing.html",
   "scope": "./",
