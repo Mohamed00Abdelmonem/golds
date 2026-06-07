@@ -565,6 +565,7 @@
               class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
                 class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
                 class="sidebar-label">Coaches</span></a></li>
+          <li><a href="groups.html" data-nav-link class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span class="sidebar-label">Groups</span></a></li>
           <li><a href="community.html" data-nav-link
               class="sidebar-link group flex items-center gap-3 p-3 rounded-xl fast-trans border border-transparent hover:bg-white/3 focus-visible-ring"><span
                 class="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gold to-amber-200 shadow-[0_0_18px_rgba(245,176,65,0.35)]"></span><span
@@ -690,6 +691,69 @@
       <div id="page-main">
         <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <!-- Main Content -->
+          <div class="lg:col-span-8 space-y-6">
+            <!-- Workout Groups Section -->
+            <div class="glass rounded-2xl p-6 fast-trans">
+              <div class="flex items-center justify-between mb-6">
+                <div>
+                  <div class="text-stone-400 text-xs font-bold uppercase mb-1 tracking-wider">Community</div>
+                  <h2 class="text-xl font-black text-white flex items-center gap-2">
+                    <span class="w-2 h-6 rounded-full bg-gold"></span>
+                    Your Workout Groups
+                  </h2>
+                </div>
+                <a href="groups.html" class="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-sm font-semibold text-white transition">View All</a>
+              </div>
+              
+              <div class="grid md:grid-cols-2 gap-4">
+                <!-- Group Card 1 -->
+                <a href="group-details.html" class="glass rounded-xl overflow-hidden hover:border-gold/30 transition-all duration-300 block group border border-white/5">
+                  <div class="h-24 bg-black/40 relative">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] to-transparent"></div>
+                    <div class="absolute bottom-2 left-4 right-4 flex justify-between items-end">
+                      <h3 class="font-black text-white">Iron Squad</h3>
+                      <div class="flex -space-x-2">
+                        <img src="assets/img/coaches/1.png" class="w-6 h-6 rounded-full border-2 border-[#0a0a0c]">
+                        <img src="assets/img/coaches/2.png" class="w-6 h-6 rounded-full border-2 border-[#0a0a0c]">
+                        <div class="w-6 h-6 rounded-full border-2 border-[#0a0a0c] bg-stone-800 flex items-center justify-center text-[8px] font-bold text-white">+5</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="p-4">
+                    <div class="flex items-center justify-between mb-2">
+                      <div class="text-xs text-stone-400"><strong class="text-gold">4</strong> trained today</div>
+                      <div class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-semibold">12 Day Streak</div>
+                    </div>
+                    <p class="text-stone-300 text-xs line-clamp-1">Sarah logged a workout 2 hrs ago.</p>
+                  </div>
+                </a>
+
+                <!-- Group Card 2 -->
+                <a href="group-details.html" class="glass rounded-xl overflow-hidden hover:border-gold/30 transition-all duration-300 block group border border-white/5">
+                  <div class="h-24 bg-black/40 relative">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] to-transparent"></div>
+                    <div class="absolute bottom-2 left-4 right-4 flex justify-between items-end">
+                      <h3 class="font-black text-white">Morning Crew</h3>
+                      <div class="flex -space-x-2">
+                        <img src="assets/img/coaches/3.png" class="w-6 h-6 rounded-full border-2 border-[#0a0a0c]">
+                        <img src="assets/img/coaches/4.png" class="w-6 h-6 rounded-full border-2 border-[#0a0a0c]">
+                        <div class="w-6 h-6 rounded-full border-2 border-[#0a0a0c] bg-stone-800 flex items-center justify-center text-[8px] font-bold text-white">+2</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="p-4">
+                    <div class="flex items-center justify-between mb-2">
+                      <div class="text-xs text-stone-400">Waiting for workout</div>
+                      <div class="text-[10px] px-2 py-0.5 rounded bg-stone-800 text-stone-300 font-semibold">4 Members</div>
+                    </div>
+                    <p class="text-stone-300 text-xs line-clamp-1">Mike hit a PR in Deadlift yesterday!</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
         
 
           <!-- Right Sidebar -->
@@ -1058,6 +1122,7 @@
         <a href="workout.html" data-mobile-more-link class="mobile-bottom-sheet__link">Workouts</a>
         <a href="classes.html" data-mobile-more-link class="mobile-bottom-sheet__link">Classes</a>
         <a href="coaches.html" data-mobile-more-link class="mobile-bottom-sheet__link">Coaches</a>
+        <a href="groups.html" data-mobile-more-link class="mobile-bottom-sheet__link">Groups</a>
         <a href="community.html" data-mobile-more-link class="mobile-bottom-sheet__link">Community</a>
         <a href="blogs.html" data-mobile-more-link class="mobile-bottom-sheet__link">Blogs</a>
         <a href="crowd.html" data-mobile-more-link class="mobile-bottom-sheet__link">Crowd</a>

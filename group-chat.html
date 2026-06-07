@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Timer & Stopwatch  GoldTech</title>
+  <title>Group Chat  GoldTech</title>
   <script>tailwind.config={theme:{extend:{colors:{gold:{DEFAULT:'#f5b041'}},fontFamily:{display:['Poppins','Inter','system-ui','sans-serif']}}}}</script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
@@ -98,185 +98,136 @@
       
 
       <div id="page-main">
+
         <div class="space-y-6">
-          <!-- Current Time Display -->
-          <div class="glass rounded-3xl p-6 md:p-8 text-center">
-            <div class="text-stone-400 text-sm uppercase tracking-widest mb-2">Current Time</div>
-            <div id="currentTime" class="timer-display text-6xl md:text-7xl text-gold mb-2">00:00:00</div>
-            <div id="currentDate" class="text-stone-400">Loading...</div>
-          </div>
-
-          <!-- Tabs -->
-          <div class="timer-tabs glass rounded-2xl p-3 flex gap-2 overflow-x-auto sticky top-32 z-20">
-            <button class="tab-btn active-tab px-4 py-2 rounded-lg font-semibold whitespace-nowrap" data-tab="stopwatch">Stopwatch</button>
-            <button class="tab-btn px-4 py-2 rounded-lg font-semibold whitespace-nowrap" data-tab="timer">Countdown Timer</button>
-            <button class="tab-btn px-4 py-2 rounded-lg font-semibold whitespace-nowrap" data-tab="rest">Rest Timer</button>
-            <button class="tab-btn px-4 py-2 rounded-lg font-semibold whitespace-nowrap" data-tab="workout">Workout Timer</button>
-          </div>
-
-          <!-- STOPWATCH TAB -->
-          <div id="stopwatch-tab" class="space-y-6">
-            <!-- Stopwatch Display -->
-            <div class="glass rounded-3xl p-8 text-center">
-              <div class="inline-flex items-center justify-center circular-progress" style="--progress: 0%">
-                <div class="circular-progress-text">
-                  <div id="stopwatchDisplay" class="timer-display text-5xl md:text-6xl text-white">00:00:00</div>
-                  <div id="stopwatchLaps" class="text-stone-400 text-sm mt-2"><span id="lapCount">0</span> Laps</div>
+          
+          <div class="relative h-48 md:h-64 rounded-3xl overflow-hidden mb-6 group">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover opacity-60">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-transparent to-transparent"></div>
+            <a href="groups.html" class="absolute top-4 left-4 p-2 rounded-lg bg-black/40 backdrop-blur text-white hover:bg-black/60 transition">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </a>
+            <div class="absolute bottom-6 left-6 right-6 flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="px-2 py-0.5 rounded bg-white/20 backdrop-blur text-xs font-bold text-white uppercase tracking-wider">Private</span>
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/20 backdrop-blur text-xs font-bold text-emerald-400 border border-emerald-500/30">12 Day Streak</span>
                 </div>
+                <h1 class="text-4xl font-black text-white">Iron Squad</h1>
               </div>
-              <div class="mt-6 flex gap-3 justify-center flex-wrap">
-                <button id="stopwatchStart" class="btn-timer active px-6 py-3 rounded-lg bg-gold text-black font-semibold hover:scale-105">Start</button>
-                <button id="stopwatchPause" class="btn-timer px-6 py-3 rounded-lg glass font-semibold hover:scale-105">Pause</button>
-                <button id="stopwatchLap" class="btn-timer px-6 py-3 rounded-lg glass font-semibold hover:scale-105">Lap</button>
-                <button id="stopwatchReset" class="btn-timer px-6 py-3 rounded-lg glass font-semibold hover:scale-105">Reset</button>
-              </div>
-            </div>
-
-            <!-- Laps List -->
-            <div class="glass rounded-2xl p-6">
-              <h3 class="text-white font-bold mb-4">Laps</h3>
-              <div id="lapsList" class="space-y-2 max-h-64 overflow-y-auto">
-                <div class="text-stone-400 text-sm text-center py-4">No laps recorded</div>
-              </div>
+              <a href="group-invite.html" class="px-4 py-2 rounded-xl bg-white/10 backdrop-blur text-white font-semibold text-sm hover:bg-white/20 transition flex items-center gap-2 border border-white/10">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+                Invite
+              </a>
             </div>
           </div>
 
-          <!-- COUNTDOWN TIMER TAB -->
-          <div id="timer-tab" class="space-y-6 hidden">
-            <!-- Timer Input & Display -->
-            <div class="glass rounded-3xl p-8 text-center">
-              <div class="inline-flex items-center justify-center circular-progress" style="--progress: 0%">
-                <div class="circular-progress-text">
-                  <div id="timerDisplay" class="timer-display text-5xl md:text-6xl text-white">00:00</div>
+          <div class="flex gap-2 overflow-x-auto pb-4 mb-2 no-scrollbar sticky top-0 z-10 bg-[#0a0a0c]/80 backdrop-blur">
+            <a href="group-details.html" class="px-4 py-2 rounded-xl font-semibold whitespace-nowrap transition glass text-stone-400 hover:text-white">Workout</a>
+            <a href="group-chat.html" class="px-4 py-2 rounded-xl font-semibold whitespace-nowrap transition bg-gold text-black">Chat</a>
+            <a href="group-progress.html" class="px-4 py-2 rounded-xl font-semibold whitespace-nowrap transition glass text-stone-400 hover:text-white">Progress Dashboard</a>
+            <a href="group-leaderboard.html" class="px-4 py-2 rounded-xl font-semibold whitespace-nowrap transition glass text-stone-400 hover:text-white">Leaderboard</a>
+          </div>
+        
+          
+          <div class="glass rounded-3xl flex flex-col h-[600px] border border-white/5 relative overflow-hidden">
+            
+            <!-- Chat Header -->
+            <div class="p-4 border-b border-white/5 bg-black/20 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></div>
+                <div>
+                  <div class="font-bold text-white">Iron Squad Chat</div>
+                  <div class="text-xs text-stone-400">Sarah, Mike, Omar and 4 others</div>
                 </div>
               </div>
+              <button class="p-2 rounded-lg text-stone-400 hover:bg-white/10 transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+              </button>
+            </div>
+
+            <!-- Messages Area -->
+            <div class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
               
-              <!-- Timer Input -->
-              <div class="mt-6 grid grid-cols-3 gap-3 max-w-xs mx-auto mb-6">
+              <!-- System Message -->
+              <div class="flex justify-center">
+                <span class="px-3 py-1 rounded-full bg-white/5 text-[10px] uppercase tracking-wider font-bold text-stone-500">Today, 6:00 AM</span>
+              </div>
+
+              <!-- Received Message -->
+              <div class="flex gap-3">
+                <img src="assets/img/coaches/3.png" class="w-8 h-8 rounded-full object-cover shrink-0 mt-auto">
                 <div>
-                  <label class="text-stone-400 text-xs block mb-2">Minutes</label>
-                  <input id="timerMinutes" type="number" min="0" max="59" value="1" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-center focus:outline-none focus:ring-2 focus:ring-gold/50">
-                </div>
-                <div>
-                  <label class="text-stone-400 text-xs block mb-2">Seconds</label>
-                  <input id="timerSeconds" type="number" min="0" max="59" value="0" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-center focus:outline-none focus:ring-2 focus:ring-gold/50">
-                </div>
-                <div>
-                  <button id="timerSet" class="w-full h-full bg-gold/20 text-gold rounded-lg font-semibold hover:bg-gold/30 mt-6">Set</button>
+                  <div class="flex items-baseline gap-2 mb-1">
+                    <span class="text-sm font-semibold text-white">Mike Ross</span>
+                    <span class="text-[10px] text-stone-500">6:02 AM</span>
+                  </div>
+                  <div class="bg-white/10 text-white p-3 rounded-2xl rounded-bl-sm inline-block max-w-[85%] md:max-w-md text-sm">
+                    Who's ready for legs today?
+                  </div>
                 </div>
               </div>
 
-              <!-- Preset Buttons -->
-              <div class="flex gap-2 justify-center flex-wrap mb-6">
-                <button class="preset-btn px-3 py-2 rounded-lg glass text-sm font-semibold" data-preset="30">30s</button>
-                <button class="preset-btn px-3 py-2 rounded-lg glass text-sm font-semibold" data-preset="60">1m</button>
-                <button class="preset-btn px-3 py-2 rounded-lg glass text-sm font-semibold" data-preset="90">90s</button>
-                <button class="preset-btn px-3 py-2 rounded-lg glass text-sm font-semibold" data-preset="120">2m</button>
-                <button class="preset-btn px-3 py-2 rounded-lg glass text-sm font-semibold" data-preset="300">5m</button>
+              <!-- Received Message (Workout Share) -->
+              <div class="flex gap-3">
+                <img src="assets/img/coaches/1.png" class="w-8 h-8 rounded-full object-cover shrink-0 mt-auto">
+                <div>
+                  <div class="flex items-baseline gap-2 mb-1">
+                    <span class="text-sm font-semibold text-gold">Sarah Jenkins</span>
+                    <span class="text-[10px] text-stone-500">6:15 AM</span>
+                  </div>
+                  <div class="bg-gold/10 border border-gold/30 p-3 rounded-2xl rounded-bl-sm inline-block max-w-[85%] md:max-w-md">
+                    <div class="flex items-center gap-2 mb-2 text-gold font-bold text-sm">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                      Workout Logged
+                    </div>
+                    <div class="text-white text-sm font-semibold mb-1">Barbell Back Squat</div>
+                    <div class="text-stone-300 text-xs mb-3">5 Sets x 5 Reps &bull; 120kg</div>
+                    <button class="w-full py-2 bg-white/10 rounded-lg text-xs font-bold text-white hover:bg-white/20 transition">View Details</button>
+                  </div>
+                  <!-- Reactions -->
+                  <div class="flex gap-1 mt-1">
+                    <span class="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-xs flex items-center gap-1 cursor-pointer hover:bg-white/10">Fire <span class="text-stone-400">2</span></span>
+                    <span class="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-xs flex items-center gap-1 cursor-pointer hover:bg-white/10">100 <span class="text-stone-400">1</span></span>
+                  </div>
+                </div>
               </div>
 
-              <!-- Timer Controls -->
-              <div class="flex gap-3 justify-center flex-wrap">
-                <button id="timerStart" class="btn-timer active px-6 py-3 rounded-lg bg-gold text-black font-semibold hover:scale-105">Start</button>
-                <button id="timerPause" class="btn-timer px-6 py-3 rounded-lg glass font-semibold hover:scale-105">Pause</button>
-                <button id="timerReset" class="btn-timer px-6 py-3 rounded-lg glass font-semibold hover:scale-105">Reset</button>
+              <!-- Sent Message -->
+              <div class="flex gap-3 flex-row-reverse">
+                <img src="assets/img/user.png" class="w-8 h-8 rounded-full object-cover shrink-0 mt-auto">
+                <div class="flex flex-col items-end">
+                  <div class="flex items-baseline gap-2 mb-1 flex-row-reverse">
+                    <span class="text-sm font-semibold text-white">You</span>
+                    <span class="text-[10px] text-stone-500">6:20 AM</span>
+                  </div>
+                  <div class="bg-gradient-to-br from-gold to-amber-200 text-black font-medium p-3 rounded-2xl rounded-br-sm inline-block max-w-[85%] md:max-w-md text-sm shadow-[0_4px_15px_rgba(245,176,65,0.2)]">
+                    On my way! Give me 10 mins.
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-3 md:p-4 bg-black/40 border-t border-white/5">
+              <div class="flex items-end gap-2 bg-white/5 rounded-2xl border border-white/10 p-1 pl-3 transition focus-within:border-gold/50">
+                <button class="p-2 text-stone-400 hover:text-gold transition shrink-0">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                </button>
+                <textarea rows="1" placeholder="Type a message..." class="flex-1 bg-transparent text-white text-sm py-3 focus:outline-none resize-none max-h-32 placeholder:text-stone-500"></textarea>
+                <button class="p-2 text-stone-400 hover:text-gold transition shrink-0">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                </button>
+                <button class="p-2 rounded-xl bg-gold text-black hover:bg-amber-300 transition shrink-0 m-1">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                </button>
               </div>
             </div>
-          </div>
 
-          <!-- REST TIMER TAB -->
-          <div id="rest-tab" class="space-y-6 hidden">
-            <div class="glass rounded-3xl p-8 text-center">
-              <div class="inline-flex items-center justify-center circular-progress" style="--progress: 0%">
-                <div class="circular-progress-text">
-                  <div id="restDisplay" class="timer-display text-5xl md:text-6xl text-white">00:00</div>
-                </div>
-              </div>
-              
-              <!-- Rest Presets -->
-              <div class="mt-6 flex gap-2 justify-center flex-wrap mb-6">
-                <button class="preset-btn px-4 py-2 rounded-lg glass font-semibold" data-rest="30">30s</button>
-                <button class="preset-btn px-4 py-2 rounded-lg glass font-semibold" data-rest="45">45s</button>
-                <button class="preset-btn px-4 py-2 rounded-lg glass font-semibold" data-rest="60">60s</button>
-                <button class="preset-btn px-4 py-2 rounded-lg glass font-semibold" data-rest="90">90s</button>
-                <button class="preset-btn px-4 py-2 rounded-lg glass font-semibold" data-rest="120">2m</button>
-              </div>
-
-              <!-- Rest Controls -->
-              <div class="flex gap-3 justify-center flex-wrap">
-                <button id="restStart" class="btn-timer active px-6 py-3 rounded-lg bg-gold text-black font-semibold hover:scale-105">Start</button>
-                <button id="restPause" class="btn-timer px-6 py-3 rounded-lg glass font-semibold hover:scale-105">Pause</button>
-                <button id="restReset" class="btn-timer px-6 py-3 rounded-lg glass font-semibold hover:scale-105">Reset</button>
-              </div>
-
-              <!-- Rest Sets -->
-              <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="glass rounded-lg p-4 text-center">
-                  <div class="text-stone-400 text-xs mb-1">Sets Completed</div>
-                  <div id="setsCount" class="text-2xl font-bold text-gold">0</div>
-                </div>
-                <div class="glass rounded-lg p-4 text-center">
-                  <div class="text-stone-400 text-xs mb-1">Total Rest</div>
-                  <div id="totalRestTime" class="text-2xl font-bold text-gold">00:00</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- WORKOUT TIMER TAB -->
-          <div id="workout-tab" class="space-y-6 hidden">
-            <div class="glass rounded-3xl p-8 text-center">
-              <div class="inline-flex items-center justify-center circular-progress" style="--progress: 0%">
-                <div class="circular-progress-text">
-                  <div id="workoutDisplay" class="timer-display text-5xl md:text-6xl text-white">00:00:00</div>
-                </div>
-              </div>
-              
-              <!-- Workout Setup -->
-              <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto mb-6">
-                <div>
-                  <label class="text-stone-400 text-xs block mb-2">Work (seconds)</label>
-                  <input id="workoutWork" type="number" min="1" value="30" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-center focus:outline-none focus:ring-2 focus:ring-gold/50">
-                </div>
-                <div>
-                  <label class="text-stone-400 text-xs block mb-2">Rest (seconds)</label>
-                  <input id="workoutRest" type="number" min="1" value="15" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-center focus:outline-none focus:ring-2 focus:ring-gold/50">
-                </div>
-                <div>
-                  <label class="text-stone-400 text-xs block mb-2">Rounds</label>
-                  <input id="workoutRounds" type="number" min="1" value="5" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-center focus:outline-none focus:ring-2 focus:ring-gold/50">
-                </div>
-              </div>
-
-              <!-- Workout Status -->
-              <div class="mb-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="glass rounded-lg p-4 text-center">
-                  <div class="text-stone-400 text-xs mb-1">Round</div>
-                  <div id="workoutRound" class="text-2xl font-bold text-gold">1</div>
-                </div>
-                <div class="glass rounded-lg p-4 text-center">
-                  <div class="text-stone-400 text-xs mb-1">Phase</div>
-                  <div id="workoutPhase" class="text-xl font-bold text-gold">WORK</div>
-                </div>
-                <div class="glass rounded-lg p-4 text-center">
-                  <div class="text-stone-400 text-xs mb-1">Sets Left</div>
-                  <div id="workoutSetsLeft" class="text-2xl font-bold text-gold">5</div>
-                </div>
-                <div class="glass rounded-lg p-4 text-center">
-                  <div class="text-stone-400 text-xs mb-1">Total Time</div>
-                  <div id="workoutTotal" class="text-xl font-bold text-gold">05:45</div>
-                </div>
-              </div>
-
-              <!-- Workout Controls -->
-              <div class="flex gap-3 justify-center flex-wrap">
-                <button id="workoutStart" class="btn-timer active px-6 py-3 rounded-lg bg-gold text-black font-semibold hover:scale-105">Start</button>
-                <button id="workoutPause" class="btn-timer px-6 py-3 rounded-lg glass font-semibold hover:scale-105">Pause</button>
-                <button id="workoutReset" class="btn-timer px-6 py-3 rounded-lg glass font-semibold hover:scale-105">Reset</button>
-              </div>
-            </div>
           </div>
         </div>
+    
       </div>
     </main>
   </div>
