@@ -1,9 +1,9 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Create Group  GoldTech</title>
+  <title>My Attendance  GoldTech</title>
   <script>tailwind.config={theme:{extend:{colors:{gold:{DEFAULT:'#f5b041'}},fontFamily:{display:['Poppins','Inter','system-ui','sans-serif']}}}}</script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
@@ -100,87 +100,242 @@
 
       <div id="page-main">
 
-        <div class="max-w-2xl mx-auto space-y-6">
-          <div class="flex items-center gap-4 mb-8">
-            <a href="groups.html" class="p-2 rounded-lg glass text-stone-400 hover:text-white transition">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-            </a>
-            <h1 class="text-3xl font-black text-white">Create Group</h1>
+        <div class="max-w-4xl mx-auto space-y-8">
+          
+          <!-- TOP SECTION -->
+          <div class="space-y-4">
+            <div>
+              <h1 class="text-3xl font-black text-white tracking-tight">My Attendance</h1>
+              <p class="text-stone-400 mt-1">Stay consistent and track your gym journey.</p>
+            </div>
+            
+            <div class="relative glass rounded-3xl p-6 md:p-8 overflow-hidden group border border-white/5">
+              <div class="absolute -right-10 -top-10 w-40 h-40 bg-gold/20 rounded-full blur-3xl pointer-events-none group-hover:bg-gold/30 transition duration-500"></div>
+              <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+              
+              <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <div class="text-stone-400 text-xs font-bold uppercase tracking-widest mb-2">Current Streak</div>
+                  <div class="flex items-center gap-3">
+                    <div class="text-4xl md:text-5xl font-black text-white">7 Days</div>
+                    <div class="p-2 rounded-xl bg-gradient-to-br from-gold/20 to-amber-500/20 text-gold shadow-[0_0_15px_rgba(245,176,65,0.2)]">
+                      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"></path></svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-left md:text-right">
+                  <div class="text-sm text-stone-300">Keep it up! You're on fire.</div>
+                  <div class="text-xs text-stone-500 mt-1">Best streak: 14 days</div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <form class="space-y-6">
-            <div class="glass rounded-3xl p-8">
-              <div class="flex flex-col items-center gap-4 mb-8">
-                <div class="w-32 h-32 rounded-full bg-white/5 border-2 border-dashed border-white/20 flex flex-col items-center justify-center text-stone-400 cursor-pointer hover:bg-white/10 hover:border-gold/50 transition group overflow-hidden relative">
-                  <svg class="w-8 h-8 mb-2 text-stone-500 group-hover:text-gold transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                  <span class="text-xs font-semibold">Upload Cover</span>
-                </div>
-              </div>
-
-              <div class="space-y-5">
-                <div>
-                  <label class="block text-sm font-semibold text-stone-300 mb-2">Group Name</label>
-                  <input type="text" placeholder="e.g. Morning Crew, Iron Squad" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-stone-600 focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/50 transition">
-                </div>
-                <div>
-                  <label class="block text-sm font-semibold text-stone-300 mb-2">Description</label>
-                  <textarea placeholder="What is this group about?" rows="3" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-stone-600 focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/50 transition resize-none"></textarea>
-                </div>
-                <div>
-                  <label class="block text-sm font-semibold text-stone-300 mb-2">Privacy Settings</label>
-                  <div class="grid grid-cols-2 gap-3">
-                    <label class="relative cursor-pointer">
-                      <input type="radio" name="privacy" class="peer sr-only" checked>
-                      <div class="glass rounded-xl p-4 text-center border-2 border-transparent peer-checked:border-gold peer-checked:bg-gold/10 transition">
-                        <svg class="w-6 h-6 mx-auto mb-2 text-stone-400 peer-checked:text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                        <div class="font-bold text-white text-sm">Private</div>
-                        <div class="text-xs text-stone-500 mt-1">Invite only</div>
-                      </div>
-                    </label>
-                    <label class="relative cursor-pointer">
-                      <input type="radio" name="privacy" class="peer sr-only">
-                      <div class="glass rounded-xl p-4 text-center border-2 border-transparent peer-checked:border-gold peer-checked:bg-gold/10 transition">
-                        <svg class="w-6 h-6 mx-auto mb-2 text-stone-400 peer-checked:text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <div class="font-bold text-white text-sm">Public</div>
-                        <div class="text-xs text-stone-500 mt-1">Anyone can join</div>
-                      </div>
-                    </label>
-                  </div>
-                </div>
-              </div>
+          <!-- ATTENDANCE STATS -->
+          <div class="grid !grid-cols-3 gap-3 md:gap-6">
+            <div class="glass rounded-2xl p-4 md:p-6 flex flex-col justify-center items-center text-center border border-white/5 hover:border-white/10 transition">
+              <div class="text-stone-400 text-[10px] md:text-xs font-bold uppercase tracking-wider mb-1 md:mb-2">This Month</div>
+              <div class="text-2xl md:text-3xl font-black text-white">18</div>
+              <div class="text-[10px] md:text-xs text-stone-500 mt-1">Visits</div>
             </div>
+            <div class="glass rounded-2xl p-4 md:p-6 flex flex-col justify-center items-center text-center border border-white/5 hover:border-white/10 transition">
+              <div class="text-stone-400 text-[10px] md:text-xs font-bold uppercase tracking-wider mb-1 md:mb-2">This Week</div>
+              <div class="text-2xl md:text-3xl font-black text-white">4</div>
+              <div class="text-[10px] md:text-xs text-stone-500 mt-1">Visits</div>
+            </div>
+            <div class="glass rounded-2xl p-4 md:p-6 flex flex-col justify-center items-center text-center border border-gold/20 bg-gradient-to-b from-white/5 to-gold/5 transition">
+              <div class="text-gold text-[10px] md:text-xs font-bold uppercase tracking-wider mb-1 md:mb-2">Attendance</div>
+              <div class="text-2xl md:text-3xl font-black text-gold">85%</div>
+              <div class="text-[10px] md:text-xs text-gold/60 mt-1">Rate</div>
+            </div>
+          </div>
 
-            <div class="glass rounded-3xl p-8">
-              <h3 class="text-xl font-bold text-white mb-4">Invite Members</h3>
-              <p class="text-stone-400 text-sm mb-4">Search by member ID or username to add your friends.</p>
-              <div class="flex gap-2 mb-6">
-                <input type="text" placeholder="Search..." class="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-stone-600 focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/50 transition">
-                <button type="button" class="px-6 py-3 rounded-xl bg-white/10 text-white font-semibold hover:bg-white/20 transition">Find</button>
+          <!-- MAIN GRAPH -->
+          <div class="glass rounded-3xl p-6 md:p-8 border border-white/5">
+            <div class="flex items-center justify-between mb-8">
+              <h2 class="text-lg font-bold text-white">Activity Overview</h2>
+              <div class="text-xs font-bold text-stone-400 uppercase tracking-widest bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">Last 30 Days</div>
+            </div>
+            
+            <div class="relative h-48 md:h-64 w-full flex items-end justify-between gap-[2px] sm:gap-1 md:gap-2 pt-4">
+              <!-- Grid lines -->
+              <div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+                <div class="w-full h-px bg-white/5"></div>
+                <div class="w-full h-px bg-white/5"></div>
+                <div class="w-full h-px bg-white/5"></div>
+                <div class="w-full h-px bg-white/10"></div>
               </div>
               
-              <!-- Selected Members -->
-              <div class="space-y-2">
-                <div class="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10">
-                  <div class="flex items-center gap-3">
-                    <img src="assets/img/coaches/1.png" class="w-10 h-10 rounded-full object-cover">
-                    <div class="font-semibold text-white">Sarah Jenkins</div>
-                  </div>
-                  <button type="button" class="text-stone-500 hover:text-rose-400 transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+              <!-- 30 bars mock with nice colors and data tooltips -->
+              <!-- Empty days -->
+              <div class="w-full bg-white/5 rounded-t-md h-[10%] relative group transition hover:bg-white/10"></div>
+              <div class="w-full bg-white/5 rounded-t-md h-[10%] relative group transition hover:bg-white/10"></div>
+              
+              <!-- Active days (Bright Gold to Neon Yellow gradient + glow) -->
+              <div class="w-full bg-gradient-to-t from-[#f5b041]/40 to-[#ffe600] rounded-t-md h-[40%] relative group transition hover:opacity-80 shadow-[0_-4px_12px_rgba(255,230,0,0.15)]"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-black/80 text-white text-[9px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">45m</div></div>
+              <div class="w-full bg-white/5 rounded-t-md h-[10%] relative group transition hover:bg-white/10"></div>
+              <div class="w-full bg-gradient-to-t from-[#f5b041]/40 to-[#ffe600] rounded-t-md h-[60%] relative group transition hover:opacity-80 shadow-[0_-4px_12px_rgba(255,230,0,0.15)]"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-black/80 text-white text-[9px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">1h 10m</div></div>
+              <div class="w-full bg-gradient-to-t from-[#f5b041]/40 to-[#ffe600] rounded-t-md h-[45%] relative group transition hover:opacity-80 shadow-[0_-4px_12px_rgba(255,230,0,0.15)]"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-black/80 text-white text-[9px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">50m</div></div>
+              
+              <div class="w-full bg-white/5 rounded-t-md h-[10%] relative group transition hover:bg-white/10"></div>
+              <div class="w-full bg-gradient-to-t from-[#f5b041]/40 to-[#ffe600] rounded-t-md h-[80%] relative group transition hover:opacity-80 shadow-[0_-4px_12px_rgba(255,230,0,0.15)]"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-black/80 text-white text-[9px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">1h 30m</div></div>
+              <div class="w-full bg-white/5 rounded-t-md h-[10%] relative group transition hover:bg-white/10"></div>
+              
+              <div class="w-full bg-gradient-to-t from-[#f5b041]/40 to-[#ffe600] rounded-t-md h-[35%] relative group transition hover:opacity-80 shadow-[0_-4px_12px_rgba(255,230,0,0.15)]"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-black/80 text-white text-[9px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">40m</div></div>
+              <div class="w-full bg-gradient-to-t from-[#f5b041]/40 to-[#ffe600] rounded-t-md h-[55%] relative group transition hover:opacity-80 shadow-[0_-4px_12px_rgba(255,230,0,0.15)]"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-black/80 text-white text-[9px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">1h</div></div>
+              <div class="w-full bg-white/5 rounded-t-md h-[10%] relative group transition hover:bg-white/10"></div>
+              <div class="w-full bg-white/5 rounded-t-md h-[10%] relative group transition hover:bg-white/10"></div>
+              
+              <div class="w-full bg-gradient-to-t from-[#f5b041]/40 to-[#ffe600] rounded-t-md h-[70%] relative group transition hover:opacity-80 shadow-[0_-4px_12px_rgba(255,230,0,0.15)]"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-black/80 text-white text-[9px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">1h 15m</div></div>
+              <div class="w-full bg-gradient-to-t from-[#f5b041]/40 to-[#ffe600] rounded-t-md h-[90%] relative group transition hover:opacity-80 shadow-[0_-4px_12px_rgba(255,230,0,0.15)]"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-black/80 text-white text-[9px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">1h 45m</div></div>
+              <div class="w-full bg-white/5 rounded-t-md h-[10%] relative group transition hover:bg-white/10"></div>
+              
+              <div class="w-full bg-gradient-to-t from-[#f5b041]/40 to-[#ffe600] rounded-t-md h-[45%] relative group transition hover:opacity-80 shadow-[0_-4px_12px_rgba(255,230,0,0.15)]"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-black/80 text-white text-[9px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">50m</div></div>
+              <div class="w-full bg-gradient-to-t from-[#f5b041]/40 to-[#ffe600] rounded-t-md h-[60%] relative group transition hover:opacity-80 shadow-[0_-4px_12px_rgba(255,230,0,0.15)]"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-black/80 text-white text-[9px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">1h 5m</div></div>
+              <div class="w-full bg-white/5 rounded-t-md h-[10%] relative group transition hover:bg-white/10"></div>
+              <div class="w-full bg-white/5 rounded-t-md h-[10%] relative group transition hover:bg-white/10"></div>
+              
+              <div class="w-full bg-gradient-to-t from-[#f5b041]/40 to-[#ffe600] rounded-t-md h-[85%] relative group transition hover:opacity-80 shadow-[0_-4px_12px_rgba(255,230,0,0.15)]"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-black/80 text-white text-[9px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">1h 35m</div></div>
+              <div class="w-full bg-white/5 rounded-t-md h-[10%] relative group transition hover:bg-white/10"></div>
+              
+              <div class="w-full bg-gradient-to-t from-[#f5b041]/40 to-[#ffe600] rounded-t-md h-[55%] relative group transition hover:opacity-80 shadow-[0_-4px_12px_rgba(255,230,0,0.15)]"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-black/80 text-white text-[9px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">1h</div></div>
+              <div class="w-full bg-gradient-to-t from-[#f5b041]/40 to-[#ffe600] rounded-t-md h-[75%] relative group transition hover:opacity-80 shadow-[0_-4px_12px_rgba(255,230,0,0.15)]"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-black/80 text-white text-[9px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">1h 20m</div></div>
+              <div class="w-full bg-white/5 rounded-t-md h-[10%] relative group transition hover:bg-white/10"></div>
+              <div class="w-full bg-white/5 rounded-t-md h-[10%] relative group transition hover:bg-white/10"></div>
+              
+              <div class="w-full bg-gradient-to-t from-[#f5b041]/40 to-[#ffe600] rounded-t-md h-[65%] relative group transition hover:opacity-80 shadow-[0_-4px_12px_rgba(255,230,0,0.15)]"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-black/80 text-white text-[9px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">1h 10m</div></div>
+              <div class="w-full bg-gradient-to-t from-[#f5b041]/40 to-[#ffe600] rounded-t-md h-[80%] relative group transition hover:opacity-80 shadow-[0_-4px_15px_rgba(255,230,0,0.4)] z-10"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-white text-black font-bold text-[9px] px-1.5 py-0.5 rounded opacity-100 whitespace-nowrap">1h 25m</div></div>
+            </div>
+            <div class="flex justify-between mt-3 text-[10px] text-stone-500 uppercase tracking-widest font-bold">
+              <span>Apr 8</span>
+              <span class="text-[#ffe600]">Today</span>
+            </div>
+          </div>
+            
+           
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <!-- MONTHLY CALENDAR -->
+            <div class="glass rounded-3xl p-6 md:p-8 border border-white/5">
+              <div class="flex items-center justify-between mb-6">
+                <h2 class="text-lg font-bold text-white">May 2026</h2>
+                <div class="flex gap-3 text-xs font-semibold">
+                  <div class="flex items-center gap-1.5"><span class="w-1.5 h-3 rounded-full bg-gradient-to-b from-[#ffe600] to-gold shadow-[0_0_8px_rgba(255,230,0,0.5)]"></span> <span class="text-stone-300">Attended</span></div>
+                  <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-[#1b1b1f] border border-white/5"></span> <span class="text-stone-500">Missed</span></div>
                 </div>
-                <div class="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10">
-                  <div class="flex items-center gap-3">
-                    <img src="assets/img/coaches/2.png" class="w-10 h-10 rounded-full object-cover">
-                    <div class="font-semibold text-white">Mike Ross</div>
-                  </div>
-                  <button type="button" class="text-stone-500 hover:text-rose-400 transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-                </div>
+              </div>
+              
+              <div class="grid !grid-cols-7 gap-2 text-center text-xs font-black text-white mb-6 uppercase tracking-widest">
+                <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
+              </div>
+              
+              <div class="grid !grid-cols-7 gap-y-6 gap-x-2 place-items-center">
+                <!-- Week 1 -->
+                <div class="w-6 h-8 flex items-center justify-center text-[10px] font-bold text-stone-600">26</div>
+                <div class="w-6 h-8 flex items-center justify-center text-[10px] font-bold text-stone-600">27</div>
+                <div class="w-6 h-8 flex items-center justify-center text-[10px] font-bold text-stone-600">28</div>
+                <div class="w-6 h-8 flex items-center justify-center text-[10px] font-bold text-stone-600">29</div>
+                <div class="w-6 h-8 flex items-center justify-center text-[10px] font-bold text-stone-600">30</div>
+                <div class="w-6 h-10 rounded-full bg-gradient-to-b from-[#ffe600] to-[#f5b041] shadow-[0_0_15px_rgba(255,230,0,0.35)] relative overflow-hidden"><div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div></div>
+                <div class="w-6 h-6 rounded-full bg-[#161618] border border-white/5 shadow-inner"></div>
+                <!-- Week 2 -->
+                <div class="w-6 h-6 rounded-full bg-[#161618] border border-white/5 shadow-inner"></div>
+                <div class="w-6 h-10 rounded-full bg-gradient-to-b from-[#ffe600] to-[#f5b041] shadow-[0_0_15px_rgba(255,230,0,0.35)] relative overflow-hidden"><div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div></div>
+                <div class="w-6 h-10 rounded-full bg-gradient-to-b from-[#ffe600] to-[#f5b041] shadow-[0_0_15px_rgba(255,230,0,0.35)] relative overflow-hidden"><div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div></div>
+                <div class="w-6 h-6 rounded-full bg-[#161618] border border-white/5 shadow-inner"></div>
+                <div class="w-6 h-10 rounded-full bg-gradient-to-b from-[#ffe600] to-[#f5b041] shadow-[0_0_15px_rgba(255,230,0,0.35)] relative overflow-hidden"><div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div></div>
+                <div class="w-6 h-6 rounded-full bg-[#161618] border border-white/5 shadow-inner"></div>
+                <div class="w-6 h-10 rounded-full bg-gradient-to-b from-[#ffe600] to-[#f5b041] shadow-[0_0_15px_rgba(255,230,0,0.35)] relative overflow-hidden"><div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div></div>
+                <!-- Week 3 -->
+                <div class="w-6 h-10 rounded-full bg-gradient-to-b from-[#ffe600] to-[#f5b041] shadow-[0_0_15px_rgba(255,230,0,0.35)] relative overflow-hidden"><div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div></div>
+                <div class="w-6 h-6 rounded-full bg-[#161618] border border-white/5 shadow-inner"></div>
+                <div class="w-6 h-6 rounded-full bg-[#161618] border border-white/5 shadow-inner"></div>
+                <div class="w-6 h-10 rounded-full bg-gradient-to-b from-[#ffe600] to-[#f5b041] shadow-[0_0_15px_rgba(255,230,0,0.35)] relative overflow-hidden"><div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div></div>
+                <div class="w-6 h-10 rounded-full bg-gradient-to-b from-[#ffe600] to-[#f5b041] shadow-[0_0_15px_rgba(255,230,0,0.35)] relative overflow-hidden"><div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div></div>
+                <div class="w-6 h-6 rounded-full bg-[#161618] border border-white/5 shadow-inner"></div>
+                <div class="w-6 h-6 rounded-full bg-[#161618] border border-white/5 shadow-inner"></div>
+                <!-- Week 4 -->
+                <div class="w-6 h-6 rounded-full bg-[#161618] border border-white/5 shadow-inner"></div>
+                <div class="w-6 h-10 rounded-full bg-gradient-to-b from-[#ffe600] to-[#f5b041] shadow-[0_0_15px_rgba(255,230,0,0.35)] relative overflow-hidden"><div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div></div>
+                <div class="w-6 h-10 rounded-full bg-gradient-to-b from-[#ffe600] to-[#f5b041] shadow-[0_0_15px_rgba(255,230,0,0.35)] relative overflow-hidden"><div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div></div>
+                <div class="w-6 h-6 rounded-full bg-[#161618] border border-white/5 shadow-inner"></div>
+                <div class="w-6 h-10 rounded-full bg-gradient-to-b from-[#ffe600] to-[#f5b041] shadow-[0_0_15px_rgba(255,230,0,0.35)] relative overflow-hidden"><div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div></div>
+                <div class="w-6 h-6 rounded-full bg-[#161618] border border-white/5 shadow-inner"></div>
+                <div class="w-6 h-6 rounded-full bg-[#161618] border border-white/5 shadow-inner"></div>
+                <!-- Week 5 -->
+                <div class="w-6 h-10 rounded-full bg-gradient-to-b from-[#ffe600] to-[#f5b041] shadow-[0_0_15px_rgba(255,230,0,0.5)] ring-2 ring-white/20 ring-offset-4 ring-offset-[#09090a] relative overflow-hidden"><div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div></div>
+                <div class="w-6 h-8 flex items-center justify-center text-[10px] font-bold text-stone-600">2</div>
+                <div class="w-6 h-8 flex items-center justify-center text-[10px] font-bold text-stone-600">3</div>
+                <div class="w-6 h-8 flex items-center justify-center text-[10px] font-bold text-stone-600">4</div>
+                <div class="w-6 h-8 flex items-center justify-center text-[10px] font-bold text-stone-600">5</div>
+                <div class="w-6 h-8 flex items-center justify-center text-[10px] font-bold text-stone-600">6</div>
+                <div class="w-6 h-8 flex items-center justify-center text-[10px] font-bold text-stone-600">7</div>
               </div>
             </div>
 
-            <button type="button" onclick="window.location.href='group-details.html'" class="w-full py-4 rounded-xl bg-gradient-to-r from-gold to-amber-200 text-black font-black text-lg hover:shadow-[0_0_20px_rgba(245,176,65,0.4)] transition hover:scale-[1.02]">
-              Create Workout Group
-            </button>
-          </form>
+
+            <!-- RECENT VISITS -->
+            <div class="glass rounded-3xl p-6 md:p-8 border border-white/5 flex flex-col h-full">
+              <h2 class="text-lg font-bold text-white mb-6">Recent Visits</h2>
+              <div class="relative flex-1">
+                <!-- Timeline line -->
+                <div class="absolute left-[11px] top-2 bottom-2 w-px bg-gradient-to-b from-gold/50 via-white/10 to-transparent"></div>
+                
+                <div class="space-y-6">
+                  <div class="relative pl-8">
+                    <div class="absolute left-0 top-1.5 w-6 h-6 rounded-full bg-gold/20 flex items-center justify-center">
+                      <div class="w-2.5 h-2.5 rounded-full bg-gold shadow-[0_0_10px_#f5b041]"></div>
+                    </div>
+                    <div class="text-white font-bold text-sm">Today</div>
+                    <div class="text-stone-400 text-xs mt-0.5 flex items-center gap-2">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                      6:12 PM
+                    </div>
+                  </div>
+
+                  <div class="relative pl-8">
+                    <div class="absolute left-[7px] top-2 w-2 h-2 rounded-full bg-stone-500"></div>
+                    <div class="text-stone-300 font-semibold text-sm">Yesterday</div>
+                    <div class="text-stone-500 text-xs mt-0.5 flex items-center gap-2">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                      7:03 PM
+                    </div>
+                  </div>
+
+                  <div class="relative pl-8">
+                    <div class="absolute left-[7px] top-2 w-2 h-2 rounded-full bg-stone-500"></div>
+                    <div class="text-stone-300 font-semibold text-sm">May 18</div>
+                    <div class="text-stone-500 text-xs mt-0.5 flex items-center gap-2">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                      5:45 PM
+                    </div>
+                  </div>
+                  
+                  <div class="relative pl-8">
+                    <div class="absolute left-[7px] top-2 w-2 h-2 rounded-full bg-stone-600/50"></div>
+                    <div class="text-stone-400 font-semibold text-sm">May 15</div>
+                    <div class="text-stone-600 text-xs mt-0.5 flex items-center gap-2">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                      6:30 AM
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MOTIVATION CARD -->
+          <div class="glass rounded-3xl p-6 relative overflow-hidden border border-gold/20 flex items-center justify-between gap-4 mt-8 bg-gradient-to-r from-gold/10 to-transparent">
+            <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-gold"></div>
+            <div>
+              <div class="text-xs text-gold uppercase tracking-widest font-bold mb-1">Keep Pushing</div>
+              <p class="text-sm font-semibold text-white md:text-base">You're doing better than <strong class="text-gold font-black">78%</strong> of members this month.</p>
+            </div>
+            <div class="p-3 bg-white/5 rounded-full shrink-0 border border-white/10">
+              <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+            </div>
+          </div>
+
         </div>
     
       </div>

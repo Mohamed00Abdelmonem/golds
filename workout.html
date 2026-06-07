@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -17,147 +17,32 @@
   <script src="assets/js/i18n.js" defer></script>
 
   <style>
-    :root{--gold:#f5b041; --safe-pad: clamp(0.75rem, 4vw, 2rem); --card-pad: clamp(0.75rem, 3vw, 1.5rem); --gap: clamp(0.5rem, 2vw, 1rem)}
+    /* Premium Dark Theme */
+    :root{--gold:#ffd400; --bg-main:#09090b; --bg-card:#18181b; --border-glass:rgba(255,255,255,0.08)}
     html,body{height:100%; overflow-x:hidden}
-    body{font-family:Poppins,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;background:linear-gradient(180deg,#070708 0%,#0f0f10 60%);color:#fff; margin:0; padding:0}
+    body{font-family:Poppins,system-ui,-apple-system,sans-serif; background:var(--bg-main); color:#fff; margin:0; padding:0}
     * { box-sizing:border-box }
-    .glass{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.015));border:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(8px) saturate(110%)}
-    .hover-lift:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(2,6,23,0.6),0 0 40px rgba(245,176,65,0.04)}
-    .fast-trans{transition:all 180ms cubic-bezier(.2,.9,.2,1)}
-    .dash-anim{stroke-dasharray:1000;stroke-dashoffset:1000;animation:draw 900ms ease forwards}
-    @keyframes draw{to{stroke-dashoffset:0}}
-    .sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .glass { background:var(--bg-card); border:1px solid var(--border-glass); border-radius:1rem; }
+    .hover-lift:hover{ transform:translateY(-2px); box-shadow:0 10px 40px -10px rgba(0,0,0,0.5); border-color:rgba(255,255,255,0.15) }
+    .fast-trans{transition:all 200ms ease-out}
+    .text-gold{color:var(--gold) !important}
+    .bg-gold,.from-gold{background-image:linear-gradient(135deg,#fff173 0%,#ffd400 100%) !important; color:#000 !important}
+    
+    /* Split Tabs */
+    .split-tabs{overflow-x:auto; scrollbar-width:none; padding:4px}
+    .split-tabs::-webkit-scrollbar{display:none}
+    .tab-btn{background:transparent; color:#a1a1aa; padding:8px 16px; border-radius:99px; font-size:0.875rem; font-weight:600; transition:all 200ms}
+    .tab-btn.active-tab{background:rgba(255,212,0,0.1); color:var(--gold); border:1px solid rgba(255,212,0,0.2)}
+    
+    /* Input styling */
+    input[type="number"], input[type="text"] { background:transparent; border-bottom:1px solid rgba(255,255,255,0.1); color:#fff; text-align:center; transition:border-color 0.2s; border-radius:0 }
+    input:focus { outline:none; border-bottom-color:var(--gold); }
+    
+    /* Accordion */
     .accordion-enter{max-height:0;overflow:hidden;transition:max-height 220ms ease}
     .accordion-open{max-height:800px}
-    .check-anim{transition:transform 160ms,opacity 160ms}
-    .glow-amber{box-shadow:0 6px 30px rgba(245,176,65,0.12)}
-    .complete-checkbox{width:20px; height:20px; accent-color:#f5b041; cursor:pointer; transition:all 220ms ease}
-    .complete-checkbox + div{transition:background-color 220ms ease, box-shadow 220ms ease, transform 220ms ease}
-    .complete-checkbox + div + span{transition:transform 220ms cubic-bezier(.2,.9,.2,1), background-color 220ms ease, box-shadow 220ms ease}
-    .complete-checkbox:checked{background-color:#f5b041; border:2px solid #f5b041; box-shadow:0 0 14px rgba(245,176,65,0.45)}
-    .rest-time-bar{width:0%}
-    .achievement-toast{min-width:220px}
-    .tutorial-video-frame{height:360px}
-    .complete-checkbox:checked{background-color:#f5b041 !important; border-color:#f5b041 !important}
-    .complete-checkbox:checked::after{background-color:#070708 !important}
-    .complete-checkbox:checked + div{background:rgba(245,176,65,0.22) !important; box-shadow:0 0 0 1px rgba(245,176,65,0.16), 0 0 18px rgba(245,176,65,0.24) !important}
-    .complete-checkbox:checked + div + span{background:#f5b041 !important; box-shadow:0 0 16px rgba(245,176,65,0.72), 0 0 28px rgba(245,176,65,0.26) !important}
     
-    /* Tab styling */
-    .tab-btn{background:transparent; color:#a1a1a1; border:1px solid transparent; transition:all 180ms cubic-bezier(0.2,0.9,0.2,1)}
-    .tab-btn:hover{color:#d4d4d4}
-    .tab-btn.active-tab{background:rgba(255,255,255,0.1); color:#f5b041; border:1px solid rgba(245,176,65,0.2); box-shadow:0 0 12px rgba(245,176,65,0.15)}
-    .split-tabs{overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none}
-    .split-tabs::-webkit-scrollbar{display:none}
-    .split-tabs .tab-btn{flex:0 0 auto; white-space:nowrap; letter-spacing:0.01em}
-    
-    /* Prevent horizontal overflow */
-    main, section, article, div { max-width:100vw; overflow-x:hidden }
-    img, video { max-width:100%; height:auto; display:block }
-    
-    /* Responsive typography using clamp */
-    h1 { font-size:clamp(1.25rem, 6vw, 2rem); line-height:1.2 }
-    h2 { font-size:clamp(1rem, 5vw, 1.75rem); line-height:1.3 }
-    h3 { font-size:clamp(0.95rem, 4vw, 1.5rem) }
-    .text-lg { font-size:clamp(0.95rem, 3vw, 1.125rem) }
-    .text-base { font-size:clamp(0.875rem, 2.5vw, 1rem) }
-    .text-sm { font-size:clamp(0.75rem, 2vw, 0.875rem) }
-    .text-xs { font-size:clamp(0.65rem, 1.5vw, 0.75rem) }
-    
-    /* Mobile-first spacing */
-    main { padding:0; overflow-y:auto; overflow-x:hidden }
-    section { padding:var(--safe-pad) }
-    article { padding:var(--card-pad) }
-    
-    /* Fluid button sizing */
-    button { min-height:2.75rem; min-width:2.75rem; padding:clamp(0.5rem, 2vw, 0.75rem) clamp(0.75rem, 3vw, 1rem) }
-    input { min-height:2.75rem; padding:clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.5rem, 2vw, 0.75rem); font-size:1rem }
-    
-    /* Mobile-first layout */
-    @media (max-width:768px) {
-      #page-main { padding-bottom:6rem }
-      section { display:flex; flex-direction:column; gap:var(--gap) }
-    }
-    
-    /* Tablet & Desktop */
-    @media (min-width:769px) {
-      section { display:grid; gap:clamp(1rem, 3vw, 2rem) }
-      #page-main { padding-bottom:2rem }
-    }
-    
-    /* Header fixes */
-    header { padding:clamp(0.5rem, 2vw, 1rem); gap:var(--gap); flex-wrap:wrap; overflow-x:hidden }
-    header input { width:clamp(120px, 100%, 300px) }
-    
-    /* Sidebar mobile */
-    aside { padding:clamp(0.75rem, 3vw, 1.5rem); gap:var(--gap) }
-    
-    /* Card padding */
-    .glass { padding:var(--card-pad); border-radius:clamp(0.5rem, 2vw, 1rem) }
-    
-    /* Prevent navbar overlap */
-    #mobileNav { bottom:clamp(0.5rem, 1vw, 1rem); margin:0; padding:clamp(0.5rem, 1.5vw, 0.75rem); width:clamp(200px, calc(100% - 1rem), 500px) }
-    
-    /* Tab scrolling smooth */
-    .flex.gap-1 { scroll-behavior:smooth; -webkit-overflow-scrolling:touch }
-    
-    /* Image responsiveness */
-    img { width:100%; height:auto; border-radius:clamp(0.375rem, 1.5vw, 0.75rem) }
-
-    /* Small-screen bottom-sheet for tutorial modal */
-    @media (max-width:640px) {
-      #tutorialModal { align-items:flex-end; padding:12px 12px 20px 12px }
-      #tutorialModal .w-full.glass { width:100%; max-width:100%; margin:0 }
-      #tutorialModal .w-full.glass { border-radius:12px 12px 0 0; max-height:70vh }
-      #tutorialModal video { max-height:60vh; }
-    }
-
-    /* Ladder-inspired layout */
-    .workout-layout{max-width:1160px;margin:0 auto;align-items:start}
-    .workout-main{display:flex;flex-direction:column;gap:clamp(0.75rem,2vw,1.25rem)}
-    .workout-rail{display:flex;flex-direction:column;gap:clamp(0.75rem,2vw,1rem)}
-    .ladder-hero{position:relative;overflow:hidden}
-    .ladder-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(140deg,rgba(245,176,65,0.12),transparent 42%);pointer-events:none}
-    .split-tabs{border-radius:1rem}
-    #exerciseList{gap:1rem}
-    .exercise-card{overflow:hidden;border-radius:1rem}
-    .exercise-card .hero-shot{aspect-ratio:16/9;width:100%;object-fit:cover;border-radius:0.85rem}
-    .exercise-card .exercise-head{display:flex;align-items:center;justify-content:space-between;gap:.75rem}
-    .exercise-card .exercise-name{font-size:clamp(1rem,2vw,1.15rem);font-weight:800}
-    .exercise-card .exercise-chips{display:flex;flex-wrap:wrap;gap:.45rem}
-    .exercise-card .exercise-chip{padding:.38rem .62rem;border-radius:999px;background:rgba(255,255,255,0.06);font-size:.72rem;color:#cfcfcf}
-    .muscle-video-wrap{width:100%;min-height:220px;height:clamp(220px,36vw,340px);border-radius:1rem;overflow:hidden}
-    #muscleVideo{width:100% !important;height:100% !important;object-fit:cover;border-radius:0 !important;display:block}
-    @media (max-width:1024px){
-      .workout-layout{grid-template-columns:1fr !important}
-      .workout-rail{order:1}
-      .workout-main{order:2}
-      #tracker{position:relative !important;top:auto !important}
-    }
-
-    /* Restore original GoldTech color palette for this page */
-    :root{--gold:#ffd400}
-    .text-gold{color:#ffd400 !important}
-    .bg-gold,.from-gold{
-      background-image:linear-gradient(180deg,#fff173 0%,#ffd400 100%) !important;
-      color:#111111 !important;
-    }
-    .tab-btn.active-tab{
-      color:#ffd400 !important;
-      border-color:rgba(255,212,0,0.28) !important;
-      box-shadow:0 0 12px rgba(255,212,0,0.2) !important;
-    }
-    #restTimeBar{
-      background:linear-gradient(90deg,#ffd400,#fff173) !important;
-    }
-    #startWorkout,.set-btn,#timerToggle{
-      background:linear-gradient(180deg,#fff173 0%,#ffd400 100%) !important;
-      color:#111111 !important;
-      border:1px solid rgba(255,212,0,0.4) !important;
-      box-shadow:0 10px 24px rgba(255,212,0,0.22);
-    }
-
-    /* ===== MOBILE BOTTOM NAV ===== */
+    /* Mobile Bottom Nav */
     .mobile-bottom-nav,.mobile-bottom-sheet{display:none}
     @media (max-width:767px){
       body{padding-bottom:0 !important}
@@ -178,12 +63,10 @@
       .mobile-bottom-sheet.is-open .mobile-bottom-sheet__panel{transform:translateY(0)}
       .mobile-bottom-sheet__handle{width:3.25rem;height:.28rem;border-radius:999px;background:rgba(255,255,255,.18);margin:0.7rem auto 0}
       .mobile-bottom-sheet__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.65rem;padding:0 1rem 1rem;overflow:auto}
-      .mobile-bottom-sheet__link{display:flex;min-height:3.9rem;align-items:center;gap:0.8rem;border-radius:1.1rem;padding:0.85rem 0.9rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:#e5e7eb;font-size:.9rem;font-weight:600;transition:all 180ms;text-decoration:none}
-      .mobile-bottom-sheet__link:hover{background:rgba(255,255,255,.08)}
-      .mobile-bottom-sheet__link.is-active{background:rgba(245,176,65,.14);border-color:rgba(245,176,65,.24);color:#fff}
-      .mobile-bottom-sheet__close{display:inline-flex;align-items:center;justify-content:center;min-height:2.75rem;min-width:2.75rem;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#e5e7eb}
+      .mobile-bottom-sheet__link{display:flex;align-items:center;padding:0.75rem 1rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-radius:1rem;color:#e4e4e7;font-size:0.9rem;font-weight:500;transition:all 200ms ease;text-decoration:none}
+      .mobile-bottom-sheet__link:active{background:rgba(255,255,255,0.05);transform:scale(0.98)}
     }
-  </style>
+</style>
 </head>
 <body class="antialiased text-sm">
 
@@ -226,40 +109,39 @@
     
 
     <!-- Page grid: main + right sticky widget -->
-    <section class="workout-layout grid grid-cols-1 lg:grid-cols-12" style="gap:clamp(0.75rem,3vw,2rem)">  
+    <section class="workout-layout grid grid-cols-1 lg:grid-cols-12 px-4 md:px-8 max-w-[1400px] mx-auto py-6" style="gap:clamp(1.5rem,4vw,3rem)">  
       <div class="workout-main lg:col-span-8">  
 
         <!-- Workout header -->
-        <div class="ladder-hero glass shadow-glass-strong hover-lift fast-trans">
-          <div class="flex flex-col" style="gap:var(--gap)">
-            <div>
-              <div class="text-stone-400 uppercase tracking-widest">Program</div>
-              <h1 class="text-white font-extrabold text-white leading-tight">Push Pull Legs — Push Day</h1>
-              <div style="margin-top:clamp(0.25rem,1vw,0.5rem)" class="text-stone-400">Day 5 • Focus: Chest & Shoulders</div>
+        <div class="mb-6 px-2">
+          <div class="flex items-center gap-2 text-gold text-xs font-bold uppercase tracking-widest mb-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            Active Program
+          </div>
+          <h1 class="text-3xl md:text-4xl font-black text-white tracking-tight mb-2">Push Pull Legs</h1>
+          <div class="text-zinc-400 font-medium">Day 5 • Focus: Chest & Shoulders</div>
+          
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
+            <div class="bg-zinc-900/50 rounded-xl p-3 border border-white/5 flex flex-col items-center justify-center">
+              <div class="text-zinc-500 text-[10px] uppercase font-bold tracking-wider mb-1">Duration</div>
+              <div class="text-white font-bold">52 min</div>
             </div>
-
-            <div class="grid grid-cols-2 sm:grid-cols-4 md:flex md:items-center md:flex-wrap" style="gap:var(--gap)">
-              <div class="text-center bg-white/3 md:bg-transparent rounded-lg" style="padding:clamp(0.5rem,1.5vw,0.75rem)">
-                <div class="text-stone-400">Duration</div>
-                <div class="text-white font-bold">52 min</div>
-              </div>
-              <div class="text-center bg-white/3 md:bg-transparent rounded-lg" style="padding:clamp(0.5rem,1.5vw,0.75rem)">
-                <div class="text-stone-400">Est. Cal</div>
-                <div class="text-white font-bold">420 kcal</div>
-              </div>
-              <div class="text-center bg-white/3 md:bg-transparent rounded-lg" style="padding:clamp(0.5rem,1.5vw,0.75rem)">
-                <div class="text-stone-400">Difficulty</div>
-                <div class="text-white font-bold">Advanced</div>
-              </div>
-              <div class="text-center bg-white/3 md:bg-transparent rounded-lg" style="padding:clamp(0.5rem,1.5vw,0.75rem)">
-                <div class="text-stone-400">Progress</div>
-                <div class="text-white font-bold">45%</div>
-              </div>
-              <div class="col-span-2 sm:col-span-2 md:col-span-1 flex items-center" style="gap:var(--gap)">
-                <button id="startWorkout" class="flex-1 md:flex-none bg-gradient-to-br from-[#2b2b2b] to-[#0f0f0f] text-gold rounded-lg font-semibold">Start Workout</button>
-                <button id="resumeWorkout" class="flex-1 md:flex-none glass rounded-lg font-semibold">Resume Rest</button>
-              </div>
+            <div class="bg-zinc-900/50 rounded-xl p-3 border border-white/5 flex flex-col items-center justify-center">
+              <div class="text-zinc-500 text-[10px] uppercase font-bold tracking-wider mb-1">Est. Cal</div>
+              <div class="text-white font-bold">420 kcal</div>
             </div>
+            <div class="bg-zinc-900/50 rounded-xl p-3 border border-white/5 flex flex-col items-center justify-center">
+              <div class="text-zinc-500 text-[10px] uppercase font-bold tracking-wider mb-1">Difficulty</div>
+              <div class="text-white font-bold">Advanced</div>
+            </div>
+            <div class="bg-zinc-900/50 rounded-xl p-3 border border-white/5 flex flex-col items-center justify-center">
+              <div class="text-zinc-500 text-[10px] uppercase font-bold tracking-wider mb-1">Progress</div>
+              <div class="text-white font-bold">45%</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 mt-4">
+            <button id="startWorkout" class="bg-gold text-black px-6 py-3 rounded-xl font-bold hover:brightness-110 transition shadow-[0_0_20px_rgba(255,212,0,0.2)]">Start Workout</button>
+            <button id="resumeWorkout" class="bg-zinc-800 text-white px-6 py-3 rounded-xl font-bold hover:bg-zinc-700 transition border border-white/5">Resume Rest</button>
           </div>
         </div>
 
@@ -277,230 +159,129 @@
 
         <!-- Exercises list -->
         <div id="exerciseList" style="display:flex; flex-direction:column; gap:clamp(0.5rem,1.5vw,1rem)">
-          <!-- Exercise card (reusable) -->
-          <!-- Bench Press -->
-          <article class="exercise-card glass hover-lift fast-trans" style="border-radius:clamp(0.5rem,2vw,1rem); padding:var(--card-pad)">
-            <div class="flex flex-col md:flex-row md:items-start" style="gap:var(--gap)">
-              <img src="assets/img/exercises/img1.png" alt="Barbell Bench Press" class="object-cover border border-white/6 flex-shrink-0" style="width:clamp(3rem,12vw,5rem); height:clamp(3rem,12vw,5rem); border-radius:clamp(0.375rem,1.5vw,0.5rem)" />
-              <div class="flex-1 min-w-0">
-                <div class="flex flex-col justify-between">
-                  <div class="min-w-0">
-                    <div class="text-white font-semibold truncate">Barbell Bench Press</div>
-                    <div class="text-stone-400 mt-0.5 line-clamp-1" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Target: Chest • Sets: 4 • Reps: 6-8</div>
-                  </div>
-                  
-                  <!-- Mobile: stacked layout, Desktop: inline -->
-                  <div class="mt-2 md:mt-3 flex flex-col md:flex-row md:items-center md:justify-between" style="gap:clamp(0.375rem,1vw,0.75rem)">
-                    <!-- Weight info -->
-                    <div class="flex items-center" style="gap:clamp(0.5rem,1.5vw,0.75rem)">
-                      <button class="rest-btn glass rounded-lg flex items-center justify-center" aria-label="Start rest timer" title="Start rest" data-rest-action="start" style="padding:clamp(0.4rem,1vw,0.5rem); width:clamp(2.25rem,5vw,2.75rem); height:clamp(2.25rem,5vw,2.75rem)">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-4 h-4 text-gold"><path d="M12 8v4l3 2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="8.5" stroke-width="1.8"/></svg>
-                      </button>
-                      <button class="expand-btn glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Details</button>
-                      <div class="text-white font-bold">80 kg</div>
-                    </div>
-                    
-                    <!-- Action buttons -->
-                    <div class="flex items-center" style="gap:clamp(0.375rem,1vw,0.5rem)">
-                      <button class="expand-btn glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Details</button>
-                      <label class="relative inline-flex items-center cursor-pointer" style="min-height:2.25rem; min-width:2.25rem">
-                        <input type="checkbox" class="sr-only complete-checkbox peer" />
-                        <div class="bg-white/6 rounded-full peer-checked:bg-gold fast-trans" style="width:clamp(1.75rem,5vw,2.5rem); height:clamp(1rem,2.5vw,1.5rem)"></div>
-                        <span class="absolute bg-white rounded-full transform peer-checked:translate-x-3 md:peer-checked:translate-x-4 peer-checked:bg-gold peer-checked:shadow-[0_0_16px_rgba(245,176,65,0.72),0_0_28px_rgba(245,176,65,0.26)] fast-trans" style="width:clamp(0.875rem,2vw,1.25rem); height:clamp(0.875rem,2vw,1.25rem); left:clamp(0.125rem,0.5vw,0.25rem); top:clamp(0.125rem,0.5vw,0.25rem)"></span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Expanded details -->
-                <div class="details accordion-enter fast-trans" style="margin-top:clamp(0.5rem,1.5vw,0.75rem)">
-                  <div class="text-stone-400">Instructions: Lie flat on bench, grip slightly wider than shoulder. Lower bar to chest under control, pause briefly, and press up explosively.</div>
-                  <div class="grid grid-cols-1 md:grid-cols-2" style="margin-top:clamp(0.5rem,1vw,0.75rem); gap:var(--gap)">
-                    <div class="glass rounded-lg" style="padding:clamp(0.5rem,1.5vw,0.75rem)"><div class="text-stone-400">Common mistakes</div><ul class="text-stone-400" style="margin-top:clamp(0.25rem,0.75vw,0.5rem); font-size:clamp(0.65rem,1.5vw,0.75rem)"><li>Flared elbows</li><li>Bouncing off chest</li></ul></div>
-                    <div class="glass rounded-lg" style="padding:clamp(0.5rem,1.5vw,0.75rem)"><div class="text-stone-400">Safety tips</div><ul class="text-stone-400" style="margin-top:clamp(0.25rem,0.75vw,0.5rem); font-size:clamp(0.65rem,1.5vw,0.75rem)"><li>Use spotter for heavy sets</li><li>Control tempo</li></ul></div>
-                  </div>
-                  <div class="flex flex-wrap items-center" style="margin-top:clamp(0.5rem,1vw,0.75rem); gap:clamp(0.25rem,1vw,0.5rem)">
-                    <button class="glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)" data-action="qr">Scan QR</button>
-                    <button id="watchMachine" class="tutorial-btn glass rounded-lg" data-video="assets/videos/Back.mp4" data-title="Machine Tutorial" data-subtitle="Model X9" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Watch Tutorial</button>
-                    <div class="text-stone-400 ml-auto" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Machine: M-231</div>
-                  </div>
-                </div>
-
-                <!-- Weight & reps inputs -->
-                <form class="grid grid-cols-1 sm:grid-cols-3 items-center" style="margin-top:clamp(0.5rem,1.5vw,0.75rem); gap:var(--gap)">
-                  <label class="text-stone-400 block">
-                    <input type="number" class="glass w-full bg-transparent text-white" style="margin-top:clamp(0.25rem,0.75vw,0.5rem)" value="80" placeholder="Weight (kg)" />
-                  </label>
-                  <label class="text-stone-400 block">
-                    <input type="number" class="glass w-full bg-transparent text-white" style="margin-top:clamp(0.25rem,0.75vw,0.5rem)" value="6" placeholder="Reps" />
-                  </label>
-                  <label class="text-stone-400 block">
-                    <input type="text" class="glass w-full bg-transparent text-white" style="margin-top:clamp(0.25rem,0.75vw,0.5rem)" placeholder="Notes" />
-                  </label>
-                </form>
-              </div>
-            </div>
-          </article>
-
-          <!-- Bent-over Row -->
-          <article class="exercise-card glass hover-lift fast-trans" style="border-radius:clamp(0.5rem,2vw,1rem); padding:var(--card-pad)">
-            <div class="flex flex-col md:flex-row md:items-start" style="gap:var(--gap)">
-              <img src="assets/img/exercises/image2.png" alt="Bent-over Row" class="object-cover border border-white/6 flex-shrink-0" style="width:clamp(3rem,12vw,5rem); height:clamp(3rem,12vw,5rem); border-radius:clamp(0.375rem,1.5vw,0.5rem)" />
-              <div class="flex-1 min-w-0">
-                <div class="flex flex-col justify-between">
-                  <div class="min-w-0">
-                    <div class="text-white font-semibold truncate">Bent-over Barbell Row</div>
-                    <div class="text-stone-400 mt-0.5 line-clamp-1" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Target: Back • Sets: 4 • Reps: 6-8</div>
-                  </div>
-                  
-                  <div class="mt-2 md:mt-3 flex flex-col md:flex-row md:items-center md:justify-between" style="gap:clamp(0.375rem,1vw,0.75rem)">
-                    <div class="flex items-center" style="gap:clamp(0.5rem,1.5vw,0.75rem)">
-                      <button class="rest-btn glass rounded-lg flex items-center justify-center" aria-label="Start rest timer" title="Start rest" data-rest-action="start" style="padding:clamp(0.4rem,1vw,0.5rem); width:clamp(2.25rem,5vw,2.75rem); height:clamp(2.25rem,5vw,2.75rem)">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-4 h-4 text-gold"><path d="M12 8v4l3 2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="8.5" stroke-width="1.8"/></svg>
-                      </button>
-                      <button class="expand-btn glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Details</button>
-                      <div class="text-white font-bold">100 kg</div>
-                    </div>
-                    
-                    <div class="flex items-center" style="gap:clamp(0.375rem,1vw,0.5rem)">
-                      <button class="expand-btn glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Details</button>
-                      <label class="relative inline-flex items-center cursor-pointer" style="min-height:2.25rem; min-width:2.25rem">
-                        <input type="checkbox" class="sr-only complete-checkbox peer" />
-                        <div class="bg-white/6 rounded-full peer-checked:bg-gold fast-trans" style="width:clamp(1.75rem,5vw,2.5rem); height:clamp(1rem,2.5vw,1.5rem)"></div>
-                        <span class="bg-white rounded-full transform peer-checked:translate-x-3 md:peer-checked:translate-x-4 peer-checked:bg-gold peer-checked:shadow-[0_0_16px_rgba(245,176,65,0.72),0_0_28px_rgba(245,176,65,0.26)] fast-trans absolute" style="width:clamp(0.875rem,2vw,1.25rem); height:clamp(0.875rem,2vw,1.25rem); left:clamp(0.125rem,0.5vw,0.25rem); top:clamp(0.125rem,0.5vw,0.25rem)"></span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="details accordion-enter fast-trans hidden" style="margin-top:clamp(0.5rem,1.5vw,0.75rem)"><div class="text-stone-400">Instructions: Hinge at hips, keep a flat back, pull bar towards lower ribs.</div></div>
-                <form class="grid grid-cols-1 sm:grid-cols-3 items-center" style="margin-top:clamp(0.5rem,1.5vw,0.75rem); gap:var(--gap)"><input type="number" class="glass bg-transparent text-white rounded-lg" value="100" placeholder="Weight" /><input type="number" class="glass bg-transparent text-white rounded-lg" value="6" placeholder="Reps" /><input type="text" class="glass bg-transparent text-white rounded-lg" placeholder="Notes" /></form>
-              </div>
-            </div>
-          </article>
-
-
-          
-          <!-- Overhead Press -->
-          <article class="exercise-card glass hover-lift fast-trans" style="border-radius:clamp(0.5rem,2vw,1rem); padding:var(--card-pad)">
-            <div class="flex flex-col md:flex-row md:items-start" style="gap:var(--gap)">
-              <img src="assets/img/exercises/excersice4.png" alt="Overhead Press" class="object-cover border border-white/6 flex-shrink-0" style="width:clamp(3rem,12vw,5rem); height:clamp(3rem,12vw,5rem); border-radius:clamp(0.375rem,1.5vw,0.5rem)" />
-              <div class="flex-1 min-w-0">
-                <div class="flex flex-col justify-between">
-                  <div class="min-w-0">
-                    <div class="text-white font-semibold truncate">Standing Overhead Press</div>
-                    <div class="text-stone-400 mt-0.5 line-clamp-1" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Target: Shoulders • Sets: 4 • Reps: 6</div>
-                  </div>
-                  
-                  <div class="mt-2 md:mt-3 flex flex-col md:flex-row md:items-center md:justify-between" style="gap:clamp(0.375rem,1vw,0.75rem)">
-                    <div class="flex items-center" style="gap:clamp(0.5rem,1.5vw,0.75rem)">
-                      <button class="rest-btn glass rounded-lg flex items-center justify-center" aria-label="Start rest timer" title="Start rest" data-rest-action="start" style="padding:clamp(0.4rem,1vw,0.5rem); width:clamp(2.25rem,5vw,2.75rem); height:clamp(2.25rem,5vw,2.75rem)">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-4 h-4 text-gold"><path d="M12 8v4l3 2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="8.5" stroke-width="1.8"/></svg>
-                      </button>
-                      <button class="expand-btn glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Details</button>
-                      <div class="text-white font-bold">54 kg</div>
-                    </div>
-                    
-                    <div class="flex items-center" style="gap:clamp(0.375rem,1vw,0.5rem)">
-                      <button class="expand-btn glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Details</button>
-                      <label class="relative inline-flex items-center cursor-pointer" style="min-height:2.25rem; min-width:2.25rem">
-                        <input type="checkbox" class="sr-only complete-checkbox peer" />
-                        <div class="bg-white/6 rounded-full peer-checked:bg-gold fast-trans" style="width:clamp(1.75rem,5vw,2.5rem); height:clamp(1rem,2.5vw,1.5rem)"></div>
-                        <span class="bg-white rounded-full transform peer-checked:translate-x-3 md:peer-checked:translate-x-4 peer-checked:bg-gold peer-checked:shadow-[0_0_16px_rgba(245,176,65,0.72),0_0_28px_rgba(245,176,65,0.26)] fast-trans absolute" style="width:clamp(0.875rem,2vw,1.25rem); height:clamp(0.875rem,2vw,1.25rem); left:clamp(0.125rem,0.5vw,0.25rem); top:clamp(0.125rem,0.5vw,0.25rem)"></span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="details accordion-enter fast-trans hidden" style="margin-top:clamp(0.5rem,1.5vw,0.75rem)"><div class="text-stone-400">Instructions: Engage core, drive bar overhead in a straight path.</div></div>
-                <form class="grid grid-cols-1 sm:grid-cols-3 items-center" style="margin-top:clamp(0.5rem,1.5vw,0.75rem); gap:var(--gap)"><input type="number" class="glass bg-transparent text-white rounded-lg" value="54" placeholder="Weight" /><input type="number" class="glass bg-transparent text-white rounded-lg" value="6" placeholder="Reps" /><input type="text" class="glass bg-transparent text-white rounded-lg" placeholder="Notes" /></form>
-              </div>
-            </div>
-          </article>
-
         </div>
       </div>
 
       <!-- Sticky workout tracking widget -->
-      <aside class="workout-rail w-full lg:col-span-4">
-        <div id="tracker" class="glass sticky md:top-6 shadow-glass-strong fast-trans hover-lift" style="border-radius:clamp(0.5rem,2vw,1rem); padding:var(--card-pad)">
-          <div class="flex flex-col md:flex-row md:items-center md:justify-between" style="gap:clamp(0.5rem,1.5vw,1rem)">
-            <div>
-              <div class="text-stone-400">Workout Tracker</div>
-              <div class="text-white font-extrabold">Push Day • In Progress</div>
+      <!-- Sticky workout tracking widget -->
+      <aside class="workout-rail w-full lg:col-span-4 relative">
+        <div id="tracker" class="sticky top-6">
+          <div class="glass shadow-2xl hover-lift fast-trans mb-6 relative overflow-hidden backdrop-blur-2xl p-5 md:p-6">
+            <!-- decorative gradient -->
+            <div class="absolute -top-24 -right-24 w-48 h-48 bg-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="flex items-center justify-between mb-6">
+              <div>
+                <div class="text-zinc-500 text-[10px] font-bold uppercase tracking-widest mb-1">Workout Tracker</div>
+                <div class="text-white font-extrabold text-lg">Push Day</div>
+              </div>
+              <div class="px-3 py-1 rounded-full bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-gold animate-pulse"></span>
+                In Progress
+              </div>
             </div>
-            <div class="text-stone-400" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">12:34</div>
+            
+            <!-- Progress Arc & Sets -->
+            <div class="flex items-center gap-6 mb-6">
+              <div class="relative flex items-center justify-center w-20 h-20 shrink-0">
+                <svg viewBox="0 0 36 36" class="w-full h-full -rotate-90">
+                  <path d="M18 2a16 16 0 1 0 0 32a16 16 0 1 0 0 -32" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="3"/>
+                  <path id="progArc" d="M18 2a16 16 0 1 0 0 32a16 16 0 1 0 0 -32" fill="none" stroke="var(--gold)" stroke-width="3" stroke-dasharray="0 100" stroke-linecap="round" class="transition-all duration-500 ease-out"/>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                  <div id="progressPct" class="text-white font-bold text-sm">0%</div>
+                </div>
+              </div>
+              
+              <div class="flex-1 grid grid-cols-2 gap-4">
+                <div>
+                  <div class="text-zinc-500 text-[10px] uppercase font-bold tracking-wider mb-1">Completed</div>
+                  <div class="text-white font-bold text-xl leading-none"><span id="completedCount">0</span><span class="text-zinc-600 text-sm">/<span id="totalSets">0</span></span></div>
+                  <div class="hidden"><span id="completedSets">0</span></div>
+                </div>
+                <div>
+                  <div class="text-zinc-500 text-[10px] uppercase font-bold tracking-wider mb-1">Remaining</div>
+                  <div id="remainingCount" class="text-white font-bold text-xl leading-none">0</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Rest Timer Section -->
+            <div class="bg-zinc-900/50 rounded-xl p-4 border border-white/5 mb-6">
+              <div class="flex justify-between items-end mb-2">
+                <div>
+                  <div class="text-zinc-500 text-[10px] uppercase font-bold tracking-wider mb-1">Rest Timer</div>
+                  <div id="restCountdown" class="text-white font-bold text-2xl font-mono leading-none">Ready</div>
+                </div>
+                <div class="text-right">
+                  <div id="activeExerciseLabel" class="text-zinc-400 text-xs font-medium max-w-[120px] truncate">Tap Start</div>
+                </div>
+              </div>
+              <div class="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                <div id="restTimeBar" class="rest-time-bar h-full bg-gold rounded-full transition-all duration-1000 ease-linear"></div>
+              </div>
+            </div>
+            
+            <!-- Actions -->
+            <div class="grid grid-cols-2 gap-3">
+              <button id="timerToggle" class="bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl py-3 font-semibold transition text-sm">Start Timer</button>
+              <button id="endWorkout" class="bg-gradient-to-br from-gold to-[#f5b041] hover:brightness-110 text-black rounded-xl py-3 font-semibold shadow-lg shadow-gold/20 transition text-sm">End Workout</button>
+            </div>
           </div>
-          <div style="margin-top:clamp(0.75rem,2vw,1rem)">
-            <div class="text-stone-400">Sets completed</div>
-            <div id="completedCount" class="text-white font-bold">0</div>
-            <div class="text-stone-400 mt-1" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Sets remaining: <span id="remainingCount">3</span></div>
+          
+          <!-- Music Player Widget -->
+          <div class="glass hover-lift fast-trans mb-6 relative overflow-hidden backdrop-blur-2xl p-4 md:p-5 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-4 min-w-0">
+              <div class="w-12 h-12 rounded-lg bg-zinc-900 overflow-hidden shrink-0 flex items-center justify-center border border-white/5 relative group cursor-pointer" id="musicToggleBtn">
+                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&q=80" alt="Album Art" class="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition" />
+                <div class="absolute inset-0 flex items-center justify-center text-white">
+                  <svg id="playIcon" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  <svg id="pauseIcon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                </div>
+              </div>
+              <div class="min-w-0">
+                <div class="text-white font-bold text-sm truncate">Workout Phonk Mix</div>
+                <div class="text-zinc-500 text-xs font-medium truncate flex items-center gap-1">
+                  <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                  Ready to play
+                </div>
+              </div>
+            </div>
+            <audio id="workoutAudio" loop preload="metadata">
+              <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            </audio>
           </div>
-          <div class="grid grid-cols-2 gap-2" style="margin-top:clamp(0.75rem,2vw,1rem)">
-            <div class="glass rounded-lg" style="padding:clamp(0.5rem,1vw,0.75rem)">
-              <div class="text-stone-400">Sets</div>
-              <div class="text-white font-bold"><span id="completedSets">0</span>/<span id="totalSets">0</span></div>
-            </div>
-            <div class="glass rounded-lg" style="padding:clamp(0.5rem,1vw,0.75rem)">
-              <div class="text-stone-400">Rest</div>
-              <div id="restCountdown" class="text-white font-bold">Ready</div>
-              <div id="activeExerciseLabel" class="text-stone-400 mt-1" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Tap Start</div>
-            </div>
-          </div>
-          <div class="grid grid-cols-2 gap-2 md:flex md:flex-row md:items-center" style="margin-top:clamp(0.75rem,2vw,1rem);">
-            <div class="relative flex items-center justify-center" style="width:clamp(4rem,10vw,5rem); height:clamp(4rem,10vw,5rem)">
-              <svg viewBox="0 0 36 36" class="w-full h-full"><path d="M18 2a16 16 0 1 0 0 32" fill="none" stroke="#111" stroke-width="4"/><path id="progArc" d="M18 2a16 16 0 1 0 0 32" fill="none" stroke="#f5b041" stroke-width="4" stroke-dasharray="0 100" stroke-linecap="round"/></svg>
-              <div class="absolute inset-0 flex items-center justify-center text-center"><div><div id="progressPct" class="text-white font-bold">0%</div><div class="text-stone-400">Progress</div></div></div>
-            </div>
-            <div class="flex flex-col justify-center min-w-0">
-              <div class="text-stone-400">Calories</div>
-              <div class="text-white font-bold">120 kcal</div>
-              <div class="mt-2 md:mt-3 text-stone-400">Rest Time</div>
-              <div class="h-2 bg-white/6 rounded-full overflow-hidden" style="margin-top:clamp(0.25rem,0.75vw,0.5rem)"><div id="restTimeBar" class="rest-time-bar h-full bg-gradient-to-r from-[#f5b041] to-[#ffcf6b] rounded-full"></div></div>
+
+          <!-- Smart predictions -->
+          <div class="glass hover-lift fast-trans mb-6 relative overflow-hidden backdrop-blur-2xl p-5 md:p-6">
+            <div class="text-zinc-500 text-[10px] font-bold uppercase tracking-widest mb-1">Smart Predictions</div>
+            <div class="text-white font-extrabold mb-4">Estimates & Recovery</div>
+            <div class="grid grid-cols-1 gap-3">
+              <div class="bg-zinc-900/50 rounded-xl p-3 border border-white/5 flex justify-between items-center">
+                <div class="text-zinc-400 text-sm font-medium">Next PR</div>
+                <div class="text-white font-bold">Bench +2.5 kg</div>
+              </div>
+              <div class="bg-zinc-900/50 rounded-xl p-3 border border-white/5 flex justify-between items-center">
+                <div class="text-zinc-400 text-sm font-medium">Recovery</div>
+                <div class="text-white font-bold text-gold">76%</div>
+              </div>
             </div>
           </div>
-          <div class="grid grid-cols-2 gap-2" style="margin-top:clamp(0.75rem,2vw,1rem)">
-            <button id="timerToggle" class="bg-gradient-to-br from-[#2b2b2b] to-[#0f0f0f] text-gold rounded-lg font-semibold">Start Timer</button>
-            <button id="endWorkout" class="glass rounded-lg font-semibold">End Workout</button>
+          
+          <!-- Muscle visualization -->
+          <div class="glass hover-lift fast-trans mb-6 relative overflow-hidden backdrop-blur-2xl p-5 md:p-6">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <div class="text-zinc-500 text-[10px] font-bold uppercase tracking-widest mb-1">Target Muscles</div>
+                <div id="muscleActiveLabel" class="text-white font-extrabold">Active: Shoulder</div>
+              </div>
+              <div id="muscleSessionFocus" class="text-gold text-xs font-bold bg-gold/10 px-2 py-1 rounded-md">Session focus</div>
+            </div>
+            <div class="muscle-video-wrap rounded-xl overflow-hidden border border-white/5 aspect-video bg-zinc-900">
+              <video id="muscleVideo" src="assets/videos/bush2.mp4" autoplay loop muted class="w-full h-full object-cover"></video>
+            </div>
           </div>
         </div>
-
-        <!-- Smart predictions -->
-        <div class="glass hover-lift fast-trans" style="border-radius:clamp(0.5rem,2vw,1rem); padding:var(--card-pad); margin-top:clamp(0.75rem,2vw,1rem)">
-          <div class="text-stone-400">Smart Predictions</div>
-          <div class="text-white font-extrabold">Estimates & Recovery</div>
-          <div class="grid grid-cols-1 gap-2" style="margin-top:clamp(0.5rem,1.5vw,0.75rem)">
-            <div class="glass rounded-lg" style="padding:clamp(0.5rem,1.5vw,0.75rem)"><div class="text-stone-400">Next PR</div><div class="text-white font-bold">Bench +2.5 kg</div></div>
-            <div class="glass rounded-lg" style="padding:clamp(0.5rem,1.5vw,0.75rem)"><div class="text-stone-400">Recovery Score</div><div class="text-white font-bold">76%</div></div>
-            <div class="glass rounded-lg" style="padding:clamp(0.5rem,1.5vw,0.75rem)"><div class="text-stone-400">Consistency</div><div class="text-white font-bold">90%</div></div>
-          </div>
-        </div>
-
-        <!-- Muscle visualization -->
-        <div class="glass hover-lift fast-trans" style="border-radius:clamp(0.5rem,2vw,1rem); padding:var(--card-pad); margin-top:clamp(0.75rem,2vw,1rem)">
-          <div class="flex flex-col md:flex-row md:items-center md:justify-between" style="gap:var(--gap); margin-bottom:clamp(0.5rem,1.5vw,0.75rem)">
-            <div>
-              <div class="text-stone-400">Target Muscles</div>
-              <div id="muscleActiveLabel" class="text-white font-extrabold">Active: Shoulder</div>
-            </div>
-            <div id="muscleSessionFocus" class="text-stone-400" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Session focus</div>
-          </div>
-          <div class="muscle-video-wrap">
-            <video id="muscleVideo" src="assets/videos/bush2.mp4" autoplay loop muted class="object-cover"></video>
-          </div>
-        </div>
-
-        <!-- QR Machine Training Panel -->
-        <div class="glass hover-lift fast-trans" style="border-radius:clamp(0.5rem,2vw,1rem); padding:var(--card-pad); margin-top:clamp(0.75rem,2vw,1rem)">
-          <div class="flex flex-col md:flex-row md:items-center md:justify-between" style="gap:var(--gap); margin-bottom:clamp(0.5rem,1.5vw,0.75rem)">
-            <div><div class="text-stone-400">Machine Trainer</div><div class="text-white font-extrabold">Scan machine • Model X9</div></div>
-            <div class="text-stone-400" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">M-231</div>
-          </div>
-          <div class="text-stone-400" style="margin-bottom:clamp(0.5rem,1.5vw,0.75rem)">Scan the QR on the machine to auto-load guided sets and safety tips.</div>
-          <div class="flex gap-2 flex-wrap">
-            <button id="scanMachine" class="bg-gradient-to-br from-[#2b2b2b] to-[#0f0f0f] text-gold rounded-lg font-semibold" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.75rem,2vw,1rem)">Scan QR</button>
-            <button id="watchMachine" class="tutorial-btn glass rounded-lg" data-video="https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780494952/post1video_qokfax.mp4" data-title="Machine Tutorial" data-subtitle="Model X9" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.75rem,2vw,1rem)">Watch Tutorial</button>
-          </div>
-        </div>
-
       </aside>
     </section>
 
@@ -700,6 +481,7 @@
     if (workoutStartBtn) workoutStartBtn.textContent = 'Start Workout';
     if (workoutResumeBtn) workoutResumeBtn.textContent = 'Resume Rest';
     updateRestPanel(null, 0);
+
   }
 
   function updateCounts() {
@@ -774,65 +556,107 @@
     resetWorkoutSession();
     
     exerciseList.innerHTML = exercises.map((ex, idx) => `
-      <article class="exercise-card glass hover-lift fast-trans" data-target="${ex.target}" data-detail-video="${getDetailVideo(ex)}" data-name="${ex.name}" data-sets="${ex.sets}" data-completed-sets="0" data-rest="${parseRestSeconds(ex.rest)}" data-rest-label="${ex.rest}" style="padding:var(--card-pad)">
-        <img src="${ex.image}" alt="${ex.name}" class="hero-shot object-cover border border-white/6" />
-
-        <div class="exercise-head mt-3">
-          <div class="min-w-0">
-            <div class="exercise-name text-white truncate">${ex.name}</div>
-            <div class="text-stone-400 mt-1" style="font-size:clamp(0.7rem,1.6vw,0.82rem)">Target: ${ex.target} • ${ex.reps} reps</div>
-          </div>
-          <div class="text-right">
-            <div class="text-white font-bold">${ex.weight}${typeof ex.weight === 'string' ? '' : ' kg'}</div>
-            <div class="text-stone-400" style="font-size:clamp(0.68rem,1.4vw,0.78rem)">Rest ${ex.rest}</div>
+            <article class="exercise-card relative overflow-hidden bg-zinc-900/60 border border-white/10 rounded-2xl mb-6 shadow-2xl" data-target="${ex.target}" data-detail-video="${getDetailVideo(ex)}" data-name="${ex.name}" data-sets="${ex.sets}" data-completed-sets="0" data-rest="${parseRestSeconds(ex.rest)}" data-rest-label="${ex.rest}">
+        <!-- Congratulations Overlay -->
+        <div class="congrats-overlay absolute inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-green-500/90 to-emerald-600/90 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-500 scale-105">
+          <div class="text-center transform translate-y-8 transition-transform duration-500 delay-100">
+            <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-[0_0_40px_rgba(255,255,255,0.4)]">
+              <svg class="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <h3 class="text-white font-black text-3xl tracking-tight mb-2 drop-shadow-md">Congratulations!</h3>
+            <p class="text-white/95 font-semibold text-lg drop-shadow-md">You completed all sets!</p>
           </div>
         </div>
 
-        <div class="exercise-chips mt-3">
-          <span class="exercise-chip">Sets ${ex.sets}</span>
-          <span class="exercise-chip">Machine ${ex.machine}</span>
-          <span class="set-progress exercise-chip">Progress 0/${ex.sets}</span>
-        </div>
-
-        <div class="mt-3 flex items-center gap-2">
-          <button class="set-btn flex-1 bg-gradient-to-br from-[#2b2b2b] to-[#0f0f0f] text-gold rounded-lg font-semibold" data-action="start-set" style="padding:clamp(0.5rem,1vw,0.62rem) clamp(0.7rem,2vw,0.9rem); font-size:clamp(0.72rem,1.5vw,0.82rem)">Start Set</button>
-          <button class="expand-btn glass rounded-lg font-semibold" style="padding:clamp(0.5rem,1vw,0.62rem) clamp(0.75rem,2vw,0.9rem); font-size:clamp(0.72rem,1.5vw,0.82rem)">Details</button>
-        </div>
-
-        <div class="details accordion-enter fast-trans" style="margin-top:clamp(0.65rem,1.5vw,0.9rem)">
-          <div class="text-stone-400">Instructions: ${ex.instructions}</div>
-          <div class="grid grid-cols-1 md:grid-cols-2" style="margin-top:clamp(0.5rem,1vw,0.75rem); gap:var(--gap)">
-            <div class="glass rounded-lg" style="padding:clamp(0.5rem,1.5vw,0.75rem)"><div class="text-stone-400">Common mistakes</div><ul class="text-stone-400" style="margin-top:clamp(0.25rem,0.75vw,0.5rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">${ex.mistakes.map(m => `<li>${m}</li>`).join('')}</ul></div>
-            <div class="glass rounded-lg" style="padding:clamp(0.5rem,1.5vw,0.75rem)"><div class="text-stone-400">Safety tips</div><ul class="text-stone-400" style="margin-top:clamp(0.25rem,0.75vw,0.5rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">${ex.safety.map(s => `<li>${s}</li>`).join('')}</ul></div>
-          </div>
-          <div class="exercise-detail-video-wrap glass rounded-lg overflow-hidden" style="margin-top:clamp(0.5rem,1vw,0.75rem)">
-            <video class="exercise-detail-video w-full object-contain bg-black" muted playsinline webkit-playsinline controls preload="metadata" poster="${ex.image}" style="max-height:clamp(10rem,30vw,14rem)">
-              <source src="https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495645/Back_xndmi1.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="flex flex-wrap items-center" style="margin-top:clamp(0.5rem,1vw,0.75rem); gap:clamp(0.25rem,1vw,0.5rem)">
-            <button class="glass rounded-lg" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)" data-action="qr">Scan QR</button>
-            <button class="tutorial-btn glass rounded-lg" data-video="${ex.video || ('https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780496704/Everyday_peaceful_debate_ideas_and_clever_inspiration_for_beginners_that_keep_things_grounded_zivxrz.mp4')}" data-title="${ex.name}" data-subtitle="${ex.target}" style="padding:clamp(0.4rem,1vw,0.5rem) clamp(0.5rem,2vw,0.75rem); font-size:clamp(0.65rem,1.5vw,0.75rem)">Watch Tutorial</button>
-            <div class="text-stone-400 ml-auto" style="font-size:clamp(0.65rem,1.5vw,0.75rem)">Machine: ${ex.machine}</div>
+        <!-- Hero Image -->
+        <div class="relative w-full h-56 sm:h-64">
+          <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/20 to-transparent z-10"></div>
+          <img src="${ex.image}" alt="${ex.name}" class="w-full h-full object-cover" />
+          <div class="absolute bottom-4 left-4 right-4 z-20">
+            <h3 class="text-white font-black text-2xl md:text-3xl tracking-tight">${ex.name}</h3>
+            <div class="text-zinc-300 font-medium text-sm mt-1.5 flex items-center gap-2">
+              <span class="bg-gold/20 text-gold px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider border border-gold/10">${ex.target}</span>
+              <span class="text-white/30">•</span>
+              <span class="text-white font-semibold">${ex.reps} reps</span>
+            </div>
           </div>
         </div>
 
-        <form class="grid grid-cols-1 sm:grid-cols-3 items-center mt-3" style="gap:var(--gap)">
-          <label class="text-stone-400 block">
-            <input type="number" class="glass w-full bg-transparent text-white rounded-lg" style="margin-top:clamp(0.25rem,0.75vw,0.5rem)" value="${typeof ex.weight === 'string' ? 0 : ex.weight}" placeholder="Weight (kg)" />
-          </label>
-          <label class="text-stone-400 block">
-            <input type="number" class="glass w-full bg-transparent text-white rounded-lg" style="margin-top:clamp(0.25rem,0.75vw,0.5rem)" value="${ex.reps.split('-')[0]}" placeholder="Reps" />
-          </label>
-          <label class="text-stone-400 block">
-            <input type="text" class="glass w-full bg-transparent text-white rounded-lg" style="margin-top:clamp(0.25rem,0.75vw,0.5rem)" placeholder="Notes" />
-          </label>
-        </form>
+        <div class="p-4 md:p-6">
+          <div class="flex items-center justify-between mb-5">
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-zinc-800 text-white px-3 py-1.5 rounded-lg text-xs font-bold border border-white/5 shadow-sm">Sets: ${ex.sets}</span>
+              <span class="bg-zinc-800 text-white px-3 py-1.5 rounded-lg text-xs font-bold border border-white/5 shadow-sm">Machine: ${ex.machine}</span>
+              <span class="set-progress bg-gold/10 text-gold px-3 py-1.5 rounded-lg text-xs font-bold border border-gold/20 shadow-sm">Progress 0/${ex.sets}</span>
+            </div>
+            <div class="text-right pl-4">
+              <div class="text-white font-black text-xl md:text-2xl">${ex.weight}${typeof ex.weight === 'string' ? '' : ' kg'}</div>
+              <div class="text-zinc-400 text-[10px] font-bold uppercase tracking-widest mt-0.5">Rest ${ex.rest}</div>
+            </div>
+          </div>
 
-        <button class="rest-btn glass rounded-lg w-full mt-2 flex items-center justify-center gap-2" aria-label="Start rest timer" title="Start rest" data-rest-action="start" style="padding:clamp(0.48rem,1vw,0.62rem) clamp(0.6rem,2vw,0.8rem); font-size:clamp(0.72rem,1.5vw,0.82rem)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-4 h-4 text-gold"><path d="M12 8v4l3 2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="8.5" stroke-width="1.8"/></svg>
-          Start Rest Timer
-        </button>
+          <div class="flex items-center gap-3 mb-6">
+            <button class="set-btn flex-1 bg-gradient-to-r from-gold to-[#f5b041] hover:brightness-110 text-black rounded-xl py-4 font-extrabold shadow-[0_8px_20px_rgba(245,176,65,0.25)] transition-all active:scale-[0.98] text-sm md:text-base uppercase tracking-wider" data-action="start-set">
+              Start Set
+            </button>
+            <button class="expand-btn bg-zinc-800 hover:bg-zinc-700 text-white border border-white/5 rounded-xl py-4 px-6 md:px-8 font-bold shadow-sm transition-all active:scale-[0.98] text-sm md:text-base">
+              Details
+            </button>
+          </div>
+
+          <div class="details accordion-enter fast-trans mb-4 bg-zinc-800/40 rounded-xl overflow-hidden border border-white/5">
+            <div class="p-4 md:p-5">
+              <div class="text-zinc-300 text-sm mb-5 leading-relaxed font-medium">${ex.instructions}</div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+                <div class="bg-zinc-900/50 rounded-xl p-4 border border-white/5">
+                  <div class="text-red-400 font-bold text-xs uppercase tracking-widest mb-2 flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                    Common Mistakes
+                  </div>
+                  <ul class="text-zinc-300 text-sm space-y-1.5 list-disc list-inside">${ex.mistakes.map(m => `<li>${m}</li>`).join('')}</ul>
+                </div>
+                <div class="bg-zinc-900/50 rounded-xl p-4 border border-white/5">
+                  <div class="text-green-400 font-bold text-xs uppercase tracking-widest mb-2 flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    Safety Tips
+                  </div>
+                  <ul class="text-zinc-300 text-sm space-y-1.5 list-disc list-inside">${ex.safety.map(s => `<li>${s}</li>`).join('')}</ul>
+                </div>
+              </div>
+              <div class="rounded-xl overflow-hidden mb-5 border border-white/10 shadow-2xl bg-black">
+                <video class="exercise-detail-video w-full object-cover aspect-video" muted playsinline webkit-playsinline controls preload="metadata" poster="${ex.image}">
+                  <source src="https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780495645/Back_xndmi1.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <div class="flex flex-wrap items-center gap-3">
+                <button class="bg-zinc-700 hover:bg-zinc-600 text-white text-xs font-bold px-4 py-3 rounded-lg transition active:scale-[0.98]" data-action="qr">Scan QR</button>
+                <button class="tutorial-btn bg-zinc-700 hover:bg-zinc-600 text-white text-xs font-bold px-4 py-3 rounded-lg transition active:scale-[0.98] flex items-center gap-1.5" data-video="${ex.video || ('https://res.cloudinary.com/dfp9cwgdz/video/upload/v1780496704/Everyday_peaceful_debate_ideas_and_clever_inspiration_for_beginners_that_keep_things_grounded_zivxrz.mp4')}" data-title="${ex.name}" data-subtitle="${ex.target}">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Watch Tutorial
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <form class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
+            <div class="relative">
+              <label class="absolute -top-2 left-3 bg-zinc-900 px-1 text-[10px] font-bold text-zinc-400 uppercase tracking-widest z-10">Weight (kg)</label>
+              <input type="number" class="w-full bg-zinc-900/50 border border-white/10 text-white rounded-xl px-4 py-3.5 focus:border-gold focus:ring-1 focus:ring-gold outline-none transition font-semibold" value="${typeof ex.weight === 'string' ? 0 : ex.weight}" />
+            </div>
+            <div class="relative">
+              <label class="absolute -top-2 left-3 bg-zinc-900 px-1 text-[10px] font-bold text-zinc-400 uppercase tracking-widest z-10">Reps</label>
+              <input type="number" class="w-full bg-zinc-900/50 border border-white/10 text-white rounded-xl px-4 py-3.5 focus:border-gold focus:ring-1 focus:ring-gold outline-none transition font-semibold" value="${ex.reps.split('-')[0]}" />
+            </div>
+            <div class="relative">
+              <label class="absolute -top-2 left-3 bg-zinc-900 px-1 text-[10px] font-bold text-zinc-400 uppercase tracking-widest z-10">Notes</label>
+              <input type="text" class="w-full bg-zinc-900/50 border border-white/10 text-white rounded-xl px-4 py-3.5 focus:border-gold focus:ring-1 focus:ring-gold outline-none transition font-semibold" placeholder="Optional" />
+            </div>
+          </form>
+
+          <button class="rest-btn w-full bg-zinc-800 hover:bg-zinc-700 text-white border border-white/10 rounded-xl py-3.5 font-bold transition flex items-center justify-center gap-2 active:scale-[0.98]" aria-label="Start rest timer" title="Start rest" data-rest-action="start">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-5 h-5 text-gold"><path d="M12 8v4l3 2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="8.5" stroke-width="2"/></svg>
+            Start Rest Timer
+          </button>
+        </div>
       </article>
     `).join('');
 
@@ -900,6 +724,25 @@
         if (completedSets >= totalSets) {
           const title = card.dataset.name || 'Exercise';
           showAchievement('Exercise Complete', `${title} all sets finished`);
+          
+          // CONGRATS ANIMATION
+          const overlay = card.querySelector('.congrats-overlay');
+          if (overlay) {
+            overlay.classList.remove('opacity-0', 'pointer-events-none', 'scale-105');
+            overlay.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+            
+            // animate inner div
+            const inner = overlay.querySelector('div');
+            inner.classList.remove('translate-y-8');
+            inner.classList.add('translate-y-0');
+
+            setTimeout(() => {
+              overlay.classList.add('opacity-0', 'pointer-events-none', 'scale-105');
+              overlay.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+              inner.classList.add('translate-y-8');
+              inner.classList.remove('translate-y-0');
+            }, 3000);
+          }
         } else {
           showAchievement('Set Logged', `${card.dataset.name} ${completedSets}/${totalSets}`);
         }
@@ -1024,6 +867,27 @@
   document.getElementById('endWorkout').addEventListener('click', ()=>{ if(timer) { clearInterval(timer); timer = null; } stopRestTimer(); resetWorkoutSession(); showAchievement('Workout Complete','+300 XP • Streak +1'); updateCounts(); });
 
   updateRestPanel(null, 0);
+
+  // Music Player logic
+  const musicToggleBtn = document.getElementById('musicToggleBtn');
+  const workoutAudio = document.getElementById('workoutAudio');
+  const playIcon = document.getElementById('playIcon');
+  const pauseIcon = document.getElementById('pauseIcon');
+  
+  if (musicToggleBtn && workoutAudio) {
+    musicToggleBtn.addEventListener('click', () => {
+      if (workoutAudio.paused) {
+        workoutAudio.play().catch(e => console.error("Audio play failed:", e));
+        playIcon.classList.add('hidden');
+        pauseIcon.classList.remove('hidden');
+      } else {
+        workoutAudio.pause();
+        playIcon.classList.remove('hidden');
+        pauseIcon.classList.add('hidden');
+      }
+    });
+  }
+
 </script>
 
 <!-- ===== PREMIUM MOBILE BOTTOM NAV ===== -->
